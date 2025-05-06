@@ -1,0 +1,30 @@
+ELCLASS
+NaN
+NAME
+NaN
+MODULE INFO
+1
+TEMPLATE
+NaN
+ID
+NaN
+LABEL
+NaN
+NOTES
+7
+TOSTRING
+NaN
+Input Raman Spectra
+4
+SP_OUT
+NaN
+SP_DICT_OUT
+NaN
+Output Raman Spectra
+5
+PLOT
+6
+Order of Smoothing Filter Polynomial
+2
+Window Size (input odd number)
+3
