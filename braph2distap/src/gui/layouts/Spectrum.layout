@@ -1,0 +1,56 @@
+ELCLASS
+NaN
+NAME
+NaN
+DESCRIPTION
+NaN
+TEMPLATE
+NaN
+Spectrum ID
+1
+Spectrum NAME
+2
+Spectrum NOTES
+19
+TOSTRING
+NaN
+Calibration Spectrum
+3
+Researcher's Name
+4
+Experiment Date (YYYY-MM-DD)
+5
+Plant Name
+6
+Plant Type
+7
+Plant Type Comment (mutant type)
+8
+Plant Age (days)
+9
+Leaf Number
+10
+Growth Medium
+11
+Stress Type
+12
+Setup
+13
+Laser Wavelength
+14
+Laser Power (mW)
+15
+Acquisition Time (s)
+16
+Wavelength
+17
+WAVELENGTH_LABELS
+NaN
+Raman Spectra
+18
+NO_AQUISITIONS
+NaN
+INTENSITY
+NaN
+INTENSITY_MEAN
+NaN
