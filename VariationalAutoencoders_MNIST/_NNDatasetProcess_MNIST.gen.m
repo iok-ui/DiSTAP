@@ -53,14 +53,13 @@ D (result, item) is the neural network dataset containing the datapoint processe
 %%%% ¡settings!
 'NNDataset'
 %%%% ¡calculate!
-
 raw_image_its = dproc.get('EXTRACT_DATA');
 raw_label_its = dproc.get('EXTRACT_LABELS');
 
 it_list = cellfun(@(data, label) NNDataPoint_Image( ...
-    'IMAGE', data, ...
-    'TARGET_CLASS', {label}), ...
-    training_image_its, training_lable_its,...
+    'IMAGE', {data}, ...
+    'TARGET_CLASS', {char(label)}), ...
+    raw_image_its, raw_label_its,...
     'UniformOutput', false);
 
 dp_list = IndexedDictionary(...
@@ -86,7 +85,7 @@ LABEL_FILE (data, string) contains the file directory of the MNIST labels.
 [fileparts(which('NNDatasetProcess_MNIST')) filesep 'mnist_data' filesep 'train-labels-idx1-ubyte.gz']
 
 %%% ¡prop!
-EXTRACT_DATA (query, itemlist) extracts the data from the specified IDX files into item list.
+EXTRACT_DATA (query, empty) extracts the data from the specified IDX files.
 %%%% ¡calculate!
 dataFolder = fullfile(tempdir, 'mnist');
 filename = dproc.get('MNIST_FILE');
@@ -123,7 +122,7 @@ for i = 1:size(X, 4)
 end
 
 %%% ¡prop!
-EXTRACT_LABELS (query, itemlist) extracts the label from the specified IDX files into item list.
+EXTRACT_LABELS (query, empty) extracts the label from the specified IDX files.
 %%%% ¡calculate!
 dataFolder = fullfile(tempdir, 'mnist');
 filename = dproc.get('LABEL_FILE');
@@ -153,7 +152,6 @@ fclose(fileID);
 for i = 1:size(Y, 1)
     value{i} =  Y(i);
 end
-
 
 %% ¡tests!
 

@@ -49,4 +49,9 @@ NOTES (metadata, string) are some specific notes of the combiner of neural netwo
 %%%% ¡default!
 'NNDatasetCombine notes'
 
+%%% ¡prop!
+D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
+%%%% ¡settings!
+'NNDataset'
+
 %% ¡tests!
