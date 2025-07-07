@@ -53,12 +53,12 @@ D (result, item) is the neural network dataset containing the datapoint processe
 %%%% ¡settings!
 'NNDataset'
 %%%% ¡calculate!
-raw_image_its = dproc.get('EXTRACT_DATA');
+raw_image_its = dproc.get('EXTRACT_IMAGES');
 raw_label_its = dproc.get('EXTRACT_LABELS');
 
 it_list = cellfun(@(data, label) NNDataPoint_Image( ...
     'IMAGE', {data}, ...
-    'TARGET_CLASS', {char(label)}), ...
+    'TARGET_CLASS', {label}), ...
     raw_image_its, raw_label_its,...
     'UniformOutput', false);
 
@@ -75,20 +75,21 @@ value = NNDataset( ...
 %% ¡props!
 
 %%% ¡prop!
-MNIST_FILE (data, string) contains the file directory of the MNIST data.
-%%%% ¡default!
-[fileparts(which('NNDatasetProcess_MNIST')) filesep 'mnist_data' filesep 'train-images-idx3-ubyte.gz']
+MNIST_IMAGE_FILE (data, string) contains the file directory of the MNIST data.
 
 %%% ¡prop!
-LABEL_FILE (data, string) contains the file directory of the MNIST labels.
-%%%% ¡default!
-[fileparts(which('NNDatasetProcess_MNIST')) filesep 'mnist_data' filesep 'train-labels-idx1-ubyte.gz']
+MNIST_LABEL_FILE (data, string) contains the file directory of the MNIST labels.
 
 %%% ¡prop!
-EXTRACT_DATA (query, empty) extracts the data from the specified IDX files.
+EXTRACT_IMAGES (query, cell) extracts the images from the specified IDX files.
 %%%% ¡calculate!
 dataFolder = fullfile(tempdir, 'mnist');
-filename = dproc.get('MNIST_FILE');
+filename = dproc.get('MNIST_IMAGE_FILE');
+if isempty(filename)
+    %fprintf([newline "There is no MNIST image file."])
+    value = {};
+    return
+end
 gunzip(filename, dataFolder)
 
 [~, name, ~] = fileparts(filename);
@@ -100,11 +101,11 @@ end
 
 magicNum = fread(fileID, 1, 'int32', 0, 'b');
 if magicNum == 2051
-    fprintf("Read MNIST image data...")
+    fprintf([newline 'Read MNIST image data...'])
 end
 
 numImages = fread(fileID, 1, 'int32', 0, 'b');
-fprintf('Number of images in the dataset: %6d ...',numImages);
+fprintf([newline 'Number of images in the dataset: %6d ...'], numImages);
 numRows = fread(fileID, 1, 'int32', 0, 'b');
 numCols = fread(fileID, 1, 'int32', 0, 'b');
 
@@ -122,10 +123,15 @@ for i = 1:size(X, 4)
 end
 
 %%% ¡prop!
-EXTRACT_LABELS (query, empty) extracts the label from the specified IDX files.
+EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
 %%%% ¡calculate!
 dataFolder = fullfile(tempdir, 'mnist');
-filename = dproc.get('LABEL_FILE');
+filename = dproc.get('MNIST_LABEL_FILE');
+if isempty(filename)
+    %fprintf([newline "There is no MNIST label file."])
+    value = {};
+    return
+end
 gunzip(filename, dataFolder)
 [~, name, ~] = fileparts(filename);
 
@@ -137,11 +143,11 @@ end
 
 magicNum = fread(fileID, 1, 'int32', 0, 'b');
 if magicNum == 2049
-    fprintf("Read MNIST label data...")
+    fprintf([newline 'Read MNIST label data...'])
 end
 
 numItems = fread(fileID, 1, 'int32', 0, 'b');
-fprintf('Number of labels in the dataset: %6d ...',numItems);
+fprintf([newline 'Number of labels in the dataset: %6d ...'], numItems);
 
 Y = fread(fileID, inf, 'unsigned char');
 
@@ -150,14 +156,34 @@ Y = categorical(Y);
 fclose(fileID);
 
 for i = 1:size(Y, 1)
-    value{i} =  Y(i);
+    value{i} = char(Y(i));
 end
 
 %% ¡tests!
 
 %%% ¡test!
 %%%% ¡name!
+Construction of an Empty Image Dataset
+%%%% ¡code!
+dproc = NNDatasetProcess_MNIST();
+d_mnist = dproc.get('D');
+
+assert(isequal(d_mnist.get('DP_DICT').get('LENGTH'), 0), ...
+    [BRAPH2.STR ':NNDatasetProcess_MNIST:' BRAPH2.FAIL_TEST], ...
+    'NNDatasetProcess_MNIST does not construct the dataset correctly. The input value is not derived correctly.' ...
+    )
+
+%%% ¡test!
+%%%% ¡name!
 Construction of a MNIST Dataset
 %%%% ¡code!
-dproc = DatasetProcess_MNIST();
+dproc = NNDatasetProcess_MNIST( ...
+    'MNIST_IMAGE_FILE', [fileparts(which('NNDatasetProcess_MNIST')) filesep 'mnist_data' filesep 'train-images-idx3-ubyte.gz'], ...
+    'MNIST_LABEL_FILE', [fileparts(which('NNDatasetProcess_MNIST')) filesep 'mnist_data' filesep 'train-labels-idx1-ubyte.gz'] ...
+    );
 d_mnist = dproc.get('D');
+
+assert(isequal(d_mnist.get('DP_DICT').get('LENGTH'), 60000), ...
+    [BRAPH2.STR ':NNDatasetProcess_MNIST:' BRAPH2.FAIL_TEST], ...
+    'NNDatasetProcess_MNIST does not construct the dataset correctly. The input value is not derived correctly.' ...
+    )

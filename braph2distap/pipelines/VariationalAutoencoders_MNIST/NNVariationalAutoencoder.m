@@ -15,7 +15,7 @@ classdef NNVariationalAutoencoder < NNBase
 	%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the combiner of neural networks datasets.
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of the combiner of neural networks datasets.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-	%  <strong>9</strong> <strong>D</strong> 	D (data, item) is the dataset to train the neural network model, and its data point class DP_CLASS defaults to one of the compatible classes within the set of DP_CLASSES.
+	%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
 	%  <strong>10</strong> <strong>DP_CLASSES</strong> 	DP_CLASSES (parameter, classlist) is the list of compatible data points.
 	%  <strong>11</strong> <strong>EPOCHS</strong> 	EPOCHS (parameter, scalar) is the maximum number of epochs.
 	%  <strong>12</strong> <strong>BATCH</strong> 	BATCH (parameter, scalar) is the size of the mini-batch used for each training iteration.
@@ -139,7 +139,7 @@ classdef NNVariationalAutoencoder < NNBase
 			%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the combiner of neural networks datasets.
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of the combiner of neural networks datasets.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-			%  <strong>9</strong> <strong>D</strong> 	D (data, item) is the dataset to train the neural network model, and its data point class DP_CLASS defaults to one of the compatible classes within the set of DP_CLASSES.
+			%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
 			%  <strong>10</strong> <strong>DP_CLASSES</strong> 	DP_CLASSES (parameter, classlist) is the list of compatible data points.
 			%  <strong>11</strong> <strong>EPOCHS</strong> 	EPOCHS (parameter, scalar) is the maximum number of epochs.
 			%  <strong>12</strong> <strong>BATCH</strong> 	BATCH (parameter, scalar) is the size of the mini-batch used for each training iteration.
@@ -500,7 +500,7 @@ classdef NNVariationalAutoencoder < NNBase
 			prop = NNVariationalAutoencoder.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nnvariationalautoencoder_description_list = { 'ELCLASS (constant, string) is the class of the combiner of neural networks datasets.'  'NAME (constant, string) is the name of the combiner of neural networks datasets.'  'DESCRIPTION (constant, string) is the description of the combiner of neural networks datasets.'  'TEMPLATE (parameter, item) is the template of the combiner of neural networks datasets.'  'ID (data, string) is a few-letter code of the combiner of neural networks datasets.'  'LABEL (metadata, string) is an extended label of the combiner of neural networks datasets.'  'NOTES (metadata, string) are some specific notes of the combiner of neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (data, item) is the dataset to train the neural network model, and its data point class DP_CLASS defaults to one of the compatible classes within the set of DP_CLASSES.'  'DP_CLASSES (parameter, classlist) is the list of compatible data points.'  'EPOCHS (parameter, scalar) is the maximum number of epochs.'  'BATCH (parameter, scalar) is the size of the mini-batch used for each training iteration.'  'SHUFFLE (parameter, option) is an option for data shuffling.'  'SOLVER (parameter, option) is an option for the solver.'  'MODEL (result, net) is a trained neural network model with the given dataset.'  'INPUTS (query, cell) constructs the cell array of the data.'  'TARGETS (query, cell) constructs the cell array of the targets.'  'TRAIN (query, empty) trains the neural network model with the given dataset.'  'VERBOSE (gui, logical) is an indicator to display training progress information.'  'PLOT_TRAINING (metadata, option) determines whether to plot the training progress.'  'PREDICT (query, cell) returns the predictions of the trained neural network for a dataset.' };
+			nnvariationalautoencoder_description_list = { 'ELCLASS (constant, string) is the class of the combiner of neural networks datasets.'  'NAME (constant, string) is the name of the combiner of neural networks datasets.'  'DESCRIPTION (constant, string) is the description of the combiner of neural networks datasets.'  'TEMPLATE (parameter, item) is the template of the combiner of neural networks datasets.'  'ID (data, string) is a few-letter code of the combiner of neural networks datasets.'  'LABEL (metadata, string) is an extended label of the combiner of neural networks datasets.'  'NOTES (metadata, string) are some specific notes of the combiner of neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural network dataset containing the datapoint processed from the raw data.'  'DP_CLASSES (parameter, classlist) is the list of compatible data points.'  'EPOCHS (parameter, scalar) is the maximum number of epochs.'  'BATCH (parameter, scalar) is the size of the mini-batch used for each training iteration.'  'SHUFFLE (parameter, option) is an option for data shuffling.'  'SOLVER (parameter, option) is an option for the solver.'  'MODEL (result, net) is a trained neural network model with the given dataset.'  'INPUTS (query, cell) constructs the cell array of the data.'  'TARGETS (query, cell) constructs the cell array of the targets.'  'TRAIN (query, empty) trains the neural network model with the given dataset.'  'VERBOSE (gui, logical) is an indicator to display training progress information.'  'PLOT_TRAINING (metadata, option) determines whether to plot the training progress.'  'PREDICT (query, cell) returns the predictions of the trained neural network for a dataset.' };
 			prop_description = nnvariationalautoencoder_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -526,8 +526,10 @@ classdef NNVariationalAutoencoder < NNBase
 			prop = NNVariationalAutoencoder.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNVariationalAutoencoder.TEMPLATE % __NNVariationalAutoencoder.TEMPLATE__
+				case 4 % NNVariationalAutoencoder.TEMPLATE
 					prop_settings = 'NNDatasetCombine';
+				case 9 % NNVariationalAutoencoder.D
+					prop_settings = 'NNDataset';
 				otherwise
 					prop_settings = getPropSettings@NNBase(prop);
 			end
@@ -555,20 +557,22 @@ classdef NNVariationalAutoencoder < NNBase
 			prop = NNVariationalAutoencoder.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNVariationalAutoencoder.ELCLASS % __NNVariationalAutoencoder.ELCLASS__
+				case 1 % NNVariationalAutoencoder.ELCLASS
 					prop_default = 'NNDatasetCombine';
-				case NNVariationalAutoencoder.NAME % __NNVariationalAutoencoder.NAME__
+				case 2 % NNVariationalAutoencoder.NAME
 					prop_default = 'Neural Network Dataset Combiner';
-				case NNVariationalAutoencoder.DESCRIPTION % __NNVariationalAutoencoder.DESCRIPTION__
+				case 3 % NNVariationalAutoencoder.DESCRIPTION
 					prop_default = 'A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. The resulting combined dataset contains all the unique datapoints from the input datasets, and any overlapping datapoints are excluded to ensure data consistency.';
-				case NNVariationalAutoencoder.TEMPLATE % __NNVariationalAutoencoder.TEMPLATE__
+				case 4 % NNVariationalAutoencoder.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNVariationalAutoencoder.getPropSettings(prop));
-				case NNVariationalAutoencoder.ID % __NNVariationalAutoencoder.ID__
+				case 5 % NNVariationalAutoencoder.ID
 					prop_default = 'NNDatasetCombine ID';
-				case NNVariationalAutoencoder.LABEL % __NNVariationalAutoencoder.LABEL__
+				case 6 % NNVariationalAutoencoder.LABEL
 					prop_default = 'NNDatasetCombine label';
-				case NNVariationalAutoencoder.NOTES % __NNVariationalAutoencoder.NOTES__
+				case 7 % NNVariationalAutoencoder.NOTES
 					prop_default = 'NNDatasetCombine notes';
+				case 9 % NNVariationalAutoencoder.D
+					prop_default = Format.getFormatDefault(8, NNVariationalAutoencoder.getPropSettings(prop));
 				otherwise
 					prop_default = getPropDefault@NNBase(prop);
 			end
@@ -633,10 +637,12 @@ classdef NNVariationalAutoencoder < NNBase
 			prop = NNVariationalAutoencoder.getPropProp(pointer);
 			
 			switch prop
-				case NNVariationalAutoencoder.TEMPLATE % __NNVariationalAutoencoder.TEMPLATE__
+				case 4 % NNVariationalAutoencoder.TEMPLATE
+					check = Format.checkFormat(8, value, NNVariationalAutoencoder.getPropSettings(prop));
+				case 9 % NNVariationalAutoencoder.D
 					check = Format.checkFormat(8, value, NNVariationalAutoencoder.getPropSettings(prop));
 				otherwise
-					if prop <= NNBase.getPropNumber()
+					if prop <= 21
 						check = checkProp@NNBase(prop, value);
 					end
 			end
