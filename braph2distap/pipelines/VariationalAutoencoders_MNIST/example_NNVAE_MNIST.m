@@ -21,7 +21,5 @@ nnvae.get('TRAIN')
 
 %% Evaluate and Visualize Latent Space
 nne = NNVariationalAutoencoders_Evaluator('NN', nnvae, 'D', d_test);
-figure
 nne.get('PLOT_LATENT_REPRESENTATIONS')
-figure
 nne.get('PLOT_LATENT_CONTINUITY')
