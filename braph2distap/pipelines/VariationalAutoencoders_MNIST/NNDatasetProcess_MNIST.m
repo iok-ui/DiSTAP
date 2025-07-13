@@ -15,10 +15,10 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
-	%  <strong>10</strong> <strong>MNIST_FILE</strong> 	MNIST_FILE (data, string) contains the file directory of the MNIST data.
-	%  <strong>11</strong> <strong>LABEL_FILE</strong> 	LABEL_FILE (data, string) contains the file directory of the MNIST labels.
-	%  <strong>12</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, itemlist) extracts the data from the specified IDX files into item list.
-	%  <strong>13</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, itemlist) extracts the label from the specified IDX files into item list.
+	%  <strong>10</strong> <strong>MNIST_IMAGE_FILE</strong> 	MNIST_IMAGE_FILE (data, string) contains the file directory of the MNIST data.
+	%  <strong>11</strong> <strong>MNIST_LABEL_FILE</strong> 	MNIST_LABEL_FILE (data, string) contains the file directory of the MNIST labels.
+	%  <strong>12</strong> <strong>EXTRACT_IMAGES</strong> 	EXTRACT_IMAGES (query, cell) extracts the images from the specified IDX files.
+	%  <strong>13</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
 	%
 	% NNDatasetProcess_MNIST methods (constructor):
 	%  NNDatasetProcess_MNIST - constructor
@@ -111,25 +111,25 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 	% BUILD BRAPH2 7 class_name 1
 	
 	properties (Constant) % properties
-		MNIST_FILE = 10; %CET: Computational Efficiency Trick
-		MNIST_FILE_TAG = 'MNIST_FILE';
-		MNIST_FILE_CATEGORY = 4;
-		MNIST_FILE_FORMAT = 2;
+		MNIST_IMAGE_FILE = 10; %CET: Computational Efficiency Trick
+		MNIST_IMAGE_FILE_TAG = 'MNIST_IMAGE_FILE';
+		MNIST_IMAGE_FILE_CATEGORY = 4;
+		MNIST_IMAGE_FILE_FORMAT = 2;
 		
-		LABEL_FILE = 11; %CET: Computational Efficiency Trick
-		LABEL_FILE_TAG = 'LABEL_FILE';
-		LABEL_FILE_CATEGORY = 4;
-		LABEL_FILE_FORMAT = 2;
+		MNIST_LABEL_FILE = 11; %CET: Computational Efficiency Trick
+		MNIST_LABEL_FILE_TAG = 'MNIST_LABEL_FILE';
+		MNIST_LABEL_FILE_CATEGORY = 4;
+		MNIST_LABEL_FILE_FORMAT = 2;
 		
-		EXTRACT_DATA = 12; %CET: Computational Efficiency Trick
-		EXTRACT_DATA_TAG = 'EXTRACT_DATA';
-		EXTRACT_DATA_CATEGORY = 6;
-		EXTRACT_DATA_FORMAT = 9;
+		EXTRACT_IMAGES = 12; %CET: Computational Efficiency Trick
+		EXTRACT_IMAGES_TAG = 'EXTRACT_IMAGES';
+		EXTRACT_IMAGES_CATEGORY = 6;
+		EXTRACT_IMAGES_FORMAT = 16;
 		
 		EXTRACT_LABELS = 13; %CET: Computational Efficiency Trick
 		EXTRACT_LABELS_TAG = 'EXTRACT_LABELS';
 		EXTRACT_LABELS_CATEGORY = 6;
-		EXTRACT_LABELS_FORMAT = 9;
+		EXTRACT_LABELS_FORMAT = 3;
 	end
 	methods % constructor
 		function dproc = NNDatasetProcess_MNIST(varargin)
@@ -152,10 +152,10 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
-			%  <strong>10</strong> <strong>MNIST_FILE</strong> 	MNIST_FILE (data, string) contains the file directory of the MNIST data.
-			%  <strong>11</strong> <strong>LABEL_FILE</strong> 	LABEL_FILE (data, string) contains the file directory of the MNIST labels.
-			%  <strong>12</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, itemlist) extracts the data from the specified IDX files into item list.
-			%  <strong>13</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, itemlist) extracts the label from the specified IDX files into item list.
+			%  <strong>10</strong> <strong>MNIST_IMAGE_FILE</strong> 	MNIST_IMAGE_FILE (data, string) contains the file directory of the MNIST data.
+			%  <strong>11</strong> <strong>MNIST_LABEL_FILE</strong> 	MNIST_LABEL_FILE (data, string) contains the file directory of the MNIST labels.
+			%  <strong>12</strong> <strong>EXTRACT_IMAGES</strong> 	EXTRACT_IMAGES (query, cell) extracts the images from the specified IDX files.
+			%  <strong>13</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
 			%
 			% See also Category, Format.
 			
@@ -359,7 +359,7 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'MNIST_FILE'  'LABEL_FILE'  'EXTRACT_DATA'  'EXTRACT_LABELS' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'MNIST_IMAGE_FILE'  'MNIST_LABEL_FILE'  'EXTRACT_IMAGES'  'EXTRACT_LABELS' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -392,7 +392,7 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'MNIST_FILE'  'LABEL_FILE'  'EXTRACT_DATA'  'EXTRACT_LABELS' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'MNIST_IMAGE_FILE'  'MNIST_LABEL_FILE'  'EXTRACT_IMAGES'  'EXTRACT_LABELS' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -421,7 +421,7 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				nndatasetprocess_mnist_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'MNIST_FILE'  'LABEL_FILE'  'EXTRACT_DATA'  'EXTRACT_LABELS' };
+				nndatasetprocess_mnist_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'MNIST_IMAGE_FILE'  'MNIST_LABEL_FILE'  'EXTRACT_IMAGES'  'EXTRACT_LABELS' };
 				tag = nndatasetprocess_mnist_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -474,7 +474,7 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 			prop = NNDatasetProcess_MNIST.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_mnist_format_list = { 2  2  2  8  2  2  2  2  8  2  2  9  9 };
+			nndatasetprocess_mnist_format_list = { 2  2  2  8  2  2  2  2  8  2  2  16  3 };
 			prop_format = nndatasetprocess_mnist_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
@@ -500,7 +500,7 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 			prop = NNDatasetProcess_MNIST.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_mnist_description_list = { 'ELCLASS (constant, string) is the class of processing MNIST data for a neural networks datasets.'  'NAME (constant, string) is the name of processing MNIST data for a neural networks datasets.'  'DESCRIPTION (constant, string) is the description of processing data for a neural networks datasets.'  'TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.'  'ID (data, string) is a few-letter code of processing data for a neural networks datasets.'  'LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.'  'NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural network dataset containing the datapoint processed from the raw data.'  'MNIST_FILE (data, string) contains the file directory of the MNIST data.'  'LABEL_FILE (data, string) contains the file directory of the MNIST labels.'  'EXTRACT_DATA (query, itemlist) extracts the data from the specified IDX files into item list.'  'EXTRACT_LABELS (query, itemlist) extracts the label from the specified IDX files into item list.' };
+			nndatasetprocess_mnist_description_list = { 'ELCLASS (constant, string) is the class of processing MNIST data for a neural networks datasets.'  'NAME (constant, string) is the name of processing MNIST data for a neural networks datasets.'  'DESCRIPTION (constant, string) is the description of processing data for a neural networks datasets.'  'TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.'  'ID (data, string) is a few-letter code of processing data for a neural networks datasets.'  'LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.'  'NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural network dataset containing the datapoint processed from the raw data.'  'MNIST_IMAGE_FILE (data, string) contains the file directory of the MNIST data.'  'MNIST_LABEL_FILE (data, string) contains the file directory of the MNIST labels.'  'EXTRACT_IMAGES (query, cell) extracts the images from the specified IDX files.'  'EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.' };
 			prop_description = nndatasetprocess_mnist_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -526,17 +526,17 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 			prop = NNDatasetProcess_MNIST.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDatasetProcess_MNIST.MNIST_FILE % __NNDatasetProcess_MNIST.MNIST_FILE__
+				case 10 % NNDatasetProcess_MNIST.MNIST_IMAGE_FILE
 					prop_settings = Format.getFormatSettings(2);
-				case NNDatasetProcess_MNIST.LABEL_FILE % __NNDatasetProcess_MNIST.LABEL_FILE__
+				case 11 % NNDatasetProcess_MNIST.MNIST_LABEL_FILE
 					prop_settings = Format.getFormatSettings(2);
-				case NNDatasetProcess_MNIST.EXTRACT_DATA % __NNDatasetProcess_MNIST.EXTRACT_DATA__
-					prop_settings = Format.getFormatSettings(9);
-				case NNDatasetProcess_MNIST.EXTRACT_LABELS % __NNDatasetProcess_MNIST.EXTRACT_LABELS__
-					prop_settings = Format.getFormatSettings(9);
-				case NNDatasetProcess_MNIST.TEMPLATE % __NNDatasetProcess_MNIST.TEMPLATE__
+				case 12 % NNDatasetProcess_MNIST.EXTRACT_IMAGES
+					prop_settings = Format.getFormatSettings(16);
+				case 13 % NNDatasetProcess_MNIST.EXTRACT_LABELS
+					prop_settings = Format.getFormatSettings(3);
+				case 4 % NNDatasetProcess_MNIST.TEMPLATE
 					prop_settings = 'NNDatasetProcess_MNIST';
-				case NNDatasetProcess_MNIST.D % __NNDatasetProcess_MNIST.D__
+				case 9 % NNDatasetProcess_MNIST.D
 					prop_settings = 'NNDataset';
 				otherwise
 					prop_settings = getPropSettings@NNDatasetProcess(prop);
@@ -565,29 +565,29 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 			prop = NNDatasetProcess_MNIST.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDatasetProcess_MNIST.MNIST_FILE % __NNDatasetProcess_MNIST.MNIST_FILE__
-					prop_default = [fileparts(which('NNDatasetProcess_MNIST')) filesep 'mnist_data' filesep 'train-images-idx3-ubyte.gz'];
-				case NNDatasetProcess_MNIST.LABEL_FILE % __NNDatasetProcess_MNIST.LABEL_FILE__
-					prop_default = [fileparts(which('NNDatasetProcess_MNIST')) filesep 'mnist_data' filesep 'train-labels-idx1-ubyte.gz'];
-				case NNDatasetProcess_MNIST.EXTRACT_DATA % __NNDatasetProcess_MNIST.EXTRACT_DATA__
-					prop_default = Format.getFormatDefault(9, NNDatasetProcess_MNIST.getPropSettings(prop));
-				case NNDatasetProcess_MNIST.EXTRACT_LABELS % __NNDatasetProcess_MNIST.EXTRACT_LABELS__
-					prop_default = Format.getFormatDefault(9, NNDatasetProcess_MNIST.getPropSettings(prop));
-				case NNDatasetProcess_MNIST.ELCLASS % __NNDatasetProcess_MNIST.ELCLASS__
+				case 10 % NNDatasetProcess_MNIST.MNIST_IMAGE_FILE
+					prop_default = Format.getFormatDefault(2, NNDatasetProcess_MNIST.getPropSettings(prop));
+				case 11 % NNDatasetProcess_MNIST.MNIST_LABEL_FILE
+					prop_default = Format.getFormatDefault(2, NNDatasetProcess_MNIST.getPropSettings(prop));
+				case 12 % NNDatasetProcess_MNIST.EXTRACT_IMAGES
+					prop_default = Format.getFormatDefault(16, NNDatasetProcess_MNIST.getPropSettings(prop));
+				case 13 % NNDatasetProcess_MNIST.EXTRACT_LABELS
+					prop_default = Format.getFormatDefault(3, NNDatasetProcess_MNIST.getPropSettings(prop));
+				case 1 % NNDatasetProcess_MNIST.ELCLASS
 					prop_default = 'NNDatasetProcess_MNIST';
-				case NNDatasetProcess_MNIST.NAME % __NNDatasetProcess_MNIST.NAME__
+				case 2 % NNDatasetProcess_MNIST.NAME
 					prop_default = 'Processing MNIST for a Neural Network Dataset';
-				case NNDatasetProcess_MNIST.DESCRIPTION % __NNDatasetProcess_MNIST.DESCRIPTION__
+				case 3 % NNDatasetProcess_MNIST.DESCRIPTION
 					prop_default = 'The MNIST processing for a neural network dataset (NNDatasetProcess_MNIST) processes the raw MNIST data into a neural network dataset. The resulting neural network dataset contains all the datapoints from the raw data, along with its corresponding labels.';
-				case NNDatasetProcess_MNIST.TEMPLATE % __NNDatasetProcess_MNIST.TEMPLATE__
+				case 4 % NNDatasetProcess_MNIST.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNDatasetProcess_MNIST.getPropSettings(prop));
-				case NNDatasetProcess_MNIST.ID % __NNDatasetProcess_MNIST.ID__
+				case 5 % NNDatasetProcess_MNIST.ID
 					prop_default = 'NNDatasetProcess_MNIST ID';
-				case NNDatasetProcess_MNIST.LABEL % __NNDatasetProcess_MNIST.LABEL__
+				case 6 % NNDatasetProcess_MNIST.LABEL
 					prop_default = 'NNDatasetProcess_MNIST label';
-				case NNDatasetProcess_MNIST.NOTES % __NNDatasetProcess_MNIST.NOTES__
+				case 7 % NNDatasetProcess_MNIST.NOTES
 					prop_default = 'NNDatasetProcess_MNIST notes';
-				case NNDatasetProcess_MNIST.D % __NNDatasetProcess_MNIST.D__
+				case 9 % NNDatasetProcess_MNIST.D
 					prop_default = Format.getFormatDefault(8, NNDatasetProcess_MNIST.getPropSettings(prop));
 				otherwise
 					prop_default = getPropDefault@NNDatasetProcess(prop);
@@ -653,20 +653,20 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 			prop = NNDatasetProcess_MNIST.getPropProp(pointer);
 			
 			switch prop
-				case NNDatasetProcess_MNIST.MNIST_FILE % __NNDatasetProcess_MNIST.MNIST_FILE__
+				case 10 % NNDatasetProcess_MNIST.MNIST_IMAGE_FILE
 					check = Format.checkFormat(2, value, NNDatasetProcess_MNIST.getPropSettings(prop));
-				case NNDatasetProcess_MNIST.LABEL_FILE % __NNDatasetProcess_MNIST.LABEL_FILE__
+				case 11 % NNDatasetProcess_MNIST.MNIST_LABEL_FILE
 					check = Format.checkFormat(2, value, NNDatasetProcess_MNIST.getPropSettings(prop));
-				case NNDatasetProcess_MNIST.EXTRACT_DATA % __NNDatasetProcess_MNIST.EXTRACT_DATA__
-					check = Format.checkFormat(9, value, NNDatasetProcess_MNIST.getPropSettings(prop));
-				case NNDatasetProcess_MNIST.EXTRACT_LABELS % __NNDatasetProcess_MNIST.EXTRACT_LABELS__
-					check = Format.checkFormat(9, value, NNDatasetProcess_MNIST.getPropSettings(prop));
-				case NNDatasetProcess_MNIST.TEMPLATE % __NNDatasetProcess_MNIST.TEMPLATE__
+				case 12 % NNDatasetProcess_MNIST.EXTRACT_IMAGES
+					check = Format.checkFormat(16, value, NNDatasetProcess_MNIST.getPropSettings(prop));
+				case 13 % NNDatasetProcess_MNIST.EXTRACT_LABELS
+					check = Format.checkFormat(3, value, NNDatasetProcess_MNIST.getPropSettings(prop));
+				case 4 % NNDatasetProcess_MNIST.TEMPLATE
 					check = Format.checkFormat(8, value, NNDatasetProcess_MNIST.getPropSettings(prop));
-				case NNDatasetProcess_MNIST.D % __NNDatasetProcess_MNIST.D__
+				case 9 % NNDatasetProcess_MNIST.D
 					check = Format.checkFormat(8, value, NNDatasetProcess_MNIST.getPropSettings(prop));
 				otherwise
-					if prop <= NNDatasetProcess.getPropNumber()
+					if prop <= 9
 						check = checkProp@NNDatasetProcess(prop, value);
 					end
 			end
@@ -699,9 +699,14 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case NNDatasetProcess_MNIST.EXTRACT_DATA % __NNDatasetProcess_MNIST.EXTRACT_DATA__
+				case 12 % NNDatasetProcess_MNIST.EXTRACT_IMAGES
 					dataFolder = fullfile(tempdir, 'mnist');
-					filename = dproc.get('MNIST_FILE');
+					filename = dproc.get('MNIST_IMAGE_FILE');
+					if isempty(filename)
+					    %fprintf([newline "There is no MNIST image file."])
+					    value = {};
+					    return
+					end
 					gunzip(filename, dataFolder)
 					
 					[~, name, ~] = fileparts(filename);
@@ -713,11 +718,11 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 					
 					magicNum = fread(fileID, 1, 'int32', 0, 'b');
 					if magicNum == 2051
-					    fprintf("Read MNIST image data...")
+					    fprintf([newline 'Read MNIST image data...'])
 					end
 					
 					numImages = fread(fileID, 1, 'int32', 0, 'b');
-					fprintf('Number of images in the dataset: %6d ...',numImages);
+					fprintf([newline 'Number of images in the dataset: %6d ...'], numImages);
 					numRows = fread(fileID, 1, 'int32', 0, 'b');
 					numCols = fread(fileID, 1, 'int32', 0, 'b');
 					
@@ -731,12 +736,17 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 					fclose(fileID);
 					
 					for i = 1:size(X, 4)
-					    value{i} =  X(:, :, :, i);
+					    value{i} =  reshape(X(:,:,:,i), size(X,1), size(X,2), size(X,3));
 					end
 					
-				case NNDatasetProcess_MNIST.EXTRACT_LABELS % __NNDatasetProcess_MNIST.EXTRACT_LABELS__
+				case 13 % NNDatasetProcess_MNIST.EXTRACT_LABELS
 					dataFolder = fullfile(tempdir, 'mnist');
-					filename = dproc.get('LABEL_FILE');
+					filename = dproc.get('MNIST_LABEL_FILE');
+					if isempty(filename)
+					    %fprintf([newline "There is no MNIST label file."])
+					    value = {};
+					    return
+					end
 					gunzip(filename, dataFolder)
 					[~, name, ~] = fileparts(filename);
 					
@@ -748,11 +758,11 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 					
 					magicNum = fread(fileID, 1, 'int32', 0, 'b');
 					if magicNum == 2049
-					    fprintf("Read MNIST label data...")
+					    fprintf([newline 'Read MNIST label data...'])
 					end
 					
 					numItems = fread(fileID, 1, 'int32', 0, 'b');
-					fprintf('Number of labels in the dataset: %6d ...',numItems);
+					fprintf([newline 'Number of labels in the dataset: %6d ...'], numItems);
 					
 					Y = fread(fileID, inf, 'unsigned char');
 					
@@ -761,19 +771,19 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 					fclose(fileID);
 					
 					for i = 1:size(Y, 1)
-					    value{i} =  Y(i);
+					    value{i} = char(Y(i));
 					end
 					
-				case NNDatasetProcess_MNIST.D % __NNDatasetProcess_MNIST.D__
-					rng_settings_ = rng(); rng(dproc.getPropSeed(NNDatasetProcess_MNIST.D), 'twister')
+				case 9 % NNDatasetProcess_MNIST.D
+					rng_settings_ = rng(); rng(dproc.getPropSeed(9), 'twister')
 					
-					raw_image_its = dproc.get('EXTRACT_DATA');
+					raw_image_its = dproc.get('EXTRACT_IMAGES');
 					raw_label_its = dproc.get('EXTRACT_LABELS');
 					
 					it_list = cellfun(@(data, label) NNDataPoint_Image( ...
-					    'IMAGE', data, ...
+					    'IMAGE', {data}, ...
 					    'TARGET_CLASS', {label}), ...
-					    training_image_its, training_lable_its,...
+					    raw_image_its, raw_label_its,...
 					    'UniformOutput', false);
 					
 					dp_list = IndexedDictionary(...
@@ -789,7 +799,7 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= NNDatasetProcess.getPropNumber()
+					if prop <= 9
 						value = calculateValue@NNDatasetProcess(dproc, prop, varargin{:});
 					else
 						value = calculateValue@Element(dproc, prop, varargin{:});

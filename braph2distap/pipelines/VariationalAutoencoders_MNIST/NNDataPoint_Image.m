@@ -516,11 +516,11 @@ classdef NNDataPoint_Image < NNDataPoint
 			prop = NNDataPoint_Image.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDataPoint_Image.IMAGE % __NNDataPoint_Image.IMAGE__
+				case 11 % NNDataPoint_Image.IMAGE
 					prop_settings = Format.getFormatSettings(16);
-				case NNDataPoint_Image.TARGET_CLASS % __NNDataPoint_Image.TARGET_CLASS__
+				case 12 % NNDataPoint_Image.TARGET_CLASS
 					prop_settings = Format.getFormatSettings(3);
-				case NNDataPoint_Image.TEMPLATE % __NNDataPoint_Image.TEMPLATE__
+				case 4 % NNDataPoint_Image.TEMPLATE
 					prop_settings = 'NNDataPoint_Image';
 				otherwise
 					prop_settings = getPropSettings@NNDataPoint(prop);
@@ -549,23 +549,23 @@ classdef NNDataPoint_Image < NNDataPoint
 			prop = NNDataPoint_Image.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDataPoint_Image.IMAGE % __NNDataPoint_Image.IMAGE__
+				case 11 % NNDataPoint_Image.IMAGE
 					prop_default = Format.getFormatDefault(16, NNDataPoint_Image.getPropSettings(prop));
-				case NNDataPoint_Image.TARGET_CLASS % __NNDataPoint_Image.TARGET_CLASS__
+				case 12 % NNDataPoint_Image.TARGET_CLASS
 					prop_default = Format.getFormatDefault(3, NNDataPoint_Image.getPropSettings(prop));
-				case NNDataPoint_Image.ELCLASS % __NNDataPoint_Image.ELCLASS__
+				case 1 % NNDataPoint_Image.ELCLASS
 					prop_default = 'NNDataPoint_Image';
-				case NNDataPoint_Image.NAME % __NNDataPoint_Image.NAME__
+				case 2 % NNDataPoint_Image.NAME
 					prop_default = 'Neural Network Data Point for Classification with a Graph';
-				case NNDataPoint_Image.DESCRIPTION % __NNDataPoint_Image.DESCRIPTION__
+				case 3 % NNDataPoint_Image.DESCRIPTION
 					prop_default = 'A data point for classification with a graph (NNDataPoint_Image) contains both input and target for neural network analysis. The input is the value of the adjacency matrix extracted from the derived graph of the subject. The target is obtained from the variables of interest of the subject.';
-				case NNDataPoint_Image.TEMPLATE % __NNDataPoint_Image.TEMPLATE__
+				case 4 % NNDataPoint_Image.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNDataPoint_Image.getPropSettings(prop));
-				case NNDataPoint_Image.ID % __NNDataPoint_Image.ID__
+				case 5 % NNDataPoint_Image.ID
 					prop_default = 'NNDataPoint_Image ID';
-				case NNDataPoint_Image.LABEL % __NNDataPoint_Image.LABEL__
+				case 6 % NNDataPoint_Image.LABEL
 					prop_default = 'NNDataPoint_Image label';
-				case NNDataPoint_Image.NOTES % __NNDataPoint_Image.NOTES__
+				case 7 % NNDataPoint_Image.NOTES
 					prop_default = 'NNDataPoint_Image notes';
 				otherwise
 					prop_default = getPropDefault@NNDataPoint(prop);
@@ -631,14 +631,14 @@ classdef NNDataPoint_Image < NNDataPoint
 			prop = NNDataPoint_Image.getPropProp(pointer);
 			
 			switch prop
-				case NNDataPoint_Image.IMAGE % __NNDataPoint_Image.IMAGE__
+				case 11 % NNDataPoint_Image.IMAGE
 					check = Format.checkFormat(16, value, NNDataPoint_Image.getPropSettings(prop));
-				case NNDataPoint_Image.TARGET_CLASS % __NNDataPoint_Image.TARGET_CLASS__
+				case 12 % NNDataPoint_Image.TARGET_CLASS
 					check = Format.checkFormat(3, value, NNDataPoint_Image.getPropSettings(prop));
-				case NNDataPoint_Image.TEMPLATE % __NNDataPoint_Image.TEMPLATE__
+				case 4 % NNDataPoint_Image.TEMPLATE
 					check = Format.checkFormat(8, value, NNDataPoint_Image.getPropSettings(prop));
 				otherwise
-					if prop <= NNDataPoint.getPropNumber()
+					if prop <= 10
 						check = checkProp@NNDataPoint(prop, value);
 					end
 			end
@@ -671,22 +671,22 @@ classdef NNDataPoint_Image < NNDataPoint
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case NNDataPoint_Image.INPUT % __NNDataPoint_Image.INPUT__
-					rng_settings_ = rng(); rng(dp.getPropSeed(NNDataPoint_Image.INPUT), 'twister')
+				case 9 % NNDataPoint_Image.INPUT
+					rng_settings_ = rng(); rng(dp.getPropSeed(9), 'twister')
 					
 					value = dp.get('IMAGE');
 					
 					rng(rng_settings_)
 					
-				case NNDataPoint_Image.TARGET % __NNDataPoint_Image.TARGET__
-					rng_settings_ = rng(); rng(dp.getPropSeed(NNDataPoint_Image.TARGET), 'twister')
+				case 10 % NNDataPoint_Image.TARGET
+					rng_settings_ = rng(); rng(dp.getPropSeed(10), 'twister')
 					
 					value = cellfun(@(c) str2num(c), dp.get('TARGET_CLASS'), 'UniformOutput', false);
 					
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= NNDataPoint.getPropNumber()
+					if prop <= 10
 						value = calculateValue@NNDataPoint(dp, prop, varargin{:});
 					else
 						value = calculateValue@Element(dp, prop, varargin{:});
