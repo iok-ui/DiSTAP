@@ -565,9 +565,9 @@ classdef PanelPropClass < PanelProp
 			prop = PanelPropClass.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropClass.DROPDOWN % __PanelPropClass.DROPDOWN__
+				case 36 % PanelPropClass.DROPDOWN
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropClass.TEMPLATE % __PanelPropClass.TEMPLATE__
+				case 4 % PanelPropClass.TEMPLATE
 					prop_settings = 'PanelPropClass';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -596,27 +596,27 @@ classdef PanelPropClass < PanelProp
 			prop = PanelPropClass.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropClass.DROPDOWN % __PanelPropClass.DROPDOWN__
+				case 36 % PanelPropClass.DROPDOWN
 					prop_default = Format.getFormatDefault(18, PanelPropClass.getPropSettings(prop));
-				case PanelPropClass.ELCLASS % __PanelPropClass.ELCLASS__
+				case 1 % PanelPropClass.ELCLASS
 					prop_default = 'PanelPropClass';
-				case PanelPropClass.NAME % __PanelPropClass.NAME__
+				case 2 % PanelPropClass.NAME
 					prop_default = 'Class Prop Panel';
-				case PanelPropClass.DESCRIPTION % __PanelPropClass.DESCRIPTION__
+				case 3 % PanelPropClass.DESCRIPTION
 					prop_default = 'A Class Prop Panel (PanelPropClass) plots the panel for a CLASS property with a drop-down list. It works for all categories.';
-				case PanelPropClass.TEMPLATE % __PanelPropClass.TEMPLATE__
+				case 4 % PanelPropClass.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropClass.getPropSettings(prop));
-				case PanelPropClass.ID % __PanelPropClass.ID__
+				case 5 % PanelPropClass.ID
 					prop_default = 'PanelPropClass ID';
-				case PanelPropClass.LABEL % __PanelPropClass.LABEL__
+				case 6 % PanelPropClass.LABEL
 					prop_default = 'PanelPropClass label';
-				case PanelPropClass.NOTES % __PanelPropClass.NOTES__
+				case 7 % PanelPropClass.NOTES
 					prop_default = 'PanelPropClass notes';
-				case PanelPropClass.EL % __PanelPropClass.EL__
+				case 23 % PanelPropClass.EL
 					prop_default = IndexedDictionary();
-				case PanelPropClass.PROP % __PanelPropClass.PROP__
-					prop_default = IndexedDictionary.IT_CLASS;
-				case PanelPropClass.HEIGHT % __PanelPropClass.HEIGHT__
+				case 24 % PanelPropClass.PROP
+					prop_default = 9;
+				case 25 % PanelPropClass.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -682,12 +682,12 @@ classdef PanelPropClass < PanelProp
 			prop = PanelPropClass.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropClass.DROPDOWN % __PanelPropClass.DROPDOWN__
+				case 36 % PanelPropClass.DROPDOWN
 					check = Format.checkFormat(18, value, PanelPropClass.getPropSettings(prop));
-				case PanelPropClass.TEMPLATE % __PanelPropClass.TEMPLATE__
+				case 4 % PanelPropClass.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropClass.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -720,7 +720,7 @@ classdef PanelPropClass < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropClass.DROPDOWN % __PanelPropClass.DROPDOWN__
+				case 36 % PanelPropClass.DROPDOWN
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -735,14 +735,14 @@ classdef PanelPropClass < PanelProp
 					
 					value = dropdown;
 					
-				case PanelPropClass.X_DRAW % __PanelPropClass.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropClass.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('DROPDOWN')
 					end
 					
-				case PanelPropClass.UPDATE % __PanelPropClass.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropClass.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -782,22 +782,22 @@ classdef PanelPropClass < PanelProp
 					    end
 					end
 					
-				case PanelPropClass.REDRAW % __PanelPropClass.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropClass.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('DROPDOWN'), 'Position', [4 4 .70*w_p 21])
 					end
 					
-				case PanelPropClass.DELETE % __PanelPropClass.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropClass.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('DROPDOWN', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

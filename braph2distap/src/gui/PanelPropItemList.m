@@ -7,7 +7,7 @@ classdef PanelPropItemList < PanelProp
 	%  
 	% It can be personalized with the following props:
 	%   COLS - Numerical array with the columns to be visualized. It can include 
-	%          PanelPropIDictTable.SELECTOR and/or prop numbers of the item class.
+	%          -1 and/or prop numbers of the item class.
 	%   ROWNAME - String list with the row names as per uitable format.
 	%          It can be a string list or 'numbered' or {} (to reset it).
 	%   COLUMNAME - String list with the column names as per uitable format.
@@ -678,35 +678,35 @@ classdef PanelPropItemList < PanelProp
 			prop = PanelPropItemList.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropItemList.TABLE_HEIGHT % __PanelPropItemList.TABLE_HEIGHT__
+				case 36 % PanelPropItemList.TABLE_HEIGHT
 					prop_settings = Format.getFormatSettings(22);
-				case PanelPropItemList.SELECTED % __PanelPropItemList.SELECTED__
+				case 37 % PanelPropItemList.SELECTED
 					prop_settings = Format.getFormatSettings(13);
-				case PanelPropItemList.COLS % __PanelPropItemList.COLS__
+				case 38 % PanelPropItemList.COLS
 					prop_settings = Format.getFormatSettings(12);
-				case PanelPropItemList.ROWNAME % __PanelPropItemList.ROWNAME__
+				case 39 % PanelPropItemList.ROWNAME
 					prop_settings = Format.getFormatSettings(3);
-				case PanelPropItemList.COLUMNNAME % __PanelPropItemList.COLUMNNAME__
+				case 40 % PanelPropItemList.COLUMNNAME
 					prop_settings = Format.getFormatSettings(3);
-				case PanelPropItemList.COLUMNWIDTH % __PanelPropItemList.COLUMNWIDTH__
+				case 41 % PanelPropItemList.COLUMNWIDTH
 					prop_settings = Format.getFormatSettings(3);
-				case PanelPropItemList.COLUMNEDITABLE % __PanelPropItemList.COLUMNEDITABLE__
+				case 42 % PanelPropItemList.COLUMNEDITABLE
 					prop_settings = Format.getFormatSettings(12);
-				case PanelPropItemList.COLUMNFORMAT % __PanelPropItemList.COLUMNFORMAT__
+				case 43 % PanelPropItemList.COLUMNFORMAT
 					prop_settings = Format.getFormatSettings(3);
-				case PanelPropItemList.CB_TAB_EDIT % __PanelPropItemList.CB_TAB_EDIT__
+				case 44 % PanelPropItemList.CB_TAB_EDIT
 					prop_settings = Format.getFormatSettings(2);
-				case PanelPropItemList.TABLE % __PanelPropItemList.TABLE__
+				case 45 % PanelPropItemList.TABLE
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropItemList.MENU_OPEN_ITEMS % __PanelPropItemList.MENU_OPEN_ITEMS__
+				case 46 % PanelPropItemList.MENU_OPEN_ITEMS
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropItemList.MENU_EXPORT % __PanelPropItemList.MENU_EXPORT__
+				case 47 % PanelPropItemList.MENU_EXPORT
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropItemList.CONTEXTMENU % __PanelPropItemList.CONTEXTMENU__
+				case 48 % PanelPropItemList.CONTEXTMENU
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropItemList.GUI_ITS_DICT % __PanelPropItemList.GUI_ITS_DICT__
+				case 49 % PanelPropItemList.GUI_ITS_DICT
 					prop_settings = 'GUI';
-				case PanelPropItemList.TEMPLATE % __PanelPropItemList.TEMPLATE__
+				case 4 % PanelPropItemList.TEMPLATE
 					prop_settings = 'PanelPropItemList';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -735,52 +735,52 @@ classdef PanelPropItemList < PanelProp
 			prop = PanelPropItemList.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropItemList.TABLE_HEIGHT % __PanelPropItemList.TABLE_HEIGHT__
+				case 36 % PanelPropItemList.TABLE_HEIGHT
 					prop_default = 240;
-				case PanelPropItemList.SELECTED % __PanelPropItemList.SELECTED__
+				case 37 % PanelPropItemList.SELECTED
 					prop_default = Format.getFormatDefault(13, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.COLS % __PanelPropItemList.COLS__
+				case 38 % PanelPropItemList.COLS
 					prop_default = Format.getFormatDefault(12, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.ROWNAME % __PanelPropItemList.ROWNAME__
+				case 39 % PanelPropItemList.ROWNAME
 					prop_default = Format.getFormatDefault(3, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.COLUMNNAME % __PanelPropItemList.COLUMNNAME__
+				case 40 % PanelPropItemList.COLUMNNAME
 					prop_default = Format.getFormatDefault(3, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.COLUMNWIDTH % __PanelPropItemList.COLUMNWIDTH__
+				case 41 % PanelPropItemList.COLUMNWIDTH
 					prop_default = Format.getFormatDefault(3, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.COLUMNEDITABLE % __PanelPropItemList.COLUMNEDITABLE__
+				case 42 % PanelPropItemList.COLUMNEDITABLE
 					prop_default = Format.getFormatDefault(12, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.COLUMNFORMAT % __PanelPropItemList.COLUMNFORMAT__
+				case 43 % PanelPropItemList.COLUMNFORMAT
 					prop_default = Format.getFormatDefault(3, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.CB_TAB_EDIT % __PanelPropItemList.CB_TAB_EDIT__
+				case 44 % PanelPropItemList.CB_TAB_EDIT
 					prop_default = Format.getFormatDefault(2, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.TABLE % __PanelPropItemList.TABLE__
+				case 45 % PanelPropItemList.TABLE
 					prop_default = Format.getFormatDefault(18, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.MENU_OPEN_ITEMS % __PanelPropItemList.MENU_OPEN_ITEMS__
+				case 46 % PanelPropItemList.MENU_OPEN_ITEMS
 					prop_default = true;
-				case PanelPropItemList.MENU_EXPORT % __PanelPropItemList.MENU_EXPORT__
+				case 47 % PanelPropItemList.MENU_EXPORT
 					prop_default = false;
-				case PanelPropItemList.CONTEXTMENU % __PanelPropItemList.CONTEXTMENU__
+				case 48 % PanelPropItemList.CONTEXTMENU
 					prop_default = Format.getFormatDefault(18, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.GUI_ITS_DICT % __PanelPropItemList.GUI_ITS_DICT__
+				case 49 % PanelPropItemList.GUI_ITS_DICT
 					prop_default = Format.getFormatDefault(10, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.ELCLASS % __PanelPropItemList.ELCLASS__
+				case 1 % PanelPropItemList.ELCLASS
 					prop_default = 'PanelPropItemList';
-				case PanelPropItemList.NAME % __PanelPropItemList.NAME__
+				case 2 % PanelPropItemList.NAME
 					prop_default = 'Item-List Prop Panel';
-				case PanelPropItemList.DESCRIPTION % __PanelPropItemList.DESCRIPTION__
+				case 3 % PanelPropItemList.DESCRIPTION
 					prop_default = 'An Item-List Prop Panel (PanelPropItemList) plots the panel for a ITEMLIST property with a table. It works for all categories. It can be personalized with the following props: COLS, ROWNAME, COLUMNAME, COLUMNWIDTH, COLUMNEDITABLE, COLUMNFORMAT, CB_TAB_EDIT.';
-				case PanelPropItemList.TEMPLATE % __PanelPropItemList.TEMPLATE__
+				case 4 % PanelPropItemList.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.ID % __PanelPropItemList.ID__
+				case 5 % PanelPropItemList.ID
 					prop_default = 'PanelPropItemList ID';
-				case PanelPropItemList.LABEL % __PanelPropItemList.LABEL__
+				case 6 % PanelPropItemList.LABEL
 					prop_default = 'PanelPropItemList label';
-				case PanelPropItemList.NOTES % __PanelPropItemList.NOTES__
+				case 7 % PanelPropItemList.NOTES
 					prop_default = 'PanelPropItemList notes';
-				case PanelPropItemList.EL % __PanelPropItemList.EL__
+				case 23 % PanelPropItemList.EL
 					prop_default = IndexedDictionary();
-				case PanelPropItemList.PROP % __PanelPropItemList.PROP__
-					prop_default = IndexedDictionary.IT_LIST;
+				case 24 % PanelPropItemList.PROP
+					prop_default = 11;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
 			end
@@ -829,18 +829,18 @@ classdef PanelPropItemList < PanelProp
 			prop = PanelPropItemList.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropItemList.SELECTED % __PanelPropItemList.SELECTED__
+				case 37 % PanelPropItemList.SELECTED
 					if isrow(value)
 					    value = value';
 					end
 					
-				case PanelPropItemList.CB_TAB_EDIT % __PanelPropItemList.CB_TAB_EDIT__
+				case 44 % PanelPropItemList.CB_TAB_EDIT
 					if iscell(value)
 					    value = sprintf('%s;', value{:});
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = conditioning@PanelProp(pointer, value);
 					end
 			end
@@ -860,7 +860,7 @@ classdef PanelPropItemList < PanelProp
 			%  calculateValue, checkValue.
 			
 			switch prop
-				case PanelPropItemList.COLS % __PanelPropItemList.COLS__
+				case 38 % PanelPropItemList.COLS
 					if isempty(value)
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -875,7 +875,7 @@ classdef PanelPropItemList < PanelProp
 					    value = cols;
 					end
 					
-				case PanelPropItemList.ROWNAME % __PanelPropItemList.ROWNAME__
+				case 39 % PanelPropItemList.ROWNAME
 					if isempty(value)
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -890,7 +890,7 @@ classdef PanelPropItemList < PanelProp
 					    value = {'numbered'};
 					end
 					
-				case PanelPropItemList.COLUMNNAME % __PanelPropItemList.COLUMNNAME__
+				case 40 % PanelPropItemList.COLUMNNAME
 					if isempty(value)
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -915,14 +915,14 @@ classdef PanelPropItemList < PanelProp
 					    value = {'numbered'};
 					end
 					
-				case PanelPropItemList.COLUMNWIDTH % __PanelPropItemList.COLUMNWIDTH__
+				case 41 % PanelPropItemList.COLUMNWIDTH
 					if isempty(value) || isequal(value, 'auto')
 					    columnwidth = {'auto'};
 					    
 					    value = columnwidth;
 					end
 					
-				case PanelPropItemList.COLUMNEDITABLE % __PanelPropItemList.COLUMNEDITABLE__
+				case 42 % PanelPropItemList.COLUMNEDITABLE
 					if isempty(value)
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -1012,7 +1012,7 @@ classdef PanelPropItemList < PanelProp
 					% ensures that the value is numeric (not logical)
 					value = int8(columneditable);
 					
-				case PanelPropItemList.COLUMNFORMAT % __PanelPropItemList.COLUMNFORMAT__
+				case 43 % PanelPropItemList.COLUMNFORMAT
 					if isempty(value)
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -1104,7 +1104,7 @@ classdef PanelPropItemList < PanelProp
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = preset@PanelProp(pr, prop, value);
 					end
 			end
@@ -1144,38 +1144,38 @@ classdef PanelPropItemList < PanelProp
 			prop = PanelPropItemList.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropItemList.TABLE_HEIGHT % __PanelPropItemList.TABLE_HEIGHT__
+				case 36 % PanelPropItemList.TABLE_HEIGHT
 					check = Format.checkFormat(22, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.SELECTED % __PanelPropItemList.SELECTED__
+				case 37 % PanelPropItemList.SELECTED
 					check = Format.checkFormat(13, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.COLS % __PanelPropItemList.COLS__
+				case 38 % PanelPropItemList.COLS
 					check = Format.checkFormat(12, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.ROWNAME % __PanelPropItemList.ROWNAME__
+				case 39 % PanelPropItemList.ROWNAME
 					check = Format.checkFormat(3, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.COLUMNNAME % __PanelPropItemList.COLUMNNAME__
+				case 40 % PanelPropItemList.COLUMNNAME
 					check = Format.checkFormat(3, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.COLUMNWIDTH % __PanelPropItemList.COLUMNWIDTH__
+				case 41 % PanelPropItemList.COLUMNWIDTH
 					check = Format.checkFormat(3, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.COLUMNEDITABLE % __PanelPropItemList.COLUMNEDITABLE__
+				case 42 % PanelPropItemList.COLUMNEDITABLE
 					check = Format.checkFormat(12, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.COLUMNFORMAT % __PanelPropItemList.COLUMNFORMAT__
+				case 43 % PanelPropItemList.COLUMNFORMAT
 					check = Format.checkFormat(3, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.CB_TAB_EDIT % __PanelPropItemList.CB_TAB_EDIT__
+				case 44 % PanelPropItemList.CB_TAB_EDIT
 					check = Format.checkFormat(2, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.TABLE % __PanelPropItemList.TABLE__
+				case 45 % PanelPropItemList.TABLE
 					check = Format.checkFormat(18, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.MENU_OPEN_ITEMS % __PanelPropItemList.MENU_OPEN_ITEMS__
+				case 46 % PanelPropItemList.MENU_OPEN_ITEMS
 					check = Format.checkFormat(4, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.MENU_EXPORT % __PanelPropItemList.MENU_EXPORT__
+				case 47 % PanelPropItemList.MENU_EXPORT
 					check = Format.checkFormat(4, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.CONTEXTMENU % __PanelPropItemList.CONTEXTMENU__
+				case 48 % PanelPropItemList.CONTEXTMENU
 					check = Format.checkFormat(18, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.GUI_ITS_DICT % __PanelPropItemList.GUI_ITS_DICT__
+				case 49 % PanelPropItemList.GUI_ITS_DICT
 					check = Format.checkFormat(10, value, PanelPropItemList.getPropSettings(prop));
-				case PanelPropItemList.TEMPLATE % __PanelPropItemList.TEMPLATE__
+				case 4 % PanelPropItemList.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropItemList.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -1208,7 +1208,7 @@ classdef PanelPropItemList < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropItemList.TABLE % __PanelPropItemList.TABLE__
+				case 45 % PanelPropItemList.TABLE
 					table = uitable( ...
 					    'Parent', pr.memorize('H'), ... % H = p for Panel
 					    'Tag', 'table', ...
@@ -1218,7 +1218,7 @@ classdef PanelPropItemList < PanelProp
 					    );
 					value = table;
 					
-				case PanelPropItemList.CONTEXTMENU % __PanelPropItemList.CONTEXTMENU__
+				case 48 % PanelPropItemList.CONTEXTMENU
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -1304,15 +1304,15 @@ classdef PanelPropItemList < PanelProp
 					
 					value = contextmenu;
 					
-				case PanelPropItemList.X_DRAW % __PanelPropItemList.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropItemList.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value 
 					    pr.memorize('TABLE')
 					    pr.memorize('CONTEXTMENU')
 					end
 					
-				case PanelPropItemList.UPDATE % __PanelPropItemList.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropItemList.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value 
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -1360,16 +1360,16 @@ classdef PanelPropItemList < PanelProp
 					    end
 					end
 					
-				case PanelPropItemList.REDRAW % __PanelPropItemList.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropItemList.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('TABLE'), 'Position', [4 4 w_p-8 max(1, pr.get('HEIGHT')-27)])
 					end
 					
-				case PanelPropItemList.SHOW % __PanelPropItemList.SHOW__
-					value = calculateValue@PanelProp(pr, PanelProp.SHOW, varargin{:}); % also warning
+				case 16 % PanelPropItemList.SHOW
+					value = calculateValue@PanelProp(pr, 16, varargin{:}); % also warning
 					if value
 					    % figures for items
 					    gui_its_dict = pr.get('GUI_ITS_DICT');
@@ -1381,8 +1381,8 @@ classdef PanelPropItemList < PanelProp
 					    end
 					end
 					
-				case PanelPropItemList.HIDE % __PanelPropItemList.HIDE__
-					value = calculateValue@PanelProp(pr, PanelProp.HIDE, varargin{:}); % also warning
+				case 17 % PanelPropItemList.HIDE
+					value = calculateValue@PanelProp(pr, 17, varargin{:}); % also warning
 					if value    
 					    % figures for items
 					    gui_its_dict = pr.get('GUI_ITS_DICT');
@@ -1394,15 +1394,15 @@ classdef PanelPropItemList < PanelProp
 					    end
 					end
 					
-				case PanelPropItemList.DELETE % __PanelPropItemList.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropItemList.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('TABLE', Element.getNoValue())
 					    pr.set('CONTEXTMENU', Element.getNoValue())
 					end
 					
-				case PanelPropItemList.CLOSE % __PanelPropItemList.CLOSE__
-					value = calculateValue@PanelProp(pr, PanelProp.CLOSE, varargin{:}); % also warning
+				case 19 % PanelPropItemList.CLOSE
+					value = calculateValue@PanelProp(pr, 19, varargin{:}); % also warning
 					if value
 					    % figures for items
 					    gui_its_dict = pr.get('GUI_ITS_DICT');
@@ -1415,7 +1415,7 @@ classdef PanelPropItemList < PanelProp
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

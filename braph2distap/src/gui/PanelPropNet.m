@@ -579,13 +579,13 @@ classdef PanelPropNet < PanelProp
 			prop = PanelPropNet.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropNet.BUTTON_TEXT % __PanelPropNet.BUTTON_TEXT__
+				case 36 % PanelPropNet.BUTTON_TEXT
 					prop_settings = Format.getFormatSettings(2);
-				case PanelPropNet.BUTTON % __PanelPropNet.BUTTON__
+				case 37 % PanelPropNet.BUTTON
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropNet.MSG_FLAG % __PanelPropNet.MSG_FLAG__
+				case 38 % PanelPropNet.MSG_FLAG
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropNet.TEMPLATE % __PanelPropNet.TEMPLATE__
+				case 4 % PanelPropNet.TEMPLATE
 					prop_settings = 'PanelPropNet';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -614,31 +614,31 @@ classdef PanelPropNet < PanelProp
 			prop = PanelPropNet.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropNet.BUTTON_TEXT % __PanelPropNet.BUTTON_TEXT__
+				case 36 % PanelPropNet.BUTTON_TEXT
 					prop_default = Format.getFormatDefault(2, PanelPropNet.getPropSettings(prop));
-				case PanelPropNet.BUTTON % __PanelPropNet.BUTTON__
+				case 37 % PanelPropNet.BUTTON
 					prop_default = Format.getFormatDefault(18, PanelPropNet.getPropSettings(prop));
-				case PanelPropNet.MSG_FLAG % __PanelPropNet.MSG_FLAG__
+				case 38 % PanelPropNet.MSG_FLAG
 					prop_default = true;
-				case PanelPropNet.ELCLASS % __PanelPropNet.ELCLASS__
+				case 1 % PanelPropNet.ELCLASS
 					prop_default = 'PanelPropNet';
-				case PanelPropNet.NAME % __PanelPropNet.NAME__
+				case 2 % PanelPropNet.NAME
 					prop_default = 'Neural Network Prop Panel';
-				case PanelPropNet.DESCRIPTION % __PanelPropNet.DESCRIPTION__
+				case 3 % PanelPropNet.DESCRIPTION
 					prop_default = 'A Neural Network Prop Panel (PanelPropNet) plots the panel for a NET property with a button. It works for all categories.';
-				case PanelPropNet.TEMPLATE % __PanelPropNet.TEMPLATE__
+				case 4 % PanelPropNet.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropNet.getPropSettings(prop));
-				case PanelPropNet.ID % __PanelPropNet.ID__
+				case 5 % PanelPropNet.ID
 					prop_default = 'PanelPropNet ID';
-				case PanelPropNet.LABEL % __PanelPropNet.LABEL__
+				case 6 % PanelPropNet.LABEL
 					prop_default = 'PanelPropNet label';
-				case PanelPropNet.NOTES % __PanelPropNet.NOTES__
+				case 7 % PanelPropNet.NOTES
 					prop_default = 'PanelPropNet notes';
-				case PanelPropNet.EL % __PanelPropNet.EL__
+				case 23 % PanelPropNet.EL
 					prop_default = PanelProp();
-				case PanelPropNet.PROP % __PanelPropNet.PROP__
-					prop_default = PanelProp.EL;
-				case PanelPropNet.HEIGHT % __PanelPropNet.HEIGHT__
+				case 24 % PanelPropNet.PROP
+					prop_default = 23;
+				case 25 % PanelPropNet.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -704,16 +704,16 @@ classdef PanelPropNet < PanelProp
 			prop = PanelPropNet.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropNet.BUTTON_TEXT % __PanelPropNet.BUTTON_TEXT__
+				case 36 % PanelPropNet.BUTTON_TEXT
 					check = Format.checkFormat(2, value, PanelPropNet.getPropSettings(prop));
-				case PanelPropNet.BUTTON % __PanelPropNet.BUTTON__
+				case 37 % PanelPropNet.BUTTON
 					check = Format.checkFormat(18, value, PanelPropNet.getPropSettings(prop));
-				case PanelPropNet.MSG_FLAG % __PanelPropNet.MSG_FLAG__
+				case 38 % PanelPropNet.MSG_FLAG
 					check = Format.checkFormat(4, value, PanelPropNet.getPropSettings(prop));
-				case PanelPropNet.TEMPLATE % __PanelPropNet.TEMPLATE__
+				case 4 % PanelPropNet.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropNet.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -746,7 +746,7 @@ classdef PanelPropNet < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropNet.BUTTON % __PanelPropNet.BUTTON__
+				case 37 % PanelPropNet.BUTTON
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -763,14 +763,14 @@ classdef PanelPropNet < PanelProp
 					
 					value = button;
 					
-				case PanelPropNet.X_DRAW % __PanelPropNet.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropNet.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('BUTTON')
 					end
 					
-				case PanelPropNet.UPDATE % __PanelPropNet.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropNet.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -806,22 +806,22 @@ classdef PanelPropNet < PanelProp
 					    end
 					end
 					
-				case PanelPropNet.REDRAW % __PanelPropNet.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropNet.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('BUTTON'), 'Position', [4 4 .70*w_p 21])
 					end
 					
-				case PanelPropNet.DELETE % __PanelPropNet.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropNet.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('BUTTON', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

@@ -549,17 +549,17 @@ classdef SettingsPosition < Settings
 			prop = SettingsPosition.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsPosition.AUTOPOS % __SettingsPosition.AUTOPOS__
+				case 15 % SettingsPosition.AUTOPOS
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsPosition.X0 % __SettingsPosition.X0__
+				case 16 % SettingsPosition.X0
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsPosition.Y0 % __SettingsPosition.Y0__
+				case 17 % SettingsPosition.Y0
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsPosition.WIDTH % __SettingsPosition.WIDTH__
+				case 18 % SettingsPosition.WIDTH
 					prop_settings = Format.getFormatSettings(22);
-				case SettingsPosition.HEIGHT % __SettingsPosition.HEIGHT__
+				case 19 % SettingsPosition.HEIGHT
 					prop_settings = Format.getFormatSettings(22);
-				case SettingsPosition.TEMPLATE % __SettingsPosition.TEMPLATE__
+				case 4 % SettingsPosition.TEMPLATE
 					prop_settings = 'SettingsPosition';
 				otherwise
 					prop_settings = getPropSettings@Settings(prop);
@@ -588,29 +588,29 @@ classdef SettingsPosition < Settings
 			prop = SettingsPosition.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsPosition.AUTOPOS % __SettingsPosition.AUTOPOS__
+				case 15 % SettingsPosition.AUTOPOS
 					prop_default = true;
-				case SettingsPosition.X0 % __SettingsPosition.X0__
+				case 16 % SettingsPosition.X0
 					prop_default = 1;
-				case SettingsPosition.Y0 % __SettingsPosition.Y0__
+				case 17 % SettingsPosition.Y0
 					prop_default = 1;
-				case SettingsPosition.WIDTH % __SettingsPosition.WIDTH__
+				case 18 % SettingsPosition.WIDTH
 					prop_default = 800;
-				case SettingsPosition.HEIGHT % __SettingsPosition.HEIGHT__
+				case 19 % SettingsPosition.HEIGHT
 					prop_default = 600;
-				case SettingsPosition.ELCLASS % __SettingsPosition.ELCLASS__
+				case 1 % SettingsPosition.ELCLASS
 					prop_default = 'SettingsPosition';
-				case SettingsPosition.NAME % __SettingsPosition.NAME__
+				case 2 % SettingsPosition.NAME
 					prop_default = 'Posiiton Settings';
-				case SettingsPosition.DESCRIPTION % __SettingsPosition.DESCRIPTION__
+				case 3 % SettingsPosition.DESCRIPTION
 					prop_default = 'A Position Settings (SettingsPosition) provides the settings for a posistion settings panel, including autopositioning, x0, y0, height and width. The handle can be an uipanel.';
-				case SettingsPosition.TEMPLATE % __SettingsPosition.TEMPLATE__
+				case 4 % SettingsPosition.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsPosition.getPropSettings(prop));
-				case SettingsPosition.ID % __SettingsPosition.ID__
+				case 5 % SettingsPosition.ID
 					prop_default = 'SettingsPosition ID';
-				case SettingsPosition.LABEL % __SettingsPosition.LABEL__
+				case 6 % SettingsPosition.LABEL
 					prop_default = 'SettingsPosition label';
-				case SettingsPosition.NOTES % __SettingsPosition.NOTES__
+				case 7 % SettingsPosition.NOTES
 					prop_default = 'SettingsPosition notes';
 				otherwise
 					prop_default = getPropDefault@Settings(prop);
@@ -676,20 +676,20 @@ classdef SettingsPosition < Settings
 			prop = SettingsPosition.getPropProp(pointer);
 			
 			switch prop
-				case SettingsPosition.AUTOPOS % __SettingsPosition.AUTOPOS__
+				case 15 % SettingsPosition.AUTOPOS
 					check = Format.checkFormat(4, value, SettingsPosition.getPropSettings(prop));
-				case SettingsPosition.X0 % __SettingsPosition.X0__
+				case 16 % SettingsPosition.X0
 					check = Format.checkFormat(11, value, SettingsPosition.getPropSettings(prop));
-				case SettingsPosition.Y0 % __SettingsPosition.Y0__
+				case 17 % SettingsPosition.Y0
 					check = Format.checkFormat(11, value, SettingsPosition.getPropSettings(prop));
-				case SettingsPosition.WIDTH % __SettingsPosition.WIDTH__
+				case 18 % SettingsPosition.WIDTH
 					check = Format.checkFormat(22, value, SettingsPosition.getPropSettings(prop));
-				case SettingsPosition.HEIGHT % __SettingsPosition.HEIGHT__
+				case 19 % SettingsPosition.HEIGHT
 					check = Format.checkFormat(22, value, SettingsPosition.getPropSettings(prop));
-				case SettingsPosition.TEMPLATE % __SettingsPosition.TEMPLATE__
+				case 4 % SettingsPosition.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsPosition.getPropSettings(prop));
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						check = checkProp@Settings(prop, value);
 					end
 			end
@@ -719,7 +719,7 @@ classdef SettingsPosition < Settings
 			%  checkValue.
 			
 			switch prop
-				case SettingsPosition.AUTOPOS % __SettingsPosition.AUTOPOS__
+				case 15 % SettingsPosition.AUTOPOS
 					p = st.get('H');
 					if check_graphics(p, 'uipanel')
 					    if st.get('AUTOPOS')
@@ -737,7 +737,7 @@ classdef SettingsPosition < Settings
 					    end
 					end
 					
-				case SettingsPosition.X0 % __SettingsPosition.X0__
+				case 16 % SettingsPosition.X0
 					p = st.get('H');
 					if check_graphics(p, 'uipanel')
 					    if ~st.get('AUTOPOS')
@@ -745,7 +745,7 @@ classdef SettingsPosition < Settings
 					    end
 					end
 					
-				case SettingsPosition.Y0 % __SettingsPosition.Y0__
+				case 17 % SettingsPosition.Y0
 					p = st.get('H');
 					if check_graphics(p, 'uipanel')
 					    if ~st.get('AUTOPOS')
@@ -753,7 +753,7 @@ classdef SettingsPosition < Settings
 					    end
 					end
 					
-				case SettingsPosition.WIDTH % __SettingsPosition.WIDTH__
+				case 18 % SettingsPosition.WIDTH
 					p = st.get('H');
 					if check_graphics(p, 'uipanel')
 					    if ~st.get('AUTOPOS')
@@ -761,7 +761,7 @@ classdef SettingsPosition < Settings
 					    end
 					end
 					
-				case SettingsPosition.HEIGHT % __SettingsPosition.HEIGHT__
+				case 19 % SettingsPosition.HEIGHT
 					p = st.get('H');
 					if check_graphics(p, 'uipanel')
 					    if ~st.get('AUTOPOS')
@@ -770,7 +770,7 @@ classdef SettingsPosition < Settings
 					end
 					
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						postset@Settings(st, prop);
 					end
 			end

@@ -667,49 +667,49 @@ classdef GUI < ConcreteElement
 			prop = GUI.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case GUI.WAITBAR % __GUI.WAITBAR__
+				case 9 % GUI.WAITBAR
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.DRAW % __GUI.DRAW__
+				case 10 % GUI.DRAW
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.DRAWN % __GUI.DRAWN__
+				case 11 % GUI.DRAWN
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.TITLE % __GUI.TITLE__
+				case 12 % GUI.TITLE
 					prop_settings = Format.getFormatSettings(2);
-				case GUI.POSITION % __GUI.POSITION__
+				case 13 % GUI.POSITION
 					prop_settings = Format.getFormatSettings(12);
-				case GUI.BKGCOLOR % __GUI.BKGCOLOR__
+				case 14 % GUI.BKGCOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case GUI.H_MENUBAR % __GUI.H_MENUBAR__
+				case 15 % GUI.H_MENUBAR
 					prop_settings = Format.getFormatSettings(19);
-				case GUI.MENUBAR % __GUI.MENUBAR__
+				case 16 % GUI.MENUBAR
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.H_MENU_ABOUT % __GUI.H_MENU_ABOUT__
+				case 17 % GUI.H_MENU_ABOUT
 					prop_settings = Format.getFormatSettings(18);
-				case GUI.MENU_ABOUT % __GUI.MENU_ABOUT__
+				case 18 % GUI.MENU_ABOUT
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.H_TOOLBAR % __GUI.H_TOOLBAR__
+				case 19 % GUI.H_TOOLBAR
 					prop_settings = Format.getFormatSettings(18);
-				case GUI.H_TOOLS % __GUI.H_TOOLS__
+				case 20 % GUI.H_TOOLS
 					prop_settings = Format.getFormatSettings(19);
-				case GUI.TOOLBAR % __GUI.TOOLBAR__
+				case 21 % GUI.TOOLBAR
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.TOOL_ABOUT % __GUI.TOOL_ABOUT__
+				case 22 % GUI.TOOL_ABOUT
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.CLOSEREQ % __GUI.CLOSEREQ__
+				case 23 % GUI.CLOSEREQ
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.H % __GUI.H__
+				case 24 % GUI.H
 					prop_settings = Format.getFormatSettings(18);
-				case GUI.RESIZE % __GUI.RESIZE__
+				case 25 % GUI.RESIZE
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.SHOW % __GUI.SHOW__
+				case 26 % GUI.SHOW
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.HIDE % __GUI.HIDE__
+				case 27 % GUI.HIDE
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.DELETE % __GUI.DELETE__
+				case 28 % GUI.DELETE
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.CLOSE % __GUI.CLOSE__
+				case 29 % GUI.CLOSE
 					prop_settings = Format.getFormatSettings(4);
-				case GUI.TEMPLATE % __GUI.TEMPLATE__
+				case 4 % GUI.TEMPLATE
 					prop_settings = 'GUI';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -738,61 +738,61 @@ classdef GUI < ConcreteElement
 			prop = GUI.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case GUI.WAITBAR % __GUI.WAITBAR__
+				case 9 % GUI.WAITBAR
 					prop_default = Format.getFormatDefault(4, GUI.getPropSettings(prop));
-				case GUI.DRAW % __GUI.DRAW__
+				case 10 % GUI.DRAW
 					prop_default = Format.getFormatDefault(4, GUI.getPropSettings(prop));
-				case GUI.DRAWN % __GUI.DRAWN__
+				case 11 % GUI.DRAWN
 					prop_default = Format.getFormatDefault(4, GUI.getPropSettings(prop));
-				case GUI.TITLE % __GUI.TITLE__
+				case 12 % GUI.TITLE
 					prop_default = 'BRAPH2';
-				case GUI.POSITION % __GUI.POSITION__
+				case 13 % GUI.POSITION
 					prop_default = [.00 .00 (PanelElement.getPropDefault('MIN_WIDTH')+20)/w(0, 'pixels') 1.00];
-				case GUI.BKGCOLOR % __GUI.BKGCOLOR__
+				case 14 % GUI.BKGCOLOR
 					prop_default = [1 0.9725 0.929];
-				case GUI.H_MENUBAR % __GUI.H_MENUBAR__
+				case 15 % GUI.H_MENUBAR
 					prop_default = Format.getFormatDefault(19, GUI.getPropSettings(prop));
-				case GUI.MENUBAR % __GUI.MENUBAR__
+				case 16 % GUI.MENUBAR
 					prop_default = false;
-				case GUI.H_MENU_ABOUT % __GUI.H_MENU_ABOUT__
+				case 17 % GUI.H_MENU_ABOUT
 					prop_default = Format.getFormatDefault(18, GUI.getPropSettings(prop));
-				case GUI.MENU_ABOUT % __GUI.MENU_ABOUT__
+				case 18 % GUI.MENU_ABOUT
 					prop_default = false;
-				case GUI.H_TOOLBAR % __GUI.H_TOOLBAR__
+				case 19 % GUI.H_TOOLBAR
 					prop_default = Format.getFormatDefault(18, GUI.getPropSettings(prop));
-				case GUI.H_TOOLS % __GUI.H_TOOLS__
+				case 20 % GUI.H_TOOLS
 					prop_default = Format.getFormatDefault(19, GUI.getPropSettings(prop));
-				case GUI.TOOLBAR % __GUI.TOOLBAR__
+				case 21 % GUI.TOOLBAR
 					prop_default = false;
-				case GUI.TOOL_ABOUT % __GUI.TOOL_ABOUT__
+				case 22 % GUI.TOOL_ABOUT
 					prop_default = false;
-				case GUI.CLOSEREQ % __GUI.CLOSEREQ__
+				case 23 % GUI.CLOSEREQ
 					prop_default = true;
-				case GUI.H % __GUI.H__
+				case 24 % GUI.H
 					prop_default = Format.getFormatDefault(18, GUI.getPropSettings(prop));
-				case GUI.RESIZE % __GUI.RESIZE__
+				case 25 % GUI.RESIZE
 					prop_default = Format.getFormatDefault(4, GUI.getPropSettings(prop));
-				case GUI.SHOW % __GUI.SHOW__
+				case 26 % GUI.SHOW
 					prop_default = Format.getFormatDefault(4, GUI.getPropSettings(prop));
-				case GUI.HIDE % __GUI.HIDE__
+				case 27 % GUI.HIDE
 					prop_default = Format.getFormatDefault(4, GUI.getPropSettings(prop));
-				case GUI.DELETE % __GUI.DELETE__
+				case 28 % GUI.DELETE
 					prop_default = Format.getFormatDefault(4, GUI.getPropSettings(prop));
-				case GUI.CLOSE % __GUI.CLOSE__
+				case 29 % GUI.CLOSE
 					prop_default = Format.getFormatDefault(4, GUI.getPropSettings(prop));
-				case GUI.ELCLASS % __GUI.ELCLASS__
+				case 1 % GUI.ELCLASS
 					prop_default = 'GUI';
-				case GUI.NAME % __GUI.NAME__
+				case 2 % GUI.NAME
 					prop_default = 'GUI';
-				case GUI.DESCRIPTION % __GUI.DESCRIPTION__
+				case 3 % GUI.DESCRIPTION
 					prop_default = 'A GUI renders a figure with its basic functionalities.';
-				case GUI.TEMPLATE % __GUI.TEMPLATE__
+				case 4 % GUI.TEMPLATE
 					prop_default = Format.getFormatDefault(8, GUI.getPropSettings(prop));
-				case GUI.ID % __GUI.ID__
+				case 5 % GUI.ID
 					prop_default = 'GUI ID';
-				case GUI.LABEL % __GUI.LABEL__
+				case 6 % GUI.LABEL
 					prop_default = 'GUI label';
-				case GUI.NOTES % __GUI.NOTES__
+				case 7 % GUI.NOTES
 					prop_default = 'GUI notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -858,55 +858,55 @@ classdef GUI < ConcreteElement
 			prop = GUI.getPropProp(pointer);
 			
 			switch prop
-				case GUI.WAITBAR % __GUI.WAITBAR__
+				case 9 % GUI.WAITBAR
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.DRAW % __GUI.DRAW__
+				case 10 % GUI.DRAW
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.DRAWN % __GUI.DRAWN__
+				case 11 % GUI.DRAWN
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.TITLE % __GUI.TITLE__
+				case 12 % GUI.TITLE
 					check = Format.checkFormat(2, value, GUI.getPropSettings(prop));
-				case GUI.POSITION % __GUI.POSITION__
+				case 13 % GUI.POSITION
 					check = Format.checkFormat(12, value, GUI.getPropSettings(prop));
 					if check
 						check = (length(value) == 4) && all(value(3:4) >= 0);
 					end
-				case GUI.BKGCOLOR % __GUI.BKGCOLOR__
+				case 14 % GUI.BKGCOLOR
 					check = Format.checkFormat(20, value, GUI.getPropSettings(prop));
-				case GUI.H_MENUBAR % __GUI.H_MENUBAR__
+				case 15 % GUI.H_MENUBAR
 					check = Format.checkFormat(19, value, GUI.getPropSettings(prop));
-				case GUI.MENUBAR % __GUI.MENUBAR__
+				case 16 % GUI.MENUBAR
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.H_MENU_ABOUT % __GUI.H_MENU_ABOUT__
+				case 17 % GUI.H_MENU_ABOUT
 					check = Format.checkFormat(18, value, GUI.getPropSettings(prop));
-				case GUI.MENU_ABOUT % __GUI.MENU_ABOUT__
+				case 18 % GUI.MENU_ABOUT
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.H_TOOLBAR % __GUI.H_TOOLBAR__
+				case 19 % GUI.H_TOOLBAR
 					check = Format.checkFormat(18, value, GUI.getPropSettings(prop));
-				case GUI.H_TOOLS % __GUI.H_TOOLS__
+				case 20 % GUI.H_TOOLS
 					check = Format.checkFormat(19, value, GUI.getPropSettings(prop));
-				case GUI.TOOLBAR % __GUI.TOOLBAR__
+				case 21 % GUI.TOOLBAR
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.TOOL_ABOUT % __GUI.TOOL_ABOUT__
+				case 22 % GUI.TOOL_ABOUT
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.CLOSEREQ % __GUI.CLOSEREQ__
+				case 23 % GUI.CLOSEREQ
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.H % __GUI.H__
+				case 24 % GUI.H
 					check = Format.checkFormat(18, value, GUI.getPropSettings(prop));
-				case GUI.RESIZE % __GUI.RESIZE__
+				case 25 % GUI.RESIZE
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.SHOW % __GUI.SHOW__
+				case 26 % GUI.SHOW
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.HIDE % __GUI.HIDE__
+				case 27 % GUI.HIDE
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.DELETE % __GUI.DELETE__
+				case 28 % GUI.DELETE
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.CLOSE % __GUI.CLOSE__
+				case 29 % GUI.CLOSE
 					check = Format.checkFormat(4, value, GUI.getPropSettings(prop));
-				case GUI.TEMPLATE % __GUI.TEMPLATE__
+				case 4 % GUI.TEMPLATE
 					check = Format.checkFormat(8, value, GUI.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -936,23 +936,23 @@ classdef GUI < ConcreteElement
 			%  checkValue.
 			
 			switch prop
-				case GUI.TITLE % __GUI.TITLE__
+				case 12 % GUI.TITLE
 					if gui.get('DRAWN')
 					    set(gui.get('H'), 'Name', gui.get('TITLE'))
 					end
 					
-				case GUI.POSITION % __GUI.POSITION__
+				case 13 % GUI.POSITION
 					if gui.get('DRAWN')
 					    set(gui.get('H'), 'Position', gui.get('POSITION'))
 					end
 					
-				case GUI.BKGCOLOR % __GUI.BKGCOLOR__
+				case 14 % GUI.BKGCOLOR
 					if gui.get('DRAWN')
 					    set(gui.get('H'), 'Color', gui.get('BKGCOLOR'))
 					end
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						postset@ConcreteElement(gui, prop);
 					end
 			end
@@ -975,7 +975,7 @@ classdef GUI < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case GUI.DRAW % __GUI.DRAW__
+				case 10 % GUI.DRAW
 					if check_graphics(gui.memorize('H'), 'figure')
 					
 					    if gui.get('MENUBAR')
@@ -1000,16 +1000,16 @@ classdef GUI < ConcreteElement
 					    value = false;
 					end
 					
-				case GUI.DRAWN % __GUI.DRAWN__
+				case 11 % GUI.DRAWN
 					value = check_graphics(gui.getr('H'), 'figure');
 					
-				case GUI.H_MENUBAR % __GUI.H_MENUBAR__
+				case 15 % GUI.H_MENUBAR
 					value = {};
 					if gui.get('MENU_ABOUT')
 					    value = [value, gui.memorize('H_MENU_ABOUT')];
 					end
 					
-				case GUI.H_MENU_ABOUT % __GUI.H_MENU_ABOUT__
+				case 17 % GUI.H_MENU_ABOUT
 					menu_about = uimenu(gui.get('H'), ... % f for figure
 					    'Tag', 'MENU.About', ...
 					    'Label', 'About' ...
@@ -1038,10 +1038,10 @@ classdef GUI < ConcreteElement
 					
 					value = menu_about;
 					
-				case GUI.H_TOOLBAR % __GUI.H_TOOLBAR__
+				case 19 % GUI.H_TOOLBAR
 					value = uitoolbar(gui.memorize('H'), 'Tag', 'TOOLBAR');
 					
-				case GUI.H_TOOLS % __GUI.H_TOOLS__
+				case 20 % GUI.H_TOOLS
 					toolbar = gui.memorize('H_TOOLBAR');
 					
 					value = {};
@@ -1094,7 +1094,7 @@ classdef GUI < ConcreteElement
 					    value = {value{:}, tool_spacer_1, tool_about_web, tool_about_forum, tool_about_bluesky, tool_spacer_2, tool_about_license, tool_about_credits};
 					end
 					
-				case GUI.H % __GUI.H__
+				case 24 % GUI.H
 					f = uifigure( ...
 					    'Visible', 'off', ...
 					    'Tag', 'H', ...
@@ -1111,7 +1111,7 @@ classdef GUI < ConcreteElement
 					    );
 					value = f;
 					
-				case GUI.RESIZE % __GUI.RESIZE__
+				case 25 % GUI.RESIZE
 					if gui.get('DRAWN')
 					    gui.set('POSITION', gui.get('H').get('Position'))
 					    
@@ -1127,7 +1127,7 @@ classdef GUI < ConcreteElement
 					    value = false;
 					end
 					
-				case GUI.SHOW % __GUI.SHOW__
+				case 26 % GUI.SHOW
 					if gui.get('DRAWN')
 					    figure(gui.get('H')) 
 					    set(gui.get('H'), ...
@@ -1147,7 +1147,7 @@ classdef GUI < ConcreteElement
 					    value = false;
 					end
 					
-				case GUI.HIDE % __GUI.HIDE__
+				case 27 % GUI.HIDE
 					if gui.get('DRAWN')
 					    set(gui.get('H'), 'Visible', 'off')
 					
@@ -1163,7 +1163,7 @@ classdef GUI < ConcreteElement
 					    value = false;
 					end
 					
-				case GUI.DELETE % __GUI.DELETE__
+				case 28 % GUI.DELETE
 					if gui.get('DRAWN')
 					    gui.set('POSITION', gui.get('H').get('Position'))
 					
@@ -1187,7 +1187,7 @@ classdef GUI < ConcreteElement
 					    value = false;
 					end
 					
-				case GUI.CLOSE % __GUI.CLOSE__
+				case 29 % GUI.CLOSE
 					if gui.get('DRAWN')
 					
 					    title = gui.get('TITLE');
@@ -1221,7 +1221,7 @@ classdef GUI < ConcreteElement
 					end
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(gui, prop, varargin{:});
 					else
 						value = calculateValue@Element(gui, prop, varargin{:});

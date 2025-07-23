@@ -572,11 +572,11 @@ classdef PanelPropString < PanelProp
 			prop = PanelPropString.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropString.ENABLE % __PanelPropString.ENABLE__
+				case 36 % PanelPropString.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropString.EDITFIELD % __PanelPropString.EDITFIELD__
+				case 37 % PanelPropString.EDITFIELD
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropString.TEMPLATE % __PanelPropString.TEMPLATE__
+				case 4 % PanelPropString.TEMPLATE
 					prop_settings = 'PanelPropString';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -605,29 +605,29 @@ classdef PanelPropString < PanelProp
 			prop = PanelPropString.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropString.ENABLE % __PanelPropString.ENABLE__
+				case 36 % PanelPropString.ENABLE
 					prop_default = true;
-				case PanelPropString.EDITFIELD % __PanelPropString.EDITFIELD__
+				case 37 % PanelPropString.EDITFIELD
 					prop_default = Format.getFormatDefault(18, PanelPropString.getPropSettings(prop));
-				case PanelPropString.ELCLASS % __PanelPropString.ELCLASS__
+				case 1 % PanelPropString.ELCLASS
 					prop_default = 'PanelPropString';
-				case PanelPropString.NAME % __PanelPropString.NAME__
+				case 2 % PanelPropString.NAME
 					prop_default = 'String Prop Panel';
-				case PanelPropString.DESCRIPTION % __PanelPropString.DESCRIPTION__
+				case 3 % PanelPropString.DESCRIPTION
 					prop_default = 'A String Prop Panel (PanelPropString) plots the panel for a STRING property with an edit field. It works for all categories.';
-				case PanelPropString.TEMPLATE % __PanelPropString.TEMPLATE__
+				case 4 % PanelPropString.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropString.getPropSettings(prop));
-				case PanelPropString.ID % __PanelPropString.ID__
+				case 5 % PanelPropString.ID
 					prop_default = 'PanelPropString ID';
-				case PanelPropString.LABEL % __PanelPropString.LABEL__
+				case 6 % PanelPropString.LABEL
 					prop_default = 'PanelPropString label';
-				case PanelPropString.NOTES % __PanelPropString.NOTES__
+				case 7 % PanelPropString.NOTES
 					prop_default = 'PanelPropString notes';
-				case PanelPropString.EL % __PanelPropString.EL__
+				case 23 % PanelPropString.EL
 					prop_default = ConcreteElement();
-				case PanelPropString.PROP % __PanelPropString.PROP__
-					prop_default = ConcreteElement.ID;
-				case PanelPropString.HEIGHT % __PanelPropString.HEIGHT__
+				case 24 % PanelPropString.PROP
+					prop_default = 5;
+				case 25 % PanelPropString.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -693,14 +693,14 @@ classdef PanelPropString < PanelProp
 			prop = PanelPropString.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropString.ENABLE % __PanelPropString.ENABLE__
+				case 36 % PanelPropString.ENABLE
 					check = Format.checkFormat(4, value, PanelPropString.getPropSettings(prop));
-				case PanelPropString.EDITFIELD % __PanelPropString.EDITFIELD__
+				case 37 % PanelPropString.EDITFIELD
 					check = Format.checkFormat(18, value, PanelPropString.getPropSettings(prop));
-				case PanelPropString.TEMPLATE % __PanelPropString.TEMPLATE__
+				case 4 % PanelPropString.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropString.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -733,7 +733,7 @@ classdef PanelPropString < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropString.EDITFIELD % __PanelPropString.EDITFIELD__
+				case 37 % PanelPropString.EDITFIELD
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -747,14 +747,14 @@ classdef PanelPropString < PanelProp
 					
 					value = editfield;
 					
-				case PanelPropString.X_DRAW % __PanelPropString.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropString.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('EDITFIELD')
 					end
 					
-				case PanelPropString.UPDATE % __PanelPropString.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropString.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -804,22 +804,22 @@ classdef PanelPropString < PanelProp
 					    end
 					end
 					
-				case PanelPropString.REDRAW % __PanelPropString.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropString.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('EDITFIELD'), 'Position', [4 4 w_p-8 21])
 					end
 					
-				case PanelPropString.DELETE % __PanelPropString.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropString.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('EDITFIELD', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

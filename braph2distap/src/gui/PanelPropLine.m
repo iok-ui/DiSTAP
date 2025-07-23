@@ -579,13 +579,13 @@ classdef PanelPropLine < PanelProp
 			prop = PanelPropLine.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropLine.DROPDOWN % __PanelPropLine.DROPDOWN__
+				case 36 % PanelPropLine.DROPDOWN
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropLine.AXES % __PanelPropLine.AXES__
+				case 37 % PanelPropLine.AXES
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropLine.LN % __PanelPropLine.LN__
+				case 38 % PanelPropLine.LN
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropLine.TEMPLATE % __PanelPropLine.TEMPLATE__
+				case 4 % PanelPropLine.TEMPLATE
 					prop_settings = 'PanelPropLine';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -614,31 +614,31 @@ classdef PanelPropLine < PanelProp
 			prop = PanelPropLine.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropLine.DROPDOWN % __PanelPropLine.DROPDOWN__
+				case 36 % PanelPropLine.DROPDOWN
 					prop_default = Format.getFormatDefault(18, PanelPropLine.getPropSettings(prop));
-				case PanelPropLine.AXES % __PanelPropLine.AXES__
+				case 37 % PanelPropLine.AXES
 					prop_default = Format.getFormatDefault(18, PanelPropLine.getPropSettings(prop));
-				case PanelPropLine.LN % __PanelPropLine.LN__
+				case 38 % PanelPropLine.LN
 					prop_default = Format.getFormatDefault(18, PanelPropLine.getPropSettings(prop));
-				case PanelPropLine.ELCLASS % __PanelPropLine.ELCLASS__
+				case 1 % PanelPropLine.ELCLASS
 					prop_default = 'PanelPropLine';
-				case PanelPropLine.NAME % __PanelPropLine.NAME__
+				case 2 % PanelPropLine.NAME
 					prop_default = 'Line Prop Panel';
-				case PanelPropLine.DESCRIPTION % __PanelPropLine.DESCRIPTION__
+				case 3 % PanelPropLine.DESCRIPTION
 					prop_default = 'A Line Prop Panel (PanelPropLine) plots the panel for an LINE property with a drop-down list. It works for all categories.';
-				case PanelPropLine.TEMPLATE % __PanelPropLine.TEMPLATE__
+				case 4 % PanelPropLine.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropLine.getPropSettings(prop));
-				case PanelPropLine.ID % __PanelPropLine.ID__
+				case 5 % PanelPropLine.ID
 					prop_default = 'PanelPropLine ID';
-				case PanelPropLine.LABEL % __PanelPropLine.LABEL__
+				case 6 % PanelPropLine.LABEL
 					prop_default = 'PanelPropLine label';
-				case PanelPropLine.NOTES % __PanelPropLine.NOTES__
+				case 7 % PanelPropLine.NOTES
 					prop_default = 'PanelPropLine notes';
-				case PanelPropLine.EL % __PanelPropLine.EL__
+				case 23 % PanelPropLine.EL
 					prop_default = SettingsLine();
-				case PanelPropLine.PROP % __PanelPropLine.PROP__
-					prop_default = SettingsLine.LINESTYLE;
-				case PanelPropLine.HEIGHT % __PanelPropLine.HEIGHT__
+				case 24 % PanelPropLine.PROP
+					prop_default = 19;
+				case 25 % PanelPropLine.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -704,16 +704,16 @@ classdef PanelPropLine < PanelProp
 			prop = PanelPropLine.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropLine.DROPDOWN % __PanelPropLine.DROPDOWN__
+				case 36 % PanelPropLine.DROPDOWN
 					check = Format.checkFormat(18, value, PanelPropLine.getPropSettings(prop));
-				case PanelPropLine.AXES % __PanelPropLine.AXES__
+				case 37 % PanelPropLine.AXES
 					check = Format.checkFormat(18, value, PanelPropLine.getPropSettings(prop));
-				case PanelPropLine.LN % __PanelPropLine.LN__
+				case 38 % PanelPropLine.LN
 					check = Format.checkFormat(18, value, PanelPropLine.getPropSettings(prop));
-				case PanelPropLine.TEMPLATE % __PanelPropLine.TEMPLATE__
+				case 4 % PanelPropLine.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropLine.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -746,7 +746,7 @@ classdef PanelPropLine < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropLine.DROPDOWN % __PanelPropLine.DROPDOWN__
+				case 36 % PanelPropLine.DROPDOWN
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -761,7 +761,7 @@ classdef PanelPropLine < PanelProp
 					
 					value = dropdown;
 					
-				case PanelPropLine.AXES % __PanelPropLine.AXES__
+				case 37 % PanelPropLine.AXES
 					axes = uiaxes( ...
 					    'Parent', pr.memorize('H'), ... % H = p for Panel
 					    'Tag', 'AXES' ...
@@ -772,7 +772,7 @@ classdef PanelPropLine < PanelProp
 					
 					value = axes;
 					
-				case PanelPropLine.LN % __PanelPropLine.LN__
+				case 38 % PanelPropLine.LN
 					axes = pr.memorize('AXES');
 					
 					ln = plot(axes, ...
@@ -786,16 +786,16 @@ classdef PanelPropLine < PanelProp
 					
 					value = ln;
 					
-				case PanelPropLine.X_DRAW % __PanelPropLine.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropLine.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('DROPDOWN')
 					    pr.memorize('AXES')
 					    pr.memorize('LN')
 					end
 					
-				case PanelPropLine.UPDATE % __PanelPropLine.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropLine.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -840,8 +840,8 @@ classdef PanelPropLine < PanelProp
 					    end
 					end
 					
-				case PanelPropLine.REDRAW % __PanelPropLine.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropLine.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value 
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -849,8 +849,8 @@ classdef PanelPropLine < PanelProp
 					    set(pr.get('AXES'), 'InnerPosition', [4+.15*w_p+21 4 .70*w_p 21])
 					end
 					
-				case PanelPropLine.DELETE % __PanelPropLine.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropLine.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('DROPDOWN', Element.getNoValue())
 					    pr.set('AXES', Element.getNoValue())
@@ -858,7 +858,7 @@ classdef PanelPropLine < PanelProp
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

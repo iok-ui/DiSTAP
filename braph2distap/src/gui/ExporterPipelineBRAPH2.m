@@ -529,15 +529,15 @@ classdef ExporterPipelineBRAPH2 < Exporter
 			prop = ExporterPipelineBRAPH2.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case ExporterPipelineBRAPH2.PIP % __ExporterPipelineBRAPH2.PIP__
+				case 10 % ExporterPipelineBRAPH2.PIP
 					prop_settings = 'Pipeline';
-				case ExporterPipelineBRAPH2.FILE % __ExporterPipelineBRAPH2.FILE__
+				case 11 % ExporterPipelineBRAPH2.FILE
 					prop_settings = Format.getFormatSettings(2);
-				case ExporterPipelineBRAPH2.PUT_FILE % __ExporterPipelineBRAPH2.PUT_FILE__
+				case 12 % ExporterPipelineBRAPH2.PUT_FILE
 					prop_settings = 'ExporterPipelineBRAPH2';
-				case ExporterPipelineBRAPH2.SAVE % __ExporterPipelineBRAPH2.SAVE__
+				case 13 % ExporterPipelineBRAPH2.SAVE
 					prop_settings = Format.getFormatSettings(1);
-				case ExporterPipelineBRAPH2.TEMPLATE % __ExporterPipelineBRAPH2.TEMPLATE__
+				case 4 % ExporterPipelineBRAPH2.TEMPLATE
 					prop_settings = 'ExporterPipelineBRAPH2';
 				otherwise
 					prop_settings = getPropSettings@Exporter(prop);
@@ -566,27 +566,27 @@ classdef ExporterPipelineBRAPH2 < Exporter
 			prop = ExporterPipelineBRAPH2.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case ExporterPipelineBRAPH2.PIP % __ExporterPipelineBRAPH2.PIP__
+				case 10 % ExporterPipelineBRAPH2.PIP
 					prop_default = Format.getFormatDefault(8, ExporterPipelineBRAPH2.getPropSettings(prop));
-				case ExporterPipelineBRAPH2.FILE % __ExporterPipelineBRAPH2.FILE__
+				case 11 % ExporterPipelineBRAPH2.FILE
 					prop_default = [fileparts(which('test_braph2')) filesep 'default_braph2_file_to_save_pipeline_most_likely_to_be_erased.braph2'];
-				case ExporterPipelineBRAPH2.PUT_FILE % __ExporterPipelineBRAPH2.PUT_FILE__
+				case 12 % ExporterPipelineBRAPH2.PUT_FILE
 					prop_default = Format.getFormatDefault(1, ExporterPipelineBRAPH2.getPropSettings(prop));
-				case ExporterPipelineBRAPH2.SAVE % __ExporterPipelineBRAPH2.SAVE__
+				case 13 % ExporterPipelineBRAPH2.SAVE
 					prop_default = Format.getFormatDefault(1, ExporterPipelineBRAPH2.getPropSettings(prop));
-				case ExporterPipelineBRAPH2.ELCLASS % __ExporterPipelineBRAPH2.ELCLASS__
+				case 1 % ExporterPipelineBRAPH2.ELCLASS
 					prop_default = 'ExporterPipelineBRAPH2';
-				case ExporterPipelineBRAPH2.NAME % __ExporterPipelineBRAPH2.NAME__
+				case 2 % ExporterPipelineBRAPH2.NAME
 					prop_default = 'Pipeline Exporter in BRAPH2 File';
-				case ExporterPipelineBRAPH2.DESCRIPTION % __ExporterPipelineBRAPH2.DESCRIPTION__
+				case 3 % ExporterPipelineBRAPH2.DESCRIPTION
 					prop_default = 'A Pipeline Exporter in BRAPH2 File (ExporterPipelineBRAPH2) exports a pipeline to a BRAPH2 file.';
-				case ExporterPipelineBRAPH2.TEMPLATE % __ExporterPipelineBRAPH2.TEMPLATE__
+				case 4 % ExporterPipelineBRAPH2.TEMPLATE
 					prop_default = Format.getFormatDefault(8, ExporterPipelineBRAPH2.getPropSettings(prop));
-				case ExporterPipelineBRAPH2.ID % __ExporterPipelineBRAPH2.ID__
+				case 5 % ExporterPipelineBRAPH2.ID
 					prop_default = 'ExporterPipelineBRAPH2 ID';
-				case ExporterPipelineBRAPH2.LABEL % __ExporterPipelineBRAPH2.LABEL__
+				case 6 % ExporterPipelineBRAPH2.LABEL
 					prop_default = 'ExporterPipelineBRAPH2 label';
-				case ExporterPipelineBRAPH2.NOTES % __ExporterPipelineBRAPH2.NOTES__
+				case 7 % ExporterPipelineBRAPH2.NOTES
 					prop_default = 'ExporterPipelineBRAPH2 notes';
 				otherwise
 					prop_default = getPropDefault@Exporter(prop);
@@ -652,18 +652,18 @@ classdef ExporterPipelineBRAPH2 < Exporter
 			prop = ExporterPipelineBRAPH2.getPropProp(pointer);
 			
 			switch prop
-				case ExporterPipelineBRAPH2.PIP % __ExporterPipelineBRAPH2.PIP__
+				case 10 % ExporterPipelineBRAPH2.PIP
 					check = Format.checkFormat(8, value, ExporterPipelineBRAPH2.getPropSettings(prop));
-				case ExporterPipelineBRAPH2.FILE % __ExporterPipelineBRAPH2.FILE__
+				case 11 % ExporterPipelineBRAPH2.FILE
 					check = Format.checkFormat(2, value, ExporterPipelineBRAPH2.getPropSettings(prop));
-				case ExporterPipelineBRAPH2.PUT_FILE % __ExporterPipelineBRAPH2.PUT_FILE__
+				case 12 % ExporterPipelineBRAPH2.PUT_FILE
 					check = Format.checkFormat(1, value, ExporterPipelineBRAPH2.getPropSettings(prop));
-				case ExporterPipelineBRAPH2.SAVE % __ExporterPipelineBRAPH2.SAVE__
+				case 13 % ExporterPipelineBRAPH2.SAVE
 					check = Format.checkFormat(1, value, ExporterPipelineBRAPH2.getPropSettings(prop));
-				case ExporterPipelineBRAPH2.TEMPLATE % __ExporterPipelineBRAPH2.TEMPLATE__
+				case 4 % ExporterPipelineBRAPH2.TEMPLATE
 					check = Format.checkFormat(8, value, ExporterPipelineBRAPH2.getPropSettings(prop));
 				otherwise
-					if prop <= Exporter.getPropNumber()
+					if prop <= 9
 						check = checkProp@Exporter(prop, value);
 					end
 			end
@@ -696,7 +696,7 @@ classdef ExporterPipelineBRAPH2 < Exporter
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case ExporterPipelineBRAPH2.PUT_FILE % __ExporterPipelineBRAPH2.PUT_FILE__
+				case 12 % ExporterPipelineBRAPH2.PUT_FILE
 					[filename, filepath, filterindex] = uiputfile(BRAPH2.EXT_PIPELINE, 'Select BRAPH2 Pipeline file');
 					if filterindex
 					    file = [filepath filename];
@@ -704,8 +704,8 @@ classdef ExporterPipelineBRAPH2 < Exporter
 					end
 					value = ex;
 					
-				case ExporterPipelineBRAPH2.SAVE % __ExporterPipelineBRAPH2.SAVE__
-					rng_settings_ = rng(); rng(ex.getPropSeed(ExporterPipelineBRAPH2.SAVE), 'twister')
+				case 13 % ExporterPipelineBRAPH2.SAVE
+					rng_settings_ = rng(); rng(ex.getPropSeed(13), 'twister')
 					
 					file = ex.get('FILE');
 					
@@ -768,7 +768,7 @@ classdef ExporterPipelineBRAPH2 < Exporter
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= Exporter.getPropNumber()
+					if prop <= 9
 						value = calculateValue@Exporter(ex, prop, varargin{:});
 					else
 						value = calculateValue@Element(ex, prop, varargin{:});

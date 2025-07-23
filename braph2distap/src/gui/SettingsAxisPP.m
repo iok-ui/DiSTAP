@@ -609,21 +609,21 @@ classdef SettingsAxisPP < SettingsPP
 			prop = SettingsAxisPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsAxisPP.ENABLE % __SettingsAxisPP.ENABLE__
+				case 36 % SettingsAxisPP.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsAxisPP.BUTTON_AXISCOLOR % __SettingsAxisPP.BUTTON_AXISCOLOR__
+				case 37 % SettingsAxisPP.BUTTON_AXISCOLOR
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAxisPP.CHECKBOX_AXIS % __SettingsAxisPP.CHECKBOX_AXIS__
+				case 38 % SettingsAxisPP.CHECKBOX_AXIS
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAxisPP.CHECKBOX_GRID % __SettingsAxisPP.CHECKBOX_GRID__
+				case 39 % SettingsAxisPP.CHECKBOX_GRID
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAxisPP.CHECKBOX_EQUAL % __SettingsAxisPP.CHECKBOX_EQUAL__
+				case 40 % SettingsAxisPP.CHECKBOX_EQUAL
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAxisPP.CHECKBOX_TIGHT % __SettingsAxisPP.CHECKBOX_TIGHT__
+				case 41 % SettingsAxisPP.CHECKBOX_TIGHT
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAxisPP.CHECKBOX_BOX % __SettingsAxisPP.CHECKBOX_BOX__
+				case 42 % SettingsAxisPP.CHECKBOX_BOX
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAxisPP.TEMPLATE % __SettingsAxisPP.TEMPLATE__
+				case 4 % SettingsAxisPP.TEMPLATE
 					prop_settings = 'SettingsAxisPP';
 				otherwise
 					prop_settings = getPropSettings@SettingsPP(prop);
@@ -652,39 +652,39 @@ classdef SettingsAxisPP < SettingsPP
 			prop = SettingsAxisPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsAxisPP.ENABLE % __SettingsAxisPP.ENABLE__
+				case 36 % SettingsAxisPP.ENABLE
 					prop_default = true;
-				case SettingsAxisPP.BUTTON_AXISCOLOR % __SettingsAxisPP.BUTTON_AXISCOLOR__
+				case 37 % SettingsAxisPP.BUTTON_AXISCOLOR
 					prop_default = Format.getFormatDefault(18, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.CHECKBOX_AXIS % __SettingsAxisPP.CHECKBOX_AXIS__
+				case 38 % SettingsAxisPP.CHECKBOX_AXIS
 					prop_default = Format.getFormatDefault(18, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.CHECKBOX_GRID % __SettingsAxisPP.CHECKBOX_GRID__
+				case 39 % SettingsAxisPP.CHECKBOX_GRID
 					prop_default = Format.getFormatDefault(18, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.CHECKBOX_EQUAL % __SettingsAxisPP.CHECKBOX_EQUAL__
+				case 40 % SettingsAxisPP.CHECKBOX_EQUAL
 					prop_default = Format.getFormatDefault(18, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.CHECKBOX_TIGHT % __SettingsAxisPP.CHECKBOX_TIGHT__
+				case 41 % SettingsAxisPP.CHECKBOX_TIGHT
 					prop_default = Format.getFormatDefault(18, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.CHECKBOX_BOX % __SettingsAxisPP.CHECKBOX_BOX__
+				case 42 % SettingsAxisPP.CHECKBOX_BOX
 					prop_default = Format.getFormatDefault(18, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.ELCLASS % __SettingsAxisPP.ELCLASS__
+				case 1 % SettingsAxisPP.ELCLASS
 					prop_default = 'SettingsAxisPP';
-				case SettingsAxisPP.NAME % __SettingsAxisPP.NAME__
+				case 2 % SettingsAxisPP.NAME
 					prop_default = 'Prop Panel for Axis Settings';
-				case SettingsAxisPP.DESCRIPTION % __SettingsAxisPP.DESCRIPTION__
+				case 3 % SettingsAxisPP.DESCRIPTION
 					prop_default = 'A Prop Panel for Axis Settings (SettingsAxisPP) plots the panel for axis settings, including a button for the axis color and checkboxes for axis on/off, grid on/off, equal on/off, and tight on/off. It works for all categories.';
-				case SettingsAxisPP.TEMPLATE % __SettingsAxisPP.TEMPLATE__
+				case 4 % SettingsAxisPP.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.ID % __SettingsAxisPP.ID__
+				case 5 % SettingsAxisPP.ID
 					prop_default = 'SettingsAxisPP ID';
-				case SettingsAxisPP.LABEL % __SettingsAxisPP.LABEL__
+				case 6 % SettingsAxisPP.LABEL
 					prop_default = 'SettingsAxisPP label';
-				case SettingsAxisPP.NOTES % __SettingsAxisPP.NOTES__
+				case 7 % SettingsAxisPP.NOTES
 					prop_default = 'SettingsAxisPP notes';
-				case SettingsAxisPP.EL % __SettingsAxisPP.EL__
+				case 23 % SettingsAxisPP.EL
 					prop_default = BrainSurfacePF();
-				case SettingsAxisPP.PROP % __SettingsAxisPP.PROP__
+				case 24 % SettingsAxisPP.PROP
 					prop_default = BrainSurfacePF.ST_AXIS;
-				case SettingsAxisPP.HEIGHT % __SettingsAxisPP.HEIGHT__
+				case 25 % SettingsAxisPP.HEIGHT
 					prop_default = 66;
 				otherwise
 					prop_default = getPropDefault@SettingsPP(prop);
@@ -750,24 +750,24 @@ classdef SettingsAxisPP < SettingsPP
 			prop = SettingsAxisPP.getPropProp(pointer);
 			
 			switch prop
-				case SettingsAxisPP.ENABLE % __SettingsAxisPP.ENABLE__
+				case 36 % SettingsAxisPP.ENABLE
 					check = Format.checkFormat(4, value, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.BUTTON_AXISCOLOR % __SettingsAxisPP.BUTTON_AXISCOLOR__
+				case 37 % SettingsAxisPP.BUTTON_AXISCOLOR
 					check = Format.checkFormat(18, value, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.CHECKBOX_AXIS % __SettingsAxisPP.CHECKBOX_AXIS__
+				case 38 % SettingsAxisPP.CHECKBOX_AXIS
 					check = Format.checkFormat(18, value, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.CHECKBOX_GRID % __SettingsAxisPP.CHECKBOX_GRID__
+				case 39 % SettingsAxisPP.CHECKBOX_GRID
 					check = Format.checkFormat(18, value, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.CHECKBOX_EQUAL % __SettingsAxisPP.CHECKBOX_EQUAL__
+				case 40 % SettingsAxisPP.CHECKBOX_EQUAL
 					check = Format.checkFormat(18, value, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.CHECKBOX_TIGHT % __SettingsAxisPP.CHECKBOX_TIGHT__
+				case 41 % SettingsAxisPP.CHECKBOX_TIGHT
 					check = Format.checkFormat(18, value, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.CHECKBOX_BOX % __SettingsAxisPP.CHECKBOX_BOX__
+				case 42 % SettingsAxisPP.CHECKBOX_BOX
 					check = Format.checkFormat(18, value, SettingsAxisPP.getPropSettings(prop));
-				case SettingsAxisPP.TEMPLATE % __SettingsAxisPP.TEMPLATE__
+				case 4 % SettingsAxisPP.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsAxisPP.getPropSettings(prop));
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						check = checkProp@SettingsPP(prop, value);
 					end
 			end
@@ -800,7 +800,7 @@ classdef SettingsAxisPP < SettingsPP
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case SettingsAxisPP.BUTTON_AXISCOLOR % __SettingsAxisPP.BUTTON_AXISCOLOR__
+				case 37 % SettingsAxisPP.BUTTON_AXISCOLOR
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					button_axiscolor = uibutton( ...
@@ -814,7 +814,7 @@ classdef SettingsAxisPP < SettingsPP
 						);
 					value = button_axiscolor;
 					
-				case SettingsAxisPP.CHECKBOX_AXIS % __SettingsAxisPP.CHECKBOX_AXIS__
+				case 38 % SettingsAxisPP.CHECKBOX_AXIS
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					checkbox_axis = uicheckbox( ...
@@ -827,7 +827,7 @@ classdef SettingsAxisPP < SettingsPP
 					    );
 					value = checkbox_axis;
 					
-				case SettingsAxisPP.CHECKBOX_GRID % __SettingsAxisPP.CHECKBOX_GRID__
+				case 39 % SettingsAxisPP.CHECKBOX_GRID
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					checkbox_grid = uicheckbox( ...
@@ -840,7 +840,7 @@ classdef SettingsAxisPP < SettingsPP
 					    );
 					value = checkbox_grid;
 					
-				case SettingsAxisPP.CHECKBOX_EQUAL % __SettingsAxisPP.CHECKBOX_EQUAL__
+				case 40 % SettingsAxisPP.CHECKBOX_EQUAL
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					checkbox_equal = uicheckbox( ...
@@ -853,7 +853,7 @@ classdef SettingsAxisPP < SettingsPP
 					    );
 					value = checkbox_equal;
 					
-				case SettingsAxisPP.CHECKBOX_TIGHT % __SettingsAxisPP.CHECKBOX_TIGHT__
+				case 41 % SettingsAxisPP.CHECKBOX_TIGHT
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					checkbox_tight = uicheckbox( ...
@@ -866,7 +866,7 @@ classdef SettingsAxisPP < SettingsPP
 					    );
 					value = checkbox_tight;
 					
-				case SettingsAxisPP.CHECKBOX_BOX % __SettingsAxisPP.CHECKBOX_BOX__
+				case 42 % SettingsAxisPP.CHECKBOX_BOX
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					checkbox_box = uicheckbox( ...
@@ -879,8 +879,8 @@ classdef SettingsAxisPP < SettingsPP
 					    );
 					value = checkbox_box;
 					
-				case SettingsAxisPP.X_DRAW % __SettingsAxisPP.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % SettingsAxisPP.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('BUTTON_AXISCOLOR')
 					    pr.memorize('CHECKBOX_AXIS')
@@ -890,8 +890,8 @@ classdef SettingsAxisPP < SettingsPP
 					    pr.memorize('CHECKBOX_BOX')
 					end
 					
-				case SettingsAxisPP.UPDATE % __SettingsAxisPP.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % SettingsAxisPP.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					
 					    el = pr.get('EL');
@@ -999,8 +999,8 @@ classdef SettingsAxisPP < SettingsPP
 					    end
 					end
 					
-				case SettingsAxisPP.REDRAW % __SettingsAxisPP.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % SettingsAxisPP.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -1012,8 +1012,8 @@ classdef SettingsAxisPP < SettingsPP
 					    set(pr.get('CHECKBOX_BOX'), 'Position', [8+.60*w_p 4 .30*w_p 21])
 					end
 					
-				case SettingsAxisPP.DELETE % __SettingsAxisPP.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % SettingsAxisPP.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('BUTTON_AXISCOLOR', Element.getNoValue())
 					    pr.set('CHECKBOX_AXIS', Element.getNoValue())
@@ -1024,7 +1024,7 @@ classdef SettingsAxisPP < SettingsPP
 					end
 					
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						value = calculateValue@SettingsPP(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

@@ -582,13 +582,13 @@ classdef PanelPropStringList < PanelProp
 			prop = PanelPropStringList.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropStringList.ENABLE % __PanelPropStringList.ENABLE__
+				case 36 % PanelPropStringList.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropStringList.TA_HEIGHT % __PanelPropStringList.TA_HEIGHT__
+				case 37 % PanelPropStringList.TA_HEIGHT
 					prop_settings = Format.getFormatSettings(22);
-				case PanelPropStringList.TEXTAREA % __PanelPropStringList.TEXTAREA__
+				case 38 % PanelPropStringList.TEXTAREA
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropStringList.TEMPLATE % __PanelPropStringList.TEMPLATE__
+				case 4 % PanelPropStringList.TEMPLATE
 					prop_settings = 'PanelPropStringList';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -617,29 +617,29 @@ classdef PanelPropStringList < PanelProp
 			prop = PanelPropStringList.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropStringList.ENABLE % __PanelPropStringList.ENABLE__
+				case 36 % PanelPropStringList.ENABLE
 					prop_default = true;
-				case PanelPropStringList.TA_HEIGHT % __PanelPropStringList.TA_HEIGHT__
+				case 37 % PanelPropStringList.TA_HEIGHT
 					prop_default = 240;
-				case PanelPropStringList.TEXTAREA % __PanelPropStringList.TEXTAREA__
+				case 38 % PanelPropStringList.TEXTAREA
 					prop_default = Format.getFormatDefault(18, PanelPropStringList.getPropSettings(prop));
-				case PanelPropStringList.ELCLASS % __PanelPropStringList.ELCLASS__
+				case 1 % PanelPropStringList.ELCLASS
 					prop_default = 'PanelPropStringList';
-				case PanelPropStringList.NAME % __PanelPropStringList.NAME__
+				case 2 % PanelPropStringList.NAME
 					prop_default = 'String-List Prop Panel';
-				case PanelPropStringList.DESCRIPTION % __PanelPropStringList.DESCRIPTION__
+				case 3 % PanelPropStringList.DESCRIPTION
 					prop_default = 'PanelPropStringList plots the panel for a STRINGLIST property with a text area. It works for all categories. It can be personalized with the following props: TA_HEIGHT.';
-				case PanelPropStringList.TEMPLATE % __PanelPropStringList.TEMPLATE__
+				case 4 % PanelPropStringList.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropStringList.getPropSettings(prop));
-				case PanelPropStringList.ID % __PanelPropStringList.ID__
+				case 5 % PanelPropStringList.ID
 					prop_default = 'PanelPropStringList ID';
-				case PanelPropStringList.LABEL % __PanelPropStringList.LABEL__
+				case 6 % PanelPropStringList.LABEL
 					prop_default = 'PanelPropStringList label';
-				case PanelPropStringList.NOTES % __PanelPropStringList.NOTES__
+				case 7 % PanelPropStringList.NOTES
 					prop_default = 'PanelPropStringList notes';
-				case PanelPropStringList.EL % __PanelPropStringList.EL__
+				case 23 % PanelPropStringList.EL
 					prop_default = Graph();
-				case PanelPropStringList.PROP % __PanelPropStringList.PROP__
+				case 24 % PanelPropStringList.PROP
 					prop_default = Graph.LAYERLABELS;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -705,16 +705,16 @@ classdef PanelPropStringList < PanelProp
 			prop = PanelPropStringList.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropStringList.ENABLE % __PanelPropStringList.ENABLE__
+				case 36 % PanelPropStringList.ENABLE
 					check = Format.checkFormat(4, value, PanelPropStringList.getPropSettings(prop));
-				case PanelPropStringList.TA_HEIGHT % __PanelPropStringList.TA_HEIGHT__
+				case 37 % PanelPropStringList.TA_HEIGHT
 					check = Format.checkFormat(22, value, PanelPropStringList.getPropSettings(prop));
-				case PanelPropStringList.TEXTAREA % __PanelPropStringList.TEXTAREA__
+				case 38 % PanelPropStringList.TEXTAREA
 					check = Format.checkFormat(18, value, PanelPropStringList.getPropSettings(prop));
-				case PanelPropStringList.TEMPLATE % __PanelPropStringList.TEMPLATE__
+				case 4 % PanelPropStringList.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropStringList.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -747,7 +747,7 @@ classdef PanelPropStringList < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropStringList.TEXTAREA % __PanelPropStringList.TEXTAREA__
+				case 38 % PanelPropStringList.TEXTAREA
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -761,14 +761,14 @@ classdef PanelPropStringList < PanelProp
 					
 					value = textarea;
 					
-				case PanelPropStringList.X_DRAW % __PanelPropStringList.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropStringList.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('TEXTAREA')
 					end
 					
-				case PanelPropStringList.UPDATE % __PanelPropStringList.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropStringList.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					
 					    el = pr.get('EL');
@@ -835,22 +835,22 @@ classdef PanelPropStringList < PanelProp
 					    end
 					end
 					
-				case PanelPropStringList.REDRAW % __PanelPropStringList.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropStringList.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('TEXTAREA'), 'Position', [4 4 w_p-8 max(1, pr.get('HEIGHT')-27)])
 					end
 					
-				case PanelPropStringList.DELETE % __PanelPropStringList.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropStringList.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('TEXTAREA', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

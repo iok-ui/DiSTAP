@@ -570,13 +570,13 @@ classdef PanelFig < Panel
 			prop = PanelFig.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelFig.ST_POSITION % __PanelFig.ST_POSITION__
+				case 20 % PanelFig.ST_POSITION
 					prop_settings = 'SettingsPosition';
-				case PanelFig.H_TOOLBAR % __PanelFig.H_TOOLBAR__
+				case 21 % PanelFig.H_TOOLBAR
 					prop_settings = Format.getFormatSettings(18);
-				case PanelFig.H_TOOLS % __PanelFig.H_TOOLS__
+				case 22 % PanelFig.H_TOOLS
 					prop_settings = Format.getFormatSettings(19);
-				case PanelFig.TEMPLATE % __PanelFig.TEMPLATE__
+				case 4 % PanelFig.TEMPLATE
 					prop_settings = 'PanelFig';
 				otherwise
 					prop_settings = getPropSettings@Panel(prop);
@@ -605,27 +605,27 @@ classdef PanelFig < Panel
 			prop = PanelFig.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelFig.ST_POSITION % __PanelFig.ST_POSITION__
+				case 20 % PanelFig.ST_POSITION
 					prop_default = Format.getFormatDefault(8, PanelFig.getPropSettings(prop));
-				case PanelFig.H_TOOLBAR % __PanelFig.H_TOOLBAR__
+				case 21 % PanelFig.H_TOOLBAR
 					prop_default = Format.getFormatDefault(18, PanelFig.getPropSettings(prop));
-				case PanelFig.H_TOOLS % __PanelFig.H_TOOLS__
+				case 22 % PanelFig.H_TOOLS
 					prop_default = Format.getFormatDefault(19, PanelFig.getPropSettings(prop));
-				case PanelFig.ELCLASS % __PanelFig.ELCLASS__
+				case 1 % PanelFig.ELCLASS
 					prop_default = 'PanelFig';
-				case PanelFig.NAME % __PanelFig.NAME__
+				case 2 % PanelFig.NAME
 					prop_default = 'Figure Panel';
-				case PanelFig.DESCRIPTION % __PanelFig.DESCRIPTION__
+				case 3 % PanelFig.DESCRIPTION
 					prop_default = 'A Figure Panel (PanelFig) plots a figure.';
-				case PanelFig.TEMPLATE % __PanelFig.TEMPLATE__
+				case 4 % PanelFig.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelFig.getPropSettings(prop));
-				case PanelFig.ID % __PanelFig.ID__
+				case 5 % PanelFig.ID
 					prop_default = 'PanelFig ID';
-				case PanelFig.LABEL % __PanelFig.LABEL__
+				case 6 % PanelFig.LABEL
 					prop_default = 'PanelFig label';
-				case PanelFig.NOTES % __PanelFig.NOTES__
+				case 7 % PanelFig.NOTES
 					prop_default = 'PanelFig notes';
-				case PanelFig.BKGCOLOR % __PanelFig.BKGCOLOR__
+				case 14 % PanelFig.BKGCOLOR
 					prop_default = [1 1 1];
 				otherwise
 					prop_default = getPropDefault@Panel(prop);
@@ -691,16 +691,16 @@ classdef PanelFig < Panel
 			prop = PanelFig.getPropProp(pointer);
 			
 			switch prop
-				case PanelFig.ST_POSITION % __PanelFig.ST_POSITION__
+				case 20 % PanelFig.ST_POSITION
 					check = Format.checkFormat(8, value, PanelFig.getPropSettings(prop));
-				case PanelFig.H_TOOLBAR % __PanelFig.H_TOOLBAR__
+				case 21 % PanelFig.H_TOOLBAR
 					check = Format.checkFormat(18, value, PanelFig.getPropSettings(prop));
-				case PanelFig.H_TOOLS % __PanelFig.H_TOOLS__
+				case 22 % PanelFig.H_TOOLS
 					check = Format.checkFormat(19, value, PanelFig.getPropSettings(prop));
-				case PanelFig.TEMPLATE % __PanelFig.TEMPLATE__
+				case 4 % PanelFig.TEMPLATE
 					check = Format.checkFormat(8, value, PanelFig.getPropSettings(prop));
 				otherwise
-					if prop <= Panel.getPropNumber()
+					if prop <= 19
 						check = checkProp@Panel(prop, value);
 					end
 			end
@@ -733,13 +733,13 @@ classdef PanelFig < Panel
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelFig.H_TOOLBAR % __PanelFig.H_TOOLBAR__
+				case 21 % PanelFig.H_TOOLBAR
 					value = findobj(ancestor(pf.memorize('PARENT').memorize('H'), 'Figure'), 'Tag', 'TOOLBAR');
 					
-				case PanelFig.H_TOOLS % __PanelFig.H_TOOLS__
+				case 22 % PanelFig.H_TOOLS
 					value = {};
 					
-				case PanelFig.DRAW % __PanelFig.DRAW__
+				case 11 % PanelFig.DRAW
 					if check_graphics(pf.memorize('H'), 'uipanel') % H = p for panel
 					    
 					    pf.memorize('ST_POSITION').set('PANEL', pf, 'PROP', pf.H).get('SETUP')
@@ -755,15 +755,15 @@ classdef PanelFig < Panel
 					    value = false;
 					end
 					
-				case PanelFig.DELETE % __PanelFig.DELETE__
-					value = calculateValue@Panel(pf, Panel.DELETE, varargin{:}); % also warning
+				case 18 % PanelFig.DELETE
+					value = calculateValue@Panel(pf, 18, varargin{:}); % also warning
 					if value
 					    pf.set('H_TOOLBAR', Element.getNoValue())
 					    pf.set('H_TOOLS', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= Panel.getPropNumber()
+					if prop <= 19
 						value = calculateValue@Panel(pf, prop, varargin{:});
 					else
 						value = calculateValue@Element(pf, prop, varargin{:});
@@ -789,8 +789,8 @@ classdef PanelFig < Panel
 			%  PanelPropString, PanelPropStringList.
 			
 			switch prop
-				case PanelFig.ST_POSITION % __PanelFig.ST_POSITION__
-					pr = SettingsPositionPP('EL', pf, 'PROP', PanelFig.ST_POSITION, varargin{:});
+				case 20 % PanelFig.ST_POSITION
+					pr = SettingsPositionPP('EL', pf, 'PROP', 20, varargin{:});
 					
 				otherwise
 					pr = getPanelProp@Panel(pf, prop, varargin{:});

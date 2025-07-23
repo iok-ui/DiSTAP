@@ -565,9 +565,9 @@ classdef PanelPropLogical < PanelProp
 			prop = PanelPropLogical.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropLogical.CHECKBOX % __PanelPropLogical.CHECKBOX__
+				case 36 % PanelPropLogical.CHECKBOX
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropLogical.TEMPLATE % __PanelPropLogical.TEMPLATE__
+				case 4 % PanelPropLogical.TEMPLATE
 					prop_settings = 'PanelPropLogical';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -596,27 +596,27 @@ classdef PanelPropLogical < PanelProp
 			prop = PanelPropLogical.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropLogical.CHECKBOX % __PanelPropLogical.CHECKBOX__
+				case 36 % PanelPropLogical.CHECKBOX
 					prop_default = Format.getFormatDefault(18, PanelPropLogical.getPropSettings(prop));
-				case PanelPropLogical.ELCLASS % __PanelPropLogical.ELCLASS__
+				case 1 % PanelPropLogical.ELCLASS
 					prop_default = 'PanelPropLogical';
-				case PanelPropLogical.NAME % __PanelPropLogical.NAME__
+				case 2 % PanelPropLogical.NAME
 					prop_default = 'Logical Prop Panel';
-				case PanelPropLogical.DESCRIPTION % __PanelPropLogical.DESCRIPTION__
+				case 3 % PanelPropLogical.DESCRIPTION
 					prop_default = 'A Logical Prop Panel (PanelPropLogical) plots the panel for a LOGICAL property with a checkbox. It works for all categories.';
-				case PanelPropLogical.TEMPLATE % __PanelPropLogical.TEMPLATE__
+				case 4 % PanelPropLogical.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropLogical.getPropSettings(prop));
-				case PanelPropLogical.ID % __PanelPropLogical.ID__
+				case 5 % PanelPropLogical.ID
 					prop_default = 'PanelPropLogical ID';
-				case PanelPropLogical.LABEL % __PanelPropLogical.LABEL__
+				case 6 % PanelPropLogical.LABEL
 					prop_default = 'PanelPropLogical label';
-				case PanelPropLogical.NOTES % __PanelPropLogical.NOTES__
+				case 7 % PanelPropLogical.NOTES
 					prop_default = 'PanelPropLogical notes';
-				case PanelPropLogical.EL % __PanelPropLogical.EL__
+				case 23 % PanelPropLogical.EL
 					prop_default = PanelProp();
-				case PanelPropLogical.PROP % __PanelPropLogical.PROP__
-					prop_default = PanelProp.DRAW;
-				case PanelPropLogical.HEIGHT % __PanelPropLogical.HEIGHT__
+				case 24 % PanelPropLogical.PROP
+					prop_default = 11;
+				case 25 % PanelPropLogical.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -682,12 +682,12 @@ classdef PanelPropLogical < PanelProp
 			prop = PanelPropLogical.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropLogical.CHECKBOX % __PanelPropLogical.CHECKBOX__
+				case 36 % PanelPropLogical.CHECKBOX
 					check = Format.checkFormat(18, value, PanelPropLogical.getPropSettings(prop));
-				case PanelPropLogical.TEMPLATE % __PanelPropLogical.TEMPLATE__
+				case 4 % PanelPropLogical.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropLogical.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -720,7 +720,7 @@ classdef PanelPropLogical < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropLogical.CHECKBOX % __PanelPropLogical.CHECKBOX__
+				case 36 % PanelPropLogical.CHECKBOX
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -735,14 +735,14 @@ classdef PanelPropLogical < PanelProp
 					
 					value = checkbox;
 					
-				case PanelPropLogical.X_DRAW % __PanelPropLogical.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropLogical.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('CHECKBOX')
 					end
 					
-				case PanelPropLogical.UPDATE % __PanelPropLogical.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropLogical.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					
 					    el = pr.get('EL');
@@ -783,22 +783,22 @@ classdef PanelPropLogical < PanelProp
 					    end
 					end
 					
-				case PanelPropLogical.REDRAW % __PanelPropLogical.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropLogical.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('CHECKBOX'), 'Position', [4 4 .70*w_p 21])
 					end
 					
-				case PanelPropLogical.DELETE % __PanelPropLogical.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropLogical.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('CHECKBOX', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

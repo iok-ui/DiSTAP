@@ -861,7 +861,7 @@ classdef Spectrum < ConcreteElement
 				case 4 % Spectrum.TEMPLATE
 					check = Format.checkFormat(8, value, Spectrum.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -914,7 +914,7 @@ classdef Spectrum < ConcreteElement
 					value = mean(sp.get('INTENSITIES'), 2);
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(sp, prop, varargin{:});
 					else
 						value = calculateValue@Element(sp, prop, varargin{:});

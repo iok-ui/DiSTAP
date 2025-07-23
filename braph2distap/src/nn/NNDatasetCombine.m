@@ -511,11 +511,11 @@ classdef NNDatasetCombine < ConcreteElement
 			prop = NNDatasetCombine.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDatasetCombine.D_LIST % __NNDatasetCombine.D_LIST__
+				case 9 % NNDatasetCombine.D_LIST
 					prop_settings = 'NNDataset';
-				case NNDatasetCombine.D % __NNDatasetCombine.D__
+				case 10 % NNDatasetCombine.D
 					prop_settings = 'NNDataset';
-				case NNDatasetCombine.TEMPLATE % __NNDatasetCombine.TEMPLATE__
+				case 4 % NNDatasetCombine.TEMPLATE
 					prop_settings = 'NNDatasetCombine';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -544,23 +544,23 @@ classdef NNDatasetCombine < ConcreteElement
 			prop = NNDatasetCombine.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDatasetCombine.D_LIST % __NNDatasetCombine.D_LIST__
+				case 9 % NNDatasetCombine.D_LIST
 					prop_default = Format.getFormatDefault(9, NNDatasetCombine.getPropSettings(prop));
-				case NNDatasetCombine.D % __NNDatasetCombine.D__
+				case 10 % NNDatasetCombine.D
 					prop_default = Format.getFormatDefault(8, NNDatasetCombine.getPropSettings(prop));
-				case NNDatasetCombine.ELCLASS % __NNDatasetCombine.ELCLASS__
+				case 1 % NNDatasetCombine.ELCLASS
 					prop_default = 'NNDatasetCombine';
-				case NNDatasetCombine.NAME % __NNDatasetCombine.NAME__
+				case 2 % NNDatasetCombine.NAME
 					prop_default = 'Neural Network Dataset Combiner';
-				case NNDatasetCombine.DESCRIPTION % __NNDatasetCombine.DESCRIPTION__
+				case 3 % NNDatasetCombine.DESCRIPTION
 					prop_default = 'A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. The resulting combined dataset contains all the unique datapoints from the input datasets, and any overlapping datapoints are excluded to ensure data consistency.';
-				case NNDatasetCombine.TEMPLATE % __NNDatasetCombine.TEMPLATE__
+				case 4 % NNDatasetCombine.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNDatasetCombine.getPropSettings(prop));
-				case NNDatasetCombine.ID % __NNDatasetCombine.ID__
+				case 5 % NNDatasetCombine.ID
 					prop_default = 'NNDatasetCombine ID';
-				case NNDatasetCombine.LABEL % __NNDatasetCombine.LABEL__
+				case 6 % NNDatasetCombine.LABEL
 					prop_default = 'NNDatasetCombine label';
-				case NNDatasetCombine.NOTES % __NNDatasetCombine.NOTES__
+				case 7 % NNDatasetCombine.NOTES
 					prop_default = 'NNDatasetCombine notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -626,7 +626,7 @@ classdef NNDatasetCombine < ConcreteElement
 			prop = NNDatasetCombine.getPropProp(pointer);
 			
 			switch prop
-				case NNDatasetCombine.D_LIST % __NNDatasetCombine.D_LIST__
+				case 9 % NNDatasetCombine.D_LIST
 					check = Format.checkFormat(9, value, NNDatasetCombine.getPropSettings(prop));
 					if check
 						if ~isempty(value)
@@ -638,12 +638,12 @@ classdef NNDatasetCombine < ConcreteElement
 						    end
 						end
 					end
-				case NNDatasetCombine.D % __NNDatasetCombine.D__
+				case 10 % NNDatasetCombine.D
 					check = Format.checkFormat(8, value, NNDatasetCombine.getPropSettings(prop));
-				case NNDatasetCombine.TEMPLATE % __NNDatasetCombine.TEMPLATE__
+				case 4 % NNDatasetCombine.TEMPLATE
 					check = Format.checkFormat(8, value, NNDatasetCombine.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -676,8 +676,8 @@ classdef NNDatasetCombine < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case NNDatasetCombine.D % __NNDatasetCombine.D__
-					rng_settings_ = rng(); rng(dco.getPropSeed(NNDatasetCombine.D), 'twister')
+				case 10 % NNDatasetCombine.D
+					rng_settings_ = rng(); rng(dco.getPropSeed(10), 'twister')
 					
 					dp_list = cellfun(@(x) x.get('DP_DICT').get('IT_LIST'), dco.get('D_LIST'), 'UniformOutput', false);
 					dp_classes = cellfun(@(x) x.get('DP_CLASS'), dco.get('D_LIST'), 'UniformOutput', false);
@@ -710,7 +710,7 @@ classdef NNDatasetCombine < ConcreteElement
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(dco, prop, varargin{:});
 					else
 						value = calculateValue@Element(dco, prop, varargin{:});

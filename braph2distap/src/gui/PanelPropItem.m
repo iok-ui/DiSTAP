@@ -588,15 +588,15 @@ classdef PanelPropItem < PanelProp
 			prop = PanelPropItem.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropItem.BUTTON_TEXT % __PanelPropItem.BUTTON_TEXT__
+				case 36 % PanelPropItem.BUTTON_TEXT
 					prop_settings = Format.getFormatSettings(2);
-				case PanelPropItem.BUTTON % __PanelPropItem.BUTTON__
+				case 37 % PanelPropItem.BUTTON
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropItem.GUICLASS % __PanelPropItem.GUICLASS__
+				case 38 % PanelPropItem.GUICLASS
 					prop_settings = {'GUIElement', 'GUIFig'};
-				case PanelPropItem.GUI_ITEM % __PanelPropItem.GUI_ITEM__
+				case 39 % PanelPropItem.GUI_ITEM
 					prop_settings = 'GUI';
-				case PanelPropItem.TEMPLATE % __PanelPropItem.TEMPLATE__
+				case 4 % PanelPropItem.TEMPLATE
 					prop_settings = 'PanelPropItem';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -625,33 +625,33 @@ classdef PanelPropItem < PanelProp
 			prop = PanelPropItem.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropItem.BUTTON_TEXT % __PanelPropItem.BUTTON_TEXT__
+				case 36 % PanelPropItem.BUTTON_TEXT
 					prop_default = Format.getFormatDefault(2, PanelPropItem.getPropSettings(prop));
-				case PanelPropItem.BUTTON % __PanelPropItem.BUTTON__
+				case 37 % PanelPropItem.BUTTON
 					prop_default = Format.getFormatDefault(18, PanelPropItem.getPropSettings(prop));
-				case PanelPropItem.GUICLASS % __PanelPropItem.GUICLASS__
+				case 38 % PanelPropItem.GUICLASS
 					prop_default = Format.getFormatDefault(5, PanelPropItem.getPropSettings(prop));
-				case PanelPropItem.GUI_ITEM % __PanelPropItem.GUI_ITEM__
+				case 39 % PanelPropItem.GUI_ITEM
 					prop_default = Format.getFormatDefault(8, PanelPropItem.getPropSettings(prop));
-				case PanelPropItem.ELCLASS % __PanelPropItem.ELCLASS__
+				case 1 % PanelPropItem.ELCLASS
 					prop_default = 'PanelPropItem';
-				case PanelPropItem.NAME % __PanelPropItem.NAME__
+				case 2 % PanelPropItem.NAME
 					prop_default = 'Item Prop Panel';
-				case PanelPropItem.DESCRIPTION % __PanelPropItem.DESCRIPTION__
+				case 3 % PanelPropItem.DESCRIPTION
 					prop_default = 'An Item Prop Panel (PanelPropItem) plots the panel for a ITEM property with a button. It works for all categories. The property GUICLASS determines whether the item figure is a ''GUIElement'' or ''GUIFig''.';
-				case PanelPropItem.TEMPLATE % __PanelPropItem.TEMPLATE__
+				case 4 % PanelPropItem.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropItem.getPropSettings(prop));
-				case PanelPropItem.ID % __PanelPropItem.ID__
+				case 5 % PanelPropItem.ID
 					prop_default = 'PanelPropItem ID';
-				case PanelPropItem.LABEL % __PanelPropItem.LABEL__
+				case 6 % PanelPropItem.LABEL
 					prop_default = 'PanelPropItem label';
-				case PanelPropItem.NOTES % __PanelPropItem.NOTES__
+				case 7 % PanelPropItem.NOTES
 					prop_default = 'PanelPropItem notes';
-				case PanelPropItem.EL % __PanelPropItem.EL__
+				case 23 % PanelPropItem.EL
 					prop_default = PanelProp();
-				case PanelPropItem.PROP % __PanelPropItem.PROP__
-					prop_default = PanelProp.EL;
-				case PanelPropItem.HEIGHT % __PanelPropItem.HEIGHT__
+				case 24 % PanelPropItem.PROP
+					prop_default = 23;
+				case 25 % PanelPropItem.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -697,7 +697,7 @@ classdef PanelPropItem < PanelProp
 			%  calculateValue, checkValue.
 			
 			switch prop
-				case PanelPropItem.GUI_ITEM % __PanelPropItem.GUI_ITEM__
+				case 39 % PanelPropItem.GUI_ITEM
 					if isequal(value.getClass(), 'GUI') % i.e., default initialization
 					    switch pr.get('GUICLASS')
 					        case 'GUIElement'
@@ -738,7 +738,7 @@ classdef PanelPropItem < PanelProp
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = preset@PanelProp(pr, prop, value);
 					end
 			end
@@ -778,18 +778,18 @@ classdef PanelPropItem < PanelProp
 			prop = PanelPropItem.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropItem.BUTTON_TEXT % __PanelPropItem.BUTTON_TEXT__
+				case 36 % PanelPropItem.BUTTON_TEXT
 					check = Format.checkFormat(2, value, PanelPropItem.getPropSettings(prop));
-				case PanelPropItem.BUTTON % __PanelPropItem.BUTTON__
+				case 37 % PanelPropItem.BUTTON
 					check = Format.checkFormat(18, value, PanelPropItem.getPropSettings(prop));
-				case PanelPropItem.GUICLASS % __PanelPropItem.GUICLASS__
+				case 38 % PanelPropItem.GUICLASS
 					check = Format.checkFormat(5, value, PanelPropItem.getPropSettings(prop));
-				case PanelPropItem.GUI_ITEM % __PanelPropItem.GUI_ITEM__
+				case 39 % PanelPropItem.GUI_ITEM
 					check = Format.checkFormat(8, value, PanelPropItem.getPropSettings(prop));
-				case PanelPropItem.TEMPLATE % __PanelPropItem.TEMPLATE__
+				case 4 % PanelPropItem.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropItem.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -822,7 +822,7 @@ classdef PanelPropItem < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropItem.BUTTON % __PanelPropItem.BUTTON__
+				case 37 % PanelPropItem.BUTTON
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -839,14 +839,14 @@ classdef PanelPropItem < PanelProp
 					
 					value = button;
 					
-				case PanelPropItem.X_DRAW % __PanelPropItem.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropItem.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('BUTTON')
 					end
 					
-				case PanelPropItem.UPDATE % __PanelPropItem.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropItem.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -885,16 +885,16 @@ classdef PanelPropItem < PanelProp
 					    end
 					end
 					
-				case PanelPropItem.REDRAW % __PanelPropItem.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropItem.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('BUTTON'), 'Position', [4 4 .70*w_p 21])
 					end
 					
-				case PanelPropItem.SHOW % __PanelPropItem.SHOW__
-					value = calculateValue@PanelProp(pr, PanelProp.SHOW, varargin{:}); % also warning
+				case 16 % PanelPropItem.SHOW
+					value = calculateValue@PanelProp(pr, 16, varargin{:}); % also warning
 					if value
 					    % figure item
 					    if isa(pr.getr('GUI_ITEM'), 'GUI') && pr.get('GUI_ITEM').get('DRAWN')
@@ -902,8 +902,8 @@ classdef PanelPropItem < PanelProp
 					    end
 					end
 					
-				case PanelPropItem.HIDE % __PanelPropItem.HIDE__
-					value = calculateValue@PanelProp(pr, PanelProp.HIDE, varargin{:}); % also warning
+				case 17 % PanelPropItem.HIDE
+					value = calculateValue@PanelProp(pr, 17, varargin{:}); % also warning
 					if value
 					    % figure item
 					    if isa(pr.getr('GUI_ITEM'), 'GUI') && pr.get('GUI_ITEM').get('DRAWN')
@@ -911,14 +911,14 @@ classdef PanelPropItem < PanelProp
 					    end
 					end
 					
-				case PanelPropItem.DELETE % __PanelPropItem.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropItem.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('BUTTON', Element.getNoValue())
 					end
 					
-				case PanelPropItem.CLOSE % __PanelPropItem.CLOSE__
-					value = calculateValue@PanelProp(pr, PanelProp.CLOSE, varargin{:}); % also warning
+				case 19 % PanelPropItem.CLOSE
+					value = calculateValue@PanelProp(pr, 19, varargin{:}); % also warning
 					if value
 					    % figure item
 					    if isa(pr.getr('GUI_ITEM'), 'GUI') && pr.get('GUI_ITEM').get('DRAWN')
@@ -927,7 +927,7 @@ classdef PanelPropItem < PanelProp
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

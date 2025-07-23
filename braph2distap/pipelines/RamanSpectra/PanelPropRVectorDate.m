@@ -716,7 +716,7 @@ classdef PanelPropRVectorDate < PanelProp
 				case 4 % PanelPropRVectorDate.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropRVectorDate.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -764,13 +764,13 @@ classdef PanelPropRVectorDate < PanelProp
 					value = editfield;
 					
 				case 20 % PanelPropRVectorDate.X_DRAW
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('EDITFIELD')
 					end
 					
 				case 21 % PanelPropRVectorDate.UPDATE
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -821,7 +821,7 @@ classdef PanelPropRVectorDate < PanelProp
 					end
 					
 				case 22 % PanelPropRVectorDate.REDRAW
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -829,13 +829,13 @@ classdef PanelPropRVectorDate < PanelProp
 					end
 					
 				case 18 % PanelPropRVectorDate.DELETE
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('EDITFIELD', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

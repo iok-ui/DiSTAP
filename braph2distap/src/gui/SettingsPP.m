@@ -558,7 +558,7 @@ classdef SettingsPP < PanelProp
 			prop = SettingsPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsPP.TEMPLATE % __SettingsPP.TEMPLATE__
+				case 4 % SettingsPP.TEMPLATE
 					prop_settings = 'SettingsPP';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -587,23 +587,23 @@ classdef SettingsPP < PanelProp
 			prop = SettingsPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsPP.ELCLASS % __SettingsPP.ELCLASS__
+				case 1 % SettingsPP.ELCLASS
 					prop_default = 'SettingsPP';
-				case SettingsPP.NAME % __SettingsPP.NAME__
+				case 2 % SettingsPP.NAME
 					prop_default = 'Prop Panel for Settings';
-				case SettingsPP.DESCRIPTION % __SettingsPP.DESCRIPTION__
+				case 3 % SettingsPP.DESCRIPTION
 					prop_default = 'A Prop Panel for Settings (SettingsPP) is the base element for the panels of the Settings. In particular, it provides the updated PanelProp listeners. It works for all categories.';
-				case SettingsPP.TEMPLATE % __SettingsPP.TEMPLATE__
+				case 4 % SettingsPP.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsPP.getPropSettings(prop));
-				case SettingsPP.ID % __SettingsPP.ID__
+				case 5 % SettingsPP.ID
 					prop_default = 'SettingsPP ID';
-				case SettingsPP.LABEL % __SettingsPP.LABEL__
+				case 6 % SettingsPP.LABEL
 					prop_default = 'SettingsPP label';
-				case SettingsPP.NOTES % __SettingsPP.NOTES__
+				case 7 % SettingsPP.NOTES
 					prop_default = 'SettingsPP notes';
-				case SettingsPP.EL % __SettingsPP.EL__
+				case 23 % SettingsPP.EL
 					prop_default = BrainSurfacePF();
-				case SettingsPP.PROP % __SettingsPP.PROP__
+				case 24 % SettingsPP.PROP
 					prop_default = BrainSurfacePF.ST_AXIS;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -669,10 +669,10 @@ classdef SettingsPP < PanelProp
 			prop = SettingsPP.getPropProp(pointer);
 			
 			switch prop
-				case SettingsPP.TEMPLATE % __SettingsPP.TEMPLATE__
+				case 4 % SettingsPP.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsPP.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -705,17 +705,17 @@ classdef SettingsPP < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case SettingsPP.LISTENER_SET % __SettingsPP.LISTENER_SET__
+				case 33 % SettingsPP.LISTENER_SET
 					value = {listener(pr.get('EL').get(pr.get('PROP')), 'PropSet', @cb_listener_set)};
 					
-				case SettingsPP.LISTENER_MEMORIZED % __SettingsPP.LISTENER_MEMORIZED__
+				case 34 % SettingsPP.LISTENER_MEMORIZED
 					value = {listener(pr.get('EL').get(pr.get('PROP')), 'PropMemorized', @cb_listener_memorized)};
 					
-				case SettingsPP.LISTENER_LOCKED % __SettingsPP.LISTENER_LOCKED__
+				case 35 % SettingsPP.LISTENER_LOCKED
 					value = {listener(pr.get('EL').get(pr.get('PROP')), 'PropLocked', @cb_listener_locked)};
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

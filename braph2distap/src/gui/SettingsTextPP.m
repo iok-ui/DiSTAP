@@ -666,37 +666,37 @@ classdef SettingsTextPP < SettingsPP
 			prop = SettingsTextPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsTextPP.ENABLE % __SettingsTextPP.ENABLE__
+				case 36 % SettingsTextPP.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsTextPP.EDITFIELD_X % __SettingsTextPP.EDITFIELD_X__
+				case 37 % SettingsTextPP.EDITFIELD_X
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.EDITFIELD_Y % __SettingsTextPP.EDITFIELD_Y__
+				case 38 % SettingsTextPP.EDITFIELD_Y
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.EDITFIELD_Z % __SettingsTextPP.EDITFIELD_Z__
+				case 39 % SettingsTextPP.EDITFIELD_Z
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.EDITFIELD_TXT % __SettingsTextPP.EDITFIELD_TXT__
+				case 40 % SettingsTextPP.EDITFIELD_TXT
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.BUTTON_FONTCOLOR % __SettingsTextPP.BUTTON_FONTCOLOR__
+				case 41 % SettingsTextPP.BUTTON_FONTCOLOR
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.EDITFIELD_FONTSIZE % __SettingsTextPP.EDITFIELD_FONTSIZE__
+				case 42 % SettingsTextPP.EDITFIELD_FONTSIZE
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.SLIDER_FONTSIZE % __SettingsTextPP.SLIDER_FONTSIZE__
+				case 43 % SettingsTextPP.SLIDER_FONTSIZE
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.EDITFIELD_ROTATION % __SettingsTextPP.EDITFIELD_ROTATION__
+				case 44 % SettingsTextPP.EDITFIELD_ROTATION
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.SLIDER_ROTATION % __SettingsTextPP.SLIDER_ROTATION__
+				case 45 % SettingsTextPP.SLIDER_ROTATION
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.EDITFIELD_FONTNAME % __SettingsTextPP.EDITFIELD_FONTNAME__
+				case 46 % SettingsTextPP.EDITFIELD_FONTNAME
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.DROPDOWN_FONTWEIGHT % __SettingsTextPP.DROPDOWN_FONTWEIGHT__
+				case 47 % SettingsTextPP.DROPDOWN_FONTWEIGHT
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.DROPDOWN_INTERPRETER % __SettingsTextPP.DROPDOWN_INTERPRETER__
+				case 48 % SettingsTextPP.DROPDOWN_INTERPRETER
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.DROPDOWN_HALIGN % __SettingsTextPP.DROPDOWN_HALIGN__
+				case 49 % SettingsTextPP.DROPDOWN_HALIGN
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.DROPDOWN_VALIGN % __SettingsTextPP.DROPDOWN_VALIGN__
+				case 50 % SettingsTextPP.DROPDOWN_VALIGN
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsTextPP.TEMPLATE % __SettingsTextPP.TEMPLATE__
+				case 4 % SettingsTextPP.TEMPLATE
 					prop_settings = 'SettingsTextPP';
 				otherwise
 					prop_settings = getPropSettings@SettingsPP(prop);
@@ -725,55 +725,55 @@ classdef SettingsTextPP < SettingsPP
 			prop = SettingsTextPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsTextPP.ENABLE % __SettingsTextPP.ENABLE__
+				case 36 % SettingsTextPP.ENABLE
 					prop_default = true;
-				case SettingsTextPP.EDITFIELD_X % __SettingsTextPP.EDITFIELD_X__
+				case 37 % SettingsTextPP.EDITFIELD_X
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_Y % __SettingsTextPP.EDITFIELD_Y__
+				case 38 % SettingsTextPP.EDITFIELD_Y
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_Z % __SettingsTextPP.EDITFIELD_Z__
+				case 39 % SettingsTextPP.EDITFIELD_Z
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_TXT % __SettingsTextPP.EDITFIELD_TXT__
+				case 40 % SettingsTextPP.EDITFIELD_TXT
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.BUTTON_FONTCOLOR % __SettingsTextPP.BUTTON_FONTCOLOR__
+				case 41 % SettingsTextPP.BUTTON_FONTCOLOR
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_FONTSIZE % __SettingsTextPP.EDITFIELD_FONTSIZE__
+				case 42 % SettingsTextPP.EDITFIELD_FONTSIZE
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.SLIDER_FONTSIZE % __SettingsTextPP.SLIDER_FONTSIZE__
+				case 43 % SettingsTextPP.SLIDER_FONTSIZE
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_ROTATION % __SettingsTextPP.EDITFIELD_ROTATION__
+				case 44 % SettingsTextPP.EDITFIELD_ROTATION
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.SLIDER_ROTATION % __SettingsTextPP.SLIDER_ROTATION__
+				case 45 % SettingsTextPP.SLIDER_ROTATION
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_FONTNAME % __SettingsTextPP.EDITFIELD_FONTNAME__
+				case 46 % SettingsTextPP.EDITFIELD_FONTNAME
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.DROPDOWN_FONTWEIGHT % __SettingsTextPP.DROPDOWN_FONTWEIGHT__
+				case 47 % SettingsTextPP.DROPDOWN_FONTWEIGHT
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.DROPDOWN_INTERPRETER % __SettingsTextPP.DROPDOWN_INTERPRETER__
+				case 48 % SettingsTextPP.DROPDOWN_INTERPRETER
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.DROPDOWN_HALIGN % __SettingsTextPP.DROPDOWN_HALIGN__
+				case 49 % SettingsTextPP.DROPDOWN_HALIGN
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.DROPDOWN_VALIGN % __SettingsTextPP.DROPDOWN_VALIGN__
+				case 50 % SettingsTextPP.DROPDOWN_VALIGN
 					prop_default = Format.getFormatDefault(18, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.ELCLASS % __SettingsTextPP.ELCLASS__
+				case 1 % SettingsTextPP.ELCLASS
 					prop_default = 'SettingsTextPP';
-				case SettingsTextPP.NAME % __SettingsTextPP.NAME__
+				case 2 % SettingsTextPP.NAME
 					prop_default = 'Prop Panel for Text Settings';
-				case SettingsTextPP.DESCRIPTION % __SettingsTextPP.DESCRIPTION__
+				case 3 % SettingsTextPP.DESCRIPTION
 					prop_default = 'A Prop Panel for Text Settings (SettingsTextPP) plots the panel for text settings, including text, x, y, and z position, font color, size, rotation and weight, interpreter, horizontal and vertical alignment. It works for all categories.';
-				case SettingsTextPP.TEMPLATE % __SettingsTextPP.TEMPLATE__
+				case 4 % SettingsTextPP.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.ID % __SettingsTextPP.ID__
+				case 5 % SettingsTextPP.ID
 					prop_default = 'SettingsTextPP ID';
-				case SettingsTextPP.LABEL % __SettingsTextPP.LABEL__
+				case 6 % SettingsTextPP.LABEL
 					prop_default = 'SettingsTextPP label';
-				case SettingsTextPP.NOTES % __SettingsTextPP.NOTES__
+				case 7 % SettingsTextPP.NOTES
 					prop_default = 'SettingsTextPP notes';
-				case SettingsTextPP.EL % __SettingsTextPP.EL__
+				case 23 % SettingsTextPP.EL
 					prop_default = MeasurePF();
-				case SettingsTextPP.PROP % __SettingsTextPP.PROP__
+				case 24 % SettingsTextPP.PROP
 					prop_default = MeasurePF.ST_TITLE;
-				case SettingsTextPP.HEIGHT % __SettingsTextPP.HEIGHT__
+				case 25 % SettingsTextPP.HEIGHT
 					prop_default = 111;
 				otherwise
 					prop_default = getPropDefault@SettingsPP(prop);
@@ -839,40 +839,40 @@ classdef SettingsTextPP < SettingsPP
 			prop = SettingsTextPP.getPropProp(pointer);
 			
 			switch prop
-				case SettingsTextPP.ENABLE % __SettingsTextPP.ENABLE__
+				case 36 % SettingsTextPP.ENABLE
 					check = Format.checkFormat(4, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_X % __SettingsTextPP.EDITFIELD_X__
+				case 37 % SettingsTextPP.EDITFIELD_X
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_Y % __SettingsTextPP.EDITFIELD_Y__
+				case 38 % SettingsTextPP.EDITFIELD_Y
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_Z % __SettingsTextPP.EDITFIELD_Z__
+				case 39 % SettingsTextPP.EDITFIELD_Z
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_TXT % __SettingsTextPP.EDITFIELD_TXT__
+				case 40 % SettingsTextPP.EDITFIELD_TXT
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.BUTTON_FONTCOLOR % __SettingsTextPP.BUTTON_FONTCOLOR__
+				case 41 % SettingsTextPP.BUTTON_FONTCOLOR
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_FONTSIZE % __SettingsTextPP.EDITFIELD_FONTSIZE__
+				case 42 % SettingsTextPP.EDITFIELD_FONTSIZE
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.SLIDER_FONTSIZE % __SettingsTextPP.SLIDER_FONTSIZE__
+				case 43 % SettingsTextPP.SLIDER_FONTSIZE
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_ROTATION % __SettingsTextPP.EDITFIELD_ROTATION__
+				case 44 % SettingsTextPP.EDITFIELD_ROTATION
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.SLIDER_ROTATION % __SettingsTextPP.SLIDER_ROTATION__
+				case 45 % SettingsTextPP.SLIDER_ROTATION
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.EDITFIELD_FONTNAME % __SettingsTextPP.EDITFIELD_FONTNAME__
+				case 46 % SettingsTextPP.EDITFIELD_FONTNAME
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.DROPDOWN_FONTWEIGHT % __SettingsTextPP.DROPDOWN_FONTWEIGHT__
+				case 47 % SettingsTextPP.DROPDOWN_FONTWEIGHT
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.DROPDOWN_INTERPRETER % __SettingsTextPP.DROPDOWN_INTERPRETER__
+				case 48 % SettingsTextPP.DROPDOWN_INTERPRETER
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.DROPDOWN_HALIGN % __SettingsTextPP.DROPDOWN_HALIGN__
+				case 49 % SettingsTextPP.DROPDOWN_HALIGN
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.DROPDOWN_VALIGN % __SettingsTextPP.DROPDOWN_VALIGN__
+				case 50 % SettingsTextPP.DROPDOWN_VALIGN
 					check = Format.checkFormat(18, value, SettingsTextPP.getPropSettings(prop));
-				case SettingsTextPP.TEMPLATE % __SettingsTextPP.TEMPLATE__
+				case 4 % SettingsTextPP.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsTextPP.getPropSettings(prop));
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						check = checkProp@SettingsPP(prop, value);
 					end
 			end
@@ -905,7 +905,7 @@ classdef SettingsTextPP < SettingsPP
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case SettingsTextPP.EDITFIELD_X % __SettingsTextPP.EDITFIELD_X__
+				case 37 % SettingsTextPP.EDITFIELD_X
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -919,7 +919,7 @@ classdef SettingsTextPP < SettingsPP
 					
 					value = editfield;
 					
-				case SettingsTextPP.EDITFIELD_Y % __SettingsTextPP.EDITFIELD_Y__
+				case 38 % SettingsTextPP.EDITFIELD_Y
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -933,7 +933,7 @@ classdef SettingsTextPP < SettingsPP
 					
 					value = editfield;
 					
-				case SettingsTextPP.EDITFIELD_Z % __SettingsTextPP.EDITFIELD_Z__
+				case 39 % SettingsTextPP.EDITFIELD_Z
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -947,7 +947,7 @@ classdef SettingsTextPP < SettingsPP
 					
 					value = editfield;
 					
-				case SettingsTextPP.EDITFIELD_TXT % __SettingsTextPP.EDITFIELD_TXT__
+				case 40 % SettingsTextPP.EDITFIELD_TXT
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -961,7 +961,7 @@ classdef SettingsTextPP < SettingsPP
 					
 					value = editfield;
 					
-				case SettingsTextPP.BUTTON_FONTCOLOR % __SettingsTextPP.BUTTON_FONTCOLOR__
+				case 41 % SettingsTextPP.BUTTON_FONTCOLOR
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					button_fontcolor = uibutton( ...
@@ -975,7 +975,7 @@ classdef SettingsTextPP < SettingsPP
 					    );
 					value = button_fontcolor;
 					
-				case SettingsTextPP.EDITFIELD_FONTSIZE % __SettingsTextPP.EDITFIELD_FONTSIZE__
+				case 42 % SettingsTextPP.EDITFIELD_FONTSIZE
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_fontsize = uieditfield('numeric', ...
@@ -989,7 +989,7 @@ classdef SettingsTextPP < SettingsPP
 					    );
 					value = editfield_fontsize;
 					
-				case SettingsTextPP.SLIDER_FONTSIZE % __SettingsTextPP.SLIDER_FONTSIZE__
+				case 43 % SettingsTextPP.SLIDER_FONTSIZE
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					slider_fontsize = uislider( ...
@@ -1002,7 +1002,7 @@ classdef SettingsTextPP < SettingsPP
 					    );
 					value = slider_fontsize;
 					
-				case SettingsTextPP.EDITFIELD_ROTATION % __SettingsTextPP.EDITFIELD_ROTATION__
+				case 44 % SettingsTextPP.EDITFIELD_ROTATION
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_rotation = uieditfield('numeric', ...
@@ -1016,7 +1016,7 @@ classdef SettingsTextPP < SettingsPP
 					    );
 					value = editfield_rotation;
 					
-				case SettingsTextPP.SLIDER_ROTATION % __SettingsTextPP.SLIDER_ROTATION__
+				case 45 % SettingsTextPP.SLIDER_ROTATION
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					slider_rotation = uislider( ...
@@ -1029,7 +1029,7 @@ classdef SettingsTextPP < SettingsPP
 					    );
 					value = slider_rotation;
 					
-				case SettingsTextPP.EDITFIELD_FONTNAME % __SettingsTextPP.EDITFIELD_FONTNAME__
+				case 46 % SettingsTextPP.EDITFIELD_FONTNAME
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -1043,7 +1043,7 @@ classdef SettingsTextPP < SettingsPP
 					
 					value = editfield_fontname;
 					
-				case SettingsTextPP.DROPDOWN_FONTWEIGHT % __SettingsTextPP.DROPDOWN_FONTWEIGHT__
+				case 47 % SettingsTextPP.DROPDOWN_FONTWEIGHT
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -1058,7 +1058,7 @@ classdef SettingsTextPP < SettingsPP
 					
 					value = dropdown_fontweight;
 					
-				case SettingsTextPP.DROPDOWN_INTERPRETER % __SettingsTextPP.DROPDOWN_INTERPRETER__
+				case 48 % SettingsTextPP.DROPDOWN_INTERPRETER
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -1073,7 +1073,7 @@ classdef SettingsTextPP < SettingsPP
 					
 					value = dropdown_interpreter;
 					
-				case SettingsTextPP.DROPDOWN_HALIGN % __SettingsTextPP.DROPDOWN_HALIGN__
+				case 49 % SettingsTextPP.DROPDOWN_HALIGN
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -1088,7 +1088,7 @@ classdef SettingsTextPP < SettingsPP
 					
 					value = dropdown_halign;
 					
-				case SettingsTextPP.DROPDOWN_VALIGN % __SettingsTextPP.DROPDOWN_VALIGN__
+				case 50 % SettingsTextPP.DROPDOWN_VALIGN
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -1103,8 +1103,8 @@ classdef SettingsTextPP < SettingsPP
 					
 					value = dropdown_valign;
 					
-				case SettingsTextPP.X_DRAW % __SettingsTextPP.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % SettingsTextPP.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('EDITFIELD_X')
 					    pr.memorize('EDITFIELD_Y')
@@ -1124,8 +1124,8 @@ classdef SettingsTextPP < SettingsPP
 					    pr.memorize('DROPDOWN_VALIGN')
 					end
 					
-				case SettingsTextPP.UPDATE % __SettingsTextPP.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % SettingsTextPP.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -1408,8 +1408,8 @@ classdef SettingsTextPP < SettingsPP
 					    end
 					end
 					
-				case SettingsTextPP.REDRAW % __SettingsTextPP.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % SettingsTextPP.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 						w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					
@@ -1431,8 +1431,8 @@ classdef SettingsTextPP < SettingsPP
 					    set(pr.get('DROPDOWN_VALIGN'),      'Position', [18+.74*w_p	4   .18*w_p     21])    
 					end
 					
-				case SettingsTextPP.DELETE % __SettingsTextPP.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % SettingsTextPP.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('EDITFIELD_X', Element.getNoValue())
 					    pr.set('EDITFIELD_Y', Element.getNoValue())
@@ -1453,7 +1453,7 @@ classdef SettingsTextPP < SettingsPP
 					end
 					
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						value = calculateValue@SettingsPP(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

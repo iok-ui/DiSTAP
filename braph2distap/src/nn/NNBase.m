@@ -275,7 +275,7 @@ classdef NNBase < ConcreteElement
 			%
 			% See also subclasses.
 			
-			subclass_list = { 'NNBase'  'NNVariationalAutoencoder' }; %CET: Computational Efficiency Trick
+			subclass_list = { 'NNBase'  'NNVariationalAutoencoders'  'NNVariationalAutoencoders' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
 			%GETPROPS returns the property list of neural network.
@@ -597,33 +597,33 @@ classdef NNBase < ConcreteElement
 			prop = NNBase.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNBase.D % __NNBase.D__
+				case 9 % NNBase.D
 					prop_settings = 'NNDataset';
-				case NNBase.DP_CLASSES % __NNBase.DP_CLASSES__
+				case 10 % NNBase.DP_CLASSES
 					prop_settings = Format.getFormatSettings(7);
-				case NNBase.EPOCHS % __NNBase.EPOCHS__
+				case 11 % NNBase.EPOCHS
 					prop_settings = Format.getFormatSettings(11);
-				case NNBase.BATCH % __NNBase.BATCH__
+				case 12 % NNBase.BATCH
 					prop_settings = Format.getFormatSettings(11);
-				case NNBase.SHUFFLE % __NNBase.SHUFFLE__
+				case 13 % NNBase.SHUFFLE
 					prop_settings = {'once' 'never' 'every-epoch'};
-				case NNBase.SOLVER % __NNBase.SOLVER__
+				case 14 % NNBase.SOLVER
 					prop_settings = {'adam' 'sgdm' 'rmsprop'};
-				case NNBase.MODEL % __NNBase.MODEL__
+				case 15 % NNBase.MODEL
 					prop_settings = Format.getFormatSettings(17);
-				case NNBase.INPUTS % __NNBase.INPUTS__
+				case 16 % NNBase.INPUTS
 					prop_settings = Format.getFormatSettings(16);
-				case NNBase.TARGETS % __NNBase.TARGETS__
+				case 17 % NNBase.TARGETS
 					prop_settings = Format.getFormatSettings(16);
-				case NNBase.TRAIN % __NNBase.TRAIN__
+				case 18 % NNBase.TRAIN
 					prop_settings = Format.getFormatSettings(1);
-				case NNBase.VERBOSE % __NNBase.VERBOSE__
+				case 19 % NNBase.VERBOSE
 					prop_settings = Format.getFormatSettings(4);
-				case NNBase.PLOT_TRAINING % __NNBase.PLOT_TRAINING__
+				case 20 % NNBase.PLOT_TRAINING
 					prop_settings = {'none' 'training-progress'};
-				case NNBase.PREDICT % __NNBase.PREDICT__
+				case 21 % NNBase.PREDICT
 					prop_settings = Format.getFormatSettings(16);
-				case NNBase.TEMPLATE % __NNBase.TEMPLATE__
+				case 4 % NNBase.TEMPLATE
 					prop_settings = 'NNBase';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -652,45 +652,45 @@ classdef NNBase < ConcreteElement
 			prop = NNBase.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNBase.D % __NNBase.D__
+				case 9 % NNBase.D
 					prop_default = NNDataset('DP_CLASS', 'NNDataPoint');
-				case NNBase.DP_CLASSES % __NNBase.DP_CLASSES__
+				case 10 % NNBase.DP_CLASSES
 					prop_default = {'NNDataPoint'};
-				case NNBase.EPOCHS % __NNBase.EPOCHS__
+				case 11 % NNBase.EPOCHS
 					prop_default = 20;
-				case NNBase.BATCH % __NNBase.BATCH__
+				case 12 % NNBase.BATCH
 					prop_default = 8;
-				case NNBase.SHUFFLE % __NNBase.SHUFFLE__
+				case 13 % NNBase.SHUFFLE
 					prop_default = Format.getFormatDefault(5, NNBase.getPropSettings(prop));
-				case NNBase.SOLVER % __NNBase.SOLVER__
+				case 14 % NNBase.SOLVER
 					prop_default = Format.getFormatDefault(5, NNBase.getPropSettings(prop));
-				case NNBase.MODEL % __NNBase.MODEL__
+				case 15 % NNBase.MODEL
 					prop_default = Format.getFormatDefault(17, NNBase.getPropSettings(prop));
-				case NNBase.INPUTS % __NNBase.INPUTS__
+				case 16 % NNBase.INPUTS
 					prop_default = Format.getFormatDefault(16, NNBase.getPropSettings(prop));
-				case NNBase.TARGETS % __NNBase.TARGETS__
+				case 17 % NNBase.TARGETS
 					prop_default = Format.getFormatDefault(16, NNBase.getPropSettings(prop));
-				case NNBase.TRAIN % __NNBase.TRAIN__
+				case 18 % NNBase.TRAIN
 					prop_default = Format.getFormatDefault(1, NNBase.getPropSettings(prop));
-				case NNBase.VERBOSE % __NNBase.VERBOSE__
+				case 19 % NNBase.VERBOSE
 					prop_default = false;
-				case NNBase.PLOT_TRAINING % __NNBase.PLOT_TRAINING__
+				case 20 % NNBase.PLOT_TRAINING
 					prop_default = Format.getFormatDefault(5, NNBase.getPropSettings(prop));
-				case NNBase.PREDICT % __NNBase.PREDICT__
+				case 21 % NNBase.PREDICT
 					prop_default = Format.getFormatDefault(16, NNBase.getPropSettings(prop));
-				case NNBase.ELCLASS % __NNBase.ELCLASS__
+				case 1 % NNBase.ELCLASS
 					prop_default = 'NNBase';
-				case NNBase.NAME % __NNBase.NAME__
+				case 2 % NNBase.NAME
 					prop_default = 'Neural Network Base';
-				case NNBase.DESCRIPTION % __NNBase.DESCRIPTION__
+				case 3 % NNBase.DESCRIPTION
 					prop_default = 'A Neural Network Base (NNBase) comprises a neural network model with a specific dataset. Instances of this class should not be created. Use one of its subclasses instead. Its subclasses need to implement the props MODEL, INPUTS and TARGETS.';
-				case NNBase.TEMPLATE % __NNBase.TEMPLATE__
+				case 4 % NNBase.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNBase.getPropSettings(prop));
-				case NNBase.ID % __NNBase.ID__
+				case 5 % NNBase.ID
 					prop_default = 'NNBase ID';
-				case NNBase.LABEL % __NNBase.LABEL__
+				case 6 % NNBase.LABEL
 					prop_default = 'NNBase label';
-				case NNBase.NOTES % __NNBase.NOTES__
+				case 7 % NNBase.NOTES
 					prop_default = 'NNBase notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -756,36 +756,36 @@ classdef NNBase < ConcreteElement
 			prop = NNBase.getPropProp(pointer);
 			
 			switch prop
-				case NNBase.D % __NNBase.D__
+				case 9 % NNBase.D
 					check = Format.checkFormat(8, value, NNBase.getPropSettings(prop));
-				case NNBase.DP_CLASSES % __NNBase.DP_CLASSES__
+				case 10 % NNBase.DP_CLASSES
 					check = Format.checkFormat(7, value, NNBase.getPropSettings(prop));
-				case NNBase.EPOCHS % __NNBase.EPOCHS__
+				case 11 % NNBase.EPOCHS
 					check = Format.checkFormat(11, value, NNBase.getPropSettings(prop));
-				case NNBase.BATCH % __NNBase.BATCH__
+				case 12 % NNBase.BATCH
 					check = Format.checkFormat(11, value, NNBase.getPropSettings(prop));
-				case NNBase.SHUFFLE % __NNBase.SHUFFLE__
+				case 13 % NNBase.SHUFFLE
 					check = Format.checkFormat(5, value, NNBase.getPropSettings(prop));
-				case NNBase.SOLVER % __NNBase.SOLVER__
+				case 14 % NNBase.SOLVER
 					check = Format.checkFormat(5, value, NNBase.getPropSettings(prop));
-				case NNBase.MODEL % __NNBase.MODEL__
+				case 15 % NNBase.MODEL
 					check = Format.checkFormat(17, value, NNBase.getPropSettings(prop));
-				case NNBase.INPUTS % __NNBase.INPUTS__
+				case 16 % NNBase.INPUTS
 					check = Format.checkFormat(16, value, NNBase.getPropSettings(prop));
-				case NNBase.TARGETS % __NNBase.TARGETS__
+				case 17 % NNBase.TARGETS
 					check = Format.checkFormat(16, value, NNBase.getPropSettings(prop));
-				case NNBase.TRAIN % __NNBase.TRAIN__
+				case 18 % NNBase.TRAIN
 					check = Format.checkFormat(1, value, NNBase.getPropSettings(prop));
-				case NNBase.VERBOSE % __NNBase.VERBOSE__
+				case 19 % NNBase.VERBOSE
 					check = Format.checkFormat(4, value, NNBase.getPropSettings(prop));
-				case NNBase.PLOT_TRAINING % __NNBase.PLOT_TRAINING__
+				case 20 % NNBase.PLOT_TRAINING
 					check = Format.checkFormat(5, value, NNBase.getPropSettings(prop));
-				case NNBase.PREDICT % __NNBase.PREDICT__
+				case 21 % NNBase.PREDICT
 					check = Format.checkFormat(16, value, NNBase.getPropSettings(prop));
-				case NNBase.TEMPLATE % __NNBase.TEMPLATE__
+				case 4 % NNBase.TEMPLATE
 					check = Format.checkFormat(8, value, NNBase.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -818,28 +818,28 @@ classdef NNBase < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case NNBase.MODEL % __NNBase.MODEL__
-					rng_settings_ = rng(); rng(nn.getPropSeed(NNBase.MODEL), 'twister')
+				case 15 % NNBase.MODEL
+					rng_settings_ = rng(); rng(nn.getPropSeed(15), 'twister')
 					
 					value = network();
 					
 					rng(rng_settings_)
 					
-				case NNBase.INPUTS % __NNBase.INPUTS__
+				case 16 % NNBase.INPUTS
 					% inputs = nn.get('inputs', D) returns a cell array with the
 					%  inputs for all data points in dataset D.
 					value = {};
 					
-				case NNBase.TARGETS % __NNBase.TARGETS__
+				case 17 % NNBase.TARGETS
 					% targets = nn.get('PREDICT', D) returns a cell array with the
 					%  targets for all data points in dataset D.
 					value = {};
 					
-				case NNBase.TRAIN % __NNBase.TRAIN__
+				case 18 % NNBase.TRAIN
 					nn.memorize('MODEL');
 					value = [];
 					
-				case NNBase.PREDICT % __NNBase.PREDICT__
+				case 21 % NNBase.PREDICT
 					% PREDICTIONS = nn.get('PREDICT', D) returns a cell array with the
 					%  predictions for all data points in dataset D.
 					if isempty(varargin)
@@ -858,7 +858,7 @@ classdef NNBase < ConcreteElement
 					value = predictions;
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(nn, prop, varargin{:});
 					else
 						value = calculateValue@Element(nn, prop, varargin{:});
@@ -883,11 +883,11 @@ classdef NNBase < ConcreteElement
 			msg = ['Error while checking ' tostring(nn) ' ' nn.getPropTag(prop) '.'];
 			
 			switch prop
-				case NNBase.D % __NNBase.D__
+				case 9 % NNBase.D
 					check = ismember(value.get('DP_CLASS'), nn.get('DP_CLASSES'));
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						[check, msg] = checkValue@ConcreteElement(nn, prop, value);
 					end
 			end

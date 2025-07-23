@@ -578,13 +578,13 @@ classdef PipelinePP_Notes < PanelPropStringTextArea
 			prop = PipelinePP_Notes.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PipelinePP_Notes.CONTEXTMENU % __PipelinePP_Notes.CONTEXTMENU__
+				case 38 % PipelinePP_Notes.CONTEXTMENU
 					prop_settings = Format.getFormatSettings(18);
-				case PipelinePP_Notes.MENUS % __PipelinePP_Notes.MENUS__
+				case 39 % PipelinePP_Notes.MENUS
 					prop_settings = Format.getFormatSettings(19);
-				case PipelinePP_Notes.TEMPLATE % __PipelinePP_Notes.TEMPLATE__
+				case 4 % PipelinePP_Notes.TEMPLATE
 					prop_settings = 'PipelinePP_Notes';
-				case PipelinePP_Notes.EL % __PipelinePP_Notes.EL__
+				case 23 % PipelinePP_Notes.EL
 					prop_settings = 'Pipeline';
 				otherwise
 					prop_settings = getPropSettings@PanelPropStringTextArea(prop);
@@ -613,29 +613,29 @@ classdef PipelinePP_Notes < PanelPropStringTextArea
 			prop = PipelinePP_Notes.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PipelinePP_Notes.CONTEXTMENU % __PipelinePP_Notes.CONTEXTMENU__
+				case 38 % PipelinePP_Notes.CONTEXTMENU
 					prop_default = Format.getFormatDefault(18, PipelinePP_Notes.getPropSettings(prop));
-				case PipelinePP_Notes.MENUS % __PipelinePP_Notes.MENUS__
+				case 39 % PipelinePP_Notes.MENUS
 					prop_default = Format.getFormatDefault(19, PipelinePP_Notes.getPropSettings(prop));
-				case PipelinePP_Notes.ELCLASS % __PipelinePP_Notes.ELCLASS__
+				case 1 % PipelinePP_Notes.ELCLASS
 					prop_default = 'PipelinePP_Notes';
-				case PipelinePP_Notes.NAME % __PipelinePP_Notes.NAME__
+				case 2 % PipelinePP_Notes.NAME
 					prop_default = 'Prop Panel for Pipeline Notes';
-				case PipelinePP_Notes.DESCRIPTION % __PipelinePP_Notes.DESCRIPTION__
+				case 3 % PipelinePP_Notes.DESCRIPTION
 					prop_default = 'A Prop Panel for Pipeline Notes (PipelinePP_Notes) plots a text area with the pipeline notes enhnaced with a popup context menu to open the web tutorial and the pdf tuorial, as well as to edit or clone the pipeline. It should be used only with the prop NOTES of the element Pipeline.';
-				case PipelinePP_Notes.TEMPLATE % __PipelinePP_Notes.TEMPLATE__
+				case 4 % PipelinePP_Notes.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PipelinePP_Notes.getPropSettings(prop));
-				case PipelinePP_Notes.ID % __PipelinePP_Notes.ID__
+				case 5 % PipelinePP_Notes.ID
 					prop_default = 'PipelinePP_Notes ID';
-				case PipelinePP_Notes.LABEL % __PipelinePP_Notes.LABEL__
+				case 6 % PipelinePP_Notes.LABEL
 					prop_default = 'PipelinePP_Notes label';
-				case PipelinePP_Notes.NOTES % __PipelinePP_Notes.NOTES__
+				case 7 % PipelinePP_Notes.NOTES
 					prop_default = 'PipelinePP_Notes notes';
-				case PipelinePP_Notes.EL % __PipelinePP_Notes.EL__
+				case 23 % PipelinePP_Notes.EL
 					prop_default = Format.getFormatDefault(8, PipelinePP_Notes.getPropSettings(prop));
-				case PipelinePP_Notes.PROP % __PipelinePP_Notes.PROP__
-					prop_default = Pipeline.NOTES;
-				case PipelinePP_Notes.HEIGHT % __PipelinePP_Notes.HEIGHT__
+				case 24 % PipelinePP_Notes.PROP
+					prop_default = 7;
+				case 25 % PipelinePP_Notes.HEIGHT
 					prop_default = 120;
 				otherwise
 					prop_default = getPropDefault@PanelPropStringTextArea(prop);
@@ -701,16 +701,16 @@ classdef PipelinePP_Notes < PanelPropStringTextArea
 			prop = PipelinePP_Notes.getPropProp(pointer);
 			
 			switch prop
-				case PipelinePP_Notes.CONTEXTMENU % __PipelinePP_Notes.CONTEXTMENU__
+				case 38 % PipelinePP_Notes.CONTEXTMENU
 					check = Format.checkFormat(18, value, PipelinePP_Notes.getPropSettings(prop));
-				case PipelinePP_Notes.MENUS % __PipelinePP_Notes.MENUS__
+				case 39 % PipelinePP_Notes.MENUS
 					check = Format.checkFormat(19, value, PipelinePP_Notes.getPropSettings(prop));
-				case PipelinePP_Notes.TEMPLATE % __PipelinePP_Notes.TEMPLATE__
+				case 4 % PipelinePP_Notes.TEMPLATE
 					check = Format.checkFormat(8, value, PipelinePP_Notes.getPropSettings(prop));
-				case PipelinePP_Notes.EL % __PipelinePP_Notes.EL__
+				case 23 % PipelinePP_Notes.EL
 					check = Format.checkFormat(8, value, PipelinePP_Notes.getPropSettings(prop));
 				otherwise
-					if prop <= PanelPropStringTextArea.getPropNumber()
+					if prop <= 37
 						check = checkProp@PanelPropStringTextArea(prop, value);
 					end
 			end
@@ -743,7 +743,7 @@ classdef PipelinePP_Notes < PanelPropStringTextArea
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PipelinePP_Notes.CONTEXTMENU % __PipelinePP_Notes.CONTEXTMENU__
+				case 38 % PipelinePP_Notes.CONTEXTMENU
 					pip = pr.get('EL');
 					NOTES = pr.get('PROP');
 					
@@ -756,7 +756,7 @@ classdef PipelinePP_Notes < PanelPropStringTextArea
 					
 					value = contextmenu;
 					
-				case PipelinePP_Notes.MENUS % __PipelinePP_Notes.MENUS__
+				case 39 % PipelinePP_Notes.MENUS
 					contextmenu = pr.get('CONTEXTMENU');
 					
 					menu_tut_web = uimenu( ...
@@ -791,15 +791,15 @@ classdef PipelinePP_Notes < PanelPropStringTextArea
 					
 					value = [menu_tut_web, menu_tut_pdf, menu_pip_edit, menu_pip_clone];
 					
-				case PipelinePP_Notes.X_DRAW % __PipelinePP_Notes.X_DRAW__
-					value = calculateValue@PanelPropStringTextArea(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PipelinePP_Notes.X_DRAW
+					value = calculateValue@PanelPropStringTextArea(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('CONTEXTMENU')
 					    pr.memorize('MENUS')
 					end
 					
-				case PipelinePP_Notes.UPDATE % __PipelinePP_Notes.UPDATE__
-					value = calculateValue@PanelPropStringTextArea(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PipelinePP_Notes.UPDATE
+					value = calculateValue@PanelPropStringTextArea(pr, 21, varargin{:}); % also warning
 					if value
 					
 					    pip = pr.get('EL');
@@ -828,14 +828,14 @@ classdef PipelinePP_Notes < PanelPropStringTextArea
 					    set(menus(2), 'Enable', ~isempty(pip.get('PDF'))) % menus(2) = menu_tut_pdf
 					end
 					
-				case PipelinePP_Notes.DELETE % __PipelinePP_Notes.DELETE__
-					value = calculateValue@PanelPropStringTextArea(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PipelinePP_Notes.DELETE
+					value = calculateValue@PanelPropStringTextArea(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('CONTEXTMENU', Element.getNoValue())
 					    pr.set('MENUS', Element.getNoValue())
 					end
 					
-				case PipelinePP_Notes.TEXTAREA % __PipelinePP_Notes.TEXTAREA__
+				case 37 % PipelinePP_Notes.TEXTAREA
 					pip = pr.get('EL');
 					NOTES = pr.get('PROP');
 					
@@ -850,7 +850,7 @@ classdef PipelinePP_Notes < PanelPropStringTextArea
 					value = textarea;
 					
 				otherwise
-					if prop <= PanelPropStringTextArea.getPropNumber()
+					if prop <= 37
 						value = calculateValue@PanelPropStringTextArea(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

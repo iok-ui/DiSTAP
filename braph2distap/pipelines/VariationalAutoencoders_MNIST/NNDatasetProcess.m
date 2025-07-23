@@ -15,7 +15,7 @@ classdef NNDatasetProcess < ConcreteElement
 	%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-	%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
+	%  <strong>9</strong> <strong>D</strong> 	D (result, item) processes the datapoints using preprocessing steps (e.g., normalization or standariaztion) and constructs a neural network dataset item for training a neural network model.
 	%
 	% NNDatasetProcess methods (constructor):
 	%  NNDatasetProcess - constructor
@@ -133,7 +133,7 @@ classdef NNDatasetProcess < ConcreteElement
 			%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-			%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
+			%  <strong>9</strong> <strong>D</strong> 	D (result, item) processes the datapoints using preprocessing steps (e.g., normalization or standariaztion) and constructs a neural network dataset item for training a neural network model.
 			%
 			% See also Category, Format.
 			
@@ -186,7 +186,7 @@ classdef NNDatasetProcess < ConcreteElement
 			%
 			% See also subclasses.
 			
-			subclass_list = { 'NNDatasetProcess'  'NNDatasetProcess_MNIST' }; %CET: Computational Efficiency Trick
+			subclass_list = { 'NNDatasetProcess'  'NNDatasetProcess_MNIST'  'NNDatasetProcess_Spectrum' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
 			%GETPROPS returns the property list of processing for a neural network data.
@@ -478,7 +478,7 @@ classdef NNDatasetProcess < ConcreteElement
 			prop = NNDatasetProcess.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_description_list = { 'ELCLASS (constant, string) is the class of processing data for a neural networks datasets.'  'NAME (constant, string) is the name of processing data for a neural networks datasets.'  'DESCRIPTION (constant, string) is the description of processing data for a neural networks datasets.'  'TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.'  'ID (data, string) is a few-letter code of processing data for a neural networks datasets.'  'LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.'  'NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural network dataset containing the datapoint processed from the raw data.' };
+			nndatasetprocess_description_list = { 'ELCLASS (constant, string) is the class of processing data for a neural networks datasets.'  'NAME (constant, string) is the name of processing data for a neural networks datasets.'  'DESCRIPTION (constant, string) is the description of processing data for a neural networks datasets.'  'TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.'  'ID (data, string) is a few-letter code of processing data for a neural networks datasets.'  'LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.'  'NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) processes the datapoints using preprocessing steps (e.g., normalization or standariaztion) and constructs a neural network dataset item for training a neural network model.' };
 			prop_description = nndatasetprocess_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -504,9 +504,9 @@ classdef NNDatasetProcess < ConcreteElement
 			prop = NNDatasetProcess.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDatasetProcess.D % __NNDatasetProcess.D__
+				case 9 % NNDatasetProcess.D
 					prop_settings = 'NNDataset';
-				case NNDatasetProcess.TEMPLATE % __NNDatasetProcess.TEMPLATE__
+				case 4 % NNDatasetProcess.TEMPLATE
 					prop_settings = 'NNDatasetProcess';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -535,21 +535,21 @@ classdef NNDatasetProcess < ConcreteElement
 			prop = NNDatasetProcess.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDatasetProcess.D % __NNDatasetProcess.D__
+				case 9 % NNDatasetProcess.D
 					prop_default = Format.getFormatDefault(8, NNDatasetProcess.getPropSettings(prop));
-				case NNDatasetProcess.ELCLASS % __NNDatasetProcess.ELCLASS__
+				case 1 % NNDatasetProcess.ELCLASS
 					prop_default = 'NNDatasetProcess';
-				case NNDatasetProcess.NAME % __NNDatasetProcess.NAME__
+				case 2 % NNDatasetProcess.NAME
 					prop_default = 'Processing for a Neural Network Dataset';
-				case NNDatasetProcess.DESCRIPTION % __NNDatasetProcess.DESCRIPTION__
+				case 3 % NNDatasetProcess.DESCRIPTION
 					prop_default = 'The processing for a neural network dataset (NNDatasetProcess) processes the raw data into a neural network dataset. The resulting neural network dataset contains all the datapoints from the raw data, along with its corresponding labels. Instances of this class should not be created. Use one of its subclasses instead.';
-				case NNDatasetProcess.TEMPLATE % __NNDatasetProcess.TEMPLATE__
+				case 4 % NNDatasetProcess.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNDatasetProcess.getPropSettings(prop));
-				case NNDatasetProcess.ID % __NNDatasetProcess.ID__
+				case 5 % NNDatasetProcess.ID
 					prop_default = 'NNDatasetProcess ID';
-				case NNDatasetProcess.LABEL % __NNDatasetProcess.LABEL__
+				case 6 % NNDatasetProcess.LABEL
 					prop_default = 'NNDatasetProcess label';
-				case NNDatasetProcess.NOTES % __NNDatasetProcess.NOTES__
+				case 7 % NNDatasetProcess.NOTES
 					prop_default = 'NNDatasetProcess notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -615,12 +615,12 @@ classdef NNDatasetProcess < ConcreteElement
 			prop = NNDatasetProcess.getPropProp(pointer);
 			
 			switch prop
-				case NNDatasetProcess.D % __NNDatasetProcess.D__
+				case 9 % NNDatasetProcess.D
 					check = Format.checkFormat(8, value, NNDatasetProcess.getPropSettings(prop));
-				case NNDatasetProcess.TEMPLATE % __NNDatasetProcess.TEMPLATE__
+				case 4 % NNDatasetProcess.TEMPLATE
 					check = Format.checkFormat(8, value, NNDatasetProcess.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -653,15 +653,15 @@ classdef NNDatasetProcess < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case NNDatasetProcess.D % __NNDatasetProcess.D__
-					rng_settings_ = rng(); rng(dtran.getPropSeed(NNDatasetProcess.D), 'twister')
+				case 9 % NNDatasetProcess.D
+					rng_settings_ = rng(); rng(dtran.getPropSeed(9), 'twister')
 					
 					value = NNDataset();
 					
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(dtran, prop, varargin{:});
 					else
 						value = calculateValue@Element(dtran, prop, varargin{:});

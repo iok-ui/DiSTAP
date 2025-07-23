@@ -677,39 +677,39 @@ classdef PanelProp < Panel
 			prop = PanelProp.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelProp.X_DRAW % __PanelProp.X_DRAW__
+				case 20 % PanelProp.X_DRAW
 					prop_settings = Format.getFormatSettings(4);
-				case PanelProp.UPDATE % __PanelProp.UPDATE__
+				case 21 % PanelProp.UPDATE
 					prop_settings = Format.getFormatSettings(4);
-				case PanelProp.REDRAW % __PanelProp.REDRAW__
+				case 22 % PanelProp.REDRAW
 					prop_settings = Format.getFormatSettings(4);
-				case PanelProp.EL % __PanelProp.EL__
+				case 23 % PanelProp.EL
 					prop_settings = Format.getFormatSettings(8);
-				case PanelProp.PROP % __PanelProp.PROP__
+				case 24 % PanelProp.PROP
 					prop_settings = Format.getFormatSettings(11);
-				case PanelProp.HEIGHT % __PanelProp.HEIGHT__
+				case 25 % PanelProp.HEIGHT
 					prop_settings = Format.getFormatSettings(22);
-				case PanelProp.TITLE % __PanelProp.TITLE__
+				case 26 % PanelProp.TITLE
 					prop_settings = Format.getFormatSettings(2);
-				case PanelProp.LABEL_TITLE % __PanelProp.LABEL_TITLE__
+				case 27 % PanelProp.LABEL_TITLE
 					prop_settings = Format.getFormatSettings(18);
-				case PanelProp.BUTTON_CB % __PanelProp.BUTTON_CB__
+				case 28 % PanelProp.BUTTON_CB
 					prop_settings = Format.getFormatSettings(18);
-				case PanelProp.GUI_CB % __PanelProp.GUI_CB__
+				case 29 % PanelProp.GUI_CB
 					prop_settings = 'GUI';
-				case PanelProp.LISTENER_CB % __PanelProp.LISTENER_CB__
+				case 30 % PanelProp.LISTENER_CB
 					prop_settings = Format.getFormatSettings(18);
-				case PanelProp.BUTTON_CALC % __PanelProp.BUTTON_CALC__
+				case 31 % PanelProp.BUTTON_CALC
 					prop_settings = Format.getFormatSettings(18);
-				case PanelProp.BUTTON_DEL % __PanelProp.BUTTON_DEL__
+				case 32 % PanelProp.BUTTON_DEL
 					prop_settings = Format.getFormatSettings(18);
-				case PanelProp.LISTENER_SET % __PanelProp.LISTENER_SET__
+				case 33 % PanelProp.LISTENER_SET
 					prop_settings = Format.getFormatSettings(19);
-				case PanelProp.LISTENER_MEMORIZED % __PanelProp.LISTENER_MEMORIZED__
+				case 34 % PanelProp.LISTENER_MEMORIZED
 					prop_settings = Format.getFormatSettings(19);
-				case PanelProp.LISTENER_LOCKED % __PanelProp.LISTENER_LOCKED__
+				case 35 % PanelProp.LISTENER_LOCKED
 					prop_settings = Format.getFormatSettings(19);
-				case PanelProp.TEMPLATE % __PanelProp.TEMPLATE__
+				case 4 % PanelProp.TEMPLATE
 					prop_settings = 'PanelProp';
 				otherwise
 					prop_settings = getPropSettings@Panel(prop);
@@ -738,51 +738,51 @@ classdef PanelProp < Panel
 			prop = PanelProp.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelProp.X_DRAW % __PanelProp.X_DRAW__
+				case 20 % PanelProp.X_DRAW
 					prop_default = Format.getFormatDefault(4, PanelProp.getPropSettings(prop));
-				case PanelProp.UPDATE % __PanelProp.UPDATE__
+				case 21 % PanelProp.UPDATE
 					prop_default = Format.getFormatDefault(4, PanelProp.getPropSettings(prop));
-				case PanelProp.REDRAW % __PanelProp.REDRAW__
+				case 22 % PanelProp.REDRAW
 					prop_default = Format.getFormatDefault(4, PanelProp.getPropSettings(prop));
-				case PanelProp.EL % __PanelProp.EL__
+				case 23 % PanelProp.EL
 					prop_default = Format.getFormatDefault(8, PanelProp.getPropSettings(prop));
-				case PanelProp.PROP % __PanelProp.PROP__
+				case 24 % PanelProp.PROP
 					prop_default = 1;
-				case PanelProp.HEIGHT % __PanelProp.HEIGHT__
+				case 25 % PanelProp.HEIGHT
 					prop_default = 24;
-				case PanelProp.TITLE % __PanelProp.TITLE__
+				case 26 % PanelProp.TITLE
 					prop_default = Format.getFormatDefault(2, PanelProp.getPropSettings(prop));
-				case PanelProp.LABEL_TITLE % __PanelProp.LABEL_TITLE__
+				case 27 % PanelProp.LABEL_TITLE
 					prop_default = Format.getFormatDefault(18, PanelProp.getPropSettings(prop));
-				case PanelProp.BUTTON_CB % __PanelProp.BUTTON_CB__
+				case 28 % PanelProp.BUTTON_CB
 					prop_default = Format.getFormatDefault(18, PanelProp.getPropSettings(prop));
-				case PanelProp.GUI_CB % __PanelProp.GUI_CB__
+				case 29 % PanelProp.GUI_CB
 					prop_default = Format.getFormatDefault(8, PanelProp.getPropSettings(prop));
-				case PanelProp.LISTENER_CB % __PanelProp.LISTENER_CB__
+				case 30 % PanelProp.LISTENER_CB
 					prop_default = Format.getFormatDefault(18, PanelProp.getPropSettings(prop));
-				case PanelProp.BUTTON_CALC % __PanelProp.BUTTON_CALC__
+				case 31 % PanelProp.BUTTON_CALC
 					prop_default = Format.getFormatDefault(18, PanelProp.getPropSettings(prop));
-				case PanelProp.BUTTON_DEL % __PanelProp.BUTTON_DEL__
+				case 32 % PanelProp.BUTTON_DEL
 					prop_default = Format.getFormatDefault(18, PanelProp.getPropSettings(prop));
-				case PanelProp.LISTENER_SET % __PanelProp.LISTENER_SET__
+				case 33 % PanelProp.LISTENER_SET
 					prop_default = Format.getFormatDefault(19, PanelProp.getPropSettings(prop));
-				case PanelProp.LISTENER_MEMORIZED % __PanelProp.LISTENER_MEMORIZED__
+				case 34 % PanelProp.LISTENER_MEMORIZED
 					prop_default = Format.getFormatDefault(19, PanelProp.getPropSettings(prop));
-				case PanelProp.LISTENER_LOCKED % __PanelProp.LISTENER_LOCKED__
+				case 35 % PanelProp.LISTENER_LOCKED
 					prop_default = Format.getFormatDefault(19, PanelProp.getPropSettings(prop));
-				case PanelProp.ELCLASS % __PanelProp.ELCLASS__
+				case 1 % PanelProp.ELCLASS
 					prop_default = 'PanelProp';
-				case PanelProp.NAME % __PanelProp.NAME__
+				case 2 % PanelProp.NAME
 					prop_default = 'Prop Panel';
-				case PanelProp.DESCRIPTION % __PanelProp.DESCRIPTION__
+				case 3 % PanelProp.DESCRIPTION
 					prop_default = 'A Prop Panel (PanelProp) renders a property of an element in a panel.';
-				case PanelProp.TEMPLATE % __PanelProp.TEMPLATE__
+				case 4 % PanelProp.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelProp.getPropSettings(prop));
-				case PanelProp.ID % __PanelProp.ID__
+				case 5 % PanelProp.ID
 					prop_default = 'PanelProp ID';
-				case PanelProp.LABEL % __PanelProp.LABEL__
+				case 6 % PanelProp.LABEL
 					prop_default = 'PanelProp label';
-				case PanelProp.NOTES % __PanelProp.NOTES__
+				case 7 % PanelProp.NOTES
 					prop_default = 'PanelProp notes';
 				otherwise
 					prop_default = getPropDefault@Panel(prop);
@@ -828,7 +828,7 @@ classdef PanelProp < Panel
 			%  calculateValue, checkValue.
 			
 			switch prop
-				case PanelProp.GUI_CB % __PanelProp.GUI_CB__
+				case 29 % PanelProp.GUI_CB
 					if isequal(value.getClass(), 'GUI') % i.e., default initialization
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -851,7 +851,7 @@ classdef PanelProp < Panel
 					end
 					
 				otherwise
-					if prop <= Panel.getPropNumber()
+					if prop <= 19
 						value = preset@Panel(pr, prop, value);
 					end
 			end
@@ -891,42 +891,42 @@ classdef PanelProp < Panel
 			prop = PanelProp.getPropProp(pointer);
 			
 			switch prop
-				case PanelProp.X_DRAW % __PanelProp.X_DRAW__
+				case 20 % PanelProp.X_DRAW
 					check = Format.checkFormat(4, value, PanelProp.getPropSettings(prop));
-				case PanelProp.UPDATE % __PanelProp.UPDATE__
+				case 21 % PanelProp.UPDATE
 					check = Format.checkFormat(4, value, PanelProp.getPropSettings(prop));
-				case PanelProp.REDRAW % __PanelProp.REDRAW__
+				case 22 % PanelProp.REDRAW
 					check = Format.checkFormat(4, value, PanelProp.getPropSettings(prop));
-				case PanelProp.EL % __PanelProp.EL__
+				case 23 % PanelProp.EL
 					check = Format.checkFormat(8, value, PanelProp.getPropSettings(prop));
-				case PanelProp.PROP % __PanelProp.PROP__
+				case 24 % PanelProp.PROP
 					check = Format.checkFormat(11, value, PanelProp.getPropSettings(prop));
-				case PanelProp.HEIGHT % __PanelProp.HEIGHT__
+				case 25 % PanelProp.HEIGHT
 					check = Format.checkFormat(22, value, PanelProp.getPropSettings(prop));
-				case PanelProp.TITLE % __PanelProp.TITLE__
+				case 26 % PanelProp.TITLE
 					check = Format.checkFormat(2, value, PanelProp.getPropSettings(prop));
-				case PanelProp.LABEL_TITLE % __PanelProp.LABEL_TITLE__
+				case 27 % PanelProp.LABEL_TITLE
 					check = Format.checkFormat(18, value, PanelProp.getPropSettings(prop));
-				case PanelProp.BUTTON_CB % __PanelProp.BUTTON_CB__
+				case 28 % PanelProp.BUTTON_CB
 					check = Format.checkFormat(18, value, PanelProp.getPropSettings(prop));
-				case PanelProp.GUI_CB % __PanelProp.GUI_CB__
+				case 29 % PanelProp.GUI_CB
 					check = Format.checkFormat(8, value, PanelProp.getPropSettings(prop));
-				case PanelProp.LISTENER_CB % __PanelProp.LISTENER_CB__
+				case 30 % PanelProp.LISTENER_CB
 					check = Format.checkFormat(18, value, PanelProp.getPropSettings(prop));
-				case PanelProp.BUTTON_CALC % __PanelProp.BUTTON_CALC__
+				case 31 % PanelProp.BUTTON_CALC
 					check = Format.checkFormat(18, value, PanelProp.getPropSettings(prop));
-				case PanelProp.BUTTON_DEL % __PanelProp.BUTTON_DEL__
+				case 32 % PanelProp.BUTTON_DEL
 					check = Format.checkFormat(18, value, PanelProp.getPropSettings(prop));
-				case PanelProp.LISTENER_SET % __PanelProp.LISTENER_SET__
+				case 33 % PanelProp.LISTENER_SET
 					check = Format.checkFormat(19, value, PanelProp.getPropSettings(prop));
-				case PanelProp.LISTENER_MEMORIZED % __PanelProp.LISTENER_MEMORIZED__
+				case 34 % PanelProp.LISTENER_MEMORIZED
 					check = Format.checkFormat(19, value, PanelProp.getPropSettings(prop));
-				case PanelProp.LISTENER_LOCKED % __PanelProp.LISTENER_LOCKED__
+				case 35 % PanelProp.LISTENER_LOCKED
 					check = Format.checkFormat(19, value, PanelProp.getPropSettings(prop));
-				case PanelProp.TEMPLATE % __PanelProp.TEMPLATE__
+				case 4 % PanelProp.TEMPLATE
 					check = Format.checkFormat(8, value, PanelProp.getPropSettings(prop));
 				otherwise
-					if prop <= Panel.getPropNumber()
+					if prop <= 19
 						check = checkProp@Panel(prop, value);
 					end
 			end
@@ -956,7 +956,7 @@ classdef PanelProp < Panel
 			%  checkValue.
 			
 			switch prop
-				case PanelProp.EL % __PanelProp.EL__
+				case 23 % PanelProp.EL
 					pr.lock('EL', 'Iterative', false)
 					if ~isa(pr.getr('PROP'), 'NoValue')
 					    el = pr.get('EL');
@@ -997,7 +997,7 @@ classdef PanelProp < Panel
 					    end
 					end
 					
-				case PanelProp.PROP % __PanelProp.PROP__
+				case 24 % PanelProp.PROP
 					pr.lock('PROP', 'Iterative', false)
 					if ~isa(pr.getr('EL'), 'NoValue')
 					    el = pr.get('EL');
@@ -1038,13 +1038,13 @@ classdef PanelProp < Panel
 					    end
 					end
 					
-				case PanelProp.HEIGHT % __PanelProp.HEIGHT__
+				case 25 % PanelProp.HEIGHT
 					if pr.get('DRAWN')
 					    pr.get('REDRAW')
 					end
 					
 				otherwise
-					if prop <= Panel.getPropNumber()
+					if prop <= 19
 						postset@Panel(pr, prop);
 					end
 			end
@@ -1067,10 +1067,10 @@ classdef PanelProp < Panel
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelProp.X_DRAW % __PanelProp.X_DRAW__
+				case 20 % PanelProp.X_DRAW
 					value = true;
 					
-				case PanelProp.UPDATE % __PanelProp.UPDATE__
+				case 21 % PanelProp.UPDATE
 					if pr.get('DRAWN')
 					    switch pr.get('EL').getPropCategory(pr.get('PROP'))
 					        case {1 2} % {Category.CONSTANT Category.METADATA}
@@ -1127,7 +1127,7 @@ classdef PanelProp < Panel
 					    value = false;
 					end
 					
-				case PanelProp.REDRAW % __PanelProp.REDRAW__
+				case 22 % PanelProp.REDRAW
 					if pr.get('DRAWN')
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    h_p = pr.get('HEIGHT'); % should be identical to h(pr.get('H'), 'pixels') 
@@ -1162,7 +1162,7 @@ classdef PanelProp < Panel
 					    value = false;
 					end
 					
-				case PanelProp.LABEL_TITLE % __PanelProp.LABEL_TITLE__
+				case 27 % PanelProp.LABEL_TITLE
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -1183,7 +1183,7 @@ classdef PanelProp < Panel
 					
 					value = label_title;
 					
-				case PanelProp.BUTTON_CB % __PanelProp.BUTTON_CB__
+				case 28 % PanelProp.BUTTON_CB
 					button_cb = uibutton( ...
 					    'Parent', pr.get('H'), ... % H = p for Panel
 					    'Tag', 'BUTTON_CB', ...
@@ -1195,7 +1195,7 @@ classdef PanelProp < Panel
 					    );
 					value = button_cb;
 					
-				case PanelProp.LISTENER_CB % __PanelProp.LISTENER_CB__
+				case 30 % PanelProp.LISTENER_CB
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					if isa(el.getr(prop), 'Callback')
@@ -1209,7 +1209,7 @@ classdef PanelProp < Panel
 						value = gobjects(1);
 					end
 					
-				case PanelProp.BUTTON_CALC % __PanelProp.BUTTON_CALC__
+				case 31 % PanelProp.BUTTON_CALC
 					button_calc = uibutton( ...
 					    'Parent', pr.get('H'), ... % H = p for Panel
 					    'Tag', 'BUTTON_CALC', ...
@@ -1222,7 +1222,7 @@ classdef PanelProp < Panel
 					    );
 					value = button_calc;
 					
-				case PanelProp.BUTTON_DEL % __PanelProp.BUTTON_DEL__
+				case 32 % PanelProp.BUTTON_DEL
 					button_del = uibutton( ...
 					    'Parent', pr.get('H'), ... % H = p for Panel
 					    'Tag', 'BUTTON_DEL', ...
@@ -1235,17 +1235,17 @@ classdef PanelProp < Panel
 					    );
 					value = button_del;
 					
-				case PanelProp.LISTENER_SET % __PanelProp.LISTENER_SET__
+				case 33 % PanelProp.LISTENER_SET
 					value = {listener(pr.get('EL'), 'PropSet', @cb_listener_set)};
 					
-				case PanelProp.LISTENER_MEMORIZED % __PanelProp.LISTENER_MEMORIZED__
+				case 34 % PanelProp.LISTENER_MEMORIZED
 					value = {listener(pr.get('EL'), 'PropMemorized', @cb_listener_memorized)};
 					
-				case PanelProp.LISTENER_LOCKED % __PanelProp.LISTENER_LOCKED__
+				case 35 % PanelProp.LISTENER_LOCKED
 					value = {listener(pr.get('EL'), 'PropLocked', @cb_listener_locked)};
 					
-				case PanelProp.DRAW % __PanelProp.DRAW__
-					value = calculateValue@Panel(pr, Panel.DRAW, varargin{:}); % also warning
+				case 11 % PanelProp.DRAW
+					value = calculateValue@Panel(pr, 11, varargin{:}); % also warning
 					if value
 					    switch pr.get('EL').getPropCategory(pr.get('PROP'))
 					        case {1 2} % {Category.CONSTANT Category.METADATA}
@@ -1278,10 +1278,10 @@ classdef PanelProp < Panel
 					    pr.get('REDRAW')
 					end
 					
-				case PanelProp.SHOW % __PanelProp.SHOW__
+				case 16 % PanelProp.SHOW
 					if pr.get('DRAWN')
 					
-					    calculateValue@Panel(pr, Panel.SHOW, varargin{:}); % Panel.SHOW = __Panel.SHOW__
+					    calculateValue@Panel(pr, 16, varargin{:}); % 16 = Panel.SHOW
 					
 					    % figure cb
 					    if isa(pr.getr('GUI_CB'), 'GUI') && pr.get('GUI_CB').get('DRAWN')
@@ -1300,10 +1300,10 @@ classdef PanelProp < Panel
 					    value = false;
 					end
 					
-				case PanelProp.HIDE % __PanelProp.HIDE__
+				case 17 % PanelProp.HIDE
 					if pr.get('DRAWN')
 					
-					    calculateValue@Panel(pr, Panel.HIDE, varargin{:}); % Panel.HIDE = __Panel.HIDE__
+					    calculateValue@Panel(pr, 17, varargin{:}); % 17 = Panel.HIDE
 					    
 					    % figure cb
 					    if isa(pr.getr('GUI_CB'), 'GUI') && pr.get('GUI_CB').get('DRAWN')
@@ -1322,8 +1322,8 @@ classdef PanelProp < Panel
 					    value = false;
 					end
 					
-				case PanelProp.DELETE % __PanelProp.DELETE__
-					value = calculateValue@Panel(pr, Panel.DELETE, varargin{:}); % Panel.DELETE = __Panel.DELETE__ % also warning
+				case 18 % PanelProp.DELETE
+					value = calculateValue@Panel(pr, 18, varargin{:}); % 18 = Panel.DELETE % also warning
 					if value
 					    pr.set('LABEL_TITLE', Element.getNoValue())
 					    
@@ -1338,10 +1338,10 @@ classdef PanelProp < Panel
 					    pr.set('LISTENER_LOCKED', Element.getNoValue())   
 					end
 					
-				case PanelProp.CLOSE % __PanelProp.CLOSE__
+				case 19 % PanelProp.CLOSE
 					if pr.get('DRAWN')
 					
-					    calculateValue@Panel(pr, Panel.CLOSE, varargin{:}); % Panel.CLOSE = __Panel.CLOSE__
+					    calculateValue@Panel(pr, 19, varargin{:}); % 19 = Panel.CLOSE
 					    
 					    % figure cb
 					    if isa(pr.getr('GUI_CB'), 'GUI') && pr.get('GUI_CB').get('DRAWN')
@@ -1361,7 +1361,7 @@ classdef PanelProp < Panel
 					end
 					
 				otherwise
-					if prop <= Panel.getPropNumber()
+					if prop <= 19
 						value = calculateValue@Panel(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

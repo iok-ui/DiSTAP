@@ -562,19 +562,19 @@ classdef Settings < ConcreteElement
 			prop = Settings.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Settings.PANEL % __Settings.PANEL__
+				case 9 % Settings.PANEL
 					prop_settings = 'Panel';
-				case Settings.PROP % __Settings.PROP__
+				case 10 % Settings.PROP
 					prop_settings = Format.getFormatSettings(11);
-				case Settings.TAG % __Settings.TAG__
+				case 11 % Settings.TAG
 					prop_settings = Format.getFormatSettings(2);
-				case Settings.I % __Settings.I__
+				case 12 % Settings.I
 					prop_settings = Format.getFormatSettings(11);
-				case Settings.H % __Settings.H__
+				case 13 % Settings.H
 					prop_settings = Format.getFormatSettings(18);
-				case Settings.SETUP % __Settings.SETUP__
+				case 14 % Settings.SETUP
 					prop_settings = Format.getFormatSettings(11);
-				case Settings.TEMPLATE % __Settings.TEMPLATE__
+				case 4 % Settings.TEMPLATE
 					prop_settings = 'Settings';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -603,31 +603,31 @@ classdef Settings < ConcreteElement
 			prop = Settings.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Settings.PANEL % __Settings.PANEL__
+				case 9 % Settings.PANEL
 					prop_default = Format.getFormatDefault(8, Settings.getPropSettings(prop));
-				case Settings.PROP % __Settings.PROP__
-					prop_default = Panel.H;
-				case Settings.TAG % __Settings.TAG__
+				case 10 % Settings.PROP
+					prop_default = 15;
+				case 11 % Settings.TAG
 					prop_default = 'H';
-				case Settings.I % __Settings.I__
+				case 12 % Settings.I
 					prop_default = Format.getFormatDefault(11, Settings.getPropSettings(prop));
-				case Settings.H % __Settings.H__
+				case 13 % Settings.H
 					prop_default = Format.getFormatDefault(18, Settings.getPropSettings(prop));
-				case Settings.SETUP % __Settings.SETUP__
+				case 14 % Settings.SETUP
 					prop_default = Format.getFormatDefault(11, Settings.getPropSettings(prop));
-				case Settings.ELCLASS % __Settings.ELCLASS__
+				case 1 % Settings.ELCLASS
 					prop_default = 'Settings';
-				case Settings.NAME % __Settings.NAME__
+				case 2 % Settings.NAME
 					prop_default = 'Graphics Settings';
-				case Settings.DESCRIPTION % __Settings.DESCRIPTION__
+				case 3 % Settings.DESCRIPTION
 					prop_default = 'A Graphics Settings (Settings) provides the base element for all graphics settings. Typically, only its subclasses are employed.';
-				case Settings.TEMPLATE % __Settings.TEMPLATE__
+				case 4 % Settings.TEMPLATE
 					prop_default = Format.getFormatDefault(8, Settings.getPropSettings(prop));
-				case Settings.ID % __Settings.ID__
+				case 5 % Settings.ID
 					prop_default = 'Settings ID';
-				case Settings.LABEL % __Settings.LABEL__
+				case 6 % Settings.LABEL
 					prop_default = 'Settings label';
-				case Settings.NOTES % __Settings.NOTES__
+				case 7 % Settings.NOTES
 					prop_default = 'Settings notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -693,22 +693,22 @@ classdef Settings < ConcreteElement
 			prop = Settings.getPropProp(pointer);
 			
 			switch prop
-				case Settings.PANEL % __Settings.PANEL__
+				case 9 % Settings.PANEL
 					check = Format.checkFormat(8, value, Settings.getPropSettings(prop));
-				case Settings.PROP % __Settings.PROP__
+				case 10 % Settings.PROP
 					check = Format.checkFormat(11, value, Settings.getPropSettings(prop));
-				case Settings.TAG % __Settings.TAG__
+				case 11 % Settings.TAG
 					check = Format.checkFormat(2, value, Settings.getPropSettings(prop));
-				case Settings.I % __Settings.I__
+				case 12 % Settings.I
 					check = Format.checkFormat(11, value, Settings.getPropSettings(prop));
-				case Settings.H % __Settings.H__
+				case 13 % Settings.H
 					check = Format.checkFormat(18, value, Settings.getPropSettings(prop));
-				case Settings.SETUP % __Settings.SETUP__
+				case 14 % Settings.SETUP
 					check = Format.checkFormat(11, value, Settings.getPropSettings(prop));
-				case Settings.TEMPLATE % __Settings.TEMPLATE__
+				case 4 % Settings.TEMPLATE
 					check = Format.checkFormat(8, value, Settings.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -738,14 +738,14 @@ classdef Settings < ConcreteElement
 			%  checkValue.
 			
 			switch prop
-				case Settings.PROP % __Settings.PROP__
+				case 10 % Settings.PROP
 					pn = st.get('PANEL');
 					prop = st.get('PROP');
 					if ~strcmp(st.get('TAG'), pn.getPropTag(prop))
 					    st.set('TAG', pn.getPropTag(prop));
 					end
 					
-				case Settings.TAG % __Settings.TAG__
+				case 11 % Settings.TAG
 					pn = st.get('PANEL');
 					tag = st.get('TAG');
 					if st.get('PROP') ~= pn.getPropProp(tag)
@@ -753,7 +753,7 @@ classdef Settings < ConcreteElement
 					end
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						postset@ConcreteElement(st, prop);
 					end
 			end
@@ -776,7 +776,7 @@ classdef Settings < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case Settings.H % __Settings.H__
+				case 13 % Settings.H
 					pn = st.get('PANEL');
 					prop = st.get('PROP');
 					switch pn.getPropFormat(prop)
@@ -797,7 +797,7 @@ classdef Settings < ConcreteElement
 					        end
 					end
 					
-				case Settings.SETUP % __Settings.SETUP__
+				case 14 % Settings.SETUP
 					figure_props = st.getProps(8);
 					settings = cell(1, 2 * length(figure_props));
 					for i = 1:1:length(figure_props)
@@ -809,7 +809,7 @@ classdef Settings < ConcreteElement
 					value = length(figure_props);
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(st, prop, varargin{:});
 					else
 						value = calculateValue@Element(st, prop, varargin{:});
@@ -834,7 +834,7 @@ classdef Settings < ConcreteElement
 			msg = ['Error while checking ' tostring(st) ' ' st.getPropTag(prop) '.'];
 			
 			switch prop
-				case Settings.PROP % __Settings.PROP__
+				case 10 % Settings.PROP
 					check = st.get('PANEL').getPropCategory(value) == 7 && any(st.get('PANEL').getPropFormat(value) == [18 19]);
 					if check
 					    msg = 'All ok';
@@ -844,7 +844,7 @@ classdef Settings < ConcreteElement
 					        ' ' Format.getFormatName(st.get('PANEL').getPropFormat(value)) '.'];
 					end
 					
-				case Settings.TAG % __Settings.TAG__
+				case 11 % Settings.TAG
 					check = st.get('PANEL').getPropCategory(value) == 7 && any(st.get('PANEL').getPropFormat(value) == [18 19]);
 					if check
 					    msg = 'All ok';
@@ -855,7 +855,7 @@ classdef Settings < ConcreteElement
 					end
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						[check, msg] = checkValue@ConcreteElement(st, prop, value);
 					end
 			end

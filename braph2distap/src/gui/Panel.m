@@ -607,29 +607,29 @@ classdef Panel < ConcreteElement
 			prop = Panel.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Panel.WAITBAR % __Panel.WAITBAR__
+				case 9 % Panel.WAITBAR
 					prop_settings = Format.getFormatSettings(4);
-				case Panel.H_WAITBAR % __Panel.H_WAITBAR__
+				case 10 % Panel.H_WAITBAR
 					prop_settings = Format.getFormatSettings(18);
-				case Panel.DRAW % __Panel.DRAW__
+				case 11 % Panel.DRAW
 					prop_settings = Format.getFormatSettings(4);
-				case Panel.DRAWN % __Panel.DRAWN__
+				case 12 % Panel.DRAWN
 					prop_settings = Format.getFormatSettings(4);
-				case Panel.PARENT % __Panel.PARENT__
+				case 13 % Panel.PARENT
 					prop_settings = Format.getFormatSettings(8);
-				case Panel.BKGCOLOR % __Panel.BKGCOLOR__
+				case 14 % Panel.BKGCOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case Panel.H % __Panel.H__
+				case 15 % Panel.H
 					prop_settings = Format.getFormatSettings(18);
-				case Panel.SHOW % __Panel.SHOW__
+				case 16 % Panel.SHOW
 					prop_settings = Format.getFormatSettings(4);
-				case Panel.HIDE % __Panel.HIDE__
+				case 17 % Panel.HIDE
 					prop_settings = Format.getFormatSettings(4);
-				case Panel.DELETE % __Panel.DELETE__
+				case 18 % Panel.DELETE
 					prop_settings = Format.getFormatSettings(4);
-				case Panel.CLOSE % __Panel.CLOSE__
+				case 19 % Panel.CLOSE
 					prop_settings = Format.getFormatSettings(4);
-				case Panel.TEMPLATE % __Panel.TEMPLATE__
+				case 4 % Panel.TEMPLATE
 					prop_settings = 'Panel';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -658,41 +658,41 @@ classdef Panel < ConcreteElement
 			prop = Panel.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Panel.WAITBAR % __Panel.WAITBAR__
+				case 9 % Panel.WAITBAR
 					prop_default = Format.getFormatDefault(4, Panel.getPropSettings(prop));
-				case Panel.H_WAITBAR % __Panel.H_WAITBAR__
+				case 10 % Panel.H_WAITBAR
 					prop_default = Format.getFormatDefault(18, Panel.getPropSettings(prop));
-				case Panel.DRAW % __Panel.DRAW__
+				case 11 % Panel.DRAW
 					prop_default = Format.getFormatDefault(4, Panel.getPropSettings(prop));
-				case Panel.DRAWN % __Panel.DRAWN__
+				case 12 % Panel.DRAWN
 					prop_default = Format.getFormatDefault(4, Panel.getPropSettings(prop));
-				case Panel.PARENT % __Panel.PARENT__
+				case 13 % Panel.PARENT
 					prop_default = GUI();
-				case Panel.BKGCOLOR % __Panel.BKGCOLOR__
+				case 14 % Panel.BKGCOLOR
 					prop_default = [1 0.9725 0.929];
-				case Panel.H % __Panel.H__
+				case 15 % Panel.H
 					prop_default = Format.getFormatDefault(18, Panel.getPropSettings(prop));
-				case Panel.SHOW % __Panel.SHOW__
+				case 16 % Panel.SHOW
 					prop_default = Format.getFormatDefault(4, Panel.getPropSettings(prop));
-				case Panel.HIDE % __Panel.HIDE__
+				case 17 % Panel.HIDE
 					prop_default = Format.getFormatDefault(4, Panel.getPropSettings(prop));
-				case Panel.DELETE % __Panel.DELETE__
+				case 18 % Panel.DELETE
 					prop_default = Format.getFormatDefault(4, Panel.getPropSettings(prop));
-				case Panel.CLOSE % __Panel.CLOSE__
+				case 19 % Panel.CLOSE
 					prop_default = Format.getFormatDefault(4, Panel.getPropSettings(prop));
-				case Panel.ELCLASS % __Panel.ELCLASS__
+				case 1 % Panel.ELCLASS
 					prop_default = 'Panel';
-				case Panel.NAME % __Panel.NAME__
+				case 2 % Panel.NAME
 					prop_default = 'Panel';
-				case Panel.DESCRIPTION % __Panel.DESCRIPTION__
+				case 3 % Panel.DESCRIPTION
 					prop_default = 'A Panel is the basic element to manage graphical representations of elements. It is an empty graphical panel. It is filled with the graphical content representing an element (PanelElement) or figure (PanelFig) or property (typically, PanelProp and derived classes). It must be placed within another container; for example, a figure (e.g., PanelElement into GUIElement, or PanelFig into GUIFig) or another panel (e.g., PanelProp into PanelElement).';
-				case Panel.TEMPLATE % __Panel.TEMPLATE__
+				case 4 % Panel.TEMPLATE
 					prop_default = Format.getFormatDefault(8, Panel.getPropSettings(prop));
-				case Panel.ID % __Panel.ID__
+				case 5 % Panel.ID
 					prop_default = 'Panel ID';
-				case Panel.LABEL % __Panel.LABEL__
+				case 6 % Panel.LABEL
 					prop_default = 'Panel label';
-				case Panel.NOTES % __Panel.NOTES__
+				case 7 % Panel.NOTES
 					prop_default = 'Panel notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -758,35 +758,35 @@ classdef Panel < ConcreteElement
 			prop = Panel.getPropProp(pointer);
 			
 			switch prop
-				case Panel.WAITBAR % __Panel.WAITBAR__
+				case 9 % Panel.WAITBAR
 					check = Format.checkFormat(4, value, Panel.getPropSettings(prop));
-				case Panel.H_WAITBAR % __Panel.H_WAITBAR__
+				case 10 % Panel.H_WAITBAR
 					check = Format.checkFormat(18, value, Panel.getPropSettings(prop));
-				case Panel.DRAW % __Panel.DRAW__
+				case 11 % Panel.DRAW
 					check = Format.checkFormat(4, value, Panel.getPropSettings(prop));
-				case Panel.DRAWN % __Panel.DRAWN__
+				case 12 % Panel.DRAWN
 					check = Format.checkFormat(4, value, Panel.getPropSettings(prop));
-				case Panel.PARENT % __Panel.PARENT__
+				case 13 % Panel.PARENT
 					check = Format.checkFormat(8, value, Panel.getPropSettings(prop));
 					if check
 						check = isa(value, 'GUI') || isa(value, 'Panel');
 					end
-				case Panel.BKGCOLOR % __Panel.BKGCOLOR__
+				case 14 % Panel.BKGCOLOR
 					check = Format.checkFormat(20, value, Panel.getPropSettings(prop));
-				case Panel.H % __Panel.H__
+				case 15 % Panel.H
 					check = Format.checkFormat(18, value, Panel.getPropSettings(prop));
-				case Panel.SHOW % __Panel.SHOW__
+				case 16 % Panel.SHOW
 					check = Format.checkFormat(4, value, Panel.getPropSettings(prop));
-				case Panel.HIDE % __Panel.HIDE__
+				case 17 % Panel.HIDE
 					check = Format.checkFormat(4, value, Panel.getPropSettings(prop));
-				case Panel.DELETE % __Panel.DELETE__
+				case 18 % Panel.DELETE
 					check = Format.checkFormat(4, value, Panel.getPropSettings(prop));
-				case Panel.CLOSE % __Panel.CLOSE__
+				case 19 % Panel.CLOSE
 					check = Format.checkFormat(4, value, Panel.getPropSettings(prop));
-				case Panel.TEMPLATE % __Panel.TEMPLATE__
+				case 4 % Panel.TEMPLATE
 					check = Format.checkFormat(8, value, Panel.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -816,18 +816,18 @@ classdef Panel < ConcreteElement
 			%  checkValue.
 			
 			switch prop
-				case Panel.PARENT % __Panel.PARENT__
+				case 13 % Panel.PARENT
 					if check_graphics(pn.getr('H'), 'uipanel') % H = p for panel
 					    set(pn.get('H'), 'Parent', pn.get('PARENT').get('H')) % H = f for GUI and H = p for Panel
 					end
 					
-				case Panel.BKGCOLOR % __Panel.BKGCOLOR__
+				case 14 % Panel.BKGCOLOR
 					if pn.get('DRAWN') && ~isequal(get(pn.get('H'), 'BackgroundColor'), pn.get('BKGCOLOR'))
 					    set(pn.get('H'), 'BackgroundColor', pn.get('BKGCOLOR'))
 					end
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						postset@ConcreteElement(pn, prop);
 					end
 			end
@@ -850,7 +850,7 @@ classdef Panel < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case Panel.DRAW % __Panel.DRAW__
+				case 11 % Panel.DRAW
 					if check_graphics(pn.memorize('H'), 'uipanel') % H = p for panel
 					    p = pn.get('H');
 					    
@@ -869,10 +869,10 @@ classdef Panel < ConcreteElement
 					    value = false;
 					end
 					
-				case Panel.DRAWN % __Panel.DRAWN__
+				case 12 % Panel.DRAWN
 					value = check_graphics(pn.getr('H'), 'uipanel'); % H = p for panel
 					
-				case Panel.H % __Panel.H__
+				case 15 % Panel.H
 					p = uipanel( ...
 					    'Parent', pn.memorize('PARENT').memorize('H'), ... % H = f for GUI and H = p for Panel
 					    'Tag', 'H', ...
@@ -883,7 +883,7 @@ classdef Panel < ConcreteElement
 					    );
 					value = p;
 					
-				case Panel.SHOW % __Panel.SHOW__
+				case 16 % Panel.SHOW
 					if pn.get('DRAWN')
 					    if get_from_varargin(true, 'ShowParentFigure', varargin)
 					        pn.get('PARENT').get('SHOW')
@@ -901,7 +901,7 @@ classdef Panel < ConcreteElement
 					    value = false;
 					end
 					
-				case Panel.HIDE % __Panel.HIDE__
+				case 17 % Panel.HIDE
 					if pn.get('DRAWN')
 					    if get_from_varargin(true, 'HideParentFigure', varargin)
 					        pn.get('PARENT').get('HIDE')
@@ -919,7 +919,7 @@ classdef Panel < ConcreteElement
 					    value = false;
 					end
 					
-				case Panel.DELETE % __Panel.DELETE__
+				case 18 % Panel.DELETE
 					if pn.get('DRAWN')
 					    pn.set('H', Element.getNoValue())
 					
@@ -937,7 +937,7 @@ classdef Panel < ConcreteElement
 					    value = false;
 					end
 					
-				case Panel.CLOSE % __Panel.CLOSE__
+				case 19 % Panel.CLOSE
 					if pn.get('DRAWN')
 					    if get_from_varargin(true, 'CloseParentFigure', varargin)
 					        pn.get('PARENT').get('CLOSE')
@@ -956,7 +956,7 @@ classdef Panel < ConcreteElement
 					end
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(pn, prop, varargin{:});
 					else
 						value = calculateValue@Element(pn, prop, varargin{:});

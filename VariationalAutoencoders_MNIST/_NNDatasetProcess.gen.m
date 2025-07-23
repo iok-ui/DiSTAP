@@ -52,7 +52,7 @@ NOTES (metadata, string) are some specific notes of processing data for a neural
 %% ¡props!
 
 %%% ¡prop!
-D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
+D (result, item) processes the datapoints using preprocessing steps (e.g., normalization or standariaztion) and constructs a neural network dataset item for training a neural network model.
 %%%% ¡settings!
 'NNDataset'
 %%%% ¡calculate!

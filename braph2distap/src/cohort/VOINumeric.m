@@ -492,7 +492,7 @@ classdef VOINumeric < VOI
 			prop = VOINumeric.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case VOINumeric.TEMPLATE % __VOINumeric.TEMPLATE__
+				case 4 % VOINumeric.TEMPLATE
 					prop_settings = 'VOINumeric';
 				otherwise
 					prop_settings = getPropSettings@VOI(prop);
@@ -521,19 +521,19 @@ classdef VOINumeric < VOI
 			prop = VOINumeric.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case VOINumeric.ELCLASS % __VOINumeric.ELCLASS__
+				case 1 % VOINumeric.ELCLASS
 					prop_default = 'VOINumeric';
-				case VOINumeric.NAME % __VOINumeric.NAME__
+				case 2 % VOINumeric.NAME
 					prop_default = 'Numerical Variable Of Interest';
-				case VOINumeric.DESCRIPTION % __VOINumeric.DESCRIPTION__
+				case 3 % VOINumeric.DESCRIPTION
 					prop_default = 'A Numerical Variable Of Interest (VOINumeric) is a numerical variable of interest.';
-				case VOINumeric.TEMPLATE % __VOINumeric.TEMPLATE__
+				case 4 % VOINumeric.TEMPLATE
 					prop_default = Format.getFormatDefault(8, VOINumeric.getPropSettings(prop));
-				case VOINumeric.ID % __VOINumeric.ID__
+				case 5 % VOINumeric.ID
 					prop_default = 'VOINumeric ID';
-				case VOINumeric.LABEL % __VOINumeric.LABEL__
+				case 6 % VOINumeric.LABEL
 					prop_default = 'VOINumeric label';
-				case VOINumeric.NOTES % __VOINumeric.NOTES__
+				case 7 % VOINumeric.NOTES
 					prop_default = 'VOINumeric notes';
 				otherwise
 					prop_default = getPropDefault@VOI(prop);
@@ -599,10 +599,10 @@ classdef VOINumeric < VOI
 			prop = VOINumeric.getPropProp(pointer);
 			
 			switch prop
-				case VOINumeric.TEMPLATE % __VOINumeric.TEMPLATE__
+				case 4 % VOINumeric.TEMPLATE
 					check = Format.checkFormat(8, value, VOINumeric.getPropSettings(prop));
 				otherwise
-					if prop <= VOI.getPropNumber()
+					if prop <= 9
 						check = checkProp@VOI(prop, value);
 					end
 			end

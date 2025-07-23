@@ -1,13 +1,13 @@
-classdef NNDataPoint_Spectrum < NNDataPoint
-	%NNDataPoint_Spectrum is a data point for a spectrum.
+classdef NNDataPoint_SpectrumSignal < NNDataPoint
+	%NNDataPoint_SpectrumSignal is a data point for a spectrum.
 	% It is a subclass of <a href="matlab:help NNDataPoint">NNDataPoint</a>.
 	%
-	% A data point for a spectrum (NNDataPoint_Spectrum) 
+	% A data point for a spectrum (NNDataPoint_SpectrumSignal) 
 	%  contains both spectral input and target for neural network analysis.
 	% The input is the value of the spectrum.
 	% The target is obtained from the variables of interest of the datapoint, such as the spectrum type.
 	%
-	% The list of NNDataPoint_Spectrum properties is:
+	% The list of NNDataPoint_SpectrumSignal properties is:
 	%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the data point for spectrum.
 	%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the data point for spectrum.
 	%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the data point for spectrum.
@@ -18,16 +18,17 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>INPUT</strong> 	INPUT (result, cell) is the input value for this data point for spectrum.
 	%  <strong>10</strong> <strong>TARGET</strong> 	TARGET (result, cell) is the target values for this data point for spectrum.
-	%  <strong>11</strong> <strong>SP</strong> 	SP (data, rvector) is the spectrum.
-	%  <strong>12</strong> <strong>WL</strong> 	WL (data, rvector) is the wavelength.
+	%  <strong>11</strong> <strong>SP_DATA</strong> 	SP_DATA (data, cvector) is the spectrum value.
+	%  <strong>12</strong> <strong>WL</strong> 	WL (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.
 	%  <strong>13</strong> <strong>WL_START</strong> 	WL_START (data, scalar) is the starting wavelength.
-	%  <strong>14</strong> <strong>WL_END</strong> 	WL_END (data, scalar) is the ending  wavelength.
+	%  <strong>14</strong> <strong>WL_END</strong> 	WL_END (data, scalar) is the ending wavelength.
 	%  <strong>15</strong> <strong>TARGET_CLASS</strong> 	TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.
+	%  <strong>16</strong> <strong>WL_LABELS</strong> 	WL_LABELS (query, stringlist) is the labels for the wavelengths.
 	%
-	% NNDataPoint_Spectrum methods (constructor):
-	%  NNDataPoint_Spectrum - constructor
+	% NNDataPoint_SpectrumSignal methods (constructor):
+	%  NNDataPoint_SpectrumSignal - constructor
 	%
-	% NNDataPoint_Spectrum methods:
+	% NNDataPoint_SpectrumSignal methods:
 	%  set - sets values of a property
 	%  check - checks the values of all properties
 	%  getr - returns the raw value of a property
@@ -41,12 +42,12 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 	%  checked - sets a property to checked
 	%  unchecked - sets a property to NOT checked
 	%
-	% NNDataPoint_Spectrum methods (display):
+	% NNDataPoint_SpectrumSignal methods (display):
 	%  tostring - string with information about the spectrum data point
 	%  disp - displays information about the spectrum data point
 	%  tree - displays the tree of the spectrum data point
 	%
-	% NNDataPoint_Spectrum methods (miscellanea):
+	% NNDataPoint_SpectrumSignal methods (miscellanea):
 	%  getNoValue - returns a pointer to a persistent instance of NoValue
 	%               Use it as Element.getNoValue()
 	%  getCallback - returns the callback to a property
@@ -54,19 +55,19 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 	%  getElementList - returns a list with all subelements
 	%  copy - copies the spectrum data point
 	%
-	% NNDataPoint_Spectrum methods (save/load, Static):
+	% NNDataPoint_SpectrumSignal methods (save/load, Static):
 	%  save - saves BRAPH2 spectrum data point as b2 file
 	%  load - loads a BRAPH2 spectrum data point from a b2 file
 	%
-	% NNDataPoint_Spectrum method (JSON encode):
+	% NNDataPoint_SpectrumSignal method (JSON encode):
 	%  encodeJSON - returns a JSON string encoding the spectrum data point
 	%
-	% NNDataPoint_Spectrum method (JSON decode, Static):
+	% NNDataPoint_SpectrumSignal method (JSON decode, Static):
 	%   decodeJSON - returns a JSON string encoding the spectrum data point
 	%
-	% NNDataPoint_Spectrum methods (inspection, Static):
+	% NNDataPoint_SpectrumSignal methods (inspection, Static):
 	%  getClass - returns the class of the spectrum data point
-	%  getSubclasses - returns all subclasses of NNDataPoint_Spectrum
+	%  getSubclasses - returns all subclasses of NNDataPoint_SpectrumSignal
 	%  getProps - returns the property list of the spectrum data point
 	%  getPropNumber - returns the property number of the spectrum data point
 	%  existsProp - checks whether property exists/error
@@ -81,14 +82,14 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 	%  getPropDefaultConditioned - returns the conditioned default value of a property
 	%  checkProp - checks whether a value has the correct format/error
 	%
-	% NNDataPoint_Spectrum methods (GUI):
+	% NNDataPoint_SpectrumSignal methods (GUI):
 	%  getPanelProp - returns a prop panel
 	%
-	% NNDataPoint_Spectrum methods (GUI, Static):
+	% NNDataPoint_SpectrumSignal methods (GUI, Static):
 	%  getGUIMenuImport - returns the importer menu
 	%  getGUIMenuExport - returns the exporter menu
 	%
-	% NNDataPoint_Spectrum methods (category, Static):
+	% NNDataPoint_SpectrumSignal methods (category, Static):
 	%  getCategories - returns the list of categories
 	%  getCategoryNumber - returns the number of categories
 	%  existsCategory - returns whether a category exists/error
@@ -96,7 +97,7 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 	%  getCategoryName - returns the name of a category
 	%  getCategoryDescription - returns the description of a category
 	%
-	% NNDataPoint_Spectrum methods (format, Static):
+	% NNDataPoint_SpectrumSignal methods (format, Static):
 	%  getFormats - returns the list of formats
 	%  getFormatNumber - returns the number of formats
 	%  existsFormat - returns whether a format exists/error
@@ -107,7 +108,7 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 	%  getFormatDefault - returns the default value for a format
 	%  checkFormat - returns whether a value format is correct/error
 	%
-	% To print full list of constants, click here <a href="matlab:metaclass = ?NNDataPoint_Spectrum; properties = metaclass.PropertyList;for i = 1:1:length(properties), if properties(i).Constant, disp([properties(i).Name newline() tostring(properties(i).DefaultValue) newline()]), end, end">NNDataPoint_Spectrum constants</a>.
+	% To print full list of constants, click here <a href="matlab:metaclass = ?NNDataPoint_SpectrumSignal; properties = metaclass.PropertyList;for i = 1:1:length(properties), if properties(i).Constant, disp([properties(i).Name newline() tostring(properties(i).DefaultValue) newline()]), end, end">NNDataPoint_SpectrumSignal constants</a>.
 	%
 	%
 	% See also NNDataPoint_Graph_REG, NNDataPoint_Measure_REG, NNDataPoint_Measure_CLA.
@@ -115,15 +116,15 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 	% BUILD BRAPH2 7 class_name 1
 	
 	properties (Constant) % properties
-		SP = 11; %CET: Computational Efficiency Trick
-		SP_TAG = 'SP';
-		SP_CATEGORY = 4;
-		SP_FORMAT = 12;
+		SP_DATA = 11; %CET: Computational Efficiency Trick
+		SP_DATA_TAG = 'SP_DATA';
+		SP_DATA_CATEGORY = 4;
+		SP_DATA_FORMAT = 13;
 		
 		WL = 12; %CET: Computational Efficiency Trick
 		WL_TAG = 'WL';
 		WL_CATEGORY = 4;
-		WL_FORMAT = 12;
+		WL_FORMAT = 13;
 		
 		WL_START = 13; %CET: Computational Efficiency Trick
 		WL_START_TAG = 'WL_START';
@@ -139,19 +140,24 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 		TARGET_CLASS_TAG = 'TARGET_CLASS';
 		TARGET_CLASS_CATEGORY = 3;
 		TARGET_CLASS_FORMAT = 3;
+		
+		WL_LABELS = 16; %CET: Computational Efficiency Trick
+		WL_LABELS_TAG = 'WL_LABELS';
+		WL_LABELS_CATEGORY = 6;
+		WL_LABELS_FORMAT = 3;
 	end
 	methods % constructor
-		function dp = NNDataPoint_Spectrum(varargin)
-			%NNDataPoint_Spectrum() creates a spectrum data point.
+		function dp = NNDataPoint_SpectrumSignal(varargin)
+			%NNDataPoint_SpectrumSignal() creates a spectrum data point.
 			%
-			% NNDataPoint_Spectrum(PROP, VALUE, ...) with property PROP initialized to VALUE.
+			% NNDataPoint_SpectrumSignal(PROP, VALUE, ...) with property PROP initialized to VALUE.
 			%
-			% NNDataPoint_Spectrum(TAG, VALUE, ...) with property TAG set to VALUE.
+			% NNDataPoint_SpectrumSignal(TAG, VALUE, ...) with property TAG set to VALUE.
 			%
 			% Multiple properties can be initialized at once identifying
 			%  them with either property numbers (PROP) or tags (TAG).
 			%
-			% The list of NNDataPoint_Spectrum properties is:
+			% The list of NNDataPoint_SpectrumSignal properties is:
 			%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the data point for spectrum.
 			%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the data point for spectrum.
 			%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the data point for spectrum.
@@ -162,11 +168,12 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>INPUT</strong> 	INPUT (result, cell) is the input value for this data point for spectrum.
 			%  <strong>10</strong> <strong>TARGET</strong> 	TARGET (result, cell) is the target values for this data point for spectrum.
-			%  <strong>11</strong> <strong>SP</strong> 	SP (data, rvector) is the spectrum.
-			%  <strong>12</strong> <strong>WL</strong> 	WL (data, rvector) is the wavelength.
+			%  <strong>11</strong> <strong>SP_DATA</strong> 	SP_DATA (data, cvector) is the spectrum value.
+			%  <strong>12</strong> <strong>WL</strong> 	WL (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.
 			%  <strong>13</strong> <strong>WL_START</strong> 	WL_START (data, scalar) is the starting wavelength.
-			%  <strong>14</strong> <strong>WL_END</strong> 	WL_END (data, scalar) is the ending  wavelength.
+			%  <strong>14</strong> <strong>WL_END</strong> 	WL_END (data, scalar) is the ending wavelength.
 			%  <strong>15</strong> <strong>TARGET_CLASS</strong> 	TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.
+			%  <strong>16</strong> <strong>WL_LABELS</strong> 	WL_LABELS (query, stringlist) is the labels for the wavelengths.
 			%
 			% See also Category, Format.
 			
@@ -177,14 +184,14 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 		function build = getBuild()
 			%GETBUILD returns the build of the spectrum data point.
 			%
-			% BUILD = NNDataPoint_Spectrum.GETBUILD() returns the build of 'NNDataPoint_Spectrum'.
+			% BUILD = NNDataPoint_SpectrumSignal.GETBUILD() returns the build of 'NNDataPoint_SpectrumSignal'.
 			%
 			% Alternative forms to call this method are:
 			%  BUILD = DP.GETBUILD() returns the build of the spectrum data point DP.
 			%  BUILD = Element.GETBUILD(DP) returns the build of 'DP'.
-			%  BUILD = Element.GETBUILD('NNDataPoint_Spectrum') returns the build of 'NNDataPoint_Spectrum'.
+			%  BUILD = Element.GETBUILD('NNDataPoint_SpectrumSignal') returns the build of 'NNDataPoint_SpectrumSignal'.
 			%
-			% Note that the Element.GETBUILD(DP) and Element.GETBUILD('NNDataPoint_Spectrum')
+			% Note that the Element.GETBUILD(DP) and Element.GETBUILD('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			
 			build = 1;
@@ -192,50 +199,50 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 		function dp_class = getClass()
 			%GETCLASS returns the class of the spectrum data point.
 			%
-			% CLASS = NNDataPoint_Spectrum.GETCLASS() returns the class 'NNDataPoint_Spectrum'.
+			% CLASS = NNDataPoint_SpectrumSignal.GETCLASS() returns the class 'NNDataPoint_SpectrumSignal'.
 			%
 			% Alternative forms to call this method are:
 			%  CLASS = DP.GETCLASS() returns the class of the spectrum data point DP.
 			%  CLASS = Element.GETCLASS(DP) returns the class of 'DP'.
-			%  CLASS = Element.GETCLASS('NNDataPoint_Spectrum') returns 'NNDataPoint_Spectrum'.
+			%  CLASS = Element.GETCLASS('NNDataPoint_SpectrumSignal') returns 'NNDataPoint_SpectrumSignal'.
 			%
-			% Note that the Element.GETCLASS(DP) and Element.GETCLASS('NNDataPoint_Spectrum')
+			% Note that the Element.GETCLASS(DP) and Element.GETCLASS('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			
-			dp_class = 'NNDataPoint_Spectrum';
+			dp_class = 'NNDataPoint_SpectrumSignal';
 		end
 		function subclass_list = getSubclasses()
 			%GETSUBCLASSES returns all subclasses of the spectrum data point.
 			%
-			% LIST = NNDataPoint_Spectrum.GETSUBCLASSES() returns all subclasses of 'NNDataPoint_Spectrum'.
+			% LIST = NNDataPoint_SpectrumSignal.GETSUBCLASSES() returns all subclasses of 'NNDataPoint_SpectrumSignal'.
 			%
 			% Alternative forms to call this method are:
 			%  LIST = DP.GETSUBCLASSES() returns all subclasses of the spectrum data point DP.
 			%  LIST = Element.GETSUBCLASSES(DP) returns all subclasses of 'DP'.
-			%  LIST = Element.GETSUBCLASSES('NNDataPoint_Spectrum') returns all subclasses of 'NNDataPoint_Spectrum'.
+			%  LIST = Element.GETSUBCLASSES('NNDataPoint_SpectrumSignal') returns all subclasses of 'NNDataPoint_SpectrumSignal'.
 			%
-			% Note that the Element.GETSUBCLASSES(DP) and Element.GETSUBCLASSES('NNDataPoint_Spectrum')
+			% Note that the Element.GETSUBCLASSES(DP) and Element.GETSUBCLASSES('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also subclasses.
 			
-			subclass_list = { 'NNDataPoint_Spectrum' }; %CET: Computational Efficiency Trick
+			subclass_list = { 'NNDataPoint_SpectrumSignal' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
 			%GETPROPS returns the property list of spectrum data point.
 			%
-			% PROPS = NNDataPoint_Spectrum.GETPROPS() returns the property list of spectrum data point
+			% PROPS = NNDataPoint_SpectrumSignal.GETPROPS() returns the property list of spectrum data point
 			%  as a row vector.
 			%
-			% PROPS = NNDataPoint_Spectrum.GETPROPS(CATEGORY) returns the property list 
+			% PROPS = NNDataPoint_SpectrumSignal.GETPROPS(CATEGORY) returns the property list 
 			%  of category CATEGORY.
 			%
 			% Alternative forms to call this method are:
 			%  PROPS = DP.GETPROPS([CATEGORY]) returns the property list of the spectrum data point DP.
 			%  PROPS = Element.GETPROPS(DP[, CATEGORY]) returns the property list of 'DP'.
-			%  PROPS = Element.GETPROPS('NNDataPoint_Spectrum'[, CATEGORY]) returns the property list of 'NNDataPoint_Spectrum'.
+			%  PROPS = Element.GETPROPS('NNDataPoint_SpectrumSignal'[, CATEGORY]) returns the property list of 'NNDataPoint_SpectrumSignal'.
 			%
-			% Note that the Element.GETPROPS(DP) and Element.GETPROPS('NNDataPoint_Spectrum')
+			% Note that the Element.GETPROPS(DP) and Element.GETPROPS('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also getPropNumber, Category.
@@ -243,7 +250,7 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15];
+				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16];
 				return
 			end
 			
@@ -259,7 +266,7 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 				case 5 % Category.RESULT
 					prop_list = [9 10];
 				case 6 % Category.QUERY
-					prop_list = 8;
+					prop_list = [8 16];
 				otherwise
 					prop_list = [];
 			end
@@ -267,17 +274,17 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 		function prop_number = getPropNumber(varargin)
 			%GETPROPNUMBER returns the property number of spectrum data point.
 			%
-			% N = NNDataPoint_Spectrum.GETPROPNUMBER() returns the property number of spectrum data point.
+			% N = NNDataPoint_SpectrumSignal.GETPROPNUMBER() returns the property number of spectrum data point.
 			%
-			% N = NNDataPoint_Spectrum.GETPROPNUMBER(CATEGORY) returns the property number of spectrum data point
+			% N = NNDataPoint_SpectrumSignal.GETPROPNUMBER(CATEGORY) returns the property number of spectrum data point
 			%  of category CATEGORY
 			%
 			% Alternative forms to call this method are:
 			%  N = DP.GETPROPNUMBER([CATEGORY]) returns the property number of the spectrum data point DP.
 			%  N = Element.GETPROPNUMBER(DP) returns the property number of 'DP'.
-			%  N = Element.GETPROPNUMBER('NNDataPoint_Spectrum') returns the property number of 'NNDataPoint_Spectrum'.
+			%  N = Element.GETPROPNUMBER('NNDataPoint_SpectrumSignal') returns the property number of 'NNDataPoint_SpectrumSignal'.
 			%
-			% Note that the Element.GETPROPNUMBER(DP) and Element.GETPROPNUMBER('NNDataPoint_Spectrum')
+			% Note that the Element.GETPROPNUMBER(DP) and Element.GETPROPNUMBER('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also getProps, Category.
@@ -285,7 +292,7 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_number = 15;
+				prop_number = 16;
 				return
 			end
 			
@@ -301,7 +308,7 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 				case 5 % Category.RESULT
 					prop_number = 2;
 				case 6 % Category.QUERY
-					prop_number = 1;
+					prop_number = 2;
 				otherwise
 					prop_number = 0;
 			end
@@ -309,76 +316,76 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 		function check_out = existsProp(prop)
 			%EXISTSPROP checks whether property exists in spectrum data point/error.
 			%
-			% CHECK = NNDataPoint_Spectrum.EXISTSPROP(PROP) checks whether the property PROP exists.
+			% CHECK = NNDataPoint_SpectrumSignal.EXISTSPROP(PROP) checks whether the property PROP exists.
 			%
 			% Alternative forms to call this method are:
 			%  CHECK = DP.EXISTSPROP(PROP) checks whether PROP exists for DP.
 			%  CHECK = Element.EXISTSPROP(DP, PROP) checks whether PROP exists for DP.
-			%  CHECK = Element.EXISTSPROP(NNDataPoint_Spectrum, PROP) checks whether PROP exists for NNDataPoint_Spectrum.
+			%  CHECK = Element.EXISTSPROP(NNDataPoint_SpectrumSignal, PROP) checks whether PROP exists for NNDataPoint_SpectrumSignal.
 			%
 			% Element.EXISTSPROP(PROP) throws an error if the PROP does NOT exist.
-			%  Error id: [BRAPH2:NNDataPoint_Spectrum:WrongInput]
+			%  Error id: [BRAPH2:NNDataPoint_SpectrumSignal:WrongInput]
 			%
 			% Alternative forms to call this method are:
 			%  DP.EXISTSPROP(PROP) throws error if PROP does NOT exist for DP.
-			%   Error id: [BRAPH2:NNDataPoint_Spectrum:WrongInput]
+			%   Error id: [BRAPH2:NNDataPoint_SpectrumSignal:WrongInput]
 			%  Element.EXISTSPROP(DP, PROP) throws error if PROP does NOT exist for DP.
-			%   Error id: [BRAPH2:NNDataPoint_Spectrum:WrongInput]
-			%  Element.EXISTSPROP(NNDataPoint_Spectrum, PROP) throws error if PROP does NOT exist for NNDataPoint_Spectrum.
-			%   Error id: [BRAPH2:NNDataPoint_Spectrum:WrongInput]
+			%   Error id: [BRAPH2:NNDataPoint_SpectrumSignal:WrongInput]
+			%  Element.EXISTSPROP(NNDataPoint_SpectrumSignal, PROP) throws error if PROP does NOT exist for NNDataPoint_SpectrumSignal.
+			%   Error id: [BRAPH2:NNDataPoint_SpectrumSignal:WrongInput]
 			%
-			% Note that the Element.EXISTSPROP(DP) and Element.EXISTSPROP('NNDataPoint_Spectrum')
+			% Note that the Element.EXISTSPROP(DP) and Element.EXISTSPROP('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 15 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = prop >= 1 && prop <= 16 && round(prop) == prop; %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
 			elseif ~check
 				error( ...
-					['BRAPH2' ':NNDataPoint_Spectrum:' 'WrongInput'], ...
-					['BRAPH2' ':NNDataPoint_Spectrum:' 'WrongInput' '\n' ...
-					'The value ' tostring(prop, 100, ' ...') ' is not a valid prop for NNDataPoint_Spectrum.'] ...
+					['BRAPH2' ':NNDataPoint_SpectrumSignal:' 'WrongInput'], ...
+					['BRAPH2' ':NNDataPoint_SpectrumSignal:' 'WrongInput' '\n' ...
+					'The value ' tostring(prop, 100, ' ...') ' is not a valid prop for NNDataPoint_SpectrumSignal.'] ...
 					)
 			end
 		end
 		function check_out = existsTag(tag)
 			%EXISTSTAG checks whether tag exists in spectrum data point/error.
 			%
-			% CHECK = NNDataPoint_Spectrum.EXISTSTAG(TAG) checks whether a property with tag TAG exists.
+			% CHECK = NNDataPoint_SpectrumSignal.EXISTSTAG(TAG) checks whether a property with tag TAG exists.
 			%
 			% Alternative forms to call this method are:
 			%  CHECK = DP.EXISTSTAG(TAG) checks whether TAG exists for DP.
 			%  CHECK = Element.EXISTSTAG(DP, TAG) checks whether TAG exists for DP.
-			%  CHECK = Element.EXISTSTAG(NNDataPoint_Spectrum, TAG) checks whether TAG exists for NNDataPoint_Spectrum.
+			%  CHECK = Element.EXISTSTAG(NNDataPoint_SpectrumSignal, TAG) checks whether TAG exists for NNDataPoint_SpectrumSignal.
 			%
 			% Element.EXISTSTAG(TAG) throws an error if the TAG does NOT exist.
-			%  Error id: [BRAPH2:NNDataPoint_Spectrum:WrongInput]
+			%  Error id: [BRAPH2:NNDataPoint_SpectrumSignal:WrongInput]
 			%
 			% Alternative forms to call this method are:
 			%  DP.EXISTSTAG(TAG) throws error if TAG does NOT exist for DP.
-			%   Error id: [BRAPH2:NNDataPoint_Spectrum:WrongInput]
+			%   Error id: [BRAPH2:NNDataPoint_SpectrumSignal:WrongInput]
 			%  Element.EXISTSTAG(DP, TAG) throws error if TAG does NOT exist for DP.
-			%   Error id: [BRAPH2:NNDataPoint_Spectrum:WrongInput]
-			%  Element.EXISTSTAG(NNDataPoint_Spectrum, TAG) throws error if TAG does NOT exist for NNDataPoint_Spectrum.
-			%   Error id: [BRAPH2:NNDataPoint_Spectrum:WrongInput]
+			%   Error id: [BRAPH2:NNDataPoint_SpectrumSignal:WrongInput]
+			%  Element.EXISTSTAG(NNDataPoint_SpectrumSignal, TAG) throws error if TAG does NOT exist for NNDataPoint_SpectrumSignal.
+			%   Error id: [BRAPH2:NNDataPoint_SpectrumSignal:WrongInput]
 			%
-			% Note that the Element.EXISTSTAG(DP) and Element.EXISTSTAG('NNDataPoint_Spectrum')
+			% Note that the Element.EXISTSTAG(DP) and Element.EXISTSTAG('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP_DATA'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS'  'WL_LABELS' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
 			elseif ~check
 				error( ...
-					['BRAPH2' ':NNDataPoint_Spectrum:' 'WrongInput'], ...
-					['BRAPH2' ':NNDataPoint_Spectrum:' 'WrongInput' '\n' ...
-					'The value ' tag ' is not a valid tag for NNDataPoint_Spectrum.'] ...
+					['BRAPH2' ':NNDataPoint_SpectrumSignal:' 'WrongInput'], ...
+					['BRAPH2' ':NNDataPoint_SpectrumSignal:' 'WrongInput' '\n' ...
+					'The value ' tag ' is not a valid tag for NNDataPoint_SpectrumSignal.'] ...
 					)
 			end
 		end
@@ -393,17 +400,17 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
 			%  PROPERTY = DP.GETPROPPROP(POINTER) returns property number of POINTER of DP.
-			%  PROPERTY = Element.GETPROPPROP(NNDataPoint_Spectrum, POINTER) returns property number of POINTER of NNDataPoint_Spectrum.
-			%  PROPERTY = DP.GETPROPPROP(NNDataPoint_Spectrum, POINTER) returns property number of POINTER of NNDataPoint_Spectrum.
+			%  PROPERTY = Element.GETPROPPROP(NNDataPoint_SpectrumSignal, POINTER) returns property number of POINTER of NNDataPoint_SpectrumSignal.
+			%  PROPERTY = DP.GETPROPPROP(NNDataPoint_SpectrumSignal, POINTER) returns property number of POINTER of NNDataPoint_SpectrumSignal.
 			%
-			% Note that the Element.GETPROPPROP(DP) and Element.GETPROPPROP('NNDataPoint_Spectrum')
+			% Note that the Element.GETPROPPROP(DP) and Element.GETPROPPROP('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also getPropFormat, getPropTag, getPropCategory, getPropDescription,
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP_DATA'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS'  'WL_LABELS' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -419,10 +426,10 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
 			%  TAG = DP.GETPROPTAG(POINTER) returns tag of POINTER of DP.
-			%  TAG = Element.GETPROPTAG(NNDataPoint_Spectrum, POINTER) returns tag of POINTER of NNDataPoint_Spectrum.
-			%  TAG = DP.GETPROPTAG(NNDataPoint_Spectrum, POINTER) returns tag of POINTER of NNDataPoint_Spectrum.
+			%  TAG = Element.GETPROPTAG(NNDataPoint_SpectrumSignal, POINTER) returns tag of POINTER of NNDataPoint_SpectrumSignal.
+			%  TAG = DP.GETPROPTAG(NNDataPoint_SpectrumSignal, POINTER) returns tag of POINTER of NNDataPoint_SpectrumSignal.
 			%
-			% Note that the Element.GETPROPTAG(DP) and Element.GETPROPTAG('NNDataPoint_Spectrum')
+			% Note that the Element.GETPROPTAG(DP) and Element.GETPROPTAG('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also getPropProp, getPropSettings, getPropCategory, getPropFormat,
@@ -432,8 +439,8 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				nndatapoint_spectrum_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS' };
-				tag = nndatapoint_spectrum_tag_list{pointer}; % prop = pointer
+				nndatapoint_spectrumsignal_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP_DATA'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS'  'WL_LABELS' };
+				tag = nndatapoint_spectrumsignal_tag_list{pointer}; % prop = pointer
 			end
 		end
 		function prop_category = getPropCategory(pointer)
@@ -447,20 +454,20 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
 			%  CATEGORY = DP.GETPROPCATEGORY(POINTER) returns category of POINTER of DP.
-			%  CATEGORY = Element.GETPROPCATEGORY(NNDataPoint_Spectrum, POINTER) returns category of POINTER of NNDataPoint_Spectrum.
-			%  CATEGORY = DP.GETPROPCATEGORY(NNDataPoint_Spectrum, POINTER) returns category of POINTER of NNDataPoint_Spectrum.
+			%  CATEGORY = Element.GETPROPCATEGORY(NNDataPoint_SpectrumSignal, POINTER) returns category of POINTER of NNDataPoint_SpectrumSignal.
+			%  CATEGORY = DP.GETPROPCATEGORY(NNDataPoint_SpectrumSignal, POINTER) returns category of POINTER of NNDataPoint_SpectrumSignal.
 			%
-			% Note that the Element.GETPROPCATEGORY(DP) and Element.GETPROPCATEGORY('NNDataPoint_Spectrum')
+			% Note that the Element.GETPROPCATEGORY(DP) and Element.GETPROPCATEGORY('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also Category, getPropProp, getPropTag, getPropSettings,
 			%  getPropFormat, getPropDescription, getPropDefault, checkProp.
 			
-			prop = NNDataPoint_Spectrum.getPropProp(pointer);
+			prop = NNDataPoint_SpectrumSignal.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatapoint_spectrum_category_list = { 1  1  1  3  4  2  2  6  5  5  4  4  4  4  3 };
-			prop_category = nndatapoint_spectrum_category_list{prop};
+			nndatapoint_spectrumsignal_category_list = { 1  1  1  3  4  2  2  6  5  5  4  4  4  4  3  6 };
+			prop_category = nndatapoint_spectrumsignal_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
 			%GETPROPFORMAT returns the format of a property.
@@ -473,20 +480,20 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
 			%  FORMAT = DP.GETPROPFORMAT(POINTER) returns format of POINTER of DP.
-			%  FORMAT = Element.GETPROPFORMAT(NNDataPoint_Spectrum, POINTER) returns format of POINTER of NNDataPoint_Spectrum.
-			%  FORMAT = DP.GETPROPFORMAT(NNDataPoint_Spectrum, POINTER) returns format of POINTER of NNDataPoint_Spectrum.
+			%  FORMAT = Element.GETPROPFORMAT(NNDataPoint_SpectrumSignal, POINTER) returns format of POINTER of NNDataPoint_SpectrumSignal.
+			%  FORMAT = DP.GETPROPFORMAT(NNDataPoint_SpectrumSignal, POINTER) returns format of POINTER of NNDataPoint_SpectrumSignal.
 			%
-			% Note that the Element.GETPROPFORMAT(DP) and Element.GETPROPFORMAT('NNDataPoint_Spectrum')
+			% Note that the Element.GETPROPFORMAT(DP) and Element.GETPROPFORMAT('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also Format, getPropProp, getPropTag, getPropCategory,
 			%  getPropDescription, getPropSettings, getPropDefault, checkProp.
 			
-			prop = NNDataPoint_Spectrum.getPropProp(pointer);
+			prop = NNDataPoint_SpectrumSignal.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatapoint_spectrum_format_list = { 2  2  2  8  2  2  2  2  16  16  12  12  11  11  3 };
-			prop_format = nndatapoint_spectrum_format_list{prop};
+			nndatapoint_spectrumsignal_format_list = { 2  2  2  8  2  2  2  2  16  16  13  13  11  11  3  3 };
+			prop_format = nndatapoint_spectrumsignal_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
 			%GETPROPDESCRIPTION returns the description of a property.
@@ -499,20 +506,20 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
 			%  DESCRIPTION = DP.GETPROPDESCRIPTION(POINTER) returns description of POINTER of DP.
-			%  DESCRIPTION = Element.GETPROPDESCRIPTION(NNDataPoint_Spectrum, POINTER) returns description of POINTER of NNDataPoint_Spectrum.
-			%  DESCRIPTION = DP.GETPROPDESCRIPTION(NNDataPoint_Spectrum, POINTER) returns description of POINTER of NNDataPoint_Spectrum.
+			%  DESCRIPTION = Element.GETPROPDESCRIPTION(NNDataPoint_SpectrumSignal, POINTER) returns description of POINTER of NNDataPoint_SpectrumSignal.
+			%  DESCRIPTION = DP.GETPROPDESCRIPTION(NNDataPoint_SpectrumSignal, POINTER) returns description of POINTER of NNDataPoint_SpectrumSignal.
 			%
-			% Note that the Element.GETPROPDESCRIPTION(DP) and Element.GETPROPDESCRIPTION('NNDataPoint_Spectrum')
+			% Note that the Element.GETPROPDESCRIPTION(DP) and Element.GETPROPDESCRIPTION('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also getPropProp, getPropTag, getPropCategory,
 			%  getPropFormat, getPropSettings, getPropDefault, checkProp.
 			
-			prop = NNDataPoint_Spectrum.getPropProp(pointer);
+			prop = NNDataPoint_SpectrumSignal.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatapoint_spectrum_description_list = { 'ELCLASS (constant, string) is the class of the data point for spectrum.'  'NAME (constant, string) is the name of the data point for spectrum.'  'DESCRIPTION (constant, string) is the description of the data point for spectrum.'  'TEMPLATE (parameter, item) is the template of the data point for spectrum.'  'ID (data, string) is a few-letter code for the data point for spectrum.'  'LABEL (metadata, string) is an extended label of the data point for spectrum.'  'NOTES (metadata, string) are some specific notes about the data point for spectrum.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'INPUT (result, cell) is the input value for this data point for spectrum.'  'TARGET (result, cell) is the target values for this data point for spectrum.'  'SP (data, rvector) is the spectrum.'  'WL (data, rvector) is the wavelength.'  'WL_START (data, scalar) is the starting wavelength.'  'WL_END (data, scalar) is the ending  wavelength.'  'TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.' };
-			prop_description = nndatapoint_spectrum_description_list{prop};
+			nndatapoint_spectrumsignal_description_list = { 'ELCLASS (constant, string) is the class of the data point for spectrum.'  'NAME (constant, string) is the name of the data point for spectrum.'  'DESCRIPTION (constant, string) is the description of the data point for spectrum.'  'TEMPLATE (parameter, item) is the template of the data point for spectrum.'  'ID (data, string) is a few-letter code for the data point for spectrum.'  'LABEL (metadata, string) is an extended label of the data point for spectrum.'  'NOTES (metadata, string) are some specific notes about the data point for spectrum.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'INPUT (result, cell) is the input value for this data point for spectrum.'  'TARGET (result, cell) is the target values for this data point for spectrum.'  'SP_DATA (data, cvector) is the spectrum value.'  'WL (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.'  'WL_START (data, scalar) is the starting wavelength.'  'WL_END (data, scalar) is the ending wavelength.'  'TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.'  'WL_LABELS (query, stringlist) is the labels for the wavelengths.' };
+			prop_description = nndatapoint_spectrumsignal_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
 			%GETPROPSETTINGS returns the settings of a property.
@@ -525,30 +532,32 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
 			%  SETTINGS = DP.GETPROPSETTINGS(POINTER) returns settings of POINTER of DP.
-			%  SETTINGS = Element.GETPROPSETTINGS(NNDataPoint_Spectrum, POINTER) returns settings of POINTER of NNDataPoint_Spectrum.
-			%  SETTINGS = DP.GETPROPSETTINGS(NNDataPoint_Spectrum, POINTER) returns settings of POINTER of NNDataPoint_Spectrum.
+			%  SETTINGS = Element.GETPROPSETTINGS(NNDataPoint_SpectrumSignal, POINTER) returns settings of POINTER of NNDataPoint_SpectrumSignal.
+			%  SETTINGS = DP.GETPROPSETTINGS(NNDataPoint_SpectrumSignal, POINTER) returns settings of POINTER of NNDataPoint_SpectrumSignal.
 			%
-			% Note that the Element.GETPROPSETTINGS(DP) and Element.GETPROPSETTINGS('NNDataPoint_Spectrum')
+			% Note that the Element.GETPROPSETTINGS(DP) and Element.GETPROPSETTINGS('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also getPropProp, getPropTag, getPropCategory, getPropFormat,
 			%  getPropDescription, getPropDefault, checkProp.
 			
-			prop = NNDataPoint_Spectrum.getPropProp(pointer);
+			prop = NNDataPoint_SpectrumSignal.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDataPoint_Spectrum.SP % __NNDataPoint_Spectrum.SP__
-					prop_settings = Format.getFormatSettings(12);
-				case NNDataPoint_Spectrum.WL % __NNDataPoint_Spectrum.WL__
-					prop_settings = Format.getFormatSettings(12);
-				case NNDataPoint_Spectrum.WL_START % __NNDataPoint_Spectrum.WL_START__
+				case 11 % NNDataPoint_SpectrumSignal.SP_DATA
+					prop_settings = Format.getFormatSettings(13);
+				case 12 % NNDataPoint_SpectrumSignal.WL
+					prop_settings = Format.getFormatSettings(13);
+				case 13 % NNDataPoint_SpectrumSignal.WL_START
 					prop_settings = Format.getFormatSettings(11);
-				case NNDataPoint_Spectrum.WL_END % __NNDataPoint_Spectrum.WL_END__
+				case 14 % NNDataPoint_SpectrumSignal.WL_END
 					prop_settings = Format.getFormatSettings(11);
-				case NNDataPoint_Spectrum.TARGET_CLASS % __NNDataPoint_Spectrum.TARGET_CLASS__
+				case 15 % NNDataPoint_SpectrumSignal.TARGET_CLASS
 					prop_settings = Format.getFormatSettings(3);
-				case NNDataPoint_4 % __NNDataPoint_Spectrum.TEMPLATE__
-					prop_settings = 'NNDataPoint_Spectrum';
+				case 16 % NNDataPoint_SpectrumSignal.WL_LABELS
+					prop_settings = Format.getFormatSettings(3);
+				case 4 % NNDataPoint_SpectrumSignal.TEMPLATE
+					prop_settings = 'NNDataPoint_SpectrumSignal';
 				otherwise
 					prop_settings = getPropSettings@NNDataPoint(prop);
 			end
@@ -556,50 +565,52 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 		function prop_default = getPropDefault(pointer)
 			%GETPROPDEFAULT returns the default value of a property.
 			%
-			% DEFAULT = NNDataPoint_Spectrum.GETPROPDEFAULT(PROP) returns the default 
+			% DEFAULT = NNDataPoint_SpectrumSignal.GETPROPDEFAULT(PROP) returns the default 
 			%  value of the property PROP.
 			%
-			% DEFAULT = NNDataPoint_Spectrum.GETPROPDEFAULT(TAG) returns the default 
+			% DEFAULT = NNDataPoint_SpectrumSignal.GETPROPDEFAULT(TAG) returns the default 
 			%  value of the property with tag TAG.
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
 			%  DEFAULT = DP.GETPROPDEFAULT(POINTER) returns the default value of POINTER of DP.
-			%  DEFAULT = Element.GETPROPDEFAULT(NNDataPoint_Spectrum, POINTER) returns the default value of POINTER of NNDataPoint_Spectrum.
-			%  DEFAULT = DP.GETPROPDEFAULT(NNDataPoint_Spectrum, POINTER) returns the default value of POINTER of NNDataPoint_Spectrum.
+			%  DEFAULT = Element.GETPROPDEFAULT(NNDataPoint_SpectrumSignal, POINTER) returns the default value of POINTER of NNDataPoint_SpectrumSignal.
+			%  DEFAULT = DP.GETPROPDEFAULT(NNDataPoint_SpectrumSignal, POINTER) returns the default value of POINTER of NNDataPoint_SpectrumSignal.
 			%
-			% Note that the Element.GETPROPDEFAULT(DP) and Element.GETPROPDEFAULT('NNDataPoint_Spectrum')
+			% Note that the Element.GETPROPDEFAULT(DP) and Element.GETPROPDEFAULT('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also getPropDefaultConditioned, getPropProp, getPropTag, getPropSettings, 
 			%  getPropCategory, getPropFormat, getPropDescription, checkProp.
 			
-			prop = NNDataPoint_Spectrum.getPropProp(pointer);
+			prop = NNDataPoint_SpectrumSignal.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDataPoint_Spectrum.SP % __NNDataPoint_Spectrum.SP__
-					prop_default = Format.getFormatDefault(12, NNDataPoint_Spectrum.getPropSettings(prop));
-				case NNDataPoint_Spectrum.WL % __NNDataPoint_Spectrum.WL__
-					prop_default = Format.getFormatDefault(12, NNDataPoint_Spectrum.getPropSettings(prop));
-				case NNDataPoint_Spectrum.WL_START % __NNDataPoint_Spectrum.WL_START__
+				case 11 % NNDataPoint_SpectrumSignal.SP_DATA
+					prop_default = Format.getFormatDefault(13, NNDataPoint_SpectrumSignal.getPropSettings(prop));
+				case 12 % NNDataPoint_SpectrumSignal.WL
+					prop_default = Format.getFormatDefault(13, NNDataPoint_SpectrumSignal.getPropSettings(prop));
+				case 13 % NNDataPoint_SpectrumSignal.WL_START
 					prop_default = 600;
-				case NNDataPoint_Spectrum.WL_END % __NNDataPoint_Spectrum.WL_END__
+				case 14 % NNDataPoint_SpectrumSignal.WL_END
 					prop_default = 1750;
-				case NNDataPoint_Spectrum.TARGET_CLASS % __NNDataPoint_Spectrum.TARGET_CLASS__
-					prop_default = Format.getFormatDefault(3, NNDataPoint_Spectrum.getPropSettings(prop));
-				case NNDataPoint_1 % __NNDataPoint_Spectrum.ELCLASS__
-					prop_default = 'NNDataPoint_Spectrum';
-				case NNDataPoint_2 % __NNDataPoint_Spectrum.NAME__
+				case 15 % NNDataPoint_SpectrumSignal.TARGET_CLASS
+					prop_default = Format.getFormatDefault(3, NNDataPoint_SpectrumSignal.getPropSettings(prop));
+				case 16 % NNDataPoint_SpectrumSignal.WL_LABELS
+					prop_default = Format.getFormatDefault(3, NNDataPoint_SpectrumSignal.getPropSettings(prop));
+				case 1 % NNDataPoint_SpectrumSignal.ELCLASS
+					prop_default = 'NNDataPoint_SpectrumSignal';
+				case 2 % NNDataPoint_SpectrumSignal.NAME
 					prop_default = 'Neural Network Data Point for Classification with a Graph';
-				case NNDataPoint_3 % __NNDataPoint_Spectrum.DESCRIPTION__
-					prop_default = 'A data point for a spectrum (NNDataPoint_Spectrum) contains both spectral input and target for neural network analysis. The input is the value of the spectrum. The target is obtained from the variables of interest of the datapoint, such as the spectrum type.';
-				case NNDataPoint_4 % __NNDataPoint_Spectrum.TEMPLATE__
-					prop_default = Format.getFormatDefault(8, NNDataPoint_Spectrum.getPropSettings(prop));
-				case NNDataPoint_5 % __NNDataPoint_Spectrum.ID__
-					prop_default = 'NNDataPoint_Spectrum ID';
-				case NNDataPoint_6 % __NNDataPoint_Spectrum.LABEL__
-					prop_default = 'NNDataPoint_Spectrum label';
-				case NNDataPoint_7 % __NNDataPoint_Spectrum.NOTES__
-					prop_default = 'NNDataPoint_Spectrum notes';
+				case 3 % NNDataPoint_SpectrumSignal.DESCRIPTION
+					prop_default = 'A data point for a spectrum (NNDataPoint_SpectrumSignal) contains both spectral input and target for neural network analysis. The input is the value of the spectrum. The target is obtained from the variables of interest of the datapoint, such as the spectrum type.';
+				case 4 % NNDataPoint_SpectrumSignal.TEMPLATE
+					prop_default = Format.getFormatDefault(8, NNDataPoint_SpectrumSignal.getPropSettings(prop));
+				case 5 % NNDataPoint_SpectrumSignal.ID
+					prop_default = 'NNDataPoint_SpectrumSignal ID';
+				case 6 % NNDataPoint_SpectrumSignal.LABEL
+					prop_default = 'NNDataPoint_SpectrumSignal label';
+				case 7 % NNDataPoint_SpectrumSignal.NOTES
+					prop_default = 'NNDataPoint_SpectrumSignal notes';
 				otherwise
 					prop_default = getPropDefault@NNDataPoint(prop);
 			end
@@ -607,27 +618,27 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 		function prop_default = getPropDefaultConditioned(pointer)
 			%GETPROPDEFAULTCONDITIONED returns the conditioned default value of a property.
 			%
-			% DEFAULT = NNDataPoint_Spectrum.GETPROPDEFAULTCONDITIONED(PROP) returns the conditioned default 
+			% DEFAULT = NNDataPoint_SpectrumSignal.GETPROPDEFAULTCONDITIONED(PROP) returns the conditioned default 
 			%  value of the property PROP.
 			%
-			% DEFAULT = NNDataPoint_Spectrum.GETPROPDEFAULTCONDITIONED(TAG) returns the conditioned default 
+			% DEFAULT = NNDataPoint_SpectrumSignal.GETPROPDEFAULTCONDITIONED(TAG) returns the conditioned default 
 			%  value of the property with tag TAG.
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
 			%  DEFAULT = DP.GETPROPDEFAULTCONDITIONED(POINTER) returns the conditioned default value of POINTER of DP.
-			%  DEFAULT = Element.GETPROPDEFAULTCONDITIONED(NNDataPoint_Spectrum, POINTER) returns the conditioned default value of POINTER of NNDataPoint_Spectrum.
-			%  DEFAULT = DP.GETPROPDEFAULTCONDITIONED(NNDataPoint_Spectrum, POINTER) returns the conditioned default value of POINTER of NNDataPoint_Spectrum.
+			%  DEFAULT = Element.GETPROPDEFAULTCONDITIONED(NNDataPoint_SpectrumSignal, POINTER) returns the conditioned default value of POINTER of NNDataPoint_SpectrumSignal.
+			%  DEFAULT = DP.GETPROPDEFAULTCONDITIONED(NNDataPoint_SpectrumSignal, POINTER) returns the conditioned default value of POINTER of NNDataPoint_SpectrumSignal.
 			%
-			% Note that the Element.GETPROPDEFAULTCONDITIONED(DP) and Element.GETPROPDEFAULTCONDITIONED('NNDataPoint_Spectrum')
+			% Note that the Element.GETPROPDEFAULTCONDITIONED(DP) and Element.GETPROPDEFAULTCONDITIONED('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also conditioning, getPropDefault, getPropProp, getPropTag, 
 			%  getPropSettings, getPropCategory, getPropFormat, getPropDescription, 
 			%  checkProp.
 			
-			prop = NNDataPoint_Spectrum.getPropProp(pointer);
+			prop = NNDataPoint_SpectrumSignal.getPropProp(pointer);
 			
-			prop_default = NNDataPoint_Spectrum.conditioning(prop, NNDataPoint_Spectrum.getPropDefault(prop));
+			prop_default = NNDataPoint_SpectrumSignal.conditioning(prop, NNDataPoint_SpectrumSignal.getPropDefault(prop));
 		end
 	end
 	methods (Static) % checkProp
@@ -640,44 +651,46 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 			% 
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
 			%  CHECK = DP.CHECKPROP(POINTER, VALUE) checks VALUE format for PROP of DP.
-			%  CHECK = Element.CHECKPROP(NNDataPoint_Spectrum, PROP, VALUE) checks VALUE format for PROP of NNDataPoint_Spectrum.
-			%  CHECK = DP.CHECKPROP(NNDataPoint_Spectrum, PROP, VALUE) checks VALUE format for PROP of NNDataPoint_Spectrum.
+			%  CHECK = Element.CHECKPROP(NNDataPoint_SpectrumSignal, PROP, VALUE) checks VALUE format for PROP of NNDataPoint_SpectrumSignal.
+			%  CHECK = DP.CHECKPROP(NNDataPoint_SpectrumSignal, PROP, VALUE) checks VALUE format for PROP of NNDataPoint_SpectrumSignal.
 			% 
 			% DP.CHECKPROP(POINTER, VALUE) throws an error if VALUE is
 			%  NOT an acceptable value for the format of the property POINTER.
-			%  Error id: BRAPH2:NNDataPoint_Spectrum:WrongInput
+			%  Error id: BRAPH2:NNDataPoint_SpectrumSignal:WrongInput
 			% 
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
 			%  DP.CHECKPROP(POINTER, VALUE) throws error if VALUE has not a valid format for PROP of DP.
-			%   Error id: BRAPH2:NNDataPoint_Spectrum:WrongInput
-			%  Element.CHECKPROP(NNDataPoint_Spectrum, PROP, VALUE) throws error if VALUE has not a valid format for PROP of NNDataPoint_Spectrum.
-			%   Error id: BRAPH2:NNDataPoint_Spectrum:WrongInput
-			%  DP.CHECKPROP(NNDataPoint_Spectrum, PROP, VALUE) throws error if VALUE has not a valid format for PROP of NNDataPoint_Spectrum.
-			%   Error id: BRAPH2:NNDataPoint_Spectrum:WrongInput]
+			%   Error id: BRAPH2:NNDataPoint_SpectrumSignal:WrongInput
+			%  Element.CHECKPROP(NNDataPoint_SpectrumSignal, PROP, VALUE) throws error if VALUE has not a valid format for PROP of NNDataPoint_SpectrumSignal.
+			%   Error id: BRAPH2:NNDataPoint_SpectrumSignal:WrongInput
+			%  DP.CHECKPROP(NNDataPoint_SpectrumSignal, PROP, VALUE) throws error if VALUE has not a valid format for PROP of NNDataPoint_SpectrumSignal.
+			%   Error id: BRAPH2:NNDataPoint_SpectrumSignal:WrongInput]
 			% 
-			% Note that the Element.CHECKPROP(DP) and Element.CHECKPROP('NNDataPoint_Spectrum')
+			% Note that the Element.CHECKPROP(DP) and Element.CHECKPROP('NNDataPoint_SpectrumSignal')
 			%  are less computationally efficient.
 			%
 			% See also Format, getPropProp, getPropTag, getPropSettings,
 			% getPropCategory, getPropFormat, getPropDescription, getPropDefault.
 			
-			prop = NNDataPoint_Spectrum.getPropProp(pointer);
+			prop = NNDataPoint_SpectrumSignal.getPropProp(pointer);
 			
 			switch prop
-				case NNDataPoint_Spectrum.SP % __NNDataPoint_Spectrum.SP__
-					check = Format.checkFormat(12, value, NNDataPoint_Spectrum.getPropSettings(prop));
-				case NNDataPoint_Spectrum.WL % __NNDataPoint_Spectrum.WL__
-					check = Format.checkFormat(12, value, NNDataPoint_Spectrum.getPropSettings(prop));
-				case NNDataPoint_Spectrum.WL_START % __NNDataPoint_Spectrum.WL_START__
-					check = Format.checkFormat(11, value, NNDataPoint_Spectrum.getPropSettings(prop));
-				case NNDataPoint_Spectrum.WL_END % __NNDataPoint_Spectrum.WL_END__
-					check = Format.checkFormat(11, value, NNDataPoint_Spectrum.getPropSettings(prop));
-				case NNDataPoint_Spectrum.TARGET_CLASS % __NNDataPoint_Spectrum.TARGET_CLASS__
-					check = Format.checkFormat(3, value, NNDataPoint_Spectrum.getPropSettings(prop));
-				case NNDataPoint_4 % __NNDataPoint_Spectrum.TEMPLATE__
-					check = Format.checkFormat(8, value, NNDataPoint_Spectrum.getPropSettings(prop));
+				case 11 % NNDataPoint_SpectrumSignal.SP_DATA
+					check = Format.checkFormat(13, value, NNDataPoint_SpectrumSignal.getPropSettings(prop));
+				case 12 % NNDataPoint_SpectrumSignal.WL
+					check = Format.checkFormat(13, value, NNDataPoint_SpectrumSignal.getPropSettings(prop));
+				case 13 % NNDataPoint_SpectrumSignal.WL_START
+					check = Format.checkFormat(11, value, NNDataPoint_SpectrumSignal.getPropSettings(prop));
+				case 14 % NNDataPoint_SpectrumSignal.WL_END
+					check = Format.checkFormat(11, value, NNDataPoint_SpectrumSignal.getPropSettings(prop));
+				case 15 % NNDataPoint_SpectrumSignal.TARGET_CLASS
+					check = Format.checkFormat(3, value, NNDataPoint_SpectrumSignal.getPropSettings(prop));
+				case 16 % NNDataPoint_SpectrumSignal.WL_LABELS
+					check = Format.checkFormat(3, value, NNDataPoint_SpectrumSignal.getPropSettings(prop));
+				case 4 % NNDataPoint_SpectrumSignal.TEMPLATE
+					check = Format.checkFormat(8, value, NNDataPoint_SpectrumSignal.getPropSettings(prop));
 				otherwise
-					if prop <= NNDataPoint.getPropNumber()
+					if prop <= 10
 						check = checkProp@NNDataPoint(prop, value);
 					end
 			end
@@ -686,9 +699,9 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 				prop_check = check;
 			elseif ~check
 				error( ...
-					['BRAPH2' ':NNDataPoint_Spectrum:' 'WrongInput'], ...
-					['BRAPH2' ':NNDataPoint_Spectrum:' 'WrongInput' '\n' ...
-					'The value ' tostring(value, 100, ' ...') ' is not a valid property ' NNDataPoint_Spectrum.getPropTag(prop) ' (' NNDataPoint_Spectrum.getFormatTag(NNDataPoint_Spectrum.getPropFormat(prop)) ').'] ...
+					['BRAPH2' ':NNDataPoint_SpectrumSignal:' 'WrongInput'], ...
+					['BRAPH2' ':NNDataPoint_SpectrumSignal:' 'WrongInput' '\n' ...
+					'The value ' tostring(value, 100, ' ...') ' is not a valid property ' NNDataPoint_SpectrumSignal.getPropTag(prop) ' (' NNDataPoint_SpectrumSignal.getFormatTag(NNDataPoint_SpectrumSignal.getPropFormat(prop)) ').'] ...
 					)
 			end
 		end
@@ -710,30 +723,39 @@ classdef NNDataPoint_Spectrum < NNDataPoint
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case NNDataPoint_Spectrum.INPUT % __NNDataPoint_Spectrum.INPUT__
-					rng_settings_ = rng(); rng(dp.getPropSeed(NNDataPoint_Spectrum.INPUT), 'twister')
+				case 16 % NNDataPoint_SpectrumSignal.WL_LABELS
+					value = arrayfun(@(wavelength) [num2str(wavelength) ' cm-1'], dp.get('WL')', 'UniformOutput', false);
 					
-					sp = dp.get('SP');
-					wl = dp.get('WL');
-					wl_start = dp.get('WL_START');
-					wl_end = dp.get('WL_END');
-					diff_start = wl - wl_start;
-					[~, idx_wl_start] = min(abs(diff_start));
+				case 9 % NNDataPoint_SpectrumSignal.INPUT
+					rng_settings_ = rng(); rng(dp.getPropSeed(9), 'twister')
+					
+					wavelength = dp.get('WL');
+					wavelength_start = dp.get('WL_START');
+					wavelength_end = dp.get('WL_END');
+					
+					diff_start = wavelength - wavelength_start;
+					[~, idx_wav_start] = min(abs(diff_start));
 					diff_end = wavelength - wavelength_end;
-					[~, idx_wl_end] = min(abs(diff_end));
-					value = sp(idx_wl_start:idx_wl_end);
+					[~, idx_wav_end] = min(abs(diff_end));
+					
+					sp_data = dp.get('SP_DATA');
+					if isempty(sp_data)
+					    value = {};
+					else
+					    value = sp_data(idx_wav_start:idx_wav_end);
+					end
 					
 					rng(rng_settings_)
 					
-				case NNDataPoint_Spectrum.TARGET % __NNDataPoint_Spectrum.TARGET__
-					rng_settings_ = rng(); rng(dp.getPropSeed(NNDataPoint_Spectrum.TARGET), 'twister')
+				case 10 % NNDataPoint_SpectrumSignal.TARGET
+					rng_settings_ = rng(); rng(dp.getPropSeed(10), 'twister')
 					
 					value = cellfun(@(c) sum(double(c)), dp.get('TARGET_CLASS'), 'UniformOutput', false);
 					
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= NNDataPoint.getPropNumber()
+					if prop <= 10
 						value = calculateValue@NNDataPoint(dp, prop, varargin{:});
 					else
 						value = calculateValue@Element(dp, prop, varargin{:});

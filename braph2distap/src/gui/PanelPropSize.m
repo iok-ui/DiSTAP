@@ -586,15 +586,15 @@ classdef PanelPropSize < PanelProp
 			prop = PanelPropSize.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropSize.ENABLE % __PanelPropSize.ENABLE__
+				case 36 % PanelPropSize.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropSize.EDITFIELD % __PanelPropSize.EDITFIELD__
+				case 37 % PanelPropSize.EDITFIELD
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropSize.AXES % __PanelPropSize.AXES__
+				case 38 % PanelPropSize.AXES
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropSize.LN % __PanelPropSize.LN__
+				case 39 % PanelPropSize.LN
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropSize.TEMPLATE % __PanelPropSize.TEMPLATE__
+				case 4 % PanelPropSize.TEMPLATE
 					prop_settings = 'PanelPropSize';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -623,33 +623,33 @@ classdef PanelPropSize < PanelProp
 			prop = PanelPropSize.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropSize.ENABLE % __PanelPropSize.ENABLE__
+				case 36 % PanelPropSize.ENABLE
 					prop_default = true;
-				case PanelPropSize.EDITFIELD % __PanelPropSize.EDITFIELD__
+				case 37 % PanelPropSize.EDITFIELD
 					prop_default = Format.getFormatDefault(18, PanelPropSize.getPropSettings(prop));
-				case PanelPropSize.AXES % __PanelPropSize.AXES__
+				case 38 % PanelPropSize.AXES
 					prop_default = Format.getFormatDefault(18, PanelPropSize.getPropSettings(prop));
-				case PanelPropSize.LN % __PanelPropSize.LN__
+				case 39 % PanelPropSize.LN
 					prop_default = Format.getFormatDefault(18, PanelPropSize.getPropSettings(prop));
-				case PanelPropSize.ELCLASS % __PanelPropSize.ELCLASS__
+				case 1 % PanelPropSize.ELCLASS
 					prop_default = 'PanelPropSize';
-				case PanelPropSize.NAME % __PanelPropSize.NAME__
+				case 2 % PanelPropSize.NAME
 					prop_default = 'Size Prop Panel';
-				case PanelPropSize.DESCRIPTION % __PanelPropSize.DESCRIPTION__
+				case 3 % PanelPropSize.DESCRIPTION
 					prop_default = 'A Size Prop Panel (PanelPropSize) plots the panel for a SIZE property with a numeric edit field. It works for all categories.';
-				case PanelPropSize.TEMPLATE % __PanelPropSize.TEMPLATE__
+				case 4 % PanelPropSize.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropSize.getPropSettings(prop));
-				case PanelPropSize.ID % __PanelPropSize.ID__
+				case 5 % PanelPropSize.ID
 					prop_default = 'PanelPropSize ID';
-				case PanelPropSize.LABEL % __PanelPropSize.LABEL__
+				case 6 % PanelPropSize.LABEL
 					prop_default = 'PanelPropSize label';
-				case PanelPropSize.NOTES % __PanelPropSize.NOTES__
+				case 7 % PanelPropSize.NOTES
 					prop_default = 'PanelPropSize notes';
-				case PanelPropSize.EL % __PanelPropSize.EL__
+				case 23 % PanelPropSize.EL
 					prop_default = PanelProp();
-				case PanelPropSize.PROP % __PanelPropSize.PROP__
-					prop_default = PanelProp.HEIGHT;
-				case PanelPropSize.HEIGHT % __PanelPropSize.HEIGHT__
+				case 24 % PanelPropSize.PROP
+					prop_default = 25;
+				case 25 % PanelPropSize.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -715,18 +715,18 @@ classdef PanelPropSize < PanelProp
 			prop = PanelPropSize.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropSize.ENABLE % __PanelPropSize.ENABLE__
+				case 36 % PanelPropSize.ENABLE
 					check = Format.checkFormat(4, value, PanelPropSize.getPropSettings(prop));
-				case PanelPropSize.EDITFIELD % __PanelPropSize.EDITFIELD__
+				case 37 % PanelPropSize.EDITFIELD
 					check = Format.checkFormat(18, value, PanelPropSize.getPropSettings(prop));
-				case PanelPropSize.AXES % __PanelPropSize.AXES__
+				case 38 % PanelPropSize.AXES
 					check = Format.checkFormat(18, value, PanelPropSize.getPropSettings(prop));
-				case PanelPropSize.LN % __PanelPropSize.LN__
+				case 39 % PanelPropSize.LN
 					check = Format.checkFormat(18, value, PanelPropSize.getPropSettings(prop));
-				case PanelPropSize.TEMPLATE % __PanelPropSize.TEMPLATE__
+				case 4 % PanelPropSize.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropSize.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -759,7 +759,7 @@ classdef PanelPropSize < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropSize.EDITFIELD % __PanelPropSize.EDITFIELD__
+				case 37 % PanelPropSize.EDITFIELD
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -775,7 +775,7 @@ classdef PanelPropSize < PanelProp
 					
 					value = editfield;
 					
-				case PanelPropSize.AXES % __PanelPropSize.AXES__
+				case 38 % PanelPropSize.AXES
 					axes = uiaxes( ...
 					    'Parent', pr.memorize('H'), ... % H = p for Panel
 					    'Tag', 'AXES' ...
@@ -786,7 +786,7 @@ classdef PanelPropSize < PanelProp
 					
 					value = axes;
 					
-				case PanelPropSize.LN % __PanelPropSize.LN__
+				case 39 % PanelPropSize.LN
 					axes = pr.memorize('AXES');
 					
 					ln = plot(axes, ...
@@ -799,16 +799,16 @@ classdef PanelPropSize < PanelProp
 					
 					value = ln;
 					
-				case PanelPropSize.X_DRAW % __PanelPropSize.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropSize.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('EDITFIELD')
 					    pr.memorize('AXES')
 					    pr.memorize('LN')
 					end
 					
-				case PanelPropSize.UPDATE % __PanelPropSize.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropSize.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -878,8 +878,8 @@ classdef PanelPropSize < PanelProp
 					    end
 					end
 					
-				case PanelPropSize.REDRAW % __PanelPropSize.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropSize.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -887,8 +887,8 @@ classdef PanelPropSize < PanelProp
 					    set(pr.get('AXES'), 'InnerPosition', [4+.15*w_p+8 4 .70*w_p 21])
 					end
 					
-				case PanelPropSize.DELETE % __PanelPropSize.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropSize.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('EDITFIELD', Element.getNoValue())
 					    pr.set('AXES', Element.getNoValue())
@@ -896,7 +896,7 @@ classdef PanelPropSize < PanelProp
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

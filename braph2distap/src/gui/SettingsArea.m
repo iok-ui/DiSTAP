@@ -569,23 +569,23 @@ classdef SettingsArea < Settings
 			prop = SettingsArea.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsArea.VISIBLE % __SettingsArea.VISIBLE__
+				case 15 % SettingsArea.VISIBLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsArea.X % __SettingsArea.X__
+				case 16 % SettingsArea.X
 					prop_settings = Format.getFormatSettings(12);
-				case SettingsArea.Y % __SettingsArea.Y__
+				case 17 % SettingsArea.Y
 					prop_settings = Format.getFormatSettings(12);
-				case SettingsArea.Z % __SettingsArea.Z__
+				case 18 % SettingsArea.Z
 					prop_settings = Format.getFormatSettings(12);
-				case SettingsArea.FACECOLOR % __SettingsArea.FACECOLOR__
+				case 19 % SettingsArea.FACECOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case SettingsArea.FACEALPHA % __SettingsArea.FACEALPHA__
+				case 20 % SettingsArea.FACEALPHA
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsArea.EDGECOLOR % __SettingsArea.EDGECOLOR__
+				case 21 % SettingsArea.EDGECOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case SettingsArea.EDGEALPHA % __SettingsArea.EDGEALPHA__
+				case 22 % SettingsArea.EDGEALPHA
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsArea.TEMPLATE % __SettingsArea.TEMPLATE__
+				case 4 % SettingsArea.TEMPLATE
 					prop_settings = 'SettingsArea';
 				otherwise
 					prop_settings = getPropSettings@Settings(prop);
@@ -614,35 +614,35 @@ classdef SettingsArea < Settings
 			prop = SettingsArea.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsArea.VISIBLE % __SettingsArea.VISIBLE__
+				case 15 % SettingsArea.VISIBLE
 					prop_default = true;
-				case SettingsArea.X % __SettingsArea.X__
+				case 16 % SettingsArea.X
 					prop_default = Format.getFormatDefault(12, SettingsArea.getPropSettings(prop));
-				case SettingsArea.Y % __SettingsArea.Y__
+				case 17 % SettingsArea.Y
 					prop_default = Format.getFormatDefault(12, SettingsArea.getPropSettings(prop));
-				case SettingsArea.Z % __SettingsArea.Z__
+				case 18 % SettingsArea.Z
 					prop_default = Format.getFormatDefault(12, SettingsArea.getPropSettings(prop));
-				case SettingsArea.FACECOLOR % __SettingsArea.FACECOLOR__
+				case 19 % SettingsArea.FACECOLOR
 					prop_default = [0.9 0.4 0.1];
-				case SettingsArea.FACEALPHA % __SettingsArea.FACEALPHA__
+				case 20 % SettingsArea.FACEALPHA
 					prop_default = 0.5;
-				case SettingsArea.EDGECOLOR % __SettingsArea.EDGECOLOR__
+				case 21 % SettingsArea.EDGECOLOR
 					prop_default = [0 0 0];
-				case SettingsArea.EDGEALPHA % __SettingsArea.EDGEALPHA__
+				case 22 % SettingsArea.EDGEALPHA
 					prop_default = 0;
-				case SettingsArea.ELCLASS % __SettingsArea.ELCLASS__
+				case 1 % SettingsArea.ELCLASS
 					prop_default = 'SettingsArea';
-				case SettingsArea.NAME % __SettingsArea.NAME__
+				case 2 % SettingsArea.NAME
 					prop_default = 'Area Settings';
-				case SettingsArea.DESCRIPTION % __SettingsArea.DESCRIPTION__
+				case 3 % SettingsArea.DESCRIPTION
 					prop_default = 'An Area Settings (SettingsArea) provides the settings for a filled area plot, including visibility, x, y, z, face color, and face alpha. The handle must be a patch.';
-				case SettingsArea.TEMPLATE % __SettingsArea.TEMPLATE__
+				case 4 % SettingsArea.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsArea.getPropSettings(prop));
-				case SettingsArea.ID % __SettingsArea.ID__
+				case 5 % SettingsArea.ID
 					prop_default = 'SettingsArea ID';
-				case SettingsArea.LABEL % __SettingsArea.LABEL__
+				case 6 % SettingsArea.LABEL
 					prop_default = 'SettingsArea label';
-				case SettingsArea.NOTES % __SettingsArea.NOTES__
+				case 7 % SettingsArea.NOTES
 					prop_default = 'SettingsArea notes';
 				otherwise
 					prop_default = getPropDefault@Settings(prop);
@@ -692,17 +692,17 @@ classdef SettingsArea < Settings
 			prop = SettingsArea.getPropProp(pointer);
 			
 			switch prop
-				case SettingsArea.X % __SettingsArea.X__
+				case 16 % SettingsArea.X
 					value = value(:)';
 					
-				case SettingsArea.Y % __SettingsArea.Y__
+				case 17 % SettingsArea.Y
 					value = value(:)';
 					
-				case SettingsArea.Z % __SettingsArea.Z__
+				case 18 % SettingsArea.Z
 					value = value(:)';
 					
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						value = conditioning@Settings(pointer, value);
 					end
 			end
@@ -742,26 +742,26 @@ classdef SettingsArea < Settings
 			prop = SettingsArea.getPropProp(pointer);
 			
 			switch prop
-				case SettingsArea.VISIBLE % __SettingsArea.VISIBLE__
+				case 15 % SettingsArea.VISIBLE
 					check = Format.checkFormat(4, value, SettingsArea.getPropSettings(prop));
-				case SettingsArea.X % __SettingsArea.X__
+				case 16 % SettingsArea.X
 					check = Format.checkFormat(12, value, SettingsArea.getPropSettings(prop));
-				case SettingsArea.Y % __SettingsArea.Y__
+				case 17 % SettingsArea.Y
 					check = Format.checkFormat(12, value, SettingsArea.getPropSettings(prop));
-				case SettingsArea.Z % __SettingsArea.Z__
+				case 18 % SettingsArea.Z
 					check = Format.checkFormat(12, value, SettingsArea.getPropSettings(prop));
-				case SettingsArea.FACECOLOR % __SettingsArea.FACECOLOR__
+				case 19 % SettingsArea.FACECOLOR
 					check = Format.checkFormat(20, value, SettingsArea.getPropSettings(prop));
-				case SettingsArea.FACEALPHA % __SettingsArea.FACEALPHA__
+				case 20 % SettingsArea.FACEALPHA
 					check = Format.checkFormat(11, value, SettingsArea.getPropSettings(prop));
-				case SettingsArea.EDGECOLOR % __SettingsArea.EDGECOLOR__
+				case 21 % SettingsArea.EDGECOLOR
 					check = Format.checkFormat(20, value, SettingsArea.getPropSettings(prop));
-				case SettingsArea.EDGEALPHA % __SettingsArea.EDGEALPHA__
+				case 22 % SettingsArea.EDGEALPHA
 					check = Format.checkFormat(11, value, SettingsArea.getPropSettings(prop));
-				case SettingsArea.TEMPLATE % __SettingsArea.TEMPLATE__
+				case 4 % SettingsArea.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsArea.getPropSettings(prop));
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						check = checkProp@Settings(prop, value);
 					end
 			end
@@ -791,7 +791,7 @@ classdef SettingsArea < Settings
 			%  checkValue.
 			
 			switch prop
-				case SettingsArea.VISIBLE % __SettingsArea.VISIBLE__
+				case 15 % SettingsArea.VISIBLE
 					h = st.get('H');
 					if check_graphics(h, 'patch') && ( ...
 					        get(h, 'Visible') ~= st.get('VISIBLE') || ...
@@ -820,7 +820,7 @@ classdef SettingsArea < Settings
 					end
 					
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						postprocessing@Settings(st, prop);
 					end
 			end

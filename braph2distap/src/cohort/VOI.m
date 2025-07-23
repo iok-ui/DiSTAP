@@ -500,9 +500,9 @@ classdef VOI < ConcreteElement
 			prop = VOI.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case VOI.V % __VOI.V__
+				case 9 % VOI.V
 					prop_settings = Format.getFormatSettings(11);
-				case VOI.TEMPLATE % __VOI.TEMPLATE__
+				case 4 % VOI.TEMPLATE
 					prop_settings = 'VOI';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -531,21 +531,21 @@ classdef VOI < ConcreteElement
 			prop = VOI.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case VOI.V % __VOI.V__
+				case 9 % VOI.V
 					prop_default = Format.getFormatDefault(11, VOI.getPropSettings(prop));
-				case VOI.ELCLASS % __VOI.ELCLASS__
+				case 1 % VOI.ELCLASS
 					prop_default = 'VOI';
-				case VOI.NAME % __VOI.NAME__
+				case 2 % VOI.NAME
 					prop_default = 'Variable Of Interest';
-				case VOI.DESCRIPTION % __VOI.DESCRIPTION__
+				case 3 % VOI.DESCRIPTION
 					prop_default = 'A Variable Of Interest (VOI) is the base element for a variable of interest. Instances of this class should not be created. Use one of its subclasses instead.';
-				case VOI.TEMPLATE % __VOI.TEMPLATE__
+				case 4 % VOI.TEMPLATE
 					prop_default = Format.getFormatDefault(8, VOI.getPropSettings(prop));
-				case VOI.ID % __VOI.ID__
+				case 5 % VOI.ID
 					prop_default = 'VOI ID';
-				case VOI.LABEL % __VOI.LABEL__
+				case 6 % VOI.LABEL
 					prop_default = 'VOI label';
-				case VOI.NOTES % __VOI.NOTES__
+				case 7 % VOI.NOTES
 					prop_default = 'VOI notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -611,12 +611,12 @@ classdef VOI < ConcreteElement
 			prop = VOI.getPropProp(pointer);
 			
 			switch prop
-				case VOI.V % __VOI.V__
+				case 9 % VOI.V
 					check = Format.checkFormat(11, value, VOI.getPropSettings(prop));
-				case VOI.TEMPLATE % __VOI.TEMPLATE__
+				case 4 % VOI.TEMPLATE
 					check = Format.checkFormat(8, value, VOI.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end

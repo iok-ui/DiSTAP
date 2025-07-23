@@ -502,9 +502,9 @@ classdef Importer < ConcreteElement
 			prop = Importer.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Importer.WAITBAR % __Importer.WAITBAR__
+				case 9 % Importer.WAITBAR
 					prop_settings = Format.getFormatSettings(4);
-				case Importer.TEMPLATE % __Importer.TEMPLATE__
+				case 4 % Importer.TEMPLATE
 					prop_settings = 'Importer';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -533,21 +533,21 @@ classdef Importer < ConcreteElement
 			prop = Importer.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Importer.WAITBAR % __Importer.WAITBAR__
+				case 9 % Importer.WAITBAR
 					prop_default = Format.getFormatDefault(4, Importer.getPropSettings(prop));
-				case Importer.ELCLASS % __Importer.ELCLASS__
+				case 1 % Importer.ELCLASS
 					prop_default = 'Importer';
-				case Importer.NAME % __Importer.NAME__
+				case 2 % Importer.NAME
 					prop_default = 'Importer';
-				case Importer.DESCRIPTION % __Importer.DESCRIPTION__
+				case 3 % Importer.DESCRIPTION
 					prop_default = 'Importer is the base class for the importer of an element (ConcreteElement) from a file.';
-				case Importer.TEMPLATE % __Importer.TEMPLATE__
+				case 4 % Importer.TEMPLATE
 					prop_default = Format.getFormatDefault(8, Importer.getPropSettings(prop));
-				case Importer.ID % __Importer.ID__
+				case 5 % Importer.ID
 					prop_default = 'Importer ID';
-				case Importer.LABEL % __Importer.LABEL__
+				case 6 % Importer.LABEL
 					prop_default = 'Importer label';
-				case Importer.NOTES % __Importer.NOTES__
+				case 7 % Importer.NOTES
 					prop_default = 'Importer notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -613,12 +613,12 @@ classdef Importer < ConcreteElement
 			prop = Importer.getPropProp(pointer);
 			
 			switch prop
-				case Importer.WAITBAR % __Importer.WAITBAR__
+				case 9 % Importer.WAITBAR
 					check = Format.checkFormat(4, value, Importer.getPropSettings(prop));
-				case Importer.TEMPLATE % __Importer.TEMPLATE__
+				case 4 % Importer.TEMPLATE
 					check = Format.checkFormat(8, value, Importer.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end

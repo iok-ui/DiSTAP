@@ -653,7 +653,7 @@ classdef ImporterRamanExperiment_TXT < Importer
 				case 4 % ImporterRamanExperiment_TXT.TEMPLATE
 					check = Format.checkFormat(8, value, ImporterRamanExperiment_TXT.getPropSettings(prop));
 				otherwise
-					if prop <= Importer.getPropNumber()
+					if prop <= 9
 						check = checkProp@Importer(prop, value);
 					end
 			end
@@ -755,7 +755,7 @@ classdef ImporterRamanExperiment_TXT < Importer
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= Importer.getPropNumber()
+					if prop <= 9
 						value = calculateValue@Importer(im, prop, varargin{:});
 					else
 						value = calculateValue@Element(im, prop, varargin{:});

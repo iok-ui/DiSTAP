@@ -524,15 +524,15 @@ classdef NNDataset < ConcreteElement
 			prop = NNDataset.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDataset.DP_CLASS % __NNDataset.DP_CLASS__
+				case 9 % NNDataset.DP_CLASS
 					prop_settings = 'NNDataPoint';
-				case NNDataset.DP_DICT % __NNDataset.DP_DICT__
+				case 10 % NNDataset.DP_DICT
 					prop_settings = 'NNDataPoint';
-				case NNDataset.INPUTS % __NNDataset.INPUTS__
+				case 11 % NNDataset.INPUTS
 					prop_settings = Format.getFormatSettings(16);
-				case NNDataset.TARGETS % __NNDataset.TARGETS__
+				case 12 % NNDataset.TARGETS
 					prop_settings = Format.getFormatSettings(16);
-				case NNDataset.TEMPLATE % __NNDataset.TEMPLATE__
+				case 4 % NNDataset.TEMPLATE
 					prop_settings = 'NNDataset';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -561,27 +561,27 @@ classdef NNDataset < ConcreteElement
 			prop = NNDataset.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDataset.DP_CLASS % __NNDataset.DP_CLASS__
+				case 9 % NNDataset.DP_CLASS
 					prop_default = Format.getFormatDefault(6, NNDataset.getPropSettings(prop));
-				case NNDataset.DP_DICT % __NNDataset.DP_DICT__
+				case 10 % NNDataset.DP_DICT
 					prop_default = Format.getFormatDefault(10, NNDataset.getPropSettings(prop));
-				case NNDataset.INPUTS % __NNDataset.INPUTS__
+				case 11 % NNDataset.INPUTS
 					prop_default = Format.getFormatDefault(16, NNDataset.getPropSettings(prop));
-				case NNDataset.TARGETS % __NNDataset.TARGETS__
+				case 12 % NNDataset.TARGETS
 					prop_default = Format.getFormatDefault(16, NNDataset.getPropSettings(prop));
-				case NNDataset.ELCLASS % __NNDataset.ELCLASS__
+				case 1 % NNDataset.ELCLASS
 					prop_default = 'NNDataset';
-				case NNDataset.NAME % __NNDataset.NAME__
+				case 2 % NNDataset.NAME
 					prop_default = 'Neural Network Dataset';
-				case NNDataset.DESCRIPTION % __NNDataset.DESCRIPTION__
+				case 3 % NNDataset.DESCRIPTION
 					prop_default = 'A neural network dataset (NNDataset) represents a dataset containing datapoints whose class is defined by the DP_CLASS property. NNDataset can contain all the necessary inputs and targets.';
-				case NNDataset.TEMPLATE % __NNDataset.TEMPLATE__
+				case 4 % NNDataset.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNDataset.getPropSettings(prop));
-				case NNDataset.ID % __NNDataset.ID__
+				case 5 % NNDataset.ID
 					prop_default = 'NNDataset ID';
-				case NNDataset.LABEL % __NNDataset.LABEL__
+				case 6 % NNDataset.LABEL
 					prop_default = 'NNDataset label';
-				case NNDataset.NOTES % __NNDataset.NOTES__
+				case 7 % NNDataset.NOTES
 					prop_default = 'NNDataset notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -647,18 +647,18 @@ classdef NNDataset < ConcreteElement
 			prop = NNDataset.getPropProp(pointer);
 			
 			switch prop
-				case NNDataset.DP_CLASS % __NNDataset.DP_CLASS__
+				case 9 % NNDataset.DP_CLASS
 					check = Format.checkFormat(6, value, NNDataset.getPropSettings(prop));
-				case NNDataset.DP_DICT % __NNDataset.DP_DICT__
+				case 10 % NNDataset.DP_DICT
 					check = Format.checkFormat(10, value, NNDataset.getPropSettings(prop));
-				case NNDataset.INPUTS % __NNDataset.INPUTS__
+				case 11 % NNDataset.INPUTS
 					check = Format.checkFormat(16, value, NNDataset.getPropSettings(prop));
-				case NNDataset.TARGETS % __NNDataset.TARGETS__
+				case 12 % NNDataset.TARGETS
 					check = Format.checkFormat(16, value, NNDataset.getPropSettings(prop));
-				case NNDataset.TEMPLATE % __NNDataset.TEMPLATE__
+				case 4 % NNDataset.TEMPLATE
 					check = Format.checkFormat(8, value, NNDataset.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -691,22 +691,22 @@ classdef NNDataset < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case NNDataset.INPUTS % __NNDataset.INPUTS__
-					rng_settings_ = rng(); rng(d.getPropSeed(NNDataset.INPUTS), 'twister')
+				case 11 % NNDataset.INPUTS
+					rng_settings_ = rng(); rng(d.getPropSeed(11), 'twister')
 					
 					value = cellfun(@(dp) dp.get('INPUT'), d.get('DP_DICT').get('IT_LIST'), 'UniformOutput', false);
 					
 					rng(rng_settings_)
 					
-				case NNDataset.TARGETS % __NNDataset.TARGETS__
-					rng_settings_ = rng(); rng(d.getPropSeed(NNDataset.TARGETS), 'twister')
+				case 12 % NNDataset.TARGETS
+					rng_settings_ = rng(); rng(d.getPropSeed(12), 'twister')
 					
 					value = cellfun(@(dp) dp.get('TARGET'), d.get('DP_DICT').get('IT_LIST'), 'UniformOutput', false);
 					
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(d, prop, varargin{:});
 					else
 						value = calculateValue@Element(d, prop, varargin{:});

@@ -549,17 +549,17 @@ classdef SettingsAmbient < Settings
 			prop = SettingsAmbient.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsAmbient.LIGHTING % __SettingsAmbient.LIGHTING__
+				case 15 % SettingsAmbient.LIGHTING
 					prop_settings = {'none' 'phong' 'flat' 'gouraud'};
-				case SettingsAmbient.MATERIAL % __SettingsAmbient.MATERIAL__
+				case 16 % SettingsAmbient.MATERIAL
 					prop_settings = {'shiny' 'dull' 'metal'};
-				case SettingsAmbient.CAMLIGHT % __SettingsAmbient.CAMLIGHT__
+				case 17 % SettingsAmbient.CAMLIGHT
 					prop_settings = {'none' 'headlight' 'headlight (x2)' 'headlight (x3)' 'right' 'right (x2)' 'right (x3)' 'left' 'left (x2)' 'left (x3)'};
-				case SettingsAmbient.SHADING % __SettingsAmbient.SHADING__
+				case 18 % SettingsAmbient.SHADING
 					prop_settings = {'none' 'interp' 'flat' 'faceted'};
-				case SettingsAmbient.COLORMAP % __SettingsAmbient.COLORMAP__
+				case 19 % SettingsAmbient.COLORMAP
 					prop_settings = {'none', 'white', 'parula', 'jet', 'hsv', 'hot', 'cool', 'spring', 'summer', 'autumn', 'winter', 'gray', 'bone', 'copper', 'pink', 'lines', 'colorcube', 'prism', 'flag'};
-				case SettingsAmbient.TEMPLATE % __SettingsAmbient.TEMPLATE__
+				case 4 % SettingsAmbient.TEMPLATE
 					prop_settings = 'SettingsAmbient';
 				otherwise
 					prop_settings = getPropSettings@Settings(prop);
@@ -588,29 +588,29 @@ classdef SettingsAmbient < Settings
 			prop = SettingsAmbient.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsAmbient.LIGHTING % __SettingsAmbient.LIGHTING__
+				case 15 % SettingsAmbient.LIGHTING
 					prop_default = 'gouraud';
-				case SettingsAmbient.MATERIAL % __SettingsAmbient.MATERIAL__
+				case 16 % SettingsAmbient.MATERIAL
 					prop_default = 'shiny';
-				case SettingsAmbient.CAMLIGHT % __SettingsAmbient.CAMLIGHT__
+				case 17 % SettingsAmbient.CAMLIGHT
 					prop_default = 'headlight (x2)';
-				case SettingsAmbient.SHADING % __SettingsAmbient.SHADING__
+				case 18 % SettingsAmbient.SHADING
 					prop_default = 'none';
-				case SettingsAmbient.COLORMAP % __SettingsAmbient.COLORMAP__
+				case 19 % SettingsAmbient.COLORMAP
 					prop_default = 'none';
-				case SettingsAmbient.ELCLASS % __SettingsAmbient.ELCLASS__
+				case 1 % SettingsAmbient.ELCLASS
 					prop_default = 'SettingsAmbient';
-				case SettingsAmbient.NAME % __SettingsAmbient.NAME__
+				case 2 % SettingsAmbient.NAME
 					prop_default = 'Ambient Settings';
-				case SettingsAmbient.DESCRIPTION % __SettingsAmbient.DESCRIPTION__
+				case 3 % SettingsAmbient.DESCRIPTION
 					prop_default = 'An Ambient Settings (SettingsAmbient) provides the settings for the ambient lightning and material, including lighting, material, camlight, shading, and colormap. The handle can be an axes (uiaxes).';
-				case SettingsAmbient.TEMPLATE % __SettingsAmbient.TEMPLATE__
+				case 4 % SettingsAmbient.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsAmbient.getPropSettings(prop));
-				case SettingsAmbient.ID % __SettingsAmbient.ID__
+				case 5 % SettingsAmbient.ID
 					prop_default = 'SettingsAmbient ID';
-				case SettingsAmbient.LABEL % __SettingsAmbient.LABEL__
+				case 6 % SettingsAmbient.LABEL
 					prop_default = 'SettingsAmbient label';
-				case SettingsAmbient.NOTES % __SettingsAmbient.NOTES__
+				case 7 % SettingsAmbient.NOTES
 					prop_default = 'SettingsAmbient notes';
 				otherwise
 					prop_default = getPropDefault@Settings(prop);
@@ -676,20 +676,20 @@ classdef SettingsAmbient < Settings
 			prop = SettingsAmbient.getPropProp(pointer);
 			
 			switch prop
-				case SettingsAmbient.LIGHTING % __SettingsAmbient.LIGHTING__
+				case 15 % SettingsAmbient.LIGHTING
 					check = Format.checkFormat(5, value, SettingsAmbient.getPropSettings(prop));
-				case SettingsAmbient.MATERIAL % __SettingsAmbient.MATERIAL__
+				case 16 % SettingsAmbient.MATERIAL
 					check = Format.checkFormat(5, value, SettingsAmbient.getPropSettings(prop));
-				case SettingsAmbient.CAMLIGHT % __SettingsAmbient.CAMLIGHT__
+				case 17 % SettingsAmbient.CAMLIGHT
 					check = Format.checkFormat(5, value, SettingsAmbient.getPropSettings(prop));
-				case SettingsAmbient.SHADING % __SettingsAmbient.SHADING__
+				case 18 % SettingsAmbient.SHADING
 					check = Format.checkFormat(5, value, SettingsAmbient.getPropSettings(prop));
-				case SettingsAmbient.COLORMAP % __SettingsAmbient.COLORMAP__
+				case 19 % SettingsAmbient.COLORMAP
 					check = Format.checkFormat(5, value, SettingsAmbient.getPropSettings(prop));
-				case SettingsAmbient.TEMPLATE % __SettingsAmbient.TEMPLATE__
+				case 4 % SettingsAmbient.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsAmbient.getPropSettings(prop));
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						check = checkProp@Settings(prop, value);
 					end
 			end
@@ -719,19 +719,19 @@ classdef SettingsAmbient < Settings
 			%  checkValue.
 			
 			switch prop
-				case SettingsAmbient.LIGHTING % __SettingsAmbient.LIGHTING__
+				case 15 % SettingsAmbient.LIGHTING
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    lighting(a, st.get('LIGHTING'))
 					end
 					
-				case SettingsAmbient.MATERIAL % __SettingsAmbient.MATERIAL__
+				case 16 % SettingsAmbient.MATERIAL
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    material(a, st.get('MATERIAL'))
 					end
 					
-				case SettingsAmbient.CAMLIGHT % __SettingsAmbient.CAMLIGHT__
+				case 17 % SettingsAmbient.CAMLIGHT
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    delete(findall(a, 'Type', 'light'))    
@@ -766,7 +766,7 @@ classdef SettingsAmbient < Settings
 					    end
 					end
 					
-				case SettingsAmbient.SHADING % __SettingsAmbient.SHADING__
+				case 18 % SettingsAmbient.SHADING
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    if ~strcmpi(st.get('SHADING'), 'none') && ~strcmpi(st.get('COLORMAP'), 'none')
@@ -775,7 +775,7 @@ classdef SettingsAmbient < Settings
 					    end
 					end
 					
-				case SettingsAmbient.COLORMAP % __SettingsAmbient.COLORMAP__
+				case 19 % SettingsAmbient.COLORMAP
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    if ~strcmpi(st.get('SHADING'), 'none') && ~strcmpi(st.get('COLORMAP'), 'none')
@@ -785,7 +785,7 @@ classdef SettingsAmbient < Settings
 					end
 					
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						postset@Settings(st, prop);
 					end
 			end

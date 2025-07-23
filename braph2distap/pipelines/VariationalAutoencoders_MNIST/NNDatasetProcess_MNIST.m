@@ -736,7 +736,7 @@ classdef NNDatasetProcess_MNIST < NNDatasetProcess
 					fclose(fileID);
 					
 					for i = 1:size(X, 4)
-					    value{i} =  reshape(X(:,:,:,i), size(X,1), size(X,2), size(X,3));
+					    value{i} =  X(:, :, :, i);
 					end
 					
 				case 13 % NNDatasetProcess_MNIST.EXTRACT_LABELS

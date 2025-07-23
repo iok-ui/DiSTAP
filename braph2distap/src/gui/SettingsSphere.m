@@ -556,17 +556,17 @@ classdef SettingsSphere < SettingsSurface
 			prop = SettingsSphere.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsSphere.VISIBLE % __SettingsSphere.VISIBLE__
+				case 19 % SettingsSphere.VISIBLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsSphere.X % __SettingsSphere.X__
+				case 20 % SettingsSphere.X
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsSphere.Y % __SettingsSphere.Y__
+				case 21 % SettingsSphere.Y
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsSphere.Z % __SettingsSphere.Z__
+				case 22 % SettingsSphere.Z
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsSphere.SPHERESIZE % __SettingsSphere.SPHERESIZE__
+				case 23 % SettingsSphere.SPHERESIZE
 					prop_settings = Format.getFormatSettings(22);
-				case SettingsSphere.TEMPLATE % __SettingsSphere.TEMPLATE__
+				case 4 % SettingsSphere.TEMPLATE
 					prop_settings = 'SettingsSphere';
 				otherwise
 					prop_settings = getPropSettings@SettingsSurface(prop);
@@ -595,29 +595,29 @@ classdef SettingsSphere < SettingsSurface
 			prop = SettingsSphere.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsSphere.VISIBLE % __SettingsSphere.VISIBLE__
+				case 19 % SettingsSphere.VISIBLE
 					prop_default = Format.getFormatDefault(4, SettingsSphere.getPropSettings(prop));
-				case SettingsSphere.X % __SettingsSphere.X__
+				case 20 % SettingsSphere.X
 					prop_default = Format.getFormatDefault(11, SettingsSphere.getPropSettings(prop));
-				case SettingsSphere.Y % __SettingsSphere.Y__
+				case 21 % SettingsSphere.Y
 					prop_default = Format.getFormatDefault(11, SettingsSphere.getPropSettings(prop));
-				case SettingsSphere.Z % __SettingsSphere.Z__
+				case 22 % SettingsSphere.Z
 					prop_default = Format.getFormatDefault(11, SettingsSphere.getPropSettings(prop));
-				case SettingsSphere.SPHERESIZE % __SettingsSphere.SPHERESIZE__
+				case 23 % SettingsSphere.SPHERESIZE
 					prop_default = 5;
-				case SettingsSphere.ELCLASS % __SettingsSphere.ELCLASS__
+				case 1 % SettingsSphere.ELCLASS
 					prop_default = 'SettingsSphere';
-				case SettingsSphere.NAME % __SettingsSphere.NAME__
+				case 2 % SettingsSphere.NAME
 					prop_default = 'Sphere Settings';
-				case SettingsSphere.DESCRIPTION % __SettingsSphere.DESCRIPTION__
+				case 3 % SettingsSphere.DESCRIPTION
 					prop_default = 'A Sphere Settings (SettingsSphere) provides the settings for a sphere, including visibility, x, y, z, radius, face color and alpha, edge color and alpha.';
-				case SettingsSphere.TEMPLATE % __SettingsSphere.TEMPLATE__
+				case 4 % SettingsSphere.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsSphere.getPropSettings(prop));
-				case SettingsSphere.ID % __SettingsSphere.ID__
+				case 5 % SettingsSphere.ID
 					prop_default = 'SettingsSphere ID';
-				case SettingsSphere.LABEL % __SettingsSphere.LABEL__
+				case 6 % SettingsSphere.LABEL
 					prop_default = 'SettingsSphere label';
-				case SettingsSphere.NOTES % __SettingsSphere.NOTES__
+				case 7 % SettingsSphere.NOTES
 					prop_default = 'SettingsSphere notes';
 				otherwise
 					prop_default = getPropDefault@SettingsSurface(prop);
@@ -683,20 +683,20 @@ classdef SettingsSphere < SettingsSurface
 			prop = SettingsSphere.getPropProp(pointer);
 			
 			switch prop
-				case SettingsSphere.VISIBLE % __SettingsSphere.VISIBLE__
+				case 19 % SettingsSphere.VISIBLE
 					check = Format.checkFormat(4, value, SettingsSphere.getPropSettings(prop));
-				case SettingsSphere.X % __SettingsSphere.X__
+				case 20 % SettingsSphere.X
 					check = Format.checkFormat(11, value, SettingsSphere.getPropSettings(prop));
-				case SettingsSphere.Y % __SettingsSphere.Y__
+				case 21 % SettingsSphere.Y
 					check = Format.checkFormat(11, value, SettingsSphere.getPropSettings(prop));
-				case SettingsSphere.Z % __SettingsSphere.Z__
+				case 22 % SettingsSphere.Z
 					check = Format.checkFormat(11, value, SettingsSphere.getPropSettings(prop));
-				case SettingsSphere.SPHERESIZE % __SettingsSphere.SPHERESIZE__
+				case 23 % SettingsSphere.SPHERESIZE
 					check = Format.checkFormat(22, value, SettingsSphere.getPropSettings(prop));
-				case SettingsSphere.TEMPLATE % __SettingsSphere.TEMPLATE__
+				case 4 % SettingsSphere.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsSphere.getPropSettings(prop));
 				otherwise
-					if prop <= SettingsSurface.getPropNumber()
+					if prop <= 18
 						check = checkProp@SettingsSurface(prop, value);
 					end
 			end
@@ -726,7 +726,7 @@ classdef SettingsSphere < SettingsSurface
 			%  checkValue.
 			
 			switch prop
-				case SettingsSphere.VISIBLE % __SettingsSphere.VISIBLE__
+				case 19 % SettingsSphere.VISIBLE
 					h = st.get('H');
 					if (check_graphics(h, 'patch') || check_graphics(h, 'surface')) && ( ...
 					        get(h, 'Visible') ~= st.get('VISIBLE') || ...
@@ -747,7 +747,7 @@ classdef SettingsSphere < SettingsSurface
 					end
 					
 				otherwise
-					if prop <= SettingsSurface.getPropNumber()
+					if prop <= 18
 						postprocessing@SettingsSurface(st, prop);
 					end
 			end

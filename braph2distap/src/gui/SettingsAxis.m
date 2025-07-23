@@ -563,21 +563,21 @@ classdef SettingsAxis < Settings
 			prop = SettingsAxis.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsAxis.AXISCOLOR % __SettingsAxis.AXISCOLOR__
+				case 15 % SettingsAxis.AXISCOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case SettingsAxis.HOLD % __SettingsAxis.HOLD__
+				case 16 % SettingsAxis.HOLD
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsAxis.GRID % __SettingsAxis.GRID__
+				case 17 % SettingsAxis.GRID
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsAxis.AXIS % __SettingsAxis.AXIS__
+				case 18 % SettingsAxis.AXIS
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsAxis.EQUAL % __SettingsAxis.EQUAL__
+				case 19 % SettingsAxis.EQUAL
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsAxis.TIGHT % __SettingsAxis.TIGHT__
+				case 20 % SettingsAxis.TIGHT
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsAxis.BOX % __SettingsAxis.BOX__
+				case 21 % SettingsAxis.BOX
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsAxis.TEMPLATE % __SettingsAxis.TEMPLATE__
+				case 4 % SettingsAxis.TEMPLATE
 					prop_settings = 'SettingsAxis';
 				otherwise
 					prop_settings = getPropSettings@Settings(prop);
@@ -606,33 +606,33 @@ classdef SettingsAxis < Settings
 			prop = SettingsAxis.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsAxis.AXISCOLOR % __SettingsAxis.AXISCOLOR__
+				case 15 % SettingsAxis.AXISCOLOR
 					prop_default = [1 1 1];
-				case SettingsAxis.HOLD % __SettingsAxis.HOLD__
+				case 16 % SettingsAxis.HOLD
 					prop_default = true;
-				case SettingsAxis.GRID % __SettingsAxis.GRID__
+				case 17 % SettingsAxis.GRID
 					prop_default = false;
-				case SettingsAxis.AXIS % __SettingsAxis.AXIS__
+				case 18 % SettingsAxis.AXIS
 					prop_default = true;
-				case SettingsAxis.EQUAL % __SettingsAxis.EQUAL__
+				case 19 % SettingsAxis.EQUAL
 					prop_default = true;
-				case SettingsAxis.TIGHT % __SettingsAxis.TIGHT__
+				case 20 % SettingsAxis.TIGHT
 					prop_default = false;
-				case SettingsAxis.BOX % __SettingsAxis.BOX__
+				case 21 % SettingsAxis.BOX
 					prop_default = false;
-				case SettingsAxis.ELCLASS % __SettingsAxis.ELCLASS__
+				case 1 % SettingsAxis.ELCLASS
 					prop_default = 'SettingsAxis';
-				case SettingsAxis.NAME % __SettingsAxis.NAME__
+				case 2 % SettingsAxis.NAME
 					prop_default = 'Axis Settings';
-				case SettingsAxis.DESCRIPTION % __SettingsAxis.DESCRIPTION__
+				case 3 % SettingsAxis.DESCRIPTION
 					prop_default = 'An Axis Settings (SettingsAxis) provides the settings for an axis, including axis color, hold on/off, axis on/off, grid on/off, equal on/off, box on/off, and tight on/off. The handle can be an axes (uiaxes).';
-				case SettingsAxis.TEMPLATE % __SettingsAxis.TEMPLATE__
+				case 4 % SettingsAxis.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsAxis.getPropSettings(prop));
-				case SettingsAxis.ID % __SettingsAxis.ID__
+				case 5 % SettingsAxis.ID
 					prop_default = 'SettingsAxis ID';
-				case SettingsAxis.LABEL % __SettingsAxis.LABEL__
+				case 6 % SettingsAxis.LABEL
 					prop_default = 'SettingsAxis label';
-				case SettingsAxis.NOTES % __SettingsAxis.NOTES__
+				case 7 % SettingsAxis.NOTES
 					prop_default = 'SettingsAxis notes';
 				otherwise
 					prop_default = getPropDefault@Settings(prop);
@@ -698,24 +698,24 @@ classdef SettingsAxis < Settings
 			prop = SettingsAxis.getPropProp(pointer);
 			
 			switch prop
-				case SettingsAxis.AXISCOLOR % __SettingsAxis.AXISCOLOR__
+				case 15 % SettingsAxis.AXISCOLOR
 					check = Format.checkFormat(20, value, SettingsAxis.getPropSettings(prop));
-				case SettingsAxis.HOLD % __SettingsAxis.HOLD__
+				case 16 % SettingsAxis.HOLD
 					check = Format.checkFormat(4, value, SettingsAxis.getPropSettings(prop));
-				case SettingsAxis.GRID % __SettingsAxis.GRID__
+				case 17 % SettingsAxis.GRID
 					check = Format.checkFormat(4, value, SettingsAxis.getPropSettings(prop));
-				case SettingsAxis.AXIS % __SettingsAxis.AXIS__
+				case 18 % SettingsAxis.AXIS
 					check = Format.checkFormat(4, value, SettingsAxis.getPropSettings(prop));
-				case SettingsAxis.EQUAL % __SettingsAxis.EQUAL__
+				case 19 % SettingsAxis.EQUAL
 					check = Format.checkFormat(4, value, SettingsAxis.getPropSettings(prop));
-				case SettingsAxis.TIGHT % __SettingsAxis.TIGHT__
+				case 20 % SettingsAxis.TIGHT
 					check = Format.checkFormat(4, value, SettingsAxis.getPropSettings(prop));
-				case SettingsAxis.BOX % __SettingsAxis.BOX__
+				case 21 % SettingsAxis.BOX
 					check = Format.checkFormat(4, value, SettingsAxis.getPropSettings(prop));
-				case SettingsAxis.TEMPLATE % __SettingsAxis.TEMPLATE__
+				case 4 % SettingsAxis.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsAxis.getPropSettings(prop));
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						check = checkProp@Settings(prop, value);
 					end
 			end
@@ -745,7 +745,7 @@ classdef SettingsAxis < Settings
 			%  checkValue.
 			
 			switch prop
-				case SettingsAxis.AXISCOLOR % __SettingsAxis.AXISCOLOR__
+				case 15 % SettingsAxis.AXISCOLOR
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    if ~isequal(get(a, 'Color'), st.get('AXISCOLOR'))
@@ -753,7 +753,7 @@ classdef SettingsAxis < Settings
 					    end
 					end
 					
-				case SettingsAxis.HOLD % __SettingsAxis.HOLD__
+				case 16 % SettingsAxis.HOLD
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    if st.get('HOLD')
@@ -763,7 +763,7 @@ classdef SettingsAxis < Settings
 					    end
 					end
 					
-				case SettingsAxis.GRID % __SettingsAxis.GRID__
+				case 17 % SettingsAxis.GRID
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    if st.get('GRID')
@@ -773,7 +773,7 @@ classdef SettingsAxis < Settings
 					    end
 					end
 					
-				case SettingsAxis.AXIS % __SettingsAxis.AXIS__
+				case 18 % SettingsAxis.AXIS
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    if st.get('AXIS')
@@ -783,7 +783,7 @@ classdef SettingsAxis < Settings
 					    end
 					end
 					
-				case SettingsAxis.EQUAL % __SettingsAxis.EQUAL__
+				case 19 % SettingsAxis.EQUAL
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    if st.get('EQUAL')
@@ -793,7 +793,7 @@ classdef SettingsAxis < Settings
 					    end
 					end
 					
-				case SettingsAxis.TIGHT % __SettingsAxis.TIGHT__
+				case 20 % SettingsAxis.TIGHT
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    if st.get('TIGHT')
@@ -801,7 +801,7 @@ classdef SettingsAxis < Settings
 					    end
 					end
 					
-				case SettingsAxis.BOX % __SettingsAxis.BOX__
+				case 21 % SettingsAxis.BOX
 					a = st.get('H');
 					if check_graphics(a, 'axes')
 					    if st.get('BOX')
@@ -812,7 +812,7 @@ classdef SettingsAxis < Settings
 					end
 					
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						postset@Settings(st, prop);
 					end
 			end

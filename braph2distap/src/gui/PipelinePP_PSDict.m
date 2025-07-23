@@ -629,29 +629,29 @@ classdef PipelinePP_PSDict < PanelProp
 			prop = PipelinePP_PSDict.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PipelinePP_PSDict.HEIGHT_MIN % __PipelinePP_PSDict.HEIGHT_MIN__
+				case 36 % PipelinePP_PSDict.HEIGHT_MIN
 					prop_settings = Format.getFormatSettings(11);
-				case PipelinePP_PSDict.HEIGHT_PS_HEADER % __PipelinePP_PSDict.HEIGHT_PS_HEADER__
+				case 37 % PipelinePP_PSDict.HEIGHT_PS_HEADER
 					prop_settings = Format.getFormatSettings(11);
-				case PipelinePP_PSDict.HEIGHT_PC % __PipelinePP_PSDict.HEIGHT_PC__
+				case 38 % PipelinePP_PSDict.HEIGHT_PC
 					prop_settings = Format.getFormatSettings(11);
-				case PipelinePP_PSDict.HEIGHT_PS_FOOTER % __PipelinePP_PSDict.HEIGHT_PS_FOOTER__
+				case 39 % PipelinePP_PSDict.HEIGHT_PS_FOOTER
 					prop_settings = Format.getFormatSettings(11);
-				case PipelinePP_PSDict.HEIGHT_PS_MARGIN % __PipelinePP_PSDict.HEIGHT_PS_MARGIN__
+				case 40 % PipelinePP_PSDict.HEIGHT_PS_MARGIN
 					prop_settings = Format.getFormatSettings(11);
-				case PipelinePP_PSDict.HANDLES % __PipelinePP_PSDict.HANDLES__
+				case 41 % PipelinePP_PSDict.HANDLES
 					prop_settings = Format.getFormatSettings(19);
-				case PipelinePP_PSDict.PS_PANEL % __PipelinePP_PSDict.PS_PANEL__
+				case 42 % PipelinePP_PSDict.PS_PANEL
 					prop_settings = Format.getFormatSettings(18);
-				case PipelinePP_PSDict.PC_BTN % __PipelinePP_PSDict.PC_BTN__
+				case 43 % PipelinePP_PSDict.PC_BTN
 					prop_settings = Format.getFormatSettings(18);
-				case PipelinePP_PSDict.PC_CLEAR_BTN % __PipelinePP_PSDict.PC_CLEAR_BTN__
+				case 44 % PipelinePP_PSDict.PC_CLEAR_BTN
 					prop_settings = Format.getFormatSettings(18);
-				case PipelinePP_PSDict.GUI_PC_DICT % __PipelinePP_PSDict.GUI_PC_DICT__
+				case 45 % PipelinePP_PSDict.GUI_PC_DICT
 					prop_settings = 'GUI';
-				case PipelinePP_PSDict.TEMPLATE % __PipelinePP_PSDict.TEMPLATE__
+				case 4 % PipelinePP_PSDict.TEMPLATE
 					prop_settings = 'PipelinePP_PSDict';
-				case PipelinePP_PSDict.EL % __PipelinePP_PSDict.EL__
+				case 23 % PipelinePP_PSDict.EL
 					prop_settings = 'Pipeline';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -680,44 +680,44 @@ classdef PipelinePP_PSDict < PanelProp
 			prop = PipelinePP_PSDict.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PipelinePP_PSDict.HEIGHT_MIN % __PipelinePP_PSDict.HEIGHT_MIN__
+				case 36 % PipelinePP_PSDict.HEIGHT_MIN
 					prop_default = 24;
-				case PipelinePP_PSDict.HEIGHT_PS_HEADER % __PipelinePP_PSDict.HEIGHT_PS_HEADER__
+				case 37 % PipelinePP_PSDict.HEIGHT_PS_HEADER
 					prop_default = 24;
-				case PipelinePP_PSDict.HEIGHT_PC % __PipelinePP_PSDict.HEIGHT_PC__
+				case 38 % PipelinePP_PSDict.HEIGHT_PC
 					prop_default = 30;
-				case PipelinePP_PSDict.HEIGHT_PS_FOOTER % __PipelinePP_PSDict.HEIGHT_PS_FOOTER__
+				case 39 % PipelinePP_PSDict.HEIGHT_PS_FOOTER
 					prop_default = 6;
-				case PipelinePP_PSDict.HEIGHT_PS_MARGIN % __PipelinePP_PSDict.HEIGHT_PS_MARGIN__
+				case 40 % PipelinePP_PSDict.HEIGHT_PS_MARGIN
 					prop_default = 6;
-				case PipelinePP_PSDict.HANDLES % __PipelinePP_PSDict.HANDLES__
+				case 41 % PipelinePP_PSDict.HANDLES
 					prop_default = Format.getFormatDefault(19, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.PS_PANEL % __PipelinePP_PSDict.PS_PANEL__
+				case 42 % PipelinePP_PSDict.PS_PANEL
 					prop_default = Format.getFormatDefault(18, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.PC_BTN % __PipelinePP_PSDict.PC_BTN__
+				case 43 % PipelinePP_PSDict.PC_BTN
 					prop_default = Format.getFormatDefault(18, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.PC_CLEAR_BTN % __PipelinePP_PSDict.PC_CLEAR_BTN__
+				case 44 % PipelinePP_PSDict.PC_CLEAR_BTN
 					prop_default = Format.getFormatDefault(18, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.GUI_PC_DICT % __PipelinePP_PSDict.GUI_PC_DICT__
+				case 45 % PipelinePP_PSDict.GUI_PC_DICT
 					prop_default = Format.getFormatDefault(10, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.ELCLASS % __PipelinePP_PSDict.ELCLASS__
+				case 1 % PipelinePP_PSDict.ELCLASS
 					prop_default = 'PipelinePP_PSDict';
-				case PipelinePP_PSDict.NAME % __PipelinePP_PSDict.NAME__
+				case 2 % PipelinePP_PSDict.NAME
 					prop_default = 'Pipeline Plot';
-				case PipelinePP_PSDict.DESCRIPTION % __PipelinePP_PSDict.DESCRIPTION__
+				case 3 % PipelinePP_PSDict.DESCRIPTION
 					prop_default = 'A Pipeline Plot (PipelinePP_PSDict) plots a pipeline allowing the user to execute it in the correct order. It opens PanelFig elements using GUIFig, and all other elements using GUIElement. It should be used only with the prop PS_DICT of the element Pipeline.';
-				case PipelinePP_PSDict.TEMPLATE % __PipelinePP_PSDict.TEMPLATE__
+				case 4 % PipelinePP_PSDict.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.ID % __PipelinePP_PSDict.ID__
+				case 5 % PipelinePP_PSDict.ID
 					prop_default = 'PipelinePP_PSDict ID';
-				case PipelinePP_PSDict.LABEL % __PipelinePP_PSDict.LABEL__
+				case 6 % PipelinePP_PSDict.LABEL
 					prop_default = 'PipelinePP_PSDict label';
-				case PipelinePP_PSDict.NOTES % __PipelinePP_PSDict.NOTES__
+				case 7 % PipelinePP_PSDict.NOTES
 					prop_default = 'PipelinePP_PSDict notes';
-				case PipelinePP_PSDict.EL % __PipelinePP_PSDict.EL__
+				case 23 % PipelinePP_PSDict.EL
 					prop_default = Format.getFormatDefault(8, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.PROP % __PipelinePP_PSDict.PROP__
-					prop_default = Pipeline.PS_DICT;
+				case 24 % PipelinePP_PSDict.PROP
+					prop_default = 11;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
 			end
@@ -782,32 +782,32 @@ classdef PipelinePP_PSDict < PanelProp
 			prop = PipelinePP_PSDict.getPropProp(pointer);
 			
 			switch prop
-				case PipelinePP_PSDict.HEIGHT_MIN % __PipelinePP_PSDict.HEIGHT_MIN__
+				case 36 % PipelinePP_PSDict.HEIGHT_MIN
 					check = Format.checkFormat(11, value, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.HEIGHT_PS_HEADER % __PipelinePP_PSDict.HEIGHT_PS_HEADER__
+				case 37 % PipelinePP_PSDict.HEIGHT_PS_HEADER
 					check = Format.checkFormat(11, value, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.HEIGHT_PC % __PipelinePP_PSDict.HEIGHT_PC__
+				case 38 % PipelinePP_PSDict.HEIGHT_PC
 					check = Format.checkFormat(11, value, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.HEIGHT_PS_FOOTER % __PipelinePP_PSDict.HEIGHT_PS_FOOTER__
+				case 39 % PipelinePP_PSDict.HEIGHT_PS_FOOTER
 					check = Format.checkFormat(11, value, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.HEIGHT_PS_MARGIN % __PipelinePP_PSDict.HEIGHT_PS_MARGIN__
+				case 40 % PipelinePP_PSDict.HEIGHT_PS_MARGIN
 					check = Format.checkFormat(11, value, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.HANDLES % __PipelinePP_PSDict.HANDLES__
+				case 41 % PipelinePP_PSDict.HANDLES
 					check = Format.checkFormat(19, value, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.PS_PANEL % __PipelinePP_PSDict.PS_PANEL__
+				case 42 % PipelinePP_PSDict.PS_PANEL
 					check = Format.checkFormat(18, value, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.PC_BTN % __PipelinePP_PSDict.PC_BTN__
+				case 43 % PipelinePP_PSDict.PC_BTN
 					check = Format.checkFormat(18, value, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.PC_CLEAR_BTN % __PipelinePP_PSDict.PC_CLEAR_BTN__
+				case 44 % PipelinePP_PSDict.PC_CLEAR_BTN
 					check = Format.checkFormat(18, value, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.GUI_PC_DICT % __PipelinePP_PSDict.GUI_PC_DICT__
+				case 45 % PipelinePP_PSDict.GUI_PC_DICT
 					check = Format.checkFormat(10, value, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.TEMPLATE % __PipelinePP_PSDict.TEMPLATE__
+				case 4 % PipelinePP_PSDict.TEMPLATE
 					check = Format.checkFormat(8, value, PipelinePP_PSDict.getPropSettings(prop));
-				case PipelinePP_PSDict.EL % __PipelinePP_PSDict.EL__
+				case 23 % PipelinePP_PSDict.EL
 					check = Format.checkFormat(8, value, PipelinePP_PSDict.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -840,7 +840,7 @@ classdef PipelinePP_PSDict < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PipelinePP_PSDict.HANDLES % __PipelinePP_PSDict.HANDLES__
+				case 41 % PipelinePP_PSDict.HANDLES
 					pip = pr.get('EL');
 					
 					ps_dict = pip.get('PS_DICT');
@@ -900,7 +900,7 @@ classdef PipelinePP_PSDict < PanelProp
 					end
 					value = handles;
 					
-				case PipelinePP_PSDict.PS_PANEL % __PipelinePP_PSDict.PS_PANEL__
+				case 42 % PipelinePP_PSDict.PS_PANEL
 					% H = pr.get('PS_PANEL', SEC) returns the hande H of the section SEC panel.
 					value = gobjects(); % default output
 					if isempty(varargin)
@@ -917,7 +917,7 @@ classdef PipelinePP_PSDict < PanelProp
 					    end
 					end
 					
-				case PipelinePP_PSDict.PC_BTN % __PipelinePP_PSDict.PC_BTN__
+				case 43 % PipelinePP_PSDict.PC_BTN
 					% H = pr.get('PC_BTN', SEC, CL) returns the hande H of the button of code 
 					% line CL of section SEC panel.
 					value = gobjects(); % default output
@@ -936,7 +936,7 @@ classdef PipelinePP_PSDict < PanelProp
 					    end
 					end
 					
-				case PipelinePP_PSDict.PC_CLEAR_BTN % __PipelinePP_PSDict.PC_CLEAR_BTN__
+				case 44 % PipelinePP_PSDict.PC_CLEAR_BTN
 					% H = pr.get('PC_BTN', SEC, CL) returns the hande H of the button of code 
 					% line CL of section SEC panel.
 					value = gobjects(); % default output
@@ -955,14 +955,14 @@ classdef PipelinePP_PSDict < PanelProp
 					    end
 					end
 					
-				case PipelinePP_PSDict.X_DRAW % __PipelinePP_PSDict.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PipelinePP_PSDict.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('HANDLES')
 					end
 					
-				case PipelinePP_PSDict.UPDATE % __PipelinePP_PSDict.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PipelinePP_PSDict.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    pip = pr.get('EL');
 					
@@ -1118,8 +1118,8 @@ classdef PipelinePP_PSDict < PanelProp
 					    end
 					end
 					
-				case PipelinePP_PSDict.REDRAW % __PipelinePP_PSDict.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PipelinePP_PSDict.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -1148,8 +1148,8 @@ classdef PipelinePP_PSDict < PanelProp
 					    end
 					end
 					
-				case PipelinePP_PSDict.SHOW % __PipelinePP_PSDict.SHOW__
-					value = calculateValue@PanelProp(pr, PanelProp.SHOW, varargin{:}); % also warning
+				case 16 % PipelinePP_PSDict.SHOW
+					value = calculateValue@PanelProp(pr, 16, varargin{:}); % also warning
 					if value
 					    % % figures for elements/buttons, currently not in use
 					    % gui_pc_dict = pr.get('GUI_PC_DICT');
@@ -1161,8 +1161,8 @@ classdef PipelinePP_PSDict < PanelProp
 					    % end
 					end
 					
-				case PipelinePP_PSDict.HIDE % __PipelinePP_PSDict.HIDE__
-					value = calculateValue@PanelProp(pr, PanelProp.HIDE, varargin{:}); % also warning
+				case 17 % PipelinePP_PSDict.HIDE
+					value = calculateValue@PanelProp(pr, 17, varargin{:}); % also warning
 					if value
 					    % figures for items
 					    gui_pc_dict = pr.get('GUI_PC_DICT');
@@ -1174,14 +1174,14 @@ classdef PipelinePP_PSDict < PanelProp
 					    end
 					end
 					
-				case PipelinePP_PSDict.DELETE % __PipelinePP_PSDict.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PipelinePP_PSDict.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('HANDLES', Element.getNoValue())
 					end
 					
-				case PipelinePP_PSDict.CLOSE % __PipelinePP_PSDict.CLOSE__
-					value = calculateValue@PanelProp(pr, PanelProp.CLOSE, varargin{:}); % also warning
+				case 19 % PipelinePP_PSDict.CLOSE
+					value = calculateValue@PanelProp(pr, 19, varargin{:}); % also warning
 					if value
 					    % figures for items
 					    gui_pc_dict = pr.get('GUI_PC_DICT');
@@ -1194,7 +1194,7 @@ classdef PipelinePP_PSDict < PanelProp
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

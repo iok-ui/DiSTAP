@@ -523,13 +523,13 @@ classdef ImporterPipelineBRAPH2 < Importer
 			prop = ImporterPipelineBRAPH2.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case ImporterPipelineBRAPH2.FILE % __ImporterPipelineBRAPH2.FILE__
+				case 10 % ImporterPipelineBRAPH2.FILE
 					prop_settings = Format.getFormatSettings(2);
-				case ImporterPipelineBRAPH2.GET_FILE % __ImporterPipelineBRAPH2.GET_FILE__
+				case 11 % ImporterPipelineBRAPH2.GET_FILE
 					prop_settings = 'ImporterPipelineBRAPH2';
-				case ImporterPipelineBRAPH2.PIP % __ImporterPipelineBRAPH2.PIP__
+				case 12 % ImporterPipelineBRAPH2.PIP
 					prop_settings = 'Pipeline';
-				case ImporterPipelineBRAPH2.TEMPLATE % __ImporterPipelineBRAPH2.TEMPLATE__
+				case 4 % ImporterPipelineBRAPH2.TEMPLATE
 					prop_settings = 'ImporterPipelineBRAPH2';
 				otherwise
 					prop_settings = getPropSettings@Importer(prop);
@@ -558,25 +558,25 @@ classdef ImporterPipelineBRAPH2 < Importer
 			prop = ImporterPipelineBRAPH2.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case ImporterPipelineBRAPH2.FILE % __ImporterPipelineBRAPH2.FILE__
+				case 10 % ImporterPipelineBRAPH2.FILE
 					prop_default = 'pipeline_atlas.braph2';
-				case ImporterPipelineBRAPH2.GET_FILE % __ImporterPipelineBRAPH2.GET_FILE__
+				case 11 % ImporterPipelineBRAPH2.GET_FILE
 					prop_default = Format.getFormatDefault(8, ImporterPipelineBRAPH2.getPropSettings(prop));
-				case ImporterPipelineBRAPH2.PIP % __ImporterPipelineBRAPH2.PIP__
+				case 12 % ImporterPipelineBRAPH2.PIP
 					prop_default = Pipeline();
-				case ImporterPipelineBRAPH2.ELCLASS % __ImporterPipelineBRAPH2.ELCLASS__
+				case 1 % ImporterPipelineBRAPH2.ELCLASS
 					prop_default = 'ImporterPipelineBRAPH2';
-				case ImporterPipelineBRAPH2.NAME % __ImporterPipelineBRAPH2.NAME__
+				case 2 % ImporterPipelineBRAPH2.NAME
 					prop_default = 'Pipeline Importer from BRAPH2 File';
-				case ImporterPipelineBRAPH2.DESCRIPTION % __ImporterPipelineBRAPH2.DESCRIPTION__
+				case 3 % ImporterPipelineBRAPH2.DESCRIPTION
 					prop_default = 'A Pipeline Importer from BRAPH2 File (ImporterPipelineBRAPH2) imports a pipeline from a BRAPH2 file. The format of the BRAPH2 file should include the label, description and at least one code section.';
-				case ImporterPipelineBRAPH2.TEMPLATE % __ImporterPipelineBRAPH2.TEMPLATE__
+				case 4 % ImporterPipelineBRAPH2.TEMPLATE
 					prop_default = Format.getFormatDefault(8, ImporterPipelineBRAPH2.getPropSettings(prop));
-				case ImporterPipelineBRAPH2.ID % __ImporterPipelineBRAPH2.ID__
+				case 5 % ImporterPipelineBRAPH2.ID
 					prop_default = 'ImporterPipelineBRAPH2 ID';
-				case ImporterPipelineBRAPH2.LABEL % __ImporterPipelineBRAPH2.LABEL__
+				case 6 % ImporterPipelineBRAPH2.LABEL
 					prop_default = 'ImporterPipelineBRAPH2 label';
-				case ImporterPipelineBRAPH2.NOTES % __ImporterPipelineBRAPH2.NOTES__
+				case 7 % ImporterPipelineBRAPH2.NOTES
 					prop_default = 'ImporterPipelineBRAPH2 notes';
 				otherwise
 					prop_default = getPropDefault@Importer(prop);
@@ -642,16 +642,16 @@ classdef ImporterPipelineBRAPH2 < Importer
 			prop = ImporterPipelineBRAPH2.getPropProp(pointer);
 			
 			switch prop
-				case ImporterPipelineBRAPH2.FILE % __ImporterPipelineBRAPH2.FILE__
+				case 10 % ImporterPipelineBRAPH2.FILE
 					check = Format.checkFormat(2, value, ImporterPipelineBRAPH2.getPropSettings(prop));
-				case ImporterPipelineBRAPH2.GET_FILE % __ImporterPipelineBRAPH2.GET_FILE__
+				case 11 % ImporterPipelineBRAPH2.GET_FILE
 					check = Format.checkFormat(8, value, ImporterPipelineBRAPH2.getPropSettings(prop));
-				case ImporterPipelineBRAPH2.PIP % __ImporterPipelineBRAPH2.PIP__
+				case 12 % ImporterPipelineBRAPH2.PIP
 					check = Format.checkFormat(8, value, ImporterPipelineBRAPH2.getPropSettings(prop));
-				case ImporterPipelineBRAPH2.TEMPLATE % __ImporterPipelineBRAPH2.TEMPLATE__
+				case 4 % ImporterPipelineBRAPH2.TEMPLATE
 					check = Format.checkFormat(8, value, ImporterPipelineBRAPH2.getPropSettings(prop));
 				otherwise
-					if prop <= Importer.getPropNumber()
+					if prop <= 9
 						check = checkProp@Importer(prop, value);
 					end
 			end
@@ -684,7 +684,7 @@ classdef ImporterPipelineBRAPH2 < Importer
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case ImporterPipelineBRAPH2.GET_FILE % __ImporterPipelineBRAPH2.GET_FILE__
+				case 11 % ImporterPipelineBRAPH2.GET_FILE
 					[filename, filepath, filterindex] = uigetfile(BRAPH2.EXT_PIPELINE, 'Select BRAPH2 file');
 					if filterindex
 					    file = [filepath filename];
@@ -692,8 +692,8 @@ classdef ImporterPipelineBRAPH2 < Importer
 					end
 					value = im;
 					
-				case ImporterPipelineBRAPH2.PIP % __ImporterPipelineBRAPH2.PIP__
-					rng_settings_ = rng(); rng(im.getPropSeed(ImporterPipelineBRAPH2.PIP), 'twister')
+				case 12 % ImporterPipelineBRAPH2.PIP
+					rng_settings_ = rng(); rng(im.getPropSeed(12), 'twister')
 					
 					% creates empty Pipeline
 					pip = Pipeline();
@@ -800,7 +800,7 @@ classdef ImporterPipelineBRAPH2 < Importer
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= Importer.getPropNumber()
+					if prop <= 9
 						value = calculateValue@Importer(im, prop, varargin{:});
 					else
 						value = calculateValue@Element(im, prop, varargin{:});

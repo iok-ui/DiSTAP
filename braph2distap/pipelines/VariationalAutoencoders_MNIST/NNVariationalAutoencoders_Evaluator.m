@@ -693,7 +693,7 @@ classdef NNVariationalAutoencoders_Evaluator < NNEvaluator
 					
 					numOutputs = nnvae.get('NUM_LATENT_REP');;
 					
-					miniBatchSize = nnvae.get('BATCH');;
+					miniBatchSize = nnvae.get('BATCH');
 					mbqTrain = minibatchqueue(dsTrain, numOutputs, ...
 					    MiniBatchSize = miniBatchSize, ...
 					    MiniBatchFcn=@preprocessMiniBatch, ...
@@ -710,8 +710,7 @@ classdef NNVariationalAutoencoders_Evaluator < NNEvaluator
 					h = scatter(ZLatent(1, :), ZLatent(2, :), 30, YLatent(:), 'filled');
 					
 					title('Scatter Plot with Color-Coded Categories');
-
-                    value = [];
+					value = [];
 					
 				case 12 % NNVariationalAutoencoders_Evaluator.PLOT_LATENT_CONTINUITY
 					netD = nne.get('NN').get('DECODER');
@@ -733,7 +732,6 @@ classdef NNVariationalAutoencoders_Evaluator < NNEvaluator
 					% Reverse grid_y to match the original Python code
 					grid_y = flip(grid_y);
 					
-                    figure;
 					for i = 1:n
 					    for j = 1:n
 					        z_sample = [grid_x(j); grid_y(i)];
@@ -769,8 +767,7 @@ classdef NNVariationalAutoencoders_Evaluator < NNEvaluator
 					% Show the figure
 					set(gcf, 'Color', 'w');
 					drawnow;
-
-                    value = [];
+					value = [];
 					
 				case 13 % NNVariationalAutoencoders_Evaluator.PREDICT_ENCODER
 					if isempty(varargin)

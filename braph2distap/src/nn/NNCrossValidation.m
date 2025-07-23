@@ -650,49 +650,49 @@ classdef NNCrossValidation < ConcreteElement
 			prop = NNCrossValidation.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNCrossValidation.WAITBAR % __NNCrossValidation.WAITBAR__
+				case 9 % NNCrossValidation.WAITBAR
 					prop_settings = Format.getFormatSettings(4);
-				case NNCrossValidation.KFOLDS % __NNCrossValidation.KFOLDS__
+				case 10 % NNCrossValidation.KFOLDS
 					prop_settings = Format.getFormatSettings(11);
-				case NNCrossValidation.SPLIT % __NNCrossValidation.SPLIT__
+				case 11 % NNCrossValidation.SPLIT
 					prop_settings = Format.getFormatSettings(16);
-				case NNCrossValidation.D % __NNCrossValidation.D__
+				case 12 % NNCrossValidation.D
 					prop_settings = 'NNDataset';
-				case NNCrossValidation.NN_TEMPLATE % __NNCrossValidation.NN_TEMPLATE__
+				case 13 % NNCrossValidation.NN_TEMPLATE
 					prop_settings = 'NNBase';
-				case NNCrossValidation.NNEVALUATOR_TEMPLATE % __NNCrossValidation.NNEVALUATOR_TEMPLATE__
+				case 14 % NNCrossValidation.NNEVALUATOR_TEMPLATE
 					prop_settings = 'NNEvaluator';
-				case NNCrossValidation.DSP % __NNCrossValidation.DSP__
+				case 15 % NNCrossValidation.DSP
 					prop_settings = 'NNDatasetSplit';
-				case NNCrossValidation.DCO % __NNCrossValidation.DCO__
+				case 16 % NNCrossValidation.DCO
 					prop_settings = 'NNDatasetCombine';
-				case NNCrossValidation.D_LIST % __NNCrossValidation.D_LIST__
+				case 17 % NNCrossValidation.D_LIST
 					prop_settings = Format.getFormatSettings(9);
-				case NNCrossValidation.D_LIST_IT % __NNCrossValidation.D_LIST_IT__
+				case 18 % NNCrossValidation.D_LIST_IT
 					prop_settings = Format.getFormatSettings(8);
-				case NNCrossValidation.NN_LIST % __NNCrossValidation.NN_LIST__
+				case 19 % NNCrossValidation.NN_LIST
 					prop_settings = Format.getFormatSettings(9);
-				case NNCrossValidation.NN_LIST_IT % __NNCrossValidation.NN_LIST_IT__
+				case 20 % NNCrossValidation.NN_LIST_IT
 					prop_settings = Format.getFormatSettings(8);
-				case NNCrossValidation.EVALUATOR_LIST % __NNCrossValidation.EVALUATOR_LIST__
+				case 21 % NNCrossValidation.EVALUATOR_LIST
 					prop_settings = Format.getFormatSettings(9);
-				case NNCrossValidation.EVALUATOR_LIST_IT % __NNCrossValidation.EVALUATOR_LIST_IT__
+				case 22 % NNCrossValidation.EVALUATOR_LIST_IT
 					prop_settings = Format.getFormatSettings(8);
-				case NNCrossValidation.EPOCHS % __NNCrossValidation.EPOCHS__
+				case 23 % NNCrossValidation.EPOCHS
 					prop_settings = Format.getFormatSettings(11);
-				case NNCrossValidation.BATCH % __NNCrossValidation.BATCH__
+				case 24 % NNCrossValidation.BATCH
 					prop_settings = Format.getFormatSettings(11);
-				case NNCrossValidation.SHUFFLE % __NNCrossValidation.SHUFFLE__
+				case 25 % NNCrossValidation.SHUFFLE
 					prop_settings = {'once' 'never' 'every-epoch'};
-				case NNCrossValidation.SOLVER % __NNCrossValidation.SOLVER__
+				case 26 % NNCrossValidation.SOLVER
 					prop_settings = {'adam' 'sgdm' 'rmsprop'};
-				case NNCrossValidation.VERBOSE % __NNCrossValidation.VERBOSE__
+				case 27 % NNCrossValidation.VERBOSE
 					prop_settings = Format.getFormatSettings(4);
-				case NNCrossValidation.PLOT_TRAINING % __NNCrossValidation.PLOT_TRAINING__
+				case 28 % NNCrossValidation.PLOT_TRAINING
 					prop_settings = {'none' 'training-progress'};
-				case NNCrossValidation.TRAIN % __NNCrossValidation.TRAIN__
+				case 29 % NNCrossValidation.TRAIN
 					prop_settings = Format.getFormatSettings(1);
-				case NNCrossValidation.TEMPLATE % __NNCrossValidation.TEMPLATE__
+				case 4 % NNCrossValidation.TEMPLATE
 					prop_settings = 'NNCrossValidation';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -721,61 +721,61 @@ classdef NNCrossValidation < ConcreteElement
 			prop = NNCrossValidation.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNCrossValidation.WAITBAR % __NNCrossValidation.WAITBAR__
+				case 9 % NNCrossValidation.WAITBAR
 					prop_default = true;
-				case NNCrossValidation.KFOLDS % __NNCrossValidation.KFOLDS__
+				case 10 % NNCrossValidation.KFOLDS
 					prop_default = 5;
-				case NNCrossValidation.SPLIT % __NNCrossValidation.SPLIT__
+				case 11 % NNCrossValidation.SPLIT
 					prop_default = Format.getFormatDefault(16, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.D % __NNCrossValidation.D__
+				case 12 % NNCrossValidation.D
 					prop_default = Format.getFormatDefault(9, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.NN_TEMPLATE % __NNCrossValidation.NN_TEMPLATE__
+				case 13 % NNCrossValidation.NN_TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.NNEVALUATOR_TEMPLATE % __NNCrossValidation.NNEVALUATOR_TEMPLATE__
+				case 14 % NNCrossValidation.NNEVALUATOR_TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.DSP % __NNCrossValidation.DSP__
+				case 15 % NNCrossValidation.DSP
 					prop_default = Format.getFormatDefault(9, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.DCO % __NNCrossValidation.DCO__
+				case 16 % NNCrossValidation.DCO
 					prop_default = Format.getFormatDefault(9, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.D_LIST % __NNCrossValidation.D_LIST__
+				case 17 % NNCrossValidation.D_LIST
 					prop_default = Format.getFormatDefault(9, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.D_LIST_IT % __NNCrossValidation.D_LIST_IT__
+				case 18 % NNCrossValidation.D_LIST_IT
 					prop_default = Format.getFormatDefault(8, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.NN_LIST % __NNCrossValidation.NN_LIST__
+				case 19 % NNCrossValidation.NN_LIST
 					prop_default = Format.getFormatDefault(9, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.NN_LIST_IT % __NNCrossValidation.NN_LIST_IT__
+				case 20 % NNCrossValidation.NN_LIST_IT
 					prop_default = Format.getFormatDefault(8, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.EVALUATOR_LIST % __NNCrossValidation.EVALUATOR_LIST__
+				case 21 % NNCrossValidation.EVALUATOR_LIST
 					prop_default = Format.getFormatDefault(9, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.EVALUATOR_LIST_IT % __NNCrossValidation.EVALUATOR_LIST_IT__
+				case 22 % NNCrossValidation.EVALUATOR_LIST_IT
 					prop_default = Format.getFormatDefault(8, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.EPOCHS % __NNCrossValidation.EPOCHS__
+				case 23 % NNCrossValidation.EPOCHS
 					prop_default = 20;
-				case NNCrossValidation.BATCH % __NNCrossValidation.BATCH__
+				case 24 % NNCrossValidation.BATCH
 					prop_default = 8;
-				case NNCrossValidation.SHUFFLE % __NNCrossValidation.SHUFFLE__
+				case 25 % NNCrossValidation.SHUFFLE
 					prop_default = Format.getFormatDefault(5, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.SOLVER % __NNCrossValidation.SOLVER__
+				case 26 % NNCrossValidation.SOLVER
 					prop_default = Format.getFormatDefault(5, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.VERBOSE % __NNCrossValidation.VERBOSE__
+				case 27 % NNCrossValidation.VERBOSE
 					prop_default = false;
-				case NNCrossValidation.PLOT_TRAINING % __NNCrossValidation.PLOT_TRAINING__
+				case 28 % NNCrossValidation.PLOT_TRAINING
 					prop_default = Format.getFormatDefault(5, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.TRAIN % __NNCrossValidation.TRAIN__
+				case 29 % NNCrossValidation.TRAIN
 					prop_default = Format.getFormatDefault(1, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.ELCLASS % __NNCrossValidation.ELCLASS__
+				case 1 % NNCrossValidation.ELCLASS
 					prop_default = 'NNCrossValidation';
-				case NNCrossValidation.NAME % __NNCrossValidation.NAME__
+				case 2 % NNCrossValidation.NAME
 					prop_default = 'Neural Network Cross-Validation';
-				case NNCrossValidation.DESCRIPTION % __NNCrossValidation.DESCRIPTION__
+				case 3 % NNCrossValidation.DESCRIPTION
 					prop_default = 'A cross-validation (NNCrossValidation) is a process that facilitates the evaluation of neural network models using cross-validation. It involves splitting a dataset into multiple subsets (folds), training the model on some folds while validating on others, and then repeating the process for all combinations of folds. This helps in assessing the generalization performance of the model and detecting overfitting.';
-				case NNCrossValidation.TEMPLATE % __NNCrossValidation.TEMPLATE__
+				case 4 % NNCrossValidation.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.ID % __NNCrossValidation.ID__
+				case 5 % NNCrossValidation.ID
 					prop_default = 'NNCrossValidation ID';
-				case NNCrossValidation.LABEL % __NNCrossValidation.LABEL__
+				case 6 % NNCrossValidation.LABEL
 					prop_default = 'NNCrossValidation label';
-				case NNCrossValidation.NOTES % __NNCrossValidation.NOTES__
+				case 7 % NNCrossValidation.NOTES
 					prop_default = 'NNCrossValidation notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -841,52 +841,52 @@ classdef NNCrossValidation < ConcreteElement
 			prop = NNCrossValidation.getPropProp(pointer);
 			
 			switch prop
-				case NNCrossValidation.WAITBAR % __NNCrossValidation.WAITBAR__
+				case 9 % NNCrossValidation.WAITBAR
 					check = Format.checkFormat(4, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.KFOLDS % __NNCrossValidation.KFOLDS__
+				case 10 % NNCrossValidation.KFOLDS
 					check = Format.checkFormat(11, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.SPLIT % __NNCrossValidation.SPLIT__
+				case 11 % NNCrossValidation.SPLIT
 					check = Format.checkFormat(16, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.D % __NNCrossValidation.D__
+				case 12 % NNCrossValidation.D
 					check = Format.checkFormat(9, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.NN_TEMPLATE % __NNCrossValidation.NN_TEMPLATE__
+				case 13 % NNCrossValidation.NN_TEMPLATE
 					check = Format.checkFormat(8, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.NNEVALUATOR_TEMPLATE % __NNCrossValidation.NNEVALUATOR_TEMPLATE__
+				case 14 % NNCrossValidation.NNEVALUATOR_TEMPLATE
 					check = Format.checkFormat(8, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.DSP % __NNCrossValidation.DSP__
+				case 15 % NNCrossValidation.DSP
 					check = Format.checkFormat(9, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.DCO % __NNCrossValidation.DCO__
+				case 16 % NNCrossValidation.DCO
 					check = Format.checkFormat(9, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.D_LIST % __NNCrossValidation.D_LIST__
+				case 17 % NNCrossValidation.D_LIST
 					check = Format.checkFormat(9, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.D_LIST_IT % __NNCrossValidation.D_LIST_IT__
+				case 18 % NNCrossValidation.D_LIST_IT
 					check = Format.checkFormat(8, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.NN_LIST % __NNCrossValidation.NN_LIST__
+				case 19 % NNCrossValidation.NN_LIST
 					check = Format.checkFormat(9, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.NN_LIST_IT % __NNCrossValidation.NN_LIST_IT__
+				case 20 % NNCrossValidation.NN_LIST_IT
 					check = Format.checkFormat(8, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.EVALUATOR_LIST % __NNCrossValidation.EVALUATOR_LIST__
+				case 21 % NNCrossValidation.EVALUATOR_LIST
 					check = Format.checkFormat(9, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.EVALUATOR_LIST_IT % __NNCrossValidation.EVALUATOR_LIST_IT__
+				case 22 % NNCrossValidation.EVALUATOR_LIST_IT
 					check = Format.checkFormat(8, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.EPOCHS % __NNCrossValidation.EPOCHS__
+				case 23 % NNCrossValidation.EPOCHS
 					check = Format.checkFormat(11, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.BATCH % __NNCrossValidation.BATCH__
+				case 24 % NNCrossValidation.BATCH
 					check = Format.checkFormat(11, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.SHUFFLE % __NNCrossValidation.SHUFFLE__
+				case 25 % NNCrossValidation.SHUFFLE
 					check = Format.checkFormat(5, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.SOLVER % __NNCrossValidation.SOLVER__
+				case 26 % NNCrossValidation.SOLVER
 					check = Format.checkFormat(5, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.VERBOSE % __NNCrossValidation.VERBOSE__
+				case 27 % NNCrossValidation.VERBOSE
 					check = Format.checkFormat(4, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.PLOT_TRAINING % __NNCrossValidation.PLOT_TRAINING__
+				case 28 % NNCrossValidation.PLOT_TRAINING
 					check = Format.checkFormat(5, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.TRAIN % __NNCrossValidation.TRAIN__
+				case 29 % NNCrossValidation.TRAIN
 					check = Format.checkFormat(1, value, NNCrossValidation.getPropSettings(prop));
-				case NNCrossValidation.TEMPLATE % __NNCrossValidation.TEMPLATE__
+				case 4 % NNCrossValidation.TEMPLATE
 					check = Format.checkFormat(8, value, NNCrossValidation.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -916,7 +916,7 @@ classdef NNCrossValidation < ConcreteElement
 			%  checkValue.
 			
 			switch prop
-				case NNCrossValidation.SPLIT % __NNCrossValidation.SPLIT__
+				case 11 % NNCrossValidation.SPLIT
 					kfolds = nncv.get('KFOLDS');
 					split = nncv.get('SPLIT');
 					d = nncv.get('D');
@@ -926,7 +926,7 @@ classdef NNCrossValidation < ConcreteElement
 					end
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						postprocessing@ConcreteElement(nncv, prop);
 					end
 			end
@@ -949,8 +949,8 @@ classdef NNCrossValidation < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case NNCrossValidation.DSP % __NNCrossValidation.DSP__
-					rng_settings_ = rng(); rng(nncv.getPropSeed(NNCrossValidation.DSP), 'twister')
+				case 15 % NNCrossValidation.DSP
+					rng_settings_ = rng(); rng(nncv.getPropSeed(15), 'twister')
 					
 					d_list = nncv.get('D');
 					split = nncv.get('SPLIT');
@@ -966,8 +966,8 @@ classdef NNCrossValidation < ConcreteElement
 					
 					rng(rng_settings_)
 					
-				case NNCrossValidation.DCO % __NNCrossValidation.DCO__
-					rng_settings_ = rng(); rng(nncv.getPropSeed(NNCrossValidation.DCO), 'twister')
+				case 16 % NNCrossValidation.DCO
+					rng_settings_ = rng(); rng(nncv.getPropSeed(16), 'twister')
 					
 					dsp_list = nncv.get('DSP');
 					if length(dsp_list) == 0
@@ -987,8 +987,8 @@ classdef NNCrossValidation < ConcreteElement
 					
 					rng(rng_settings_)
 					
-				case NNCrossValidation.D_LIST % __NNCrossValidation.D_LIST__
-					rng_settings_ = rng(); rng(nncv.getPropSeed(NNCrossValidation.D_LIST), 'twister')
+				case 17 % NNCrossValidation.D_LIST
+					rng_settings_ = rng(); rng(nncv.getPropSeed(17), 'twister')
 					
 					dco_list = nncv.get('DCO');
 					if length(dco_list) == 0
@@ -999,7 +999,7 @@ classdef NNCrossValidation < ConcreteElement
 					
 					rng(rng_settings_)
 					
-				case NNCrossValidation.D_LIST_IT % __NNCrossValidation.D_LIST_IT__
+				case 18 % NNCrossValidation.D_LIST_IT
 					% d = nncv.get('D_LIST_IT', index) returns the NNDataset at the specified 
 					%  index from the D_LIST property.
 					if isempty(varargin)
@@ -1012,7 +1012,7 @@ classdef NNCrossValidation < ConcreteElement
 					
 					value = d_list{index};
 					
-				case NNCrossValidation.NN_LIST_IT % __NNCrossValidation.NN_LIST_IT__
+				case 20 % NNCrossValidation.NN_LIST_IT
 					% nn = nncv.get('NN_LIST_IT', index) returns the NNBase at the specified 
 					%  index from the NN_LIST property.
 					if isempty(varargin)
@@ -1025,7 +1025,7 @@ classdef NNCrossValidation < ConcreteElement
 					
 					value = nn_list{index};
 					
-				case NNCrossValidation.EVALUATOR_LIST_IT % __NNCrossValidation.EVALUATOR_LIST_IT__
+				case 22 % NNCrossValidation.EVALUATOR_LIST_IT
 					% nne = nncv.get('EVALUATOR_LIST_IT', index) returns the NNEvaluator at the specified 
 					%  index from the EVALUATOR_LIST property.
 					if isempty(varargin)
@@ -1038,7 +1038,7 @@ classdef NNCrossValidation < ConcreteElement
 					
 					value = nne_list{index};
 					
-				case NNCrossValidation.TRAIN % __NNCrossValidation.TRAIN__
+				case 29 % NNCrossValidation.TRAIN
 					nn_list = nncv.memorize('NN_LIST');
 					wb = braph2waitbar(nncv.get('WAITBAR'), 0, ['Train neural networks for all folds ...']);
 					for i = 1:1:length(nn_list)
@@ -1049,7 +1049,7 @@ classdef NNCrossValidation < ConcreteElement
 					value = [];
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(nncv, prop, varargin{:});
 					else
 						value = calculateValue@Element(nncv, prop, varargin{:});

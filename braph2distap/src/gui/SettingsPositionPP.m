@@ -630,27 +630,27 @@ classdef SettingsPositionPP < SettingsPP
 			prop = SettingsPositionPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsPositionPP.ENABLE % __SettingsPositionPP.ENABLE__
+				case 36 % SettingsPositionPP.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsPositionPP.CHECKBOX_AUTOPOS % __SettingsPositionPP.CHECKBOX_AUTOPOS__
+				case 37 % SettingsPositionPP.CHECKBOX_AUTOPOS
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsPositionPP.LABEL_X0 % __SettingsPositionPP.LABEL_X0__
+				case 38 % SettingsPositionPP.LABEL_X0
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsPositionPP.EDITFIELD_X0 % __SettingsPositionPP.EDITFIELD_X0__
+				case 39 % SettingsPositionPP.EDITFIELD_X0
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsPositionPP.LABEL_Y0 % __SettingsPositionPP.LABEL_Y0__
+				case 40 % SettingsPositionPP.LABEL_Y0
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsPositionPP.EDITFIELD_Y0 % __SettingsPositionPP.EDITFIELD_Y0__
+				case 41 % SettingsPositionPP.EDITFIELD_Y0
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsPositionPP.LABEL_W % __SettingsPositionPP.LABEL_W__
+				case 42 % SettingsPositionPP.LABEL_W
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsPositionPP.EDITFIELD_W % __SettingsPositionPP.EDITFIELD_W__
+				case 43 % SettingsPositionPP.EDITFIELD_W
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsPositionPP.LABEL_H % __SettingsPositionPP.LABEL_H__
+				case 44 % SettingsPositionPP.LABEL_H
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsPositionPP.EDITFIELD_H % __SettingsPositionPP.EDITFIELD_H__
+				case 45 % SettingsPositionPP.EDITFIELD_H
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsPositionPP.TEMPLATE % __SettingsPositionPP.TEMPLATE__
+				case 4 % SettingsPositionPP.TEMPLATE
 					prop_settings = 'SettingsPositionPP';
 				otherwise
 					prop_settings = getPropSettings@SettingsPP(prop);
@@ -679,45 +679,45 @@ classdef SettingsPositionPP < SettingsPP
 			prop = SettingsPositionPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsPositionPP.ENABLE % __SettingsPositionPP.ENABLE__
+				case 36 % SettingsPositionPP.ENABLE
 					prop_default = true;
-				case SettingsPositionPP.CHECKBOX_AUTOPOS % __SettingsPositionPP.CHECKBOX_AUTOPOS__
+				case 37 % SettingsPositionPP.CHECKBOX_AUTOPOS
 					prop_default = Format.getFormatDefault(18, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.LABEL_X0 % __SettingsPositionPP.LABEL_X0__
+				case 38 % SettingsPositionPP.LABEL_X0
 					prop_default = Format.getFormatDefault(18, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.EDITFIELD_X0 % __SettingsPositionPP.EDITFIELD_X0__
+				case 39 % SettingsPositionPP.EDITFIELD_X0
 					prop_default = Format.getFormatDefault(18, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.LABEL_Y0 % __SettingsPositionPP.LABEL_Y0__
+				case 40 % SettingsPositionPP.LABEL_Y0
 					prop_default = Format.getFormatDefault(18, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.EDITFIELD_Y0 % __SettingsPositionPP.EDITFIELD_Y0__
+				case 41 % SettingsPositionPP.EDITFIELD_Y0
 					prop_default = Format.getFormatDefault(18, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.LABEL_W % __SettingsPositionPP.LABEL_W__
+				case 42 % SettingsPositionPP.LABEL_W
 					prop_default = Format.getFormatDefault(18, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.EDITFIELD_W % __SettingsPositionPP.EDITFIELD_W__
+				case 43 % SettingsPositionPP.EDITFIELD_W
 					prop_default = Format.getFormatDefault(18, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.LABEL_H % __SettingsPositionPP.LABEL_H__
+				case 44 % SettingsPositionPP.LABEL_H
 					prop_default = Format.getFormatDefault(18, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.EDITFIELD_H % __SettingsPositionPP.EDITFIELD_H__
+				case 45 % SettingsPositionPP.EDITFIELD_H
 					prop_default = Format.getFormatDefault(18, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.ELCLASS % __SettingsPositionPP.ELCLASS__
+				case 1 % SettingsPositionPP.ELCLASS
 					prop_default = 'SettingsPositionPP';
-				case SettingsPositionPP.NAME % __SettingsPositionPP.NAME__
+				case 2 % SettingsPositionPP.NAME
 					prop_default = 'Prop Panel for Position Settings';
-				case SettingsPositionPP.DESCRIPTION % __SettingsPositionPP.DESCRIPTION__
+				case 3 % SettingsPositionPP.DESCRIPTION
 					prop_default = 'A Prop Panel for Position Settings (SettingsPositionPP) plots the panel for position settings, including a checkbox for autopositioning and numeric edit fields for x0, y0, height and width. It works for all categories.';
-				case SettingsPositionPP.TEMPLATE % __SettingsPositionPP.TEMPLATE__
+				case 4 % SettingsPositionPP.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.ID % __SettingsPositionPP.ID__
+				case 5 % SettingsPositionPP.ID
 					prop_default = 'SettingsPositionPP ID';
-				case SettingsPositionPP.LABEL % __SettingsPositionPP.LABEL__
+				case 6 % SettingsPositionPP.LABEL
 					prop_default = 'SettingsPositionPP label';
-				case SettingsPositionPP.NOTES % __SettingsPositionPP.NOTES__
+				case 7 % SettingsPositionPP.NOTES
 					prop_default = 'SettingsPositionPP notes';
-				case SettingsPositionPP.EL % __SettingsPositionPP.EL__
+				case 23 % SettingsPositionPP.EL
 					prop_default = PanelFig();
-				case SettingsPositionPP.PROP % __SettingsPositionPP.PROP__
-					prop_default = PanelFig.ST_POSITION;
-				case SettingsPositionPP.HEIGHT % __SettingsPositionPP.HEIGHT__
+				case 24 % SettingsPositionPP.PROP
+					prop_default = 20;
+				case 25 % SettingsPositionPP.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@SettingsPP(prop);
@@ -783,30 +783,30 @@ classdef SettingsPositionPP < SettingsPP
 			prop = SettingsPositionPP.getPropProp(pointer);
 			
 			switch prop
-				case SettingsPositionPP.ENABLE % __SettingsPositionPP.ENABLE__
+				case 36 % SettingsPositionPP.ENABLE
 					check = Format.checkFormat(4, value, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.CHECKBOX_AUTOPOS % __SettingsPositionPP.CHECKBOX_AUTOPOS__
+				case 37 % SettingsPositionPP.CHECKBOX_AUTOPOS
 					check = Format.checkFormat(18, value, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.LABEL_X0 % __SettingsPositionPP.LABEL_X0__
+				case 38 % SettingsPositionPP.LABEL_X0
 					check = Format.checkFormat(18, value, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.EDITFIELD_X0 % __SettingsPositionPP.EDITFIELD_X0__
+				case 39 % SettingsPositionPP.EDITFIELD_X0
 					check = Format.checkFormat(18, value, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.LABEL_Y0 % __SettingsPositionPP.LABEL_Y0__
+				case 40 % SettingsPositionPP.LABEL_Y0
 					check = Format.checkFormat(18, value, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.EDITFIELD_Y0 % __SettingsPositionPP.EDITFIELD_Y0__
+				case 41 % SettingsPositionPP.EDITFIELD_Y0
 					check = Format.checkFormat(18, value, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.LABEL_W % __SettingsPositionPP.LABEL_W__
+				case 42 % SettingsPositionPP.LABEL_W
 					check = Format.checkFormat(18, value, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.EDITFIELD_W % __SettingsPositionPP.EDITFIELD_W__
+				case 43 % SettingsPositionPP.EDITFIELD_W
 					check = Format.checkFormat(18, value, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.LABEL_H % __SettingsPositionPP.LABEL_H__
+				case 44 % SettingsPositionPP.LABEL_H
 					check = Format.checkFormat(18, value, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.EDITFIELD_H % __SettingsPositionPP.EDITFIELD_H__
+				case 45 % SettingsPositionPP.EDITFIELD_H
 					check = Format.checkFormat(18, value, SettingsPositionPP.getPropSettings(prop));
-				case SettingsPositionPP.TEMPLATE % __SettingsPositionPP.TEMPLATE__
+				case 4 % SettingsPositionPP.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsPositionPP.getPropSettings(prop));
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						check = checkProp@SettingsPP(prop, value);
 					end
 			end
@@ -839,7 +839,7 @@ classdef SettingsPositionPP < SettingsPP
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case SettingsPositionPP.CHECKBOX_AUTOPOS % __SettingsPositionPP.CHECKBOX_AUTOPOS__
+				case 37 % SettingsPositionPP.CHECKBOX_AUTOPOS
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					checkbox_autopos = uicheckbox( ...
@@ -852,7 +852,7 @@ classdef SettingsPositionPP < SettingsPP
 					    );
 					value = checkbox_autopos;
 					
-				case SettingsPositionPP.LABEL_X0 % __SettingsPositionPP.LABEL_X0__
+				case 38 % SettingsPositionPP.LABEL_X0
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					label_x0 =  uilabel( ...
@@ -867,7 +867,7 @@ classdef SettingsPositionPP < SettingsPP
 					    );
 					value = label_x0;
 					
-				case SettingsPositionPP.EDITFIELD_X0 % __SettingsPositionPP.EDITFIELD_X0__
+				case 39 % SettingsPositionPP.EDITFIELD_X0
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_x0 = uieditfield('numeric', ...
@@ -879,7 +879,7 @@ classdef SettingsPositionPP < SettingsPP
 					    );
 					value = editfield_x0;
 					
-				case SettingsPositionPP.LABEL_Y0 % __SettingsPositionPP.LABEL_Y0__
+				case 40 % SettingsPositionPP.LABEL_Y0
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					label_y0 =  uilabel( ...
@@ -894,7 +894,7 @@ classdef SettingsPositionPP < SettingsPP
 						);
 					value = label_y0;
 					
-				case SettingsPositionPP.EDITFIELD_Y0 % __SettingsPositionPP.EDITFIELD_Y0__
+				case 41 % SettingsPositionPP.EDITFIELD_Y0
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_y0 = uieditfield('numeric', ...
@@ -906,7 +906,7 @@ classdef SettingsPositionPP < SettingsPP
 						);
 					value = editfield_y0;
 					
-				case SettingsPositionPP.LABEL_W % __SettingsPositionPP.LABEL_W__
+				case 42 % SettingsPositionPP.LABEL_W
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					label_w =  uilabel( ...
@@ -921,7 +921,7 @@ classdef SettingsPositionPP < SettingsPP
 						);
 					value = label_w;
 					
-				case SettingsPositionPP.EDITFIELD_W % __SettingsPositionPP.EDITFIELD_W__
+				case 43 % SettingsPositionPP.EDITFIELD_W
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_w = uieditfield('numeric', ...
@@ -934,7 +934,7 @@ classdef SettingsPositionPP < SettingsPP
 						);
 					value = editfield_w;
 					
-				case SettingsPositionPP.LABEL_H % __SettingsPositionPP.LABEL_H__
+				case 44 % SettingsPositionPP.LABEL_H
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					label_h =  uilabel( ...
@@ -949,7 +949,7 @@ classdef SettingsPositionPP < SettingsPP
 						);
 					value = label_h;
 					
-				case SettingsPositionPP.EDITFIELD_H % __SettingsPositionPP.EDITFIELD_H__
+				case 45 % SettingsPositionPP.EDITFIELD_H
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_h = uieditfield('numeric', ...
@@ -962,8 +962,8 @@ classdef SettingsPositionPP < SettingsPP
 					    );
 					value = editfield_h;
 					
-				case SettingsPositionPP.X_DRAW % __SettingsPositionPP.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % SettingsPositionPP.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('CHECKBOX_AUTOPOS')
 					    
@@ -980,8 +980,8 @@ classdef SettingsPositionPP < SettingsPP
 					    pr.memorize('EDITFIELD_H')
 					end
 					
-				case SettingsPositionPP.UPDATE % __SettingsPositionPP.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % SettingsPositionPP.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -1113,8 +1113,8 @@ classdef SettingsPositionPP < SettingsPP
 						end
 					end
 					
-				case SettingsPositionPP.REDRAW % __SettingsPositionPP.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % SettingsPositionPP.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -1133,8 +1133,8 @@ classdef SettingsPositionPP < SettingsPP
 					    set(pr.get('EDITFIELD_H'), 'Position', [.85*w_p 4 .12*w_p 21])
 					end
 					
-				case SettingsPositionPP.DELETE % __SettingsPositionPP.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % SettingsPositionPP.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('CHECKBOX_AUTOPOS', Element.getNoValue())
 					    
@@ -1152,7 +1152,7 @@ classdef SettingsPositionPP < SettingsPP
 					end
 					
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						value = calculateValue@SettingsPP(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

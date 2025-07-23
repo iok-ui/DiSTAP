@@ -579,13 +579,13 @@ classdef PanelPropMarker < PanelProp
 			prop = PanelPropMarker.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropMarker.DROPDOWN % __PanelPropMarker.DROPDOWN__
+				case 36 % PanelPropMarker.DROPDOWN
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropMarker.AXES % __PanelPropMarker.AXES__
+				case 37 % PanelPropMarker.AXES
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropMarker.LN % __PanelPropMarker.LN__
+				case 38 % PanelPropMarker.LN
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropMarker.TEMPLATE % __PanelPropMarker.TEMPLATE__
+				case 4 % PanelPropMarker.TEMPLATE
 					prop_settings = 'PanelPropMarker';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -614,31 +614,31 @@ classdef PanelPropMarker < PanelProp
 			prop = PanelPropMarker.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropMarker.DROPDOWN % __PanelPropMarker.DROPDOWN__
+				case 36 % PanelPropMarker.DROPDOWN
 					prop_default = Format.getFormatDefault(18, PanelPropMarker.getPropSettings(prop));
-				case PanelPropMarker.AXES % __PanelPropMarker.AXES__
+				case 37 % PanelPropMarker.AXES
 					prop_default = Format.getFormatDefault(18, PanelPropMarker.getPropSettings(prop));
-				case PanelPropMarker.LN % __PanelPropMarker.LN__
+				case 38 % PanelPropMarker.LN
 					prop_default = Format.getFormatDefault(18, PanelPropMarker.getPropSettings(prop));
-				case PanelPropMarker.ELCLASS % __PanelPropMarker.ELCLASS__
+				case 1 % PanelPropMarker.ELCLASS
 					prop_default = 'PanelPropMarker';
-				case PanelPropMarker.NAME % __PanelPropMarker.NAME__
+				case 2 % PanelPropMarker.NAME
 					prop_default = 'Marker Prop Panel';
-				case PanelPropMarker.DESCRIPTION % __PanelPropMarker.DESCRIPTION__
+				case 3 % PanelPropMarker.DESCRIPTION
 					prop_default = 'A Marker Prop Panel (PanelPropMarker) plots the panel for a MARKER property with a drop-down list. It works for all categories.';
-				case PanelPropMarker.TEMPLATE % __PanelPropMarker.TEMPLATE__
+				case 4 % PanelPropMarker.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropMarker.getPropSettings(prop));
-				case PanelPropMarker.ID % __PanelPropMarker.ID__
+				case 5 % PanelPropMarker.ID
 					prop_default = 'PanelPropMarker ID';
-				case PanelPropMarker.LABEL % __PanelPropMarker.LABEL__
+				case 6 % PanelPropMarker.LABEL
 					prop_default = 'PanelPropMarker label';
-				case PanelPropMarker.NOTES % __PanelPropMarker.NOTES__
+				case 7 % PanelPropMarker.NOTES
 					prop_default = 'PanelPropMarker notes';
-				case PanelPropMarker.EL % __PanelPropMarker.EL__
+				case 23 % PanelPropMarker.EL
 					prop_default = SettingsSymbol();
-				case PanelPropMarker.PROP % __PanelPropMarker.PROP__
-					prop_default = SettingsSymbol.SYMBOL;
-				case PanelPropMarker.HEIGHT % __PanelPropMarker.HEIGHT__
+				case 24 % PanelPropMarker.PROP
+					prop_default = 19;
+				case 25 % PanelPropMarker.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -704,16 +704,16 @@ classdef PanelPropMarker < PanelProp
 			prop = PanelPropMarker.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropMarker.DROPDOWN % __PanelPropMarker.DROPDOWN__
+				case 36 % PanelPropMarker.DROPDOWN
 					check = Format.checkFormat(18, value, PanelPropMarker.getPropSettings(prop));
-				case PanelPropMarker.AXES % __PanelPropMarker.AXES__
+				case 37 % PanelPropMarker.AXES
 					check = Format.checkFormat(18, value, PanelPropMarker.getPropSettings(prop));
-				case PanelPropMarker.LN % __PanelPropMarker.LN__
+				case 38 % PanelPropMarker.LN
 					check = Format.checkFormat(18, value, PanelPropMarker.getPropSettings(prop));
-				case PanelPropMarker.TEMPLATE % __PanelPropMarker.TEMPLATE__
+				case 4 % PanelPropMarker.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropMarker.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -746,7 +746,7 @@ classdef PanelPropMarker < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropMarker.DROPDOWN % __PanelPropMarker.DROPDOWN__
+				case 36 % PanelPropMarker.DROPDOWN
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -761,7 +761,7 @@ classdef PanelPropMarker < PanelProp
 					
 					value = dropdown;
 					
-				case PanelPropMarker.AXES % __PanelPropMarker.AXES__
+				case 37 % PanelPropMarker.AXES
 					axes = uiaxes( ...
 					    'Parent', pr.memorize('H'), ... % H = p for Panel
 					    'Tag', 'AXES' ...
@@ -771,7 +771,7 @@ classdef PanelPropMarker < PanelProp
 					axes.Interactions = [];
 					value = axes;
 					
-				case PanelPropMarker.LN % __PanelPropMarker.LN__
+				case 38 % PanelPropMarker.LN
 					axes = pr.memorize('AXES');
 					
 					ln = plot(axes, ...
@@ -785,16 +785,16 @@ classdef PanelPropMarker < PanelProp
 					
 					value = ln;
 					
-				case PanelPropMarker.X_DRAW % __PanelPropMarker.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropMarker.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('DROPDOWN')
 					    pr.memorize('AXES')
 					    pr.memorize('LN')
 					end
 					
-				case PanelPropMarker.UPDATE % __PanelPropMarker.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropMarker.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -839,8 +839,8 @@ classdef PanelPropMarker < PanelProp
 					    end
 					end
 					
-				case PanelPropMarker.REDRAW % __PanelPropMarker.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropMarker.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -848,8 +848,8 @@ classdef PanelPropMarker < PanelProp
 					    set(pr.get('AXES'), 'InnerPosition', [4+.15*w_p+21 4 .70*w_p 21])
 					end
 					
-				case PanelPropMarker.DELETE % __PanelPropMarker.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropMarker.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('DROPDOWN', Element.getNoValue())
 					    pr.set('AXES', Element.getNoValue())
@@ -857,7 +857,7 @@ classdef PanelPropMarker < PanelProp
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

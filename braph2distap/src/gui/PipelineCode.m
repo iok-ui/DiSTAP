@@ -526,17 +526,17 @@ classdef PipelineCode < ConcreteElement
 			prop = PipelineCode.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PipelineCode.TEXT_BEFORE_EXEC % __PipelineCode.TEXT_BEFORE_EXEC__
+				case 9 % PipelineCode.TEXT_BEFORE_EXEC
 					prop_settings = Format.getFormatSettings(2);
-				case PipelineCode.TEXT_AFTER_EXEC % __PipelineCode.TEXT_AFTER_EXEC__
+				case 10 % PipelineCode.TEXT_AFTER_EXEC
 					prop_settings = Format.getFormatSettings(2);
-				case PipelineCode.MONIKER % __PipelineCode.MONIKER__
+				case 11 % PipelineCode.MONIKER
 					prop_settings = Format.getFormatSettings(2);
-				case PipelineCode.CODE % __PipelineCode.CODE__
+				case 12 % PipelineCode.CODE
 					prop_settings = Format.getFormatSettings(2);
-				case PipelineCode.EL % __PipelineCode.EL__
+				case 13 % PipelineCode.EL
 					prop_settings = Format.getFormatSettings(8);
-				case PipelineCode.TEMPLATE % __PipelineCode.TEMPLATE__
+				case 4 % PipelineCode.TEMPLATE
 					prop_settings = 'PipelineCode';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -565,29 +565,29 @@ classdef PipelineCode < ConcreteElement
 			prop = PipelineCode.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PipelineCode.TEXT_BEFORE_EXEC % __PipelineCode.TEXT_BEFORE_EXEC__
+				case 9 % PipelineCode.TEXT_BEFORE_EXEC
 					prop_default = Format.getFormatDefault(2, PipelineCode.getPropSettings(prop));
-				case PipelineCode.TEXT_AFTER_EXEC % __PipelineCode.TEXT_AFTER_EXEC__
+				case 10 % PipelineCode.TEXT_AFTER_EXEC
 					prop_default = Format.getFormatDefault(2, PipelineCode.getPropSettings(prop));
-				case PipelineCode.MONIKER % __PipelineCode.MONIKER__
+				case 11 % PipelineCode.MONIKER
 					prop_default = Format.getFormatDefault(2, PipelineCode.getPropSettings(prop));
-				case PipelineCode.CODE % __PipelineCode.CODE__
+				case 12 % PipelineCode.CODE
 					prop_default = Format.getFormatDefault(2, PipelineCode.getPropSettings(prop));
-				case PipelineCode.EL % __PipelineCode.EL__
+				case 13 % PipelineCode.EL
 					prop_default = Format.getFormatDefault(8, PipelineCode.getPropSettings(prop));
-				case PipelineCode.ELCLASS % __PipelineCode.ELCLASS__
+				case 1 % PipelineCode.ELCLASS
 					prop_default = 'PipelineCode';
-				case PipelineCode.NAME % __PipelineCode.NAME__
+				case 2 % PipelineCode.NAME
 					prop_default = 'Pipeline Code Line';
-				case PipelineCode.DESCRIPTION % __PipelineCode.DESCRIPTION__
+				case 3 % PipelineCode.DESCRIPTION
 					prop_default = 'A Pipeline Code Line (PipelineCode) represents a line of executable code in a pipeline.';
-				case PipelineCode.TEMPLATE % __PipelineCode.TEMPLATE__
+				case 4 % PipelineCode.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PipelineCode.getPropSettings(prop));
-				case PipelineCode.ID % __PipelineCode.ID__
+				case 5 % PipelineCode.ID
 					prop_default = 'PipelineCode ID';
-				case PipelineCode.LABEL % __PipelineCode.LABEL__
+				case 6 % PipelineCode.LABEL
 					prop_default = 'PipelineCode label';
-				case PipelineCode.NOTES % __PipelineCode.NOTES__
+				case 7 % PipelineCode.NOTES
 					prop_default = 'PipelineCode notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -653,20 +653,20 @@ classdef PipelineCode < ConcreteElement
 			prop = PipelineCode.getPropProp(pointer);
 			
 			switch prop
-				case PipelineCode.TEXT_BEFORE_EXEC % __PipelineCode.TEXT_BEFORE_EXEC__
+				case 9 % PipelineCode.TEXT_BEFORE_EXEC
 					check = Format.checkFormat(2, value, PipelineCode.getPropSettings(prop));
-				case PipelineCode.TEXT_AFTER_EXEC % __PipelineCode.TEXT_AFTER_EXEC__
+				case 10 % PipelineCode.TEXT_AFTER_EXEC
 					check = Format.checkFormat(2, value, PipelineCode.getPropSettings(prop));
-				case PipelineCode.MONIKER % __PipelineCode.MONIKER__
+				case 11 % PipelineCode.MONIKER
 					check = Format.checkFormat(2, value, PipelineCode.getPropSettings(prop));
-				case PipelineCode.CODE % __PipelineCode.CODE__
+				case 12 % PipelineCode.CODE
 					check = Format.checkFormat(2, value, PipelineCode.getPropSettings(prop));
-				case PipelineCode.EL % __PipelineCode.EL__
+				case 13 % PipelineCode.EL
 					check = Format.checkFormat(8, value, PipelineCode.getPropSettings(prop));
-				case PipelineCode.TEMPLATE % __PipelineCode.TEMPLATE__
+				case 4 % PipelineCode.TEMPLATE
 					check = Format.checkFormat(8, value, PipelineCode.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -698,7 +698,7 @@ classdef PipelineCode < ConcreteElement
 			msg = ['Error while checking ' tostring(pc) ' ' pc.getPropTag(prop) '.'];
 			
 			switch prop
-				case PipelineCode.MONIKER % __PipelineCode.MONIKER__
+				case 11 % PipelineCode.MONIKER
 					check = ~iskeyword(value) && ~strcmp(value, 'varargin');
 					if check 
 					    msg = 'All ok!';
@@ -709,7 +709,7 @@ classdef PipelineCode < ConcreteElement
 					end
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						[check, msg] = checkValue@ConcreteElement(pc, prop, value);
 					end
 			end

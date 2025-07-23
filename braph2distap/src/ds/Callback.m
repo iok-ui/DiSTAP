@@ -497,13 +497,13 @@ classdef (Sealed=true) Callback < Element
 			prop = Callback.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Callback.EL % __Callback.EL__
+				case 1 % Callback.EL
 					prop_settings = 'ConcreteElement';
-				case Callback.PROP % __Callback.PROP__
+				case 2 % Callback.PROP
 					prop_settings = Format.getFormatSettings(11);
-				case Callback.TAG % __Callback.TAG__
+				case 3 % Callback.TAG
 					prop_settings = Format.getFormatSettings(2);
-				case Callback.TOSTRING % __Callback.TOSTRING__
+				case 4 % Callback.TOSTRING
 					prop_settings = Format.getFormatSettings(2);
 			end
 		end
@@ -530,13 +530,13 @@ classdef (Sealed=true) Callback < Element
 			prop = Callback.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Callback.EL % __Callback.EL__
+				case 1 % Callback.EL
 					prop_default = Format.getFormatDefault(8, Callback.getPropSettings(prop));
-				case Callback.PROP % __Callback.PROP__
+				case 2 % Callback.PROP
 					prop_default = Format.getFormatDefault(11, Callback.getPropSettings(prop));
-				case Callback.TAG % __Callback.TAG__
+				case 3 % Callback.TAG
 					prop_default = Format.getFormatDefault(2, Callback.getPropSettings(prop));
-				case Callback.TOSTRING % __Callback.TOSTRING__
+				case 4 % Callback.TOSTRING
 					prop_default = Format.getFormatDefault(2, Callback.getPropSettings(prop));
 			end
 		end
@@ -617,13 +617,13 @@ classdef (Sealed=true) Callback < Element
 			prop = Callback.getPropProp(pointer);
 			
 			switch prop
-				case Callback.EL % __Callback.EL__
+				case 1 % Callback.EL
 					check = Format.checkFormat(8, value, Callback.getPropSettings(prop));
-				case Callback.PROP % __Callback.PROP__
+				case 2 % Callback.PROP
 					check = Format.checkFormat(11, value, Callback.getPropSettings(prop));
-				case Callback.TAG % __Callback.TAG__
+				case 3 % Callback.TAG
 					check = Format.checkFormat(2, value, Callback.getPropSettings(prop));
-				case Callback.TOSTRING % __Callback.TOSTRING__
+				case 4 % Callback.TOSTRING
 					check = Format.checkFormat(2, value, Callback.getPropSettings(prop));
 			end
 			
@@ -652,14 +652,14 @@ classdef (Sealed=true) Callback < Element
 			%  checkValue.
 			
 			switch prop
-				case Callback.PROP % __Callback.PROP__
+				case 2 % Callback.PROP
 					el = cb.get('EL');
 					prop = cb.get('PROP');
 					if ~strcmp(cb.get('TAG'), el.getPropTag(prop))
 					    cb.set('TAG', el.getPropTag(prop));
 					end
 					
-				case Callback.TAG % __Callback.TAG__
+				case 3 % Callback.TAG
 					el = cb.get('EL');
 					tag = cb.get('TAG');
 					if cb.get('PROP') ~= el.getPropProp(tag)
@@ -686,7 +686,7 @@ classdef (Sealed=true) Callback < Element
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case Callback.TOSTRING % __Callback.TOSTRING__
+				case 4 % Callback.TOSTRING
 					value = cb.tostring();
 					
 				otherwise

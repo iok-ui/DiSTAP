@@ -653,33 +653,33 @@ classdef GUIElement < GUI
 			prop = GUIElement.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case GUIElement.PE % __GUIElement.PE__
+				case 30 % GUIElement.PE
 					prop_settings = 'PanelElement';
-				case GUIElement.FILE % __GUIElement.FILE__
+				case 31 % GUIElement.FILE
 					prop_settings = Format.getFormatSettings(2);
-				case GUIElement.TEXT_FILE % __GUIElement.TEXT_FILE__
+				case 32 % GUIElement.TEXT_FILE
 					prop_settings = Format.getFormatSettings(18);
-				case GUIElement.LAYOUT % __GUIElement.LAYOUT__
+				case 33 % GUIElement.LAYOUT
 					prop_settings = 'GUILayout';
-				case GUIElement.H_MENU_FILE % __GUIElement.H_MENU_FILE__
+				case 34 % GUIElement.H_MENU_FILE
 					prop_settings = Format.getFormatSettings(18);
-				case GUIElement.MENU_FILE % __GUIElement.MENU_FILE__
+				case 35 % GUIElement.MENU_FILE
 					prop_settings = Format.getFormatSettings(4);
-				case GUIElement.H_MENU_IMPORT % __GUIElement.H_MENU_IMPORT__
+				case 36 % GUIElement.H_MENU_IMPORT
 					prop_settings = Format.getFormatSettings(18);
-				case GUIElement.MENU_IMPORT % __GUIElement.MENU_IMPORT__
+				case 37 % GUIElement.MENU_IMPORT
 					prop_settings = Format.getFormatSettings(4);
-				case GUIElement.H_MENU_EXPORT % __GUIElement.H_MENU_EXPORT__
+				case 38 % GUIElement.H_MENU_EXPORT
 					prop_settings = Format.getFormatSettings(18);
-				case GUIElement.MENU_EXPORT % __GUIElement.MENU_EXPORT__
+				case 39 % GUIElement.MENU_EXPORT
 					prop_settings = Format.getFormatSettings(4);
-				case GUIElement.H_MENU_PERSONALIZE % __GUIElement.H_MENU_PERSONALIZE__
+				case 40 % GUIElement.H_MENU_PERSONALIZE
 					prop_settings = Format.getFormatSettings(18);
-				case GUIElement.MENU_PERSONALIZE % __GUIElement.MENU_PERSONALIZE__
+				case 41 % GUIElement.MENU_PERSONALIZE
 					prop_settings = Format.getFormatSettings(4);
-				case GUIElement.TOOL_FILE % __GUIElement.TOOL_FILE__
+				case 42 % GUIElement.TOOL_FILE
 					prop_settings = Format.getFormatSettings(4);
-				case GUIElement.TEMPLATE % __GUIElement.TEMPLATE__
+				case 4 % GUIElement.TEMPLATE
 					prop_settings = 'GUIElement';
 				otherwise
 					prop_settings = getPropSettings@GUI(prop);
@@ -708,53 +708,53 @@ classdef GUIElement < GUI
 			prop = GUIElement.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case GUIElement.PE % __GUIElement.PE__
+				case 30 % GUIElement.PE
 					prop_default = Format.getFormatDefault(8, GUIElement.getPropSettings(prop));
-				case GUIElement.FILE % __GUIElement.FILE__
+				case 31 % GUIElement.FILE
 					prop_default = Format.getFormatDefault(2, GUIElement.getPropSettings(prop));
-				case GUIElement.TEXT_FILE % __GUIElement.TEXT_FILE__
+				case 32 % GUIElement.TEXT_FILE
 					prop_default = Format.getFormatDefault(18, GUIElement.getPropSettings(prop));
-				case GUIElement.LAYOUT % __GUIElement.LAYOUT__
+				case 33 % GUIElement.LAYOUT
 					prop_default = Format.getFormatDefault(8, GUIElement.getPropSettings(prop));
-				case GUIElement.H_MENU_FILE % __GUIElement.H_MENU_FILE__
+				case 34 % GUIElement.H_MENU_FILE
 					prop_default = Format.getFormatDefault(18, GUIElement.getPropSettings(prop));
-				case GUIElement.MENU_FILE % __GUIElement.MENU_FILE__
+				case 35 % GUIElement.MENU_FILE
 					prop_default = true;
-				case GUIElement.H_MENU_IMPORT % __GUIElement.H_MENU_IMPORT__
+				case 36 % GUIElement.H_MENU_IMPORT
 					prop_default = Format.getFormatDefault(18, GUIElement.getPropSettings(prop));
-				case GUIElement.MENU_IMPORT % __GUIElement.MENU_IMPORT__
+				case 37 % GUIElement.MENU_IMPORT
 					prop_default = true;
-				case GUIElement.H_MENU_EXPORT % __GUIElement.H_MENU_EXPORT__
+				case 38 % GUIElement.H_MENU_EXPORT
 					prop_default = Format.getFormatDefault(18, GUIElement.getPropSettings(prop));
-				case GUIElement.MENU_EXPORT % __GUIElement.MENU_EXPORT__
+				case 39 % GUIElement.MENU_EXPORT
 					prop_default = true;
-				case GUIElement.H_MENU_PERSONALIZE % __GUIElement.H_MENU_PERSONALIZE__
+				case 40 % GUIElement.H_MENU_PERSONALIZE
 					prop_default = Format.getFormatDefault(18, GUIElement.getPropSettings(prop));
-				case GUIElement.MENU_PERSONALIZE % __GUIElement.MENU_PERSONALIZE__
+				case 41 % GUIElement.MENU_PERSONALIZE
 					prop_default = true;
-				case GUIElement.TOOL_FILE % __GUIElement.TOOL_FILE__
+				case 42 % GUIElement.TOOL_FILE
 					prop_default = true;
-				case GUIElement.ELCLASS % __GUIElement.ELCLASS__
+				case 1 % GUIElement.ELCLASS
 					prop_default = 'GUIElement';
-				case GUIElement.NAME % __GUIElement.NAME__
+				case 2 % GUIElement.NAME
 					prop_default = 'Element GUI';
-				case GUIElement.DESCRIPTION % __GUIElement.DESCRIPTION__
+				case 3 % GUIElement.DESCRIPTION
 					prop_default = 'An Element GUI (GUIElement) renders an element in a figure.';
-				case GUIElement.TEMPLATE % __GUIElement.TEMPLATE__
+				case 4 % GUIElement.TEMPLATE
 					prop_default = Format.getFormatDefault(8, GUIElement.getPropSettings(prop));
-				case GUIElement.ID % __GUIElement.ID__
+				case 5 % GUIElement.ID
 					prop_default = 'GUIElement ID';
-				case GUIElement.LABEL % __GUIElement.LABEL__
+				case 6 % GUIElement.LABEL
 					prop_default = 'GUIElement label';
-				case GUIElement.NOTES % __GUIElement.NOTES__
+				case 7 % GUIElement.NOTES
 					prop_default = 'GUIElement notes';
-				case GUIElement.MENUBAR % __GUIElement.MENUBAR__
+				case 16 % GUIElement.MENUBAR
 					prop_default = true;
-				case GUIElement.MENU_ABOUT % __GUIElement.MENU_ABOUT__
+				case 18 % GUIElement.MENU_ABOUT
 					prop_default = true;
-				case GUIElement.TOOLBAR % __GUIElement.TOOLBAR__
+				case 21 % GUIElement.TOOLBAR
 					prop_default = true;
-				case GUIElement.TOOL_ABOUT % __GUIElement.TOOL_ABOUT__
+				case 22 % GUIElement.TOOL_ABOUT
 					prop_default = true;
 				otherwise
 					prop_default = getPropDefault@GUI(prop);
@@ -804,7 +804,7 @@ classdef GUIElement < GUI
 			prop = GUIElement.getPropProp(pointer);
 			
 			switch prop
-				case GUIElement.PE % __GUIElement.PE__
+				case 30 % GUIElement.PE
 					if ~isa(value, 'PanelElement')
 					    value = PanelElement( ...
 					        'EL', value, ...
@@ -813,7 +813,7 @@ classdef GUIElement < GUI
 					end
 					
 				otherwise
-					if prop <= GUI.getPropNumber()
+					if prop <= 29
 						value = conditioning@GUI(pointer, value);
 					end
 			end
@@ -833,7 +833,7 @@ classdef GUIElement < GUI
 			%  calculateValue, checkValue.
 			
 			switch prop
-				case GUIElement.LAYOUT % __GUIElement.LAYOUT__
+				case 33 % GUIElement.LAYOUT
 					if isa(value.getr('EL_CLASS'), 'NoValue')
 					    f = gui.get('H');
 					    value.set( ...
@@ -844,7 +844,7 @@ classdef GUIElement < GUI
 					end
 					
 				otherwise
-					if prop <= GUI.getPropNumber()
+					if prop <= 29
 						value = preset@GUI(gui, prop, value);
 					end
 			end
@@ -884,36 +884,36 @@ classdef GUIElement < GUI
 			prop = GUIElement.getPropProp(pointer);
 			
 			switch prop
-				case GUIElement.PE % __GUIElement.PE__
+				case 30 % GUIElement.PE
 					check = Format.checkFormat(8, value, GUIElement.getPropSettings(prop));
-				case GUIElement.FILE % __GUIElement.FILE__
+				case 31 % GUIElement.FILE
 					check = Format.checkFormat(2, value, GUIElement.getPropSettings(prop));
-				case GUIElement.TEXT_FILE % __GUIElement.TEXT_FILE__
+				case 32 % GUIElement.TEXT_FILE
 					check = Format.checkFormat(18, value, GUIElement.getPropSettings(prop));
-				case GUIElement.LAYOUT % __GUIElement.LAYOUT__
+				case 33 % GUIElement.LAYOUT
 					check = Format.checkFormat(8, value, GUIElement.getPropSettings(prop));
-				case GUIElement.H_MENU_FILE % __GUIElement.H_MENU_FILE__
+				case 34 % GUIElement.H_MENU_FILE
 					check = Format.checkFormat(18, value, GUIElement.getPropSettings(prop));
-				case GUIElement.MENU_FILE % __GUIElement.MENU_FILE__
+				case 35 % GUIElement.MENU_FILE
 					check = Format.checkFormat(4, value, GUIElement.getPropSettings(prop));
-				case GUIElement.H_MENU_IMPORT % __GUIElement.H_MENU_IMPORT__
+				case 36 % GUIElement.H_MENU_IMPORT
 					check = Format.checkFormat(18, value, GUIElement.getPropSettings(prop));
-				case GUIElement.MENU_IMPORT % __GUIElement.MENU_IMPORT__
+				case 37 % GUIElement.MENU_IMPORT
 					check = Format.checkFormat(4, value, GUIElement.getPropSettings(prop));
-				case GUIElement.H_MENU_EXPORT % __GUIElement.H_MENU_EXPORT__
+				case 38 % GUIElement.H_MENU_EXPORT
 					check = Format.checkFormat(18, value, GUIElement.getPropSettings(prop));
-				case GUIElement.MENU_EXPORT % __GUIElement.MENU_EXPORT__
+				case 39 % GUIElement.MENU_EXPORT
 					check = Format.checkFormat(4, value, GUIElement.getPropSettings(prop));
-				case GUIElement.H_MENU_PERSONALIZE % __GUIElement.H_MENU_PERSONALIZE__
+				case 40 % GUIElement.H_MENU_PERSONALIZE
 					check = Format.checkFormat(18, value, GUIElement.getPropSettings(prop));
-				case GUIElement.MENU_PERSONALIZE % __GUIElement.MENU_PERSONALIZE__
+				case 41 % GUIElement.MENU_PERSONALIZE
 					check = Format.checkFormat(4, value, GUIElement.getPropSettings(prop));
-				case GUIElement.TOOL_FILE % __GUIElement.TOOL_FILE__
+				case 42 % GUIElement.TOOL_FILE
 					check = Format.checkFormat(4, value, GUIElement.getPropSettings(prop));
-				case GUIElement.TEMPLATE % __GUIElement.TEMPLATE__
+				case 4 % GUIElement.TEMPLATE
 					check = Format.checkFormat(8, value, GUIElement.getPropSettings(prop));
 				otherwise
-					if prop <= GUI.getPropNumber()
+					if prop <= 29
 						check = checkProp@GUI(prop, value);
 					end
 			end
@@ -943,7 +943,7 @@ classdef GUIElement < GUI
 			%  checkValue.
 			
 			switch prop
-				case GUIElement.PE % __GUIElement.PE__
+				case 30 % GUIElement.PE
 					pe = gui.get('PE');
 					pe.set('PARENT', gui)
 					if isa(gui.getr('TITLE'), 'NoValue')
@@ -956,7 +956,7 @@ classdef GUIElement < GUI
 						pe.set('WAITBAR', gui.getCallback('WAITBAR'))
 					end
 					
-				case GUIElement.FILE % __GUIElement.FILE__
+				case 31 % GUIElement.FILE
 					if gui.get('DRAWN')
 					    set(gui.get('TEXT_FILE'), ...
 					        'Text', gui.get('FILE'), ...
@@ -965,7 +965,7 @@ classdef GUIElement < GUI
 					end
 					
 				otherwise
-					if prop <= GUI.getPropNumber()
+					if prop <= 29
 						postset@GUI(gui, prop);
 					end
 			end
@@ -988,7 +988,7 @@ classdef GUIElement < GUI
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case GUIElement.TEXT_FILE % __GUIElement.TEXT_FILE__
+				case 32 % GUIElement.TEXT_FILE
 					text_file = uilabel( ...
 					    'Parent', gui.memorize('H'), ... % H = p for Panel
 					    'Tag', 'TEXT_FILE', ...    
@@ -1000,7 +1000,7 @@ classdef GUIElement < GUI
 					    );
 					value = text_file;
 					
-				case GUIElement.H_MENU_FILE % __GUIElement.H_MENU_FILE__
+				case 34 % GUIElement.H_MENU_FILE
 					menu_file = uimenu(gui.memorize('H'), ... % f for figure
 					    'Tag', 'MENU.File', ...
 					    'Label', 'File' ...
@@ -1030,21 +1030,21 @@ classdef GUIElement < GUI
 					
 					value = menu_file;
 					
-				case GUIElement.H_MENU_IMPORT % __GUIElement.H_MENU_IMPORT__
+				case 36 % GUIElement.H_MENU_IMPORT
 					menu_import = uimenu(gui.memorize('H'), ... % f for figure
 					    'Tag', 'MENU.Import', ...
 					    'Label', 'Import', ...
 					    'Callback', {@cb_refresh_import_menu});
 					value = menu_import;
 					
-				case GUIElement.H_MENU_EXPORT % __GUIElement.H_MENU_EXPORT__
+				case 38 % GUIElement.H_MENU_EXPORT
 					menu_export = uimenu(gui.memorize('H'), ... % f for figure
 					    'Tag', 'MENU.Export', ...
 						'Label', 'Export', ...
 						'Callback', {@cb_refresh_export_menu});
 					value = menu_export;
 					
-				case GUIElement.H_MENU_PERSONALIZE % __GUIElement.H_MENU_PERSONALIZE__
+				case 40 % GUIElement.H_MENU_PERSONALIZE
 					menu_file = uimenu(gui.memorize('H'), ... % f for figure
 					    'Tag', 'MENU.Personalize', ...
 					    'Label', 'Personalize' ...
@@ -1057,7 +1057,7 @@ classdef GUIElement < GUI
 					
 					value = menu_file;
 					
-				case GUIElement.H_MENUBAR % __GUIElement.H_MENUBAR__
+				case 15 % GUIElement.H_MENUBAR
 					value = {};
 					if gui.get('MENU_FILE')
 					    value = [value, gui.memorize('H_MENU_FILE')];
@@ -1075,10 +1075,10 @@ classdef GUIElement < GUI
 					    value = [value, gui.memorize('H_MENU_ABOUT')];
 					end
 					
-				case GUIElement.H_TOOLS % __GUIElement.H_TOOLS__
+				case 20 % GUIElement.H_TOOLS
 					toolbar = gui.memorize('H_TOOLBAR');
 					
-					children = calculateValue@GUI(gui, GUI.H_TOOLS);
+					children = calculateValue@GUI(gui, 20);
 					
 					value = {};
 					if gui.get('TOOL_FILE')
@@ -1107,7 +1107,7 @@ classdef GUIElement < GUI
 					% reorder tools
 					toolbar.Children = [value{end:-1:1}];
 					
-				case GUIElement.DRAW % __GUIElement.DRAW__
+				case 10 % GUIElement.DRAW
 					if check_graphics(gui.memorize('H'), 'figure')
 					
 					    if gui.get('MENUBAR')
@@ -1138,20 +1138,20 @@ classdef GUIElement < GUI
 					    value = false;
 					end
 					
-				case GUIElement.RESIZE % __GUIElement.RESIZE__
-					value = calculateValue@GUI(gui, GUI.RESIZE, varargin{:}); % also warning
+				case 25 % GUIElement.RESIZE
+					value = calculateValue@GUI(gui, 25, varargin{:}); % also warning
 					if value
 					    gui.get('PE').get('RESIZEX')
 					
 					    set(gui.get('TEXT_FILE'), 'Position', [5 0 w(gui.get('H'), 'pixels')-10 24])
 					end
 					
-				case GUIElement.H % __GUIElement.H__
-					f = calculateValue@GUI(gui, GUI.H);
+				case 24 % GUIElement.H
+					f = calculateValue@GUI(gui, 24);
 					el = gui.memorize('PE').memorize('EL');
 					value = f;
 					
-				case GUIElement.SHOW % __GUIElement.SHOW__
+				case 26 % GUIElement.SHOW
 					if gui.get('DRAWN')
 					
 					    % panel element
@@ -1162,7 +1162,7 @@ classdef GUIElement < GUI
 					        gui.get('LAYOUT').get('SHOW')
 					    end
 					    
-					    value = calculateValue@GUI(gui, GUI.SHOW, varargin{:});
+					    value = calculateValue@GUI(gui, 26, varargin{:});
 					else
 					    warning( ...
 					        ['BRAPH2' ':' class(gui)], ...
@@ -1174,7 +1174,7 @@ classdef GUIElement < GUI
 					    value = false;
 					end
 					
-				case GUIElement.HIDE % __GUIElement.HIDE__
+				case 27 % GUIElement.HIDE
 					if gui.get('DRAWN')
 					    
 					    % panel element
@@ -1185,7 +1185,7 @@ classdef GUIElement < GUI
 					        gui.get('LAYOUT').get('HIDE')
 					    end
 					    
-					    value = calculateValue@GUI(gui, GUI.HIDE, varargin{:});
+					    value = calculateValue@GUI(gui, 27, varargin{:});
 					else
 					    warning( ...
 					        ['BRAPH2' ':' class(gui)], ...
@@ -1197,7 +1197,7 @@ classdef GUIElement < GUI
 					    value = false;
 					end
 					
-				case GUIElement.DELETE % __GUIElement.DELETE__
+				case 28 % GUIElement.DELETE
 					if gui.get('DRAWN')
 					    
 					    gui.set('TEXT_FILE', Element.getNoValue())
@@ -1207,7 +1207,7 @@ classdef GUIElement < GUI
 					    gui.set('H_MENU_EXPORT', Element.getNoValue())
 					    gui.set('H_MENU_PERSONALIZE', Element.getNoValue())
 					    
-					    value = calculateValue@GUI(gui, GUI.DELETE, varargin{:});
+					    value = calculateValue@GUI(gui, 28, varargin{:});
 					else
 					    warning( ...
 					        ['BRAPH2' ':' class(gui)], ...
@@ -1219,7 +1219,7 @@ classdef GUIElement < GUI
 					    value = false;
 					end
 					
-				case GUIElement.CLOSE % __GUIElement.CLOSE__
+				case 29 % GUIElement.CLOSE
 					if gui.get('DRAWN')
 					
 					    title = gui.get('TITLE');
@@ -1262,7 +1262,7 @@ classdef GUIElement < GUI
 					end
 					
 				otherwise
-					if prop <= GUI.getPropNumber()
+					if prop <= 29
 						value = calculateValue@GUI(gui, prop, varargin{:});
 					else
 						value = calculateValue@Element(gui, prop, varargin{:});

@@ -604,33 +604,33 @@ classdef SettingsText < Settings
 			prop = SettingsText.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsText.VISIBLE % __SettingsText.VISIBLE__
+				case 15 % SettingsText.VISIBLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsText.X % __SettingsText.X__
+				case 16 % SettingsText.X
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsText.Y % __SettingsText.Y__
+				case 17 % SettingsText.Y
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsText.Z % __SettingsText.Z__
+				case 18 % SettingsText.Z
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsText.TXT % __SettingsText.TXT__
+				case 19 % SettingsText.TXT
 					prop_settings = Format.getFormatSettings(2);
-				case SettingsText.FONTSIZE % __SettingsText.FONTSIZE__
+				case 20 % SettingsText.FONTSIZE
 					prop_settings = Format.getFormatSettings(22);
-				case SettingsText.FONTNAME % __SettingsText.FONTNAME__
+				case 21 % SettingsText.FONTNAME
 					prop_settings = Format.getFormatSettings(2);
-				case SettingsText.FONTCOLOR % __SettingsText.FONTCOLOR__
+				case 22 % SettingsText.FONTCOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case SettingsText.FONTWEIGHT % __SettingsText.FONTWEIGHT__
+				case 23 % SettingsText.FONTWEIGHT
 					prop_settings = {'normal' 'bold'};
-				case SettingsText.INTERPRETER % __SettingsText.INTERPRETER__
+				case 24 % SettingsText.INTERPRETER
 					prop_settings = {'none', 'TeX', 'LaTeX'};
-				case SettingsText.HALIGN % __SettingsText.HALIGN__
+				case 25 % SettingsText.HALIGN
 					prop_settings = {'left', 'center', 'right'};
-				case SettingsText.VALIGN % __SettingsText.VALIGN__
+				case 26 % SettingsText.VALIGN
 					prop_settings = {'middle', 'top', 'bottom', 'baseline', 'cap'};
-				case SettingsText.ROTATION % __SettingsText.ROTATION__
+				case 27 % SettingsText.ROTATION
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsText.TEMPLATE % __SettingsText.TEMPLATE__
+				case 4 % SettingsText.TEMPLATE
 					prop_settings = 'SettingsText';
 				otherwise
 					prop_settings = getPropSettings@Settings(prop);
@@ -659,45 +659,45 @@ classdef SettingsText < Settings
 			prop = SettingsText.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsText.VISIBLE % __SettingsText.VISIBLE__
+				case 15 % SettingsText.VISIBLE
 					prop_default = Format.getFormatDefault(4, SettingsText.getPropSettings(prop));
-				case SettingsText.X % __SettingsText.X__
+				case 16 % SettingsText.X
 					prop_default = Format.getFormatDefault(11, SettingsText.getPropSettings(prop));
-				case SettingsText.Y % __SettingsText.Y__
+				case 17 % SettingsText.Y
 					prop_default = Format.getFormatDefault(11, SettingsText.getPropSettings(prop));
-				case SettingsText.Z % __SettingsText.Z__
+				case 18 % SettingsText.Z
 					prop_default = Format.getFormatDefault(11, SettingsText.getPropSettings(prop));
-				case SettingsText.TXT % __SettingsText.TXT__
+				case 19 % SettingsText.TXT
 					prop_default = Format.getFormatDefault(2, SettingsText.getPropSettings(prop));
-				case SettingsText.FONTSIZE % __SettingsText.FONTSIZE__
+				case 20 % SettingsText.FONTSIZE
 					prop_default = 12;
-				case SettingsText.FONTNAME % __SettingsText.FONTNAME__
+				case 21 % SettingsText.FONTNAME
 					prop_default = 'Helvetica';
-				case SettingsText.FONTCOLOR % __SettingsText.FONTCOLOR__
+				case 22 % SettingsText.FONTCOLOR
 					prop_default = [0 0 0];
-				case SettingsText.FONTWEIGHT % __SettingsText.FONTWEIGHT__
+				case 23 % SettingsText.FONTWEIGHT
 					prop_default = 'normal';
-				case SettingsText.INTERPRETER % __SettingsText.INTERPRETER__
+				case 24 % SettingsText.INTERPRETER
 					prop_default = 'none';
-				case SettingsText.HALIGN % __SettingsText.HALIGN__
+				case 25 % SettingsText.HALIGN
 					prop_default = Format.getFormatDefault(5, SettingsText.getPropSettings(prop));
-				case SettingsText.VALIGN % __SettingsText.VALIGN__
+				case 26 % SettingsText.VALIGN
 					prop_default = Format.getFormatDefault(5, SettingsText.getPropSettings(prop));
-				case SettingsText.ROTATION % __SettingsText.ROTATION__
+				case 27 % SettingsText.ROTATION
 					prop_default = Format.getFormatDefault(11, SettingsText.getPropSettings(prop));
-				case SettingsText.ELCLASS % __SettingsText.ELCLASS__
+				case 1 % SettingsText.ELCLASS
 					prop_default = 'SettingsText';
-				case SettingsText.NAME % __SettingsText.NAME__
+				case 2 % SettingsText.NAME
 					prop_default = 'Text Settings';
-				case SettingsText.DESCRIPTION % __SettingsText.DESCRIPTION__
+				case 3 % SettingsText.DESCRIPTION
 					prop_default = 'A Text Settings (SettingsText) provides the settings for a text, including visibility, x, y, z, font color, font size, and interpreter.';
-				case SettingsText.TEMPLATE % __SettingsText.TEMPLATE__
+				case 4 % SettingsText.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsText.getPropSettings(prop));
-				case SettingsText.ID % __SettingsText.ID__
+				case 5 % SettingsText.ID
 					prop_default = 'SettingsText ID';
-				case SettingsText.LABEL % __SettingsText.LABEL__
+				case 6 % SettingsText.LABEL
 					prop_default = 'SettingsText label';
-				case SettingsText.NOTES % __SettingsText.NOTES__
+				case 7 % SettingsText.NOTES
 					prop_default = 'SettingsText notes';
 				otherwise
 					prop_default = getPropDefault@Settings(prop);
@@ -763,36 +763,36 @@ classdef SettingsText < Settings
 			prop = SettingsText.getPropProp(pointer);
 			
 			switch prop
-				case SettingsText.VISIBLE % __SettingsText.VISIBLE__
+				case 15 % SettingsText.VISIBLE
 					check = Format.checkFormat(4, value, SettingsText.getPropSettings(prop));
-				case SettingsText.X % __SettingsText.X__
+				case 16 % SettingsText.X
 					check = Format.checkFormat(11, value, SettingsText.getPropSettings(prop));
-				case SettingsText.Y % __SettingsText.Y__
+				case 17 % SettingsText.Y
 					check = Format.checkFormat(11, value, SettingsText.getPropSettings(prop));
-				case SettingsText.Z % __SettingsText.Z__
+				case 18 % SettingsText.Z
 					check = Format.checkFormat(11, value, SettingsText.getPropSettings(prop));
-				case SettingsText.TXT % __SettingsText.TXT__
+				case 19 % SettingsText.TXT
 					check = Format.checkFormat(2, value, SettingsText.getPropSettings(prop));
-				case SettingsText.FONTSIZE % __SettingsText.FONTSIZE__
+				case 20 % SettingsText.FONTSIZE
 					check = Format.checkFormat(22, value, SettingsText.getPropSettings(prop));
-				case SettingsText.FONTNAME % __SettingsText.FONTNAME__
+				case 21 % SettingsText.FONTNAME
 					check = Format.checkFormat(2, value, SettingsText.getPropSettings(prop));
-				case SettingsText.FONTCOLOR % __SettingsText.FONTCOLOR__
+				case 22 % SettingsText.FONTCOLOR
 					check = Format.checkFormat(20, value, SettingsText.getPropSettings(prop));
-				case SettingsText.FONTWEIGHT % __SettingsText.FONTWEIGHT__
+				case 23 % SettingsText.FONTWEIGHT
 					check = Format.checkFormat(5, value, SettingsText.getPropSettings(prop));
-				case SettingsText.INTERPRETER % __SettingsText.INTERPRETER__
+				case 24 % SettingsText.INTERPRETER
 					check = Format.checkFormat(5, value, SettingsText.getPropSettings(prop));
-				case SettingsText.HALIGN % __SettingsText.HALIGN__
+				case 25 % SettingsText.HALIGN
 					check = Format.checkFormat(5, value, SettingsText.getPropSettings(prop));
-				case SettingsText.VALIGN % __SettingsText.VALIGN__
+				case 26 % SettingsText.VALIGN
 					check = Format.checkFormat(5, value, SettingsText.getPropSettings(prop));
-				case SettingsText.ROTATION % __SettingsText.ROTATION__
+				case 27 % SettingsText.ROTATION
 					check = Format.checkFormat(11, value, SettingsText.getPropSettings(prop));
-				case SettingsText.TEMPLATE % __SettingsText.TEMPLATE__
+				case 4 % SettingsText.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsText.getPropSettings(prop));
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						check = checkProp@Settings(prop, value);
 					end
 			end
@@ -822,7 +822,7 @@ classdef SettingsText < Settings
 			%  checkValue.
 			
 			switch prop
-				case SettingsText.VISIBLE % __SettingsText.VISIBLE__
+				case 15 % SettingsText.VISIBLE
 					h = st.get('H');
 					if check_graphics(h, 'text') && ( ...
 					        get(h, 'Visible') ~= st.get('VISIBLE') || ...
@@ -857,7 +857,7 @@ classdef SettingsText < Settings
 					end
 					
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						postprocessing@Settings(st, prop);
 					end
 			end

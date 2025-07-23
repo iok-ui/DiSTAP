@@ -565,9 +565,9 @@ classdef PanelPropClassList < PanelProp
 			prop = PanelPropClassList.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropClassList.LISTBOX % __PanelPropClassList.LISTBOX__
+				case 36 % PanelPropClassList.LISTBOX
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropClassList.TEMPLATE % __PanelPropClassList.TEMPLATE__
+				case 4 % PanelPropClassList.TEMPLATE
 					prop_settings = 'PanelPropClassList';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -596,27 +596,27 @@ classdef PanelPropClassList < PanelProp
 			prop = PanelPropClassList.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropClassList.LISTBOX % __PanelPropClassList.LISTBOX__
+				case 36 % PanelPropClassList.LISTBOX
 					prop_default = Format.getFormatDefault(18, PanelPropClassList.getPropSettings(prop));
-				case PanelPropClassList.ELCLASS % __PanelPropClassList.ELCLASS__
+				case 1 % PanelPropClassList.ELCLASS
 					prop_default = 'PanelPropClassList';
-				case PanelPropClassList.NAME % __PanelPropClassList.NAME__
+				case 2 % PanelPropClassList.NAME
 					prop_default = 'Class-List Prop Panel';
-				case PanelPropClassList.DESCRIPTION % __PanelPropClassList.DESCRIPTION__
+				case 3 % PanelPropClassList.DESCRIPTION
 					prop_default = 'A Class-List Prop Panel (PanelPropClassList) plots the panel for a CLASSLIST property with a listbox. It works for all categories.';
-				case PanelPropClassList.TEMPLATE % __PanelPropClassList.TEMPLATE__
+				case 4 % PanelPropClassList.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropClassList.getPropSettings(prop));
-				case PanelPropClassList.ID % __PanelPropClassList.ID__
+				case 5 % PanelPropClassList.ID
 					prop_default = 'PanelPropClassList ID';
-				case PanelPropClassList.LABEL % __PanelPropClassList.LABEL__
+				case 6 % PanelPropClassList.LABEL
 					prop_default = 'PanelPropClassList label';
-				case PanelPropClassList.NOTES % __PanelPropClassList.NOTES__
+				case 7 % PanelPropClassList.NOTES
 					prop_default = 'PanelPropClassList notes';
-				case PanelPropClassList.EL % __PanelPropClassList.EL__
+				case 23 % PanelPropClassList.EL
 					prop_default = Measure();
-				case PanelPropClassList.PROP % __PanelPropClassList.PROP__
+				case 24 % PanelPropClassList.PROP
 					prop_default = Measure.COMPATIBLE_GRAPHS;
-				case PanelPropClassList.HEIGHT % __PanelPropClassList.HEIGHT__
+				case 25 % PanelPropClassList.HEIGHT
 					prop_default = 120;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -682,12 +682,12 @@ classdef PanelPropClassList < PanelProp
 			prop = PanelPropClassList.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropClassList.LISTBOX % __PanelPropClassList.LISTBOX__
+				case 36 % PanelPropClassList.LISTBOX
 					check = Format.checkFormat(18, value, PanelPropClassList.getPropSettings(prop));
-				case PanelPropClassList.TEMPLATE % __PanelPropClassList.TEMPLATE__
+				case 4 % PanelPropClassList.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropClassList.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -720,7 +720,7 @@ classdef PanelPropClassList < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropClassList.LISTBOX % __PanelPropClassList.LISTBOX__
+				case 36 % PanelPropClassList.LISTBOX
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -736,14 +736,14 @@ classdef PanelPropClassList < PanelProp
 					
 					value = listbox;
 					
-				case PanelPropClassList.X_DRAW % __PanelPropClassList.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropClassList.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('LISTBOX')
 					end
 					
-				case PanelPropClassList.UPDATE % __PanelPropClassList.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropClassList.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -783,22 +783,22 @@ classdef PanelPropClassList < PanelProp
 					    end
 					end
 					
-				case PanelPropClassList.REDRAW % __PanelPropClassList.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropClassList.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 						w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					
 					    set(pr.get('LISTBOX'), 'Position', [4 4 .70*w_p 96])
 					end
 					
-				case PanelPropClassList.DELETE % __PanelPropClassList.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropClassList.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('LISTBOX', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

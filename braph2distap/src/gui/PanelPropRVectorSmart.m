@@ -593,15 +593,15 @@ classdef PanelPropRVectorSmart < PanelPropString
 			prop = PanelPropRVectorSmart.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropRVectorSmart.MAX % __PanelPropRVectorSmart.MAX__
+				case 38 % PanelPropRVectorSmart.MAX
 					prop_settings = Format.getFormatSettings(11);
-				case PanelPropRVectorSmart.MIN % __PanelPropRVectorSmart.MIN__
+				case 39 % PanelPropRVectorSmart.MIN
 					prop_settings = Format.getFormatSettings(11);
-				case PanelPropRVectorSmart.UNIQUE_VALUE % __PanelPropRVectorSmart.UNIQUE_VALUE__
+				case 40 % PanelPropRVectorSmart.UNIQUE_VALUE
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropRVectorSmart.DEFAULT % __PanelPropRVectorSmart.DEFAULT__
+				case 41 % PanelPropRVectorSmart.DEFAULT
 					prop_settings = Format.getFormatSettings(12);
-				case PanelPropRVectorSmart.TEMPLATE % __PanelPropRVectorSmart.TEMPLATE__
+				case 4 % PanelPropRVectorSmart.TEMPLATE
 					prop_settings = 'PanelPropRVectorSmart';
 				otherwise
 					prop_settings = getPropSettings@PanelPropString(prop);
@@ -630,31 +630,31 @@ classdef PanelPropRVectorSmart < PanelPropString
 			prop = PanelPropRVectorSmart.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropRVectorSmart.MAX % __PanelPropRVectorSmart.MAX__
+				case 38 % PanelPropRVectorSmart.MAX
 					prop_default = +Inf;
-				case PanelPropRVectorSmart.MIN % __PanelPropRVectorSmart.MIN__
+				case 39 % PanelPropRVectorSmart.MIN
 					prop_default = -Inf;
-				case PanelPropRVectorSmart.UNIQUE_VALUE % __PanelPropRVectorSmart.UNIQUE_VALUE__
+				case 40 % PanelPropRVectorSmart.UNIQUE_VALUE
 					prop_default = true;
-				case PanelPropRVectorSmart.DEFAULT % __PanelPropRVectorSmart.DEFAULT__
+				case 41 % PanelPropRVectorSmart.DEFAULT
 					prop_default = Format.getFormatDefault(12, PanelPropRVectorSmart.getPropSettings(prop));
-				case PanelPropRVectorSmart.ELCLASS % __PanelPropRVectorSmart.ELCLASS__
+				case 1 % PanelPropRVectorSmart.ELCLASS
 					prop_default = 'PanelPropRVectorSmart';
-				case PanelPropRVectorSmart.NAME % __PanelPropRVectorSmart.NAME__
+				case 2 % PanelPropRVectorSmart.NAME
 					prop_default = 'Smart Row-Vector Prop Panel';
-				case PanelPropRVectorSmart.DESCRIPTION % __PanelPropRVectorSmart.DESCRIPTION__
+				case 3 % PanelPropRVectorSmart.DESCRIPTION
 					prop_default = 'A Smart Row-Vector Prop Panel (PanelPropRVEctorSmart) plots the panel for a row vector with an edit field. Smart means that (almost) any MatLab expression leading to a correct row vector can be introduced in the edit field. Also, the value of the vector can be limited between some MIN and MAX. It works for all categories, exept for Category.RESULT, Category.QUERY, or Category.EVANESCENT.';
-				case PanelPropRVectorSmart.TEMPLATE % __PanelPropRVectorSmart.TEMPLATE__
+				case 4 % PanelPropRVectorSmart.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropRVectorSmart.getPropSettings(prop));
-				case PanelPropRVectorSmart.ID % __PanelPropRVectorSmart.ID__
+				case 5 % PanelPropRVectorSmart.ID
 					prop_default = 'PanelPropRVectorSmart ID';
-				case PanelPropRVectorSmart.LABEL % __PanelPropRVectorSmart.LABEL__
+				case 6 % PanelPropRVectorSmart.LABEL
 					prop_default = 'PanelPropRVectorSmart label';
-				case PanelPropRVectorSmart.NOTES % __PanelPropRVectorSmart.NOTES__
+				case 7 % PanelPropRVectorSmart.NOTES
 					prop_default = 'PanelPropRVectorSmart notes';
-				case PanelPropRVectorSmart.EL % __PanelPropRVectorSmart.EL__
+				case 23 % PanelPropRVectorSmart.EL
 					prop_default = Graph();
-				case PanelPropRVectorSmart.PROP % __PanelPropRVectorSmart.PROP__
+				case 24 % PanelPropRVectorSmart.PROP
 					prop_default = Graph.LAYERTICKS;
 				otherwise
 					prop_default = getPropDefault@PanelPropString(prop);
@@ -720,18 +720,18 @@ classdef PanelPropRVectorSmart < PanelPropString
 			prop = PanelPropRVectorSmart.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropRVectorSmart.MAX % __PanelPropRVectorSmart.MAX__
+				case 38 % PanelPropRVectorSmart.MAX
 					check = Format.checkFormat(11, value, PanelPropRVectorSmart.getPropSettings(prop));
-				case PanelPropRVectorSmart.MIN % __PanelPropRVectorSmart.MIN__
+				case 39 % PanelPropRVectorSmart.MIN
 					check = Format.checkFormat(11, value, PanelPropRVectorSmart.getPropSettings(prop));
-				case PanelPropRVectorSmart.UNIQUE_VALUE % __PanelPropRVectorSmart.UNIQUE_VALUE__
+				case 40 % PanelPropRVectorSmart.UNIQUE_VALUE
 					check = Format.checkFormat(4, value, PanelPropRVectorSmart.getPropSettings(prop));
-				case PanelPropRVectorSmart.DEFAULT % __PanelPropRVectorSmart.DEFAULT__
+				case 41 % PanelPropRVectorSmart.DEFAULT
 					check = Format.checkFormat(12, value, PanelPropRVectorSmart.getPropSettings(prop));
-				case PanelPropRVectorSmart.TEMPLATE % __PanelPropRVectorSmart.TEMPLATE__
+				case 4 % PanelPropRVectorSmart.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropRVectorSmart.getPropSettings(prop));
 				otherwise
-					if prop <= PanelPropString.getPropNumber()
+					if prop <= 37
 						check = checkProp@PanelPropString(prop, value);
 					end
 			end
@@ -764,8 +764,8 @@ classdef PanelPropRVectorSmart < PanelPropString
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropRVectorSmart.UPDATE % __PanelPropRVectorSmart.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % skips __PanelPropString.UPDATE__ % also warning
+				case 21 % PanelPropRVectorSmart.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % skips PanelPropString.UPDATE % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -805,7 +805,7 @@ classdef PanelPropRVectorSmart < PanelPropString
 					    end
 					end
 					
-				case PanelPropRVectorSmart.EDITFIELD % __PanelPropRVectorSmart.EDITFIELD__
+				case 37 % PanelPropRVectorSmart.EDITFIELD
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -820,7 +820,7 @@ classdef PanelPropRVectorSmart < PanelPropString
 					value = editfield;
 					
 				otherwise
-					if prop <= PanelPropString.getPropNumber()
+					if prop <= 37
 						value = calculateValue@PanelPropString(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

@@ -586,15 +586,15 @@ classdef PanelPropIDict < PanelProp
 			prop = PanelPropIDict.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropIDict.BUTTON_TEXT % __PanelPropIDict.BUTTON_TEXT__
+				case 36 % PanelPropIDict.BUTTON_TEXT
 					prop_settings = Format.getFormatSettings(2);
-				case PanelPropIDict.BUTTON % __PanelPropIDict.BUTTON__
+				case 37 % PanelPropIDict.BUTTON
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropIDict.GUICLASS % __PanelPropIDict.GUICLASS__
+				case 38 % PanelPropIDict.GUICLASS
 					prop_settings = {'GUIElement', 'GUIFig'};
-				case PanelPropIDict.GUI_ITEM % __PanelPropIDict.GUI_ITEM__
+				case 39 % PanelPropIDict.GUI_ITEM
 					prop_settings = 'GUIElement';
-				case PanelPropIDict.TEMPLATE % __PanelPropIDict.TEMPLATE__
+				case 4 % PanelPropIDict.TEMPLATE
 					prop_settings = 'PanelPropIDict';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -623,33 +623,33 @@ classdef PanelPropIDict < PanelProp
 			prop = PanelPropIDict.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropIDict.BUTTON_TEXT % __PanelPropIDict.BUTTON_TEXT__
+				case 36 % PanelPropIDict.BUTTON_TEXT
 					prop_default = Format.getFormatDefault(2, PanelPropIDict.getPropSettings(prop));
-				case PanelPropIDict.BUTTON % __PanelPropIDict.BUTTON__
+				case 37 % PanelPropIDict.BUTTON
 					prop_default = Format.getFormatDefault(18, PanelPropIDict.getPropSettings(prop));
-				case PanelPropIDict.GUICLASS % __PanelPropIDict.GUICLASS__
+				case 38 % PanelPropIDict.GUICLASS
 					prop_default = Format.getFormatDefault(5, PanelPropIDict.getPropSettings(prop));
-				case PanelPropIDict.GUI_ITEM % __PanelPropIDict.GUI_ITEM__
+				case 39 % PanelPropIDict.GUI_ITEM
 					prop_default = Format.getFormatDefault(8, PanelPropIDict.getPropSettings(prop));
-				case PanelPropIDict.ELCLASS % __PanelPropIDict.ELCLASS__
+				case 1 % PanelPropIDict.ELCLASS
 					prop_default = 'PanelPropIDict';
-				case PanelPropIDict.NAME % __PanelPropIDict.NAME__
+				case 2 % PanelPropIDict.NAME
 					prop_default = 'Indexed-Dictionary Prop Panel';
-				case PanelPropIDict.DESCRIPTION % __PanelPropIDict.DESCRIPTION__
+				case 3 % PanelPropIDict.DESCRIPTION
 					prop_default = 'An Indexed-Dictionary Prop Panel (PanelPropIDict) plots the panel for a IDICT property with a button. It works for all categories.';
-				case PanelPropIDict.TEMPLATE % __PanelPropIDict.TEMPLATE__
+				case 4 % PanelPropIDict.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropIDict.getPropSettings(prop));
-				case PanelPropIDict.ID % __PanelPropIDict.ID__
+				case 5 % PanelPropIDict.ID
 					prop_default = 'PanelPropIDict ID';
-				case PanelPropIDict.LABEL % __PanelPropIDict.LABEL__
+				case 6 % PanelPropIDict.LABEL
 					prop_default = 'PanelPropIDict label';
-				case PanelPropIDict.NOTES % __PanelPropIDict.NOTES__
+				case 7 % PanelPropIDict.NOTES
 					prop_default = 'PanelPropIDict notes';
-				case PanelPropIDict.EL % __PanelPropIDict.EL__
+				case 23 % PanelPropIDict.EL
 					prop_default = Pipeline();
-				case PanelPropIDict.PROP % __PanelPropIDict.PROP__
-					prop_default = Pipeline.PS_DICT;
-				case PanelPropIDict.HEIGHT % __PanelPropIDict.HEIGHT__
+				case 24 % PanelPropIDict.PROP
+					prop_default = 11;
+				case 25 % PanelPropIDict.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -695,7 +695,7 @@ classdef PanelPropIDict < PanelProp
 			%  calculateValue, checkValue.
 			
 			switch prop
-				case PanelPropIDict.GUI_ITEM % __PanelPropIDict.GUI_ITEM__
+				case 39 % PanelPropIDict.GUI_ITEM
 					if isa(value.getr('PE'), 'NoValue') % i.e., default initialization
 					    f = ancestor(pr.get('H'), 'figure');
 					
@@ -716,7 +716,7 @@ classdef PanelPropIDict < PanelProp
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = preset@PanelProp(pr, prop, value);
 					end
 			end
@@ -756,18 +756,18 @@ classdef PanelPropIDict < PanelProp
 			prop = PanelPropIDict.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropIDict.BUTTON_TEXT % __PanelPropIDict.BUTTON_TEXT__
+				case 36 % PanelPropIDict.BUTTON_TEXT
 					check = Format.checkFormat(2, value, PanelPropIDict.getPropSettings(prop));
-				case PanelPropIDict.BUTTON % __PanelPropIDict.BUTTON__
+				case 37 % PanelPropIDict.BUTTON
 					check = Format.checkFormat(18, value, PanelPropIDict.getPropSettings(prop));
-				case PanelPropIDict.GUICLASS % __PanelPropIDict.GUICLASS__
+				case 38 % PanelPropIDict.GUICLASS
 					check = Format.checkFormat(5, value, PanelPropIDict.getPropSettings(prop));
-				case PanelPropIDict.GUI_ITEM % __PanelPropIDict.GUI_ITEM__
+				case 39 % PanelPropIDict.GUI_ITEM
 					check = Format.checkFormat(8, value, PanelPropIDict.getPropSettings(prop));
-				case PanelPropIDict.TEMPLATE % __PanelPropIDict.TEMPLATE__
+				case 4 % PanelPropIDict.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropIDict.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -800,7 +800,7 @@ classdef PanelPropIDict < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropIDict.BUTTON % __PanelPropIDict.BUTTON__
+				case 37 % PanelPropIDict.BUTTON
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -817,14 +817,14 @@ classdef PanelPropIDict < PanelProp
 					
 					value = button;
 					
-				case PanelPropIDict.X_DRAW % __PanelPropIDict.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropIDict.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('BUTTON')
 					end
 					
-				case PanelPropIDict.UPDATE % __PanelPropIDict.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropIDict.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -865,16 +865,16 @@ classdef PanelPropIDict < PanelProp
 					    value = true;
 					end
 					
-				case PanelPropIDict.REDRAW % __PanelPropIDict.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropIDict.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('BUTTON'), 'Position', [4 4 .70*w_p 21])
 					end
 					
-				case PanelPropIDict.SHOW % __PanelPropIDict.SHOW__
-					value = calculateValue@PanelProp(pr, PanelProp.SHOW, varargin{:}); % also warning
+				case 16 % PanelPropIDict.SHOW
+					value = calculateValue@PanelProp(pr, 16, varargin{:}); % also warning
 					if value
 					    % figure item
 					    if isa(pr.getr('GUI_ITEM'), 'GUI') && pr.get('GUI_ITEM').get('DRAWN')
@@ -882,8 +882,8 @@ classdef PanelPropIDict < PanelProp
 					    end
 					end
 					
-				case PanelPropIDict.HIDE % __PanelPropIDict.HIDE__
-					value = calculateValue@PanelProp(pr, PanelProp.HIDE, varargin{:}); % also warning
+				case 17 % PanelPropIDict.HIDE
+					value = calculateValue@PanelProp(pr, 17, varargin{:}); % also warning
 					if value
 					    % figure item
 					    if isa(pr.getr('GUI_ITEM'), 'GUI') && pr.get('GUI_ITEM').get('DRAWN')
@@ -891,14 +891,14 @@ classdef PanelPropIDict < PanelProp
 					    end
 					end
 					
-				case PanelPropIDict.DELETE % __PanelPropIDict.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropIDict.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value    
 					    pr.set('BUTTON', Element.getNoValue())
 					end
 					
-				case PanelPropIDict.CLOSE % __PanelPropIDict.CLOSE__
-					value = calculateValue@PanelProp(pr, PanelProp.CLOSE, varargin{:}); % also warning
+				case 19 % PanelPropIDict.CLOSE
+					value = calculateValue@PanelProp(pr, 19, varargin{:}); % also warning
 					if value
 					    % figure item
 					    if isa(pr.getr('GUI_ITEM'), 'GUI') && pr.get('GUI_ITEM').get('DRAWN')
@@ -907,7 +907,7 @@ classdef PanelPropIDict < PanelProp
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

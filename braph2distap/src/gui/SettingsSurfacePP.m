@@ -609,21 +609,21 @@ classdef SettingsSurfacePP < SettingsPP
 			prop = SettingsSurfacePP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsSurfacePP.ENABLE % __SettingsSurfacePP.ENABLE__
+				case 36 % SettingsSurfacePP.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsSurfacePP.BUTTON_FACECOLOR % __SettingsSurfacePP.BUTTON_FACECOLOR__
+				case 37 % SettingsSurfacePP.BUTTON_FACECOLOR
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsSurfacePP.EDITFIELD_FACEALPHA % __SettingsSurfacePP.EDITFIELD_FACEALPHA__
+				case 38 % SettingsSurfacePP.EDITFIELD_FACEALPHA
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsSurfacePP.SLIDER_FACEALPHA % __SettingsSurfacePP.SLIDER_FACEALPHA__
+				case 39 % SettingsSurfacePP.SLIDER_FACEALPHA
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsSurfacePP.BUTTON_EDGECOLOR % __SettingsSurfacePP.BUTTON_EDGECOLOR__
+				case 40 % SettingsSurfacePP.BUTTON_EDGECOLOR
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsSurfacePP.EDITFIELD_EDGEALPHA % __SettingsSurfacePP.EDITFIELD_EDGEALPHA__
+				case 41 % SettingsSurfacePP.EDITFIELD_EDGEALPHA
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsSurfacePP.SLIDER_EDGEALPHA % __SettingsSurfacePP.SLIDER_EDGEALPHA__
+				case 42 % SettingsSurfacePP.SLIDER_EDGEALPHA
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsSurfacePP.TEMPLATE % __SettingsSurfacePP.TEMPLATE__
+				case 4 % SettingsSurfacePP.TEMPLATE
 					prop_settings = 'SettingsSurfacePP';
 				otherwise
 					prop_settings = getPropSettings@SettingsPP(prop);
@@ -652,39 +652,39 @@ classdef SettingsSurfacePP < SettingsPP
 			prop = SettingsSurfacePP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsSurfacePP.ENABLE % __SettingsSurfacePP.ENABLE__
+				case 36 % SettingsSurfacePP.ENABLE
 					prop_default = true;
-				case SettingsSurfacePP.BUTTON_FACECOLOR % __SettingsSurfacePP.BUTTON_FACECOLOR__
+				case 37 % SettingsSurfacePP.BUTTON_FACECOLOR
 					prop_default = Format.getFormatDefault(18, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.EDITFIELD_FACEALPHA % __SettingsSurfacePP.EDITFIELD_FACEALPHA__
+				case 38 % SettingsSurfacePP.EDITFIELD_FACEALPHA
 					prop_default = Format.getFormatDefault(18, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.SLIDER_FACEALPHA % __SettingsSurfacePP.SLIDER_FACEALPHA__
+				case 39 % SettingsSurfacePP.SLIDER_FACEALPHA
 					prop_default = Format.getFormatDefault(18, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.BUTTON_EDGECOLOR % __SettingsSurfacePP.BUTTON_EDGECOLOR__
+				case 40 % SettingsSurfacePP.BUTTON_EDGECOLOR
 					prop_default = Format.getFormatDefault(18, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.EDITFIELD_EDGEALPHA % __SettingsSurfacePP.EDITFIELD_EDGEALPHA__
+				case 41 % SettingsSurfacePP.EDITFIELD_EDGEALPHA
 					prop_default = Format.getFormatDefault(18, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.SLIDER_EDGEALPHA % __SettingsSurfacePP.SLIDER_EDGEALPHA__
+				case 42 % SettingsSurfacePP.SLIDER_EDGEALPHA
 					prop_default = Format.getFormatDefault(18, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.ELCLASS % __SettingsSurfacePP.ELCLASS__
+				case 1 % SettingsSurfacePP.ELCLASS
 					prop_default = 'SettingsSurfacePP';
-				case SettingsSurfacePP.NAME % __SettingsSurfacePP.NAME__
+				case 2 % SettingsSurfacePP.NAME
 					prop_default = 'Prop Panel for Surface Settings';
-				case SettingsSurfacePP.DESCRIPTION % __SettingsSurfacePP.DESCRIPTION__
+				case 3 % SettingsSurfacePP.DESCRIPTION
 					prop_default = 'A Prop Panel for Surface Settings (SettingsSurfacePP) plots the panel for surface settings, including face color, face alpha, edge color, and edge alpha. It works for all categories.';
-				case SettingsSurfacePP.TEMPLATE % __SettingsSurfacePP.TEMPLATE__
+				case 4 % SettingsSurfacePP.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.ID % __SettingsSurfacePP.ID__
+				case 5 % SettingsSurfacePP.ID
 					prop_default = 'SettingsSurfacePP ID';
-				case SettingsSurfacePP.LABEL % __SettingsSurfacePP.LABEL__
+				case 6 % SettingsSurfacePP.LABEL
 					prop_default = 'SettingsSurfacePP label';
-				case SettingsSurfacePP.NOTES % __SettingsSurfacePP.NOTES__
+				case 7 % SettingsSurfacePP.NOTES
 					prop_default = 'SettingsSurfacePP notes';
-				case SettingsSurfacePP.EL % __SettingsSurfacePP.EL__
+				case 23 % SettingsSurfacePP.EL
 					prop_default = BrainSurfacePF();
-				case SettingsSurfacePP.PROP % __SettingsSurfacePP.PROP__
+				case 24 % SettingsSurfacePP.PROP
 					prop_default = BrainSurfacePF.ST_SURFACE;
-				case SettingsSurfacePP.HEIGHT % __SettingsSurfacePP.HEIGHT__
+				case 25 % SettingsSurfacePP.HEIGHT
 					prop_default = 81;
 				otherwise
 					prop_default = getPropDefault@SettingsPP(prop);
@@ -750,24 +750,24 @@ classdef SettingsSurfacePP < SettingsPP
 			prop = SettingsSurfacePP.getPropProp(pointer);
 			
 			switch prop
-				case SettingsSurfacePP.ENABLE % __SettingsSurfacePP.ENABLE__
+				case 36 % SettingsSurfacePP.ENABLE
 					check = Format.checkFormat(4, value, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.BUTTON_FACECOLOR % __SettingsSurfacePP.BUTTON_FACECOLOR__
+				case 37 % SettingsSurfacePP.BUTTON_FACECOLOR
 					check = Format.checkFormat(18, value, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.EDITFIELD_FACEALPHA % __SettingsSurfacePP.EDITFIELD_FACEALPHA__
+				case 38 % SettingsSurfacePP.EDITFIELD_FACEALPHA
 					check = Format.checkFormat(18, value, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.SLIDER_FACEALPHA % __SettingsSurfacePP.SLIDER_FACEALPHA__
+				case 39 % SettingsSurfacePP.SLIDER_FACEALPHA
 					check = Format.checkFormat(18, value, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.BUTTON_EDGECOLOR % __SettingsSurfacePP.BUTTON_EDGECOLOR__
+				case 40 % SettingsSurfacePP.BUTTON_EDGECOLOR
 					check = Format.checkFormat(18, value, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.EDITFIELD_EDGEALPHA % __SettingsSurfacePP.EDITFIELD_EDGEALPHA__
+				case 41 % SettingsSurfacePP.EDITFIELD_EDGEALPHA
 					check = Format.checkFormat(18, value, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.SLIDER_EDGEALPHA % __SettingsSurfacePP.SLIDER_EDGEALPHA__
+				case 42 % SettingsSurfacePP.SLIDER_EDGEALPHA
 					check = Format.checkFormat(18, value, SettingsSurfacePP.getPropSettings(prop));
-				case SettingsSurfacePP.TEMPLATE % __SettingsSurfacePP.TEMPLATE__
+				case 4 % SettingsSurfacePP.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsSurfacePP.getPropSettings(prop));
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						check = checkProp@SettingsPP(prop, value);
 					end
 			end
@@ -800,7 +800,7 @@ classdef SettingsSurfacePP < SettingsPP
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case SettingsSurfacePP.BUTTON_FACECOLOR % __SettingsSurfacePP.BUTTON_FACECOLOR__
+				case 37 % SettingsSurfacePP.BUTTON_FACECOLOR
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					button_facecolor = uibutton( ...
@@ -814,7 +814,7 @@ classdef SettingsSurfacePP < SettingsPP
 					    );
 					value = button_facecolor;
 					
-				case SettingsSurfacePP.EDITFIELD_FACEALPHA % __SettingsSurfacePP.EDITFIELD_FACEALPHA__
+				case 38 % SettingsSurfacePP.EDITFIELD_FACEALPHA
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_facealpha = uieditfield('numeric', ...
@@ -827,7 +827,7 @@ classdef SettingsSurfacePP < SettingsPP
 					    );
 					value = editfield_facealpha;
 					
-				case SettingsSurfacePP.SLIDER_FACEALPHA % __SettingsSurfacePP.SLIDER_FACEALPHA__
+				case 39 % SettingsSurfacePP.SLIDER_FACEALPHA
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					slider_facealpha = uislider( ...
@@ -840,7 +840,7 @@ classdef SettingsSurfacePP < SettingsPP
 					    );
 					value = slider_facealpha;
 					
-				case SettingsSurfacePP.BUTTON_EDGECOLOR % __SettingsSurfacePP.BUTTON_EDGECOLOR__
+				case 40 % SettingsSurfacePP.BUTTON_EDGECOLOR
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					button_edgecolor = uibutton( ...
@@ -854,7 +854,7 @@ classdef SettingsSurfacePP < SettingsPP
 					    );
 					value = button_edgecolor;
 					
-				case SettingsSurfacePP.EDITFIELD_EDGEALPHA % __SettingsSurfacePP.EDITFIELD_EDGEALPHA__
+				case 41 % SettingsSurfacePP.EDITFIELD_EDGEALPHA
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_edgealpha = uieditfield('numeric', ...
@@ -867,7 +867,7 @@ classdef SettingsSurfacePP < SettingsPP
 					    );
 					value = editfield_edgealpha;
 					
-				case SettingsSurfacePP.SLIDER_EDGEALPHA % __SettingsSurfacePP.SLIDER_EDGEALPHA__
+				case 42 % SettingsSurfacePP.SLIDER_EDGEALPHA
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					slider_edgealpha = uislider( ...
@@ -880,8 +880,8 @@ classdef SettingsSurfacePP < SettingsPP
 					    );
 					value = slider_edgealpha;
 					
-				case SettingsSurfacePP.X_DRAW % __SettingsSurfacePP.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % SettingsSurfacePP.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('BUTTON_FACECOLOR')
 					    pr.memorize('EDITFIELD_FACEALPHA')
@@ -892,8 +892,8 @@ classdef SettingsSurfacePP < SettingsPP
 					    pr.memorize('SLIDER_EDGEALPHA')
 					end
 					
-				case SettingsSurfacePP.UPDATE % __SettingsSurfacePP.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % SettingsSurfacePP.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -1018,8 +1018,8 @@ classdef SettingsSurfacePP < SettingsPP
 					    end
 					end
 					
-				case SettingsSurfacePP.REDRAW % __SettingsSurfacePP.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % SettingsSurfacePP.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -1032,8 +1032,8 @@ classdef SettingsSurfacePP < SettingsPP
 					    set(pr.get('SLIDER_EDGEALPHA'),    'Position', [8+.35*w_p+21   27 .50*w_p   3]) % the height of a slider cannot be changed
 					end
 					
-				case SettingsSurfacePP.DELETE % __SettingsSurfacePP.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % SettingsSurfacePP.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('BUTTON_FACECOLOR', Element.getNoValue())
 					    pr.set('EDITFIELD_FACEALPHA', Element.getNoValue())
@@ -1045,7 +1045,7 @@ classdef SettingsSurfacePP < SettingsPP
 					end
 					
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						value = calculateValue@SettingsPP(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});
