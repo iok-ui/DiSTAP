@@ -66,7 +66,7 @@ sp_data = dp.get('SP_DATA');
 if isempty(sp_data)
     value = {};
 else
-    value = sp_data(idx_wav_start:idx_wav_end);
+    value = {sp_data(idx_wav_start:idx_wav_end)};
 end
 
 %%% ¡prop!

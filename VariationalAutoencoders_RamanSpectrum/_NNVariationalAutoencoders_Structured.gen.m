@@ -1,5 +1,5 @@
 %% ¡header!
-NNVariationalAutoencoders < NNBase (nnvae, normalizer of a neural network data) transfroms neural network datasets.
+NNVariationalAutoencoders_Structured < NNVariationalAutoencoders (nnvae, normalizer of a neural network data) transfroms neural network datasets.
 
 %%% ¡description!
 A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. 
@@ -17,7 +17,7 @@ NNDataset, NNDatasetSplit
 %%% ¡prop!
 ELCLASS (constant, string) is the class of the combiner of neural networks datasets.
 %%%% ¡default!
-'NNVariationalAutoencoders'
+'NNVariationalAutoencoders_Structured'
 
 %%% ¡prop!
 NAME (constant, string) is the name of the combiner of neural networks datasets.
@@ -32,7 +32,7 @@ DESCRIPTION (constant, string) is the description of the combiner of neural netw
 %%% ¡prop!
 TEMPLATE (parameter, item) is the template of the combiner of neural networks datasets.
 %%%% ¡settings!
-'NNVariationalAutoencoders'
+'NNVariationalAutoencoders_Structured'
 
 %%% ¡prop!
 ID (data, string) is a few-letter code of the combiner of neural networks datasets.
@@ -60,25 +60,23 @@ check = ismember(value.get('DP_CLASS'), nnvae.get('DP_CLASSES'));
 %%%% ¡postset!
 if ~isequal(nnvae.get('D').get('DP_DICT').get('LENGTH'), 0)
     input_data = cell2mat(nnvae.get('D').get('DP_DICT').get('IT', 1).get('INPUT'));
-    if isequal(length(size(input_data)), 2) % only 1 channel
-        size_img = [size(input_data) 1]; % force it to be length, width, channel
-    else
-        size_img = size(input_data);
-    end
-    nnvae.set('SIZE_IMG', size_img);
+    % % % if isequal(length(size(input_data)), 2) % only 1 channel
+    % % %     size_img = [size(input_data) 1]; % force it to be length, width, channel
+    % % % else
+    % % %     size_img = size(input_data);
+    % % % end
+    size_input = size(input_data);
+    nnvae.set('SIZE_INPUT', size_input);
 end
 if isa(nnvae.getr('ENCODER'), 'NoValue')
     numLatentChannels = nnvae.get('NUM_LATENT_REP');
-    imageSize = nnvae.get('SIZE_IMG');
+    inputSize = nnvae.get('SIZE_INPUT');
+    numFeature = prod(inputSize);
 
     layersE = [
-        imageInputLayer(imageSize, Normalization="none")
-        convolution2dLayer(3, 32, Padding="same", Stride=2)
-        leakyReluLayer(0.2)
-        convolution2dLayer(3, 64, Padding="same", Stride=2)
-        leakyReluLayer(0.2)
-        fullyConnectedLayer(16)
-        leakyReluLayer(0.2)
+        featureInputLayer(numFeature, Normalization="none")
+        fullyConnectedLayer(64)
+        reluLayer
         fullyConnectedLayer(2*numLatentChannels, 'Name', 'latentOuput')
         samplingLayer];
 
@@ -86,29 +84,16 @@ if isa(nnvae.getr('ENCODER'), 'NoValue')
 end
 if isa(nnvae.getr('DECODER'), 'NoValue')
     % Calculate projection size
-    projectChannels = 64; % comes from encoder, the last convolutional layer
-    stride = 2; % comes from encoder, the last convolutional layer
-    num_layer_with_stride = 2; % come from encoder, there are two convolutional layers with strides
-    projSize = imageSize(1:2);
-    for i = 1:2 % two stride-2 layers
-        projSize = ceil(projSize / stride);
-    end
-    projectionSize = [projSize projectChannels];
-
-    numInputChannels = imageSize(3);
+    inputSize = nnvae.get('SIZE_INPUT');
+    numFeature = prod(inputSize);
     numLatentChannels = nnvae.get('NUM_LATENT_REP');
 
     layersD = [
-        featureInputLayer(numLatentChannels)
-        fullyConnectedLayer(prod(projectionSize))
-        leakyReluLayer(0.2)
-        projectAndReshapeLayer(projectionSize)
-        transposedConv2dLayer(3, 64, Cropping="same", Stride=2)
-        leakyReluLayer(0.2)
-        transposedConv2dLayer(3, 32, Cropping="same", Stride=2)
-        leakyReluLayer(0.2)
-        transposedConv2dLayer(3, numInputChannels, Cropping="same")
-        sigmoidLayer];
+        featureInputLayer(numLatentChannels, Normalization="none")
+        fullyConnectedLayer(64)
+        reluLayer
+        fullyConnectedLayer(numFeature)
+        leakyReluLayer(1)];
 
     nnvae.set('DECODER', dlnetwork(layersD));
 end
@@ -116,7 +101,7 @@ end
 %%% ¡prop!
 DP_CLASSES (parameter, classlist) is the list of compatible data points.
 %%%% ¡default!
-{'NNDataPoint' 'NNDataPoint_Image'}
+{'NNDataPoint' 'NNDataPoint_SpectrumSignal'}
 
 %%% ¡prop!
 INPUTS (query, cell) constructs the cell array of the data.
@@ -135,11 +120,11 @@ else
     [s1, s2] = size(cell2mat(inputs_group{1}));
     % Extract the 28x28 arrays from the inner cells
     flat_cells = cellfun(@(c) c{1}, inputs_group, 'UniformOutput', false);
-    value = reshape(cat(3, flat_cells{:}), s1, s2, 1, []);
+    value = reshape(cat(1, flat_cells{:}), s1, []);
 end
 
 %%% ¡prop!
-TARGETS (query, cell) constructs the cell array of the targets.
+TARGETS (query, stringlist) constructs the cell array of the targets.
 %%%% ¡calculate!
 % targets = nn.get('PREDICT', D) returns a cell array with the
 %  targets for all data points in dataset D.
@@ -148,12 +133,12 @@ if isempty(varargin)
     return
 end
 d = varargin{1};
-targets_group = d.get('TARGETS');
-if isempty(targets_group)
+targets = cellfun(@(dp) dp.get('TARGET_CLASS'), d.get('DP_DICT').get('IT_LIST'), 'UniformOutput', false)
+if isempty(targets)
     value = {};
 else
-    flat_cells = cellfun(@(c) c{1}, targets_group, 'UniformOutput', false);
-    value = cat(1, flat_cells{:});
+    flat_cells = cellfun(@(c) c{:}, targets, 'UniformOutput', false);
+    value = cat(1, flat_cells{:}); % check
 end
 
 %%% ¡prop!
@@ -170,19 +155,21 @@ if isequal(d.get('DP_DICT').get('LENGTH'), 0)
 end
 
 XTrain = nnvae.get('INPUTS', d);
-YTrain = categorical(nnvae.get('TARGETS', d));
+YTrain = 1:1:size(XTrain, 2);
+YTrain = YTrain';
 
-dsXTrain = arrayDatastore(XTrain, IterationDimension=4);
+dsXTrain = arrayDatastore(XTrain, IterationDimension=2); % need to be a property the iterationdimension
 dsYTrain = arrayDatastore(YTrain);
 dsTrain = combine(dsXTrain, dsYTrain);
 
-numOutputs = nnvae.get('NUM_LATENT_REP');;
+numOutputs = 2; % need to be a property
 
-mbq = minibatchqueue(dsTrain, numOutputs, ...
+% need to be a query
+mbq = minibatchqueue(dsTrain,numOutputs, ...
     MiniBatchSize = miniBatchSize, ...
-    MiniBatchFcn = @preprocessMiniBatch, ...
-    MiniBatchFormat = ["SSCB", ""], ...
-    PartialMiniBatch = "discard");
+    MiniBatchFcn=@preprocessMiniBatch, ...
+    MiniBatchFormat=["CB", ""], ...
+    PartialMiniBatch="discard");
 
 netD = nnvae.get('DECODER');
 netE = nnvae.get('ENCODER');
@@ -240,7 +227,7 @@ nnvae.set('DECODER', netD);
 value = [];
 
 %%%% ¡calculate_callbacks!
-function [loss, gradientsE, gradientsD] = modelLoss(netE, netD, X)    
+function [loss, gradientsE, gradientsD] = modelLoss(netE, netD, X) % need to be a property   
     % Forward through encoder.
     [Z,mu,logSigmaSq] = forward(netE,X);
     
@@ -251,60 +238,22 @@ function [loss, gradientsE, gradientsD] = modelLoss(netE, netD, X)
     loss = nnvae.get('ELBO_LOSS', Y, X, mu, logSigmaSq);
     [gradientsE,gradientsD] = dlgradient(loss,netE.Learnables,netD.Learnables);
 end
-function [X, Y] = preprocessMiniBatch(XCell, YCell)    
+function [X, Y] = preprocessMiniBatch(XCell, YCell)    % need to be a property
     % Concatenate.
-    X = cat(4, XCell{:});
+    X = cat(2, XCell{:});
     
     % Extract label data from cell and concatenate.
     Y = cat(2, YCell{:});
-    
-    % One-hot encode labels.
-    Y = onehotencode(Y, 1);
+
+% Extract label data from cell and concatenate.
+Y = cat(2,YCell{:});
 end
 
 %% ¡props!
 
 %%% ¡prop!
-LEARN_RATE (parameter, scalar) is the size of the mini-batch used for each training iteration.
+SIZE_INPUT (parameter, rvector) is the size of the input data.
 %%%% ¡default!
-1e-3
-
-%%% ¡prop!
-NUM_LATENT_REP (parameter, scalar) is the size of the mini-batch used for each training iteration.
-%%%% ¡default!
-2
-
-%%% ¡prop!
-SIZE_IMG (parameter, rvector) is the size of the input image.
-%%%% ¡default!
-[28 28 1]
-
-%%% ¡prop!
-ENCODER (data, net) is a trained neural network encoder with the given dataset.
-
-%%% ¡prop!
-DECODER (data, net) is a trained neural network decoder with the given dataset.
-
-%%% ¡prop!
-ELBO_LOSS (query, scalar) returns the elbo loss.
-%%%% ¡calculate!
-if length(varargin) < 4
-    value = 0;
-    return
-end
-y = varargin{1};
-t = varargin{2};
-mu = varargin{3};
-logSigmaSq = varargin{4};
-
-% Reconstruction loss
-reconstructionLoss = mse(y, t);
-
-% KL divergence
-KL = -1/2 * sum(1 + logSigmaSq - mu.^2 - exp(logSigmaSq),1);
-KL = mean(KL);
-
-% Combined loss
-value = reconstructionLoss + KL;
+[1000 1]
 
 %% ¡tests!

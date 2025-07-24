@@ -742,7 +742,7 @@ classdef NNDataPoint_SpectrumSignal < NNDataPoint
 					if isempty(sp_data)
 					    value = {};
 					else
-					    value = sp_data(idx_wav_start:idx_wav_end);
+					    value = {sp_data(idx_wav_start:idx_wav_end)};
 					end
 					
 					rng(rng_settings_)

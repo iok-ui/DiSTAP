@@ -22,8 +22,10 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 	%  <strong>14</strong> <strong>NORMALIZATION_RULE</strong> 	NORMALIZATION_RULE (parameter, option) is the normalization methods.
 	%  <strong>15</strong> <strong>SCALE_FACTOR</strong> 	SCALE_FACTOR (parameter, scalar) is the normalization methods.
 	%  <strong>16</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (result, cvector) is the wavelength.
-	%  <strong>17</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.
-	%  <strong>18</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
+	%  <strong>17</strong> <strong>TRANSFORM_DATA</strong> 	TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.
+	%  <strong>18</strong> <strong>NORMALIZE_DATA</strong> 	NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.
+	%  <strong>19</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.
+	%  <strong>20</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
 	%
 	% NNDatasetProcess_SpectrumSignal methods (constructor):
 	%  NNDatasetProcess_SpectrumSignal - constructor
@@ -151,12 +153,22 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 		WAVELENGTH_CATEGORY = 5;
 		WAVELENGTH_FORMAT = 13;
 		
-		EXTRACT_DATA = 17; %CET: Computational Efficiency Trick
+		TRANSFORM_DATA = 17; %CET: Computational Efficiency Trick
+		TRANSFORM_DATA_TAG = 'TRANSFORM_DATA';
+		TRANSFORM_DATA_CATEGORY = 6;
+		TRANSFORM_DATA_FORMAT = 16;
+		
+		NORMALIZE_DATA = 18; %CET: Computational Efficiency Trick
+		NORMALIZE_DATA_TAG = 'NORMALIZE_DATA';
+		NORMALIZE_DATA_CATEGORY = 6;
+		NORMALIZE_DATA_FORMAT = 16;
+		
+		EXTRACT_DATA = 19; %CET: Computational Efficiency Trick
 		EXTRACT_DATA_TAG = 'EXTRACT_DATA';
 		EXTRACT_DATA_CATEGORY = 6;
 		EXTRACT_DATA_FORMAT = 16;
 		
-		EXTRACT_LABELS = 18; %CET: Computational Efficiency Trick
+		EXTRACT_LABELS = 20; %CET: Computational Efficiency Trick
 		EXTRACT_LABELS_TAG = 'EXTRACT_LABELS';
 		EXTRACT_LABELS_CATEGORY = 6;
 		EXTRACT_LABELS_FORMAT = 3;
@@ -189,8 +201,10 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			%  <strong>14</strong> <strong>NORMALIZATION_RULE</strong> 	NORMALIZATION_RULE (parameter, option) is the normalization methods.
 			%  <strong>15</strong> <strong>SCALE_FACTOR</strong> 	SCALE_FACTOR (parameter, scalar) is the normalization methods.
 			%  <strong>16</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (result, cvector) is the wavelength.
-			%  <strong>17</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.
-			%  <strong>18</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
+			%  <strong>17</strong> <strong>TRANSFORM_DATA</strong> 	TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.
+			%  <strong>18</strong> <strong>NORMALIZE_DATA</strong> 	NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.
+			%  <strong>19</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.
+			%  <strong>20</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
 			%
 			% See also Category, Format.
 			
@@ -267,7 +281,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18];
+				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20];
 				return
 			end
 			
@@ -283,7 +297,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 				case 5 % Category.RESULT
 					prop_list = [9 16];
 				case 6 % Category.QUERY
-					prop_list = [8 17 18];
+					prop_list = [8 17 18 19 20];
 				otherwise
 					prop_list = [];
 			end
@@ -309,7 +323,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_number = 18;
+				prop_number = 20;
 				return
 			end
 			
@@ -325,7 +339,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 				case 5 % Category.RESULT
 					prop_number = 2;
 				case 6 % Category.QUERY
-					prop_number = 3;
+					prop_number = 5;
 				otherwise
 					prop_number = 0;
 			end
@@ -356,7 +370,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 18 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = prop >= 1 && prop <= 20 && round(prop) == prop; %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -394,7 +408,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'EXTRACT_DATA'  'EXTRACT_LABELS' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'TRANSFORM_DATA'  'NORMALIZE_DATA'  'EXTRACT_DATA'  'EXTRACT_LABELS' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -427,7 +441,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'EXTRACT_DATA'  'EXTRACT_LABELS' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'TRANSFORM_DATA'  'NORMALIZE_DATA'  'EXTRACT_DATA'  'EXTRACT_LABELS' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -456,7 +470,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				nndatasetprocess_spectrumsignal_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'EXTRACT_DATA'  'EXTRACT_LABELS' };
+				nndatasetprocess_spectrumsignal_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'TRANSFORM_DATA'  'NORMALIZE_DATA'  'EXTRACT_DATA'  'EXTRACT_LABELS' };
 				tag = nndatasetprocess_spectrumsignal_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -483,7 +497,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			prop = NNDatasetProcess_SpectrumSignal.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_spectrumsignal_category_list = { 1  1  1  3  4  2  2  6  5  4  3  3  3  3  3  5  6  6 };
+			nndatasetprocess_spectrumsignal_category_list = { 1  1  1  3  4  2  2  6  5  4  3  3  3  3  3  5  6  6  6  6 };
 			prop_category = nndatasetprocess_spectrumsignal_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -509,7 +523,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			prop = NNDatasetProcess_SpectrumSignal.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_spectrumsignal_format_list = { 2  2  2  8  2  2  2  2  8  2  11  11  5  5  11  13  16  3 };
+			nndatasetprocess_spectrumsignal_format_list = { 2  2  2  8  2  2  2  2  8  2  11  11  5  5  11  13  16  16  16  3 };
 			prop_format = nndatasetprocess_spectrumsignal_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
@@ -535,7 +549,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			prop = NNDatasetProcess_SpectrumSignal.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_spectrumsignal_description_list = { 'ELCLASS (constant, string) is the class of processing MNIST data for a neural networks datasets.'  'NAME (constant, string) is the name of processing MNIST data for a neural networks datasets.'  'DESCRIPTION (constant, string) is the description of processing data for a neural networks datasets.'  'TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.'  'ID (data, string) is a few-letter code of processing data for a neural networks datasets.'  'LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.'  'NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural network dataset containing the datapoint processed from the raw data.'  'RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.'  'WAVELENGTH_START (parameter, scalar) is the starting wavelength.'  'WAVELENGTH_END (parameter, scalar) is the ending  wavelength.'  'TRANSFORMATION_RULE (parameter, option) is the transformation methods.'  'NORMALIZATION_RULE (parameter, option) is the normalization methods.'  'SCALE_FACTOR (parameter, scalar) is the normalization methods.'  'WAVELENGTH (result, cvector) is the wavelength.'  'EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.'  'EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.' };
+			nndatasetprocess_spectrumsignal_description_list = { 'ELCLASS (constant, string) is the class of processing MNIST data for a neural networks datasets.'  'NAME (constant, string) is the name of processing MNIST data for a neural networks datasets.'  'DESCRIPTION (constant, string) is the description of processing data for a neural networks datasets.'  'TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.'  'ID (data, string) is a few-letter code of processing data for a neural networks datasets.'  'LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.'  'NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural network dataset containing the datapoint processed from the raw data.'  'RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.'  'WAVELENGTH_START (parameter, scalar) is the starting wavelength.'  'WAVELENGTH_END (parameter, scalar) is the ending  wavelength.'  'TRANSFORMATION_RULE (parameter, option) is the transformation methods.'  'NORMALIZATION_RULE (parameter, option) is the normalization methods.'  'SCALE_FACTOR (parameter, scalar) is the normalization methods.'  'WAVELENGTH (result, cvector) is the wavelength.'  'TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.'  'NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.'  'EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.'  'EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.' };
 			prop_description = nndatasetprocess_spectrumsignal_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -561,27 +575,31 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			prop = NNDatasetProcess_SpectrumSignal.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case 10 % NNDatasetProcess_SpectrumSignal.RAW_DATA_DIR
+				case NNDatasetProcess_SpectrumSignal.RAW_DATA_DIR % __NNDatasetProcess_SpectrumSignal.RAW_DATA_DIR__
 					prop_settings = Format.getFormatSettings(2);
-				case 11 % NNDatasetProcess_SpectrumSignal.WAVELENGTH_START
+				case NNDatasetProcess_SpectrumSignal.WAVELENGTH_START % __NNDatasetProcess_SpectrumSignal.WAVELENGTH_START__
 					prop_settings = Format.getFormatSettings(11);
-				case 12 % NNDatasetProcess_SpectrumSignal.WAVELENGTH_END
+				case NNDatasetProcess_SpectrumSignal.WAVELENGTH_END % __NNDatasetProcess_SpectrumSignal.WAVELENGTH_END__
 					prop_settings = Format.getFormatSettings(11);
-				case 13 % NNDatasetProcess_SpectrumSignal.TRANSFORMATION_RULE
+				case NNDatasetProcess_SpectrumSignal.TRANSFORMATION_RULE % __NNDatasetProcess_SpectrumSignal.TRANSFORMATION_RULE__
 					prop_settings = {'First derivative'};
-				case 14 % NNDatasetProcess_SpectrumSignal.NORMALIZATION_RULE
+				case NNDatasetProcess_SpectrumSignal.NORMALIZATION_RULE % __NNDatasetProcess_SpectrumSignal.NORMALIZATION_RULE__
 					prop_settings = {'Scale'};
-				case 15 % NNDatasetProcess_SpectrumSignal.SCALE_FACTOR
+				case NNDatasetProcess_SpectrumSignal.SCALE_FACTOR % __NNDatasetProcess_SpectrumSignal.SCALE_FACTOR__
 					prop_settings = Format.getFormatSettings(11);
-				case 16 % NNDatasetProcess_SpectrumSignal.WAVELENGTH
+				case NNDatasetProcess_SpectrumSignal.WAVELENGTH % __NNDatasetProcess_SpectrumSignal.WAVELENGTH__
 					prop_settings = Format.getFormatSettings(13);
-				case 17 % NNDatasetProcess_SpectrumSignal.EXTRACT_DATA
+				case NNDatasetProcess_SpectrumSignal.TRANSFORM_DATA % __NNDatasetProcess_SpectrumSignal.TRANSFORM_DATA__
 					prop_settings = Format.getFormatSettings(16);
-				case 18 % NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS
+				case NNDatasetProcess_SpectrumSignal.NORMALIZE_DATA % __NNDatasetProcess_SpectrumSignal.NORMALIZE_DATA__
+					prop_settings = Format.getFormatSettings(16);
+				case NNDatasetProcess_SpectrumSignal.EXTRACT_DATA % __NNDatasetProcess_SpectrumSignal.EXTRACT_DATA__
+					prop_settings = Format.getFormatSettings(16);
+				case NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS % __NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS__
 					prop_settings = Format.getFormatSettings(3);
-				case 4 % NNDatasetProcess_SpectrumSignal.TEMPLATE
+				case NNDatasetProcess_SpectrumSignal.TEMPLATE % __NNDatasetProcess_SpectrumSignal.TEMPLATE__
 					prop_settings = 'NNDatasetProcess_SpectrumSignal';
-				case 9 % NNDatasetProcess_SpectrumSignal.D
+				case NNDatasetProcess_SpectrumSignal.D % __NNDatasetProcess_SpectrumSignal.D__
 					prop_settings = 'NNDataset';
 				otherwise
 					prop_settings = getPropSettings@NNDatasetProcess(prop);
@@ -610,39 +628,43 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			prop = NNDatasetProcess_SpectrumSignal.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case 10 % NNDatasetProcess_SpectrumSignal.RAW_DATA_DIR
+				case NNDatasetProcess_SpectrumSignal.RAW_DATA_DIR % __NNDatasetProcess_SpectrumSignal.RAW_DATA_DIR__
 					prop_default = Format.getFormatDefault(2, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 11 % NNDatasetProcess_SpectrumSignal.WAVELENGTH_START
+				case NNDatasetProcess_SpectrumSignal.WAVELENGTH_START % __NNDatasetProcess_SpectrumSignal.WAVELENGTH_START__
 					prop_default = 600;
-				case 12 % NNDatasetProcess_SpectrumSignal.WAVELENGTH_END
+				case NNDatasetProcess_SpectrumSignal.WAVELENGTH_END % __NNDatasetProcess_SpectrumSignal.WAVELENGTH_END__
 					prop_default = 1750;
-				case 13 % NNDatasetProcess_SpectrumSignal.TRANSFORMATION_RULE
+				case NNDatasetProcess_SpectrumSignal.TRANSFORMATION_RULE % __NNDatasetProcess_SpectrumSignal.TRANSFORMATION_RULE__
 					prop_default = 'First derivative';
-				case 14 % NNDatasetProcess_SpectrumSignal.NORMALIZATION_RULE
+				case NNDatasetProcess_SpectrumSignal.NORMALIZATION_RULE % __NNDatasetProcess_SpectrumSignal.NORMALIZATION_RULE__
 					prop_default = 'Scale';
-				case 15 % NNDatasetProcess_SpectrumSignal.SCALE_FACTOR
+				case NNDatasetProcess_SpectrumSignal.SCALE_FACTOR % __NNDatasetProcess_SpectrumSignal.SCALE_FACTOR__
 					prop_default = 1;
-				case 16 % NNDatasetProcess_SpectrumSignal.WAVELENGTH
+				case NNDatasetProcess_SpectrumSignal.WAVELENGTH % __NNDatasetProcess_SpectrumSignal.WAVELENGTH__
 					prop_default = Format.getFormatDefault(13, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 17 % NNDatasetProcess_SpectrumSignal.EXTRACT_DATA
+				case NNDatasetProcess_SpectrumSignal.TRANSFORM_DATA % __NNDatasetProcess_SpectrumSignal.TRANSFORM_DATA__
 					prop_default = Format.getFormatDefault(16, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 18 % NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS
+				case NNDatasetProcess_SpectrumSignal.NORMALIZE_DATA % __NNDatasetProcess_SpectrumSignal.NORMALIZE_DATA__
+					prop_default = Format.getFormatDefault(16, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
+				case NNDatasetProcess_SpectrumSignal.EXTRACT_DATA % __NNDatasetProcess_SpectrumSignal.EXTRACT_DATA__
+					prop_default = Format.getFormatDefault(16, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
+				case NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS % __NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS__
 					prop_default = Format.getFormatDefault(3, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 1 % NNDatasetProcess_SpectrumSignal.ELCLASS
+				case NNDatasetProcess_SpectrumSignal.ELCLASS % __NNDatasetProcess_SpectrumSignal.ELCLASS__
 					prop_default = 'NNDatasetProcess_SpectrumSignal';
-				case 2 % NNDatasetProcess_SpectrumSignal.NAME
+				case NNDatasetProcess_SpectrumSignal.NAME % __NNDatasetProcess_SpectrumSignal.NAME__
 					prop_default = 'Processing Raman Spectrum Data for a Neural Network Dataset';
-				case 3 % NNDatasetProcess_SpectrumSignal.DESCRIPTION
+				case NNDatasetProcess_SpectrumSignal.DESCRIPTION % __NNDatasetProcess_SpectrumSignal.DESCRIPTION__
 					prop_default = 'The MNIST processing for a neural network dataset (NNDatasetProcess_MNIST) processes the raw MNIST data into a neural network dataset. The resulting neural network dataset contains all the datapoints from the raw data, along with its corresponding labels.';
-				case 4 % NNDatasetProcess_SpectrumSignal.TEMPLATE
+				case NNDatasetProcess_SpectrumSignal.TEMPLATE % __NNDatasetProcess_SpectrumSignal.TEMPLATE__
 					prop_default = Format.getFormatDefault(8, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 5 % NNDatasetProcess_SpectrumSignal.ID
+				case NNDatasetProcess_SpectrumSignal.ID % __NNDatasetProcess_SpectrumSignal.ID__
 					prop_default = 'NNDatasetProcess_SpectrumSignal ID';
-				case 6 % NNDatasetProcess_SpectrumSignal.LABEL
+				case NNDatasetProcess_SpectrumSignal.LABEL % __NNDatasetProcess_SpectrumSignal.LABEL__
 					prop_default = 'NNDatasetProcess_SpectrumSignal label';
-				case 7 % NNDatasetProcess_SpectrumSignal.NOTES
+				case NNDatasetProcess_SpectrumSignal.NOTES % __NNDatasetProcess_SpectrumSignal.NOTES__
 					prop_default = 'NNDatasetProcess_SpectrumSignal notes';
-				case 9 % NNDatasetProcess_SpectrumSignal.D
+				case NNDatasetProcess_SpectrumSignal.D % __NNDatasetProcess_SpectrumSignal.D__
 					prop_default = Format.getFormatDefault(8, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
 				otherwise
 					prop_default = getPropDefault@NNDatasetProcess(prop);
@@ -708,27 +730,31 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			prop = NNDatasetProcess_SpectrumSignal.getPropProp(pointer);
 			
 			switch prop
-				case 10 % NNDatasetProcess_SpectrumSignal.RAW_DATA_DIR
+				case NNDatasetProcess_SpectrumSignal.RAW_DATA_DIR % __NNDatasetProcess_SpectrumSignal.RAW_DATA_DIR__
 					check = Format.checkFormat(2, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 11 % NNDatasetProcess_SpectrumSignal.WAVELENGTH_START
+				case NNDatasetProcess_SpectrumSignal.WAVELENGTH_START % __NNDatasetProcess_SpectrumSignal.WAVELENGTH_START__
 					check = Format.checkFormat(11, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 12 % NNDatasetProcess_SpectrumSignal.WAVELENGTH_END
+				case NNDatasetProcess_SpectrumSignal.WAVELENGTH_END % __NNDatasetProcess_SpectrumSignal.WAVELENGTH_END__
 					check = Format.checkFormat(11, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 13 % NNDatasetProcess_SpectrumSignal.TRANSFORMATION_RULE
+				case NNDatasetProcess_SpectrumSignal.TRANSFORMATION_RULE % __NNDatasetProcess_SpectrumSignal.TRANSFORMATION_RULE__
 					check = Format.checkFormat(5, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 14 % NNDatasetProcess_SpectrumSignal.NORMALIZATION_RULE
+				case NNDatasetProcess_SpectrumSignal.NORMALIZATION_RULE % __NNDatasetProcess_SpectrumSignal.NORMALIZATION_RULE__
 					check = Format.checkFormat(5, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 15 % NNDatasetProcess_SpectrumSignal.SCALE_FACTOR
+				case NNDatasetProcess_SpectrumSignal.SCALE_FACTOR % __NNDatasetProcess_SpectrumSignal.SCALE_FACTOR__
 					check = Format.checkFormat(11, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 16 % NNDatasetProcess_SpectrumSignal.WAVELENGTH
+				case NNDatasetProcess_SpectrumSignal.WAVELENGTH % __NNDatasetProcess_SpectrumSignal.WAVELENGTH__
 					check = Format.checkFormat(13, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 17 % NNDatasetProcess_SpectrumSignal.EXTRACT_DATA
+				case NNDatasetProcess_SpectrumSignal.TRANSFORM_DATA % __NNDatasetProcess_SpectrumSignal.TRANSFORM_DATA__
 					check = Format.checkFormat(16, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 18 % NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS
+				case NNDatasetProcess_SpectrumSignal.NORMALIZE_DATA % __NNDatasetProcess_SpectrumSignal.NORMALIZE_DATA__
+					check = Format.checkFormat(16, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
+				case NNDatasetProcess_SpectrumSignal.EXTRACT_DATA % __NNDatasetProcess_SpectrumSignal.EXTRACT_DATA__
+					check = Format.checkFormat(16, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
+				case NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS % __NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS__
 					check = Format.checkFormat(3, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 4 % NNDatasetProcess_SpectrumSignal.TEMPLATE
+				case NNDatasetProcess_SpectrumSignal.TEMPLATE % __NNDatasetProcess_SpectrumSignal.TEMPLATE__
 					check = Format.checkFormat(8, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
-				case 9 % NNDatasetProcess_SpectrumSignal.D
+				case NNDatasetProcess_SpectrumSignal.D % __NNDatasetProcess_SpectrumSignal.D__
 					check = Format.checkFormat(8, value, NNDatasetProcess_SpectrumSignal.getPropSettings(prop));
 				otherwise
 					if prop <= 9
@@ -761,7 +787,7 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			%  checkValue.
 			
 			switch prop
-				case 15 % NNDatasetProcess_SpectrumSignal.SCALE_FACTOR
+				case NNDatasetProcess_SpectrumSignal.SCALE_FACTOR % __NNDatasetProcess_SpectrumSignal.SCALE_FACTOR__
 					if ~isequal(dproc.get('NORMALIZATION_RULE'), 'Scale')
 					    dproc.set('SCALE_FACTOR', 1)
 					end
@@ -790,8 +816,8 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case 16 % NNDatasetProcess_SpectrumSignal.WAVELENGTH
-					rng_settings_ = rng(); rng(dproc.getPropSeed(16), 'twister')
+				case NNDatasetProcess_SpectrumSignal.WAVELENGTH % __NNDatasetProcess_SpectrumSignal.WAVELENGTH__
+					rng_settings_ = rng(); rng(dproc.getPropSeed(NNDatasetProcess_SpectrumSignal.WAVELENGTH), 'twister')
 					
 					dir_name = dproc.get('RAW_DATA_DIR');
 					if isempty(dir_name)
@@ -824,7 +850,37 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 					
 					rng(rng_settings_)
 					
-				case 17 % NNDatasetProcess_SpectrumSignal.EXTRACT_DATA
+				case NNDatasetProcess_SpectrumSignal.TRANSFORM_DATA % __NNDatasetProcess_SpectrumSignal.TRANSFORM_DATA__
+					if isempty(varargin)
+					    value = {};
+					    return
+					end
+					data = varargin{1};
+					transformation = dproc.get('TRANSFORMATION_RULE')
+					switch transformation
+					    case 'First derivative' % first derivative
+					        data_tmp = data;
+					        data_tmp = data_tmp(2:end, :) - data_tmp(1:end-1, :);
+					        data(1:end-1, :) = data_tmp;
+					        data(end, :) = 0;
+					end
+					value = data;
+					
+				case NNDatasetProcess_SpectrumSignal.NORMALIZE_DATA % __NNDatasetProcess_SpectrumSignal.NORMALIZE_DATA__
+					if isempty(varargin)
+					    value = {};
+					    return
+					end
+					data = varargin{1};
+					normalization = dproc.get('NORMALIZATION_RULE')
+					switch normalization
+                        case 'Scale' 
+					        scale_factor = dproc.get('SCALE_FACTOR');
+					        data = data ./ scale_factor;
+					end
+					value = data;
+					
+				case NNDatasetProcess_SpectrumSignal.EXTRACT_DATA % __NNDatasetProcess_SpectrumSignal.EXTRACT_DATA__
 					dir_name = dproc.get('RAW_DATA_DIR');
 					if isempty(dir_name)
 					    value = {};
@@ -835,7 +891,6 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 					    file_names(i) = string(file_list(i).name);
 					end
 					file_names = file_names';
-					
 					
 					X = [];
 					for file_idx = 1:length(file_names)
@@ -863,11 +918,14 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 					    end
 					end
 					
+					X_tr = dproc.get('TRANSFORM_DATA', X);
+					X_tr_nor = dproc.get('NORMALIZE_DATA', X_tr);
+					
 					for i = 1:size(X, 2)
-					    value{i} =  X(:, i);
+					    value{i} = X_tr_nor(:, i);
 					end
 					
-				case 18 % NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS
+				case NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS % __NNDatasetProcess_SpectrumSignal.EXTRACT_LABELS__
 					dir_name = dproc.get('RAW_DATA_DIR');
 					if isempty(dir_name)
 					    value = {};
@@ -932,8 +990,8 @@ classdef NNDatasetProcess_SpectrumSignal < NNDatasetProcess
 					    value{i} = char(Y(:, i));
 					end
 					
-				case 9 % NNDatasetProcess_SpectrumSignal.D
-					rng_settings_ = rng(); rng(dproc.getPropSeed(9), 'twister')
+				case NNDatasetProcess_SpectrumSignal.D % __NNDatasetProcess_SpectrumSignal.D__
+					rng_settings_ = rng(); rng(dproc.getPropSeed(NNDatasetProcess_SpectrumSignal.D), 'twister')
 					
 					raw_spectrum_list = dproc.get('EXTRACT_DATA');
 					raw_label_list = dproc.get('EXTRACT_LABELS');

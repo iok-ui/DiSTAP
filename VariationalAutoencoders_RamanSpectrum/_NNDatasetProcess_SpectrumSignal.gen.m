@@ -146,6 +146,40 @@ end
 value = sp_dict.get('IT', 1).get('WAVELENGTH');
 
 %%% ¡prop!
+TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.
+%%%% ¡calculate!
+if isempty(varargin)
+    value = {};
+    return
+end
+data = varargin{1};
+transformation = dproc.get('TRANSFORMATION_RULE')
+switch transformation
+    case 'First derivative' % first derivative
+        data_tmp = data;
+        data_tmp = data_tmp(2:end, :) - data_tmp(1:end-1, :);
+        data(1:end-1, :) = data_tmp;
+        data(end, :) = 0;
+end
+value = data;
+
+%%% ¡prop!
+NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.
+%%%% ¡calculate!
+if isempty(varargin)
+    value = {};
+    return
+end
+data = varargin{1};
+normalization = dproc.get('NORMALIZATION_RULE')
+switch normalization
+    case 'Scale' 
+        scale_factor = dproc.get('SCALE_FACTOR');
+        data = data ./ scale_factor;
+end
+value = data;
+
+%%% ¡prop!
 EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.
 %%%% ¡calculate!
 dir_name = dproc.get('RAW_DATA_DIR');
@@ -158,7 +192,6 @@ for i = 1:length(file_list)
     file_names(i) = string(file_list(i).name);
 end
 file_names = file_names';
-
 
 X = [];
 for file_idx = 1:length(file_names)
@@ -186,8 +219,11 @@ for file_idx = 1:length(file_names)
     end
 end
 
+X_tr = dproc.get('TRANSFORM_DATA', X);
+X_tr_nor = dproc.get('NORMALIZE_DATA', X_tr);
+
 for i = 1:size(X, 2)
-    value{i} =  X(:, i);
+    value{i} = X_tr_nor(:, i);
 end
 
 %%% ¡prop!

@@ -1,27 +1,24 @@
-%% EXAMPLE_NNCV_CON_BUD_M_CLA
-% Script example pipeline for NN regression cross-validation with input of GraphBUD measures derived from SubjectCON 
+%% EXAMPLE_NNVAE_SPECTRUM
+% Script example pipeline for NN Variational Autoencoders with Raman
+% Spectrum Data
 
 clear variables %#ok<*NASGU>
 
-%% Load MNIST Dataset
-dproc = NNDatasetProcess_MNIST( ...
-    'MNIST_IMAGE_FILE', [fileparts(which('NNDatasetProcess_MNIST')) filesep 'mnist_data' filesep 'train-images-idx3-ubyte.gz'], ...
-    'MNIST_LABEL_FILE', [fileparts(which('NNDatasetProcess_MNIST')) filesep 'mnist_data' filesep 'train-labels-idx1-ubyte.gz'] ...
-    );
-d_mnist = dproc.get('D');
-
-%% Split for Training/Test
-d_split = NNDatasetSplit('D', d_mnist, 'SPLIT', {0.7, 0.3});
-d_training = d_split.get('D_LIST_IT', 1);
-d_test = d_split.get('D_LIST_IT', 2);
+%% Load Spectra Dataset
+dproc = NNDatasetProcess_SpectrumSignal( ...
+    'RAW_DATA_DIR', [fileparts(which('NNDatasetProcess_SpectrumSignal')) filesep 'b2_files'], ...
+    'TRANSFORMATION_RULE', 'First derivative', ...
+    'NORMALIZATION_RULE', 'Scale', ...
+    'SCALE_FACTOR', 100);
+d_sp = dproc.get('D');
 
 %% Train a Variational Autoencoder
-nnvae = NNVariationalAutoencoders('D', d_training, 'EPOCHS', 2, 'BATCH', 128);
+nnvae = NNVariationalAutoencoders_Structured('D', d_sp, 'EPOCHS', 10, 'BATCH', 32);
 nnvae.get('TRAIN')
 
 %% Evaluate and Visualize Latent Space
-nne = NNVariationalAutoencoders_Evaluator('NN', nnvae, 'D', d_test);
-figure
-nne.get('PLOT_LATENT_REPRESENTATIONS')
-figure
-nne.get('PLOT_LATENT_CONTINUITY')
+% % % nne = NNVariationalAutoencoders_Evaluator('NN', nnvae, 'D', d_test);
+% % % figure
+% % % nne.get('PLOT_LATENT_REPRESENTATIONS')
+% % % figure
+% % % nne.get('PLOT_LATENT_CONTINUITY')
