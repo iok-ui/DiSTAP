@@ -17,8 +17,12 @@ nnvae = NNVariationalAutoencoders_Structured('D', d_sp, 'EPOCHS', 10, 'BATCH', 3
 nnvae.get('TRAIN')
 
 %% Evaluate and Visualize Latent Space
-% % % nne = NNVariationalAutoencoders_Evaluator('NN', nnvae, 'D', d_test);
+nne = NNVariationalAutoencoders_Evaluator('NN', nnvae, 'D', d_sp);
+
+% latent space
+figure
+nne.get('PLOT_LATENT_REPRESENTATIONS')
+
+% Peak identification
 % % % figure
-% % % nne.get('PLOT_LATENT_REPRESENTATIONS')
-% % % figure
-% % % nne.get('PLOT_LATENT_CONTINUITY')
+% % % nne.get('PLOT_PEAK_IDENTIFICATIONS')

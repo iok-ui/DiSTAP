@@ -1,5 +1,5 @@
 %% ¡header!
-NNVariationalAutoencoders_Structured < NNVariationalAutoencoders (nnvae, normalizer of a neural network data) transfroms neural network datasets.
+NNVariationalAutoencodersMLP < NNVariationalAutoencoders (nnvae, normalizer of a neural network data) transfroms neural network datasets.
 
 %%% ¡description!
 A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. 
@@ -60,11 +60,6 @@ check = ismember(value.get('DP_CLASS'), nnvae.get('DP_CLASSES'));
 %%%% ¡postset!
 if ~isequal(nnvae.get('D').get('DP_DICT').get('LENGTH'), 0)
     input_data = cell2mat(nnvae.get('D').get('DP_DICT').get('IT', 1).get('INPUT'));
-    % % % if isequal(length(size(input_data)), 2) % only 1 channel
-    % % %     size_img = [size(input_data) 1]; % force it to be length, width, channel
-    % % % else
-    % % %     size_img = size(input_data);
-    % % % end
     size_input = size(input_data);
     nnvae.set('SIZE_INPUT', size_input);
 end
@@ -206,7 +201,7 @@ while epoch < numEpochs && ~monitor.Stop
         [X, Y] = next(mbq);
 
         % Evaluate loss and gradients.
-        [loss,gradientsE,gradientsD] = dlfeval(@modelLoss, netE, netD,X);
+        [loss,gradientsE,gradientsD] = dlfeval(@modelLoss, netE, netD, X);
 
         % Update learnable parameters.
         [netE,trailingAvgE,trailingAvgSqE] = adamupdate(netE, ...
