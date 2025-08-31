@@ -1,5 +1,5 @@
 %% ¡header!
-NNDatasetProcess_SpectrumSignal < NNDatasetProcess (dproc, processing for a neural network data) processes raw MNIST data into a neural network datasets.
+NNDatasetProcess_RamanSpectra < NNDatasetProcess (dproc, processing for a neural network data) processes raw MNIST data into a neural network datasets.
 
 %%% ¡description!
 The Raman sepctrum processing for a neural network dataset (NNDatasetProcess_Spectrum) processes the raw raman spectrum data into a neural network dataset. 
@@ -16,7 +16,7 @@ NNDatasetProcess, NNDataPoint
 %%% ¡prop!
 ELCLASS (constant, string) is the class of processing MNIST data for a neural networks datasets.
 %%%% ¡default!
-'NNDatasetProcess_SpectrumSignal'
+'NNDatasetProcess_RamanSpectra'
 
 %%% ¡prop!
 NAME (constant, string) is the name of processing MNIST data for a neural networks datasets.
@@ -31,22 +31,22 @@ DESCRIPTION (constant, string) is the description of processing data for a neura
 %%% ¡prop!
 TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.
 %%%% ¡settings!
-'NNDatasetProcess_SpectrumSignal'
+'NNDatasetProcess_RamanSpectra'
 
 %%% ¡prop!
 ID (data, string) is a few-letter code of processing data for a neural networks datasets.
 %%%% ¡default!
-'NNDatasetProcess_SpectrumSignal ID'
+'NNDatasetProcess_RamanSpectra ID'
 
 %%% ¡prop!
 LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.
 %%%% ¡default!
-'NNDatasetProcess_SpectrumSignal label'
+'NNDatasetProcess_RamanSpectra label'
 
 %%% ¡prop!
 NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.
 %%%% ¡default!
-'NNDatasetProcess_SpectrumSignal notes'
+'NNDatasetProcess_RamanSpectra notes'
 
 %%% ¡prop!
 D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
@@ -56,7 +56,7 @@ D (result, item) is the neural network dataset containing the datapoint processe
 raw_spectrum_list = dproc.get('EXTRACT_DATA');
 raw_label_list = dproc.get('EXTRACT_LABELS');
 
-it_list = cellfun(@(data, label) NNDataPoint_SpectrumSignal( ...
+it_list = cellfun(@(data, label) NNDataPoint_RamanSpectra( ...
     'SP_DATA', data, ...
     'WL', dproc.getCallback('WAVELENGTH'), ...
     'WL_START', dproc.getCallback('WAVELENGTH_START'), ...
@@ -66,7 +66,7 @@ it_list = cellfun(@(data, label) NNDataPoint_SpectrumSignal( ...
     'UniformOutput', false);
 
 dp_list = IndexedDictionary(...
-        'IT_CLASS', 'NNDataPoint_SpectrumSignal', ...
+        'IT_CLASS', 'NNDataPoint_RamanSpectra', ...
         'IT_LIST', it_list ...
         );
 
@@ -299,12 +299,12 @@ end
 %%%% ¡name!
 Construction of an Empty Spectrum Dataset
 %%%% ¡code!
-dproc = NNDatasetProcess_SpectrumSignal();
+dproc = NNDatasetProcess_RamanSpectra();
 d_sp = dproc.get('D');
 
 assert(isequal(d_sp.get('DP_DICT').get('LENGTH'), 0), ...
-    [BRAPH2.STR ':NNDatasetProcess_SpectrumSignal:' BRAPH2.FAIL_TEST], ...
-    'NNDatasetProcess_SpectrumSignal does not construct the dataset correctly. The input value is not derived correctly.' ...
+    [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
+    'NNDatasetProcess_RamanSpectra does not construct the dataset correctly. The input value is not derived correctly.' ...
     )
 
 %%% ¡test!

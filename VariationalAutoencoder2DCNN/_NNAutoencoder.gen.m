@@ -1,5 +1,5 @@
 %% ¡header!
-NNVariationalAutoencoder < NNBase (nnvae, normalizer of a neural network data) transfroms neural network datasets.
+NNAutoencoder < NNBase (nnvae, normalizer of a neural network data) transfroms neural network datasets.
 
 %%% ¡description!
 A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. 
@@ -17,7 +17,7 @@ NNDataset, NNDatasetSplit
 %%% ¡prop!
 ELCLASS (constant, string) is the class of the combiner of neural networks datasets.
 %%%% ¡default!
-'NNVariationalAutoencoder'
+'NNAutoencoder'
 
 %%% ¡prop!
 NAME (constant, string) is the name of the combiner of neural networks datasets.
@@ -32,7 +32,7 @@ DESCRIPTION (constant, string) is the description of the combiner of neural netw
 %%% ¡prop!
 TEMPLATE (parameter, item) is the template of the combiner of neural networks datasets.
 %%%% ¡settings!
-'NNVariationalAutoencoder'
+'NNAutoencoder'
 
 %%% ¡prop!
 ID (data, string) is a few-letter code of the combiner of neural networks datasets.
@@ -140,16 +140,19 @@ nnvae.get('MODEL'); % to lock this element
 
 value = {};
 %%%% ¡calculate_callbacks!
-function [loss, gradientsE, gradientsD] = model_loss(netE, netD, X)
+function [loss, gradientsE, gradientsD] = model_loss(~, ~)
+    netE = varargin{1};
+    netD = varargin{2};
+    X = varargin{3};
     
     % Forward through encoder.
-    [Z, mu, logSigmaSq] = forward(netE, X);
+    Z = forward(netE, X);
     
     % Forward through decoder.
     Y = forward(netD, Z);
     
     % Calculate loss and gradients.
-    loss = nnvae.get('LOSS_FN', Y, X, mu, logSigmaSq);
+    loss = nnvae.get('LOSS_FN', Y, X);
     [gradientsE, gradientsD] = dlgradient(loss, netE.Learnables, netD.Learnables);
 end
 
@@ -198,7 +201,6 @@ if isempty(varargin)
     return
 end
 d = varargin{1};
-num_dp = d.get('DP_DICT').get('LENGTH');
 
 num_outputs = nnvae.get('NUM_MBQ_OUTPUT');
 itr = nnvae.get('ITERATION_DIM');
@@ -208,8 +210,7 @@ miniBatchSize = nnvae.get('BATCH');
 
 XTrain = nnvae.get('INPUTS', d);
 %YTrain = categorical(nnvae.get('TARGETS', d));
-YTrain = 1:1:num_dp;
-YTrain = YTrain';
+YTrain = 1:1:size(XTrain, 2);
 
 dsXTrain = arrayDatastore(XTrain, IterationDimension=itr);
 dsYTrain = arrayDatastore(YTrain);
@@ -222,35 +223,34 @@ value = minibatchqueue(dsTrain, num_outputs, ...
     PartialMiniBatch = "discard");
 
 %%%% ¡calculate_callbacks!
-function [X, Y] = preprocess_minibatch(XCell, YCell)
+function [X, Y] = preprocess_minibatch(~, ~) 
+    XCell = varargin{1};
+    YCell = varargin{2};
+    
     % Concatenate.
-    itr = nnvae.get('ITERATION_DIM')
-    X = cat(itr, XCell{:});
+    X = cat(4, XCell{:});
     
     % Extract label data from cell and concatenate.
     Y = cat(2, YCell{:});
+    
+    % One-hot encode labels.
+    Y = onehotencode(Y, 1);
 end
 
 %%% ¡prop!
 LOSS_FN (query, scalar) returns the loss function.
 %%%% ¡calculate!
-if length(varargin) < 4
+if length(varargin) < 2
     value = 0;
     return
 end
 y = varargin{1};
 t = varargin{2};
-mu = varargin{3};
-logSigmaSq = varargin{4};
 
 % Reconstruction loss
 reconstructionLoss = mse(y, t);
 
-% KL divergence
-KL = -1/2 * sum(1 + logSigmaSq - mu.^2 - exp(logSigmaSq),1);
-KL = mean(KL);
-
 % Combined loss
-value = reconstructionLoss + KL;
+value = reconstructionLoss;
 
 %% ¡tests!

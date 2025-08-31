@@ -16,12 +16,14 @@ d_training = d_split.get('D_LIST_IT', 1);
 d_test = d_split.get('D_LIST_IT', 2);
 
 %% Train a Variational Autoencoder
-nnvae = NNVariationalAutoencoders('D', d_training, 'EPOCHS', 2, 'BATCH', 128);
+nnvae = NNVariationalAutoencoderMLP('D', d_training, 'EPOCHS', 10, 'BATCH', 128);
 nnvae.get('TRAIN')
 
 %% Evaluate and Visualize Latent Space
-nne = NNVariationalAutoencoders_Evaluator('NN', nnvae, 'D', d_test);
+nne = NNVariationalAutoencoderEvaluator_Image('NN', nnvae, 'D', d_test);
 figure
 nne.get('PLOT_LATENT_REPRESENTATIONS')
+
+%%
 figure
 nne.get('PLOT_LATENT_CONTINUITY')
