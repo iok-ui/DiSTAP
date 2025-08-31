@@ -193,7 +193,7 @@ classdef NNDataPoint < ConcreteElement
 			%
 			% See also subclasses.
 			
-			subclass_list = { 'NNDataPoint'  'NNDataPoint_Image'  'NNDataPoint_Spectrum' }; %CET: Computational Efficiency Trick
+			subclass_list = { 'NNDataPoint'  'NNDataPoint_Image'  'NNDataPoint_RamanSpectra' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
 			%GETPROPS returns the property list of neural network data point.
@@ -511,11 +511,11 @@ classdef NNDataPoint < ConcreteElement
 			prop = NNDataPoint.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDataPoint.INPUT % __NNDataPoint.INPUT__
+				case 9 % NNDataPoint.INPUT
 					prop_settings = Format.getFormatSettings(16);
-				case NNDataPoint.TARGET % __NNDataPoint.TARGET__
+				case 10 % NNDataPoint.TARGET
 					prop_settings = Format.getFormatSettings(16);
-				case NNDataPoint.TEMPLATE % __NNDataPoint.TEMPLATE__
+				case 4 % NNDataPoint.TEMPLATE
 					prop_settings = 'NNDataPoint';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -544,23 +544,23 @@ classdef NNDataPoint < ConcreteElement
 			prop = NNDataPoint.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDataPoint.INPUT % __NNDataPoint.INPUT__
+				case 9 % NNDataPoint.INPUT
 					prop_default = Format.getFormatDefault(16, NNDataPoint.getPropSettings(prop));
-				case NNDataPoint.TARGET % __NNDataPoint.TARGET__
+				case 10 % NNDataPoint.TARGET
 					prop_default = Format.getFormatDefault(16, NNDataPoint.getPropSettings(prop));
-				case NNDataPoint.ELCLASS % __NNDataPoint.ELCLASS__
+				case 1 % NNDataPoint.ELCLASS
 					prop_default = 'NNDataPoint';
-				case NNDataPoint.NAME % __NNDataPoint.NAME__
+				case 2 % NNDataPoint.NAME
 					prop_default = 'Neural Network Data Point';
-				case NNDataPoint.DESCRIPTION % __NNDataPoint.DESCRIPTION__
+				case 3 % NNDataPoint.DESCRIPTION
 					prop_default = 'A neural network data point (NNDataPoint) contains a data point with its inputs and targets for neural network analysis. Instances of this class should not be created. Use one of its subclasses instead. Its subclasses shall be specifically designed to cater to different use cases such as classification task, regression task, or data generation.';
-				case NNDataPoint.TEMPLATE % __NNDataPoint.TEMPLATE__
+				case 4 % NNDataPoint.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNDataPoint.getPropSettings(prop));
-				case NNDataPoint.ID % __NNDataPoint.ID__
+				case 5 % NNDataPoint.ID
 					prop_default = 'NNDataPoint ID';
-				case NNDataPoint.LABEL % __NNDataPoint.LABEL__
+				case 6 % NNDataPoint.LABEL
 					prop_default = 'NNDataPoint label';
-				case NNDataPoint.NOTES % __NNDataPoint.NOTES__
+				case 7 % NNDataPoint.NOTES
 					prop_default = 'NNDataPoint notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -626,14 +626,14 @@ classdef NNDataPoint < ConcreteElement
 			prop = NNDataPoint.getPropProp(pointer);
 			
 			switch prop
-				case NNDataPoint.INPUT % __NNDataPoint.INPUT__
+				case 9 % NNDataPoint.INPUT
 					check = Format.checkFormat(16, value, NNDataPoint.getPropSettings(prop));
-				case NNDataPoint.TARGET % __NNDataPoint.TARGET__
+				case 10 % NNDataPoint.TARGET
 					check = Format.checkFormat(16, value, NNDataPoint.getPropSettings(prop));
-				case NNDataPoint.TEMPLATE % __NNDataPoint.TEMPLATE__
+				case 4 % NNDataPoint.TEMPLATE
 					check = Format.checkFormat(8, value, NNDataPoint.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end

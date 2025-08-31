@@ -687,7 +687,7 @@ classdef DistapPP_ID < PanelPropString
 				case 4 % DistapPP_ID.TEMPLATE
 					check = Format.checkFormat(8, value, DistapPP_ID.getPropSettings(prop));
 				otherwise
-					if prop <= PanelPropString.getPropNumber()
+					if prop <= 37
 						check = checkProp@PanelPropString(prop, value);
 					end
 			end
@@ -740,31 +740,31 @@ classdef DistapPP_ID < PanelPropString
 					value = axes;
 					
 				case 20 % DistapPP_ID.X_DRAW
-					value = calculateValue@PanelPropString(pr, PanelPropString.X_DRAW, varargin{:}); % also warning
+					value = calculateValue@PanelPropString(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('AXES')
 					end
 					
 				case 21 % DistapPP_ID.UPDATE
-					value = calculateValue@PanelPropString(pr, PanelPropString.UPDATE, varargin{:}); % also warning
+					value = calculateValue@PanelPropString(pr, 21, varargin{:}); % also warning
 					if value
 					    %
 					end
 					
 				case 22 % DistapPP_ID.REDRAW
-					value = calculateValue@PanelPropString(pr, PanelPropString.REDRAW, varargin{:}); % also warning
+					value = calculateValue@PanelPropString(pr, 22, varargin{:}); % also warning
 					if value
 					    %
 					end
 					
 				case 18 % DistapPP_ID.DELETE
-					value = calculateValue@PanelPropString(pr, PanelPropString.DELETE, varargin{:}); % also warning
+					value = calculateValue@PanelPropString(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('AXES', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelPropString.getPropNumber()
+					if prop <= 37
 						value = calculateValue@PanelPropString(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

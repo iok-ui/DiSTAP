@@ -526,15 +526,15 @@ classdef NNDatasetSplit < ConcreteElement
 			prop = NNDatasetSplit.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDatasetSplit.D % __NNDatasetSplit.D__
+				case 9 % NNDatasetSplit.D
 					prop_settings = 'NNDataset';
-				case NNDatasetSplit.SPLIT % __NNDatasetSplit.SPLIT__
+				case 10 % NNDatasetSplit.SPLIT
 					prop_settings = Format.getFormatSettings(16);
-				case NNDatasetSplit.D_LIST % __NNDatasetSplit.D_LIST__
+				case 11 % NNDatasetSplit.D_LIST
 					prop_settings = Format.getFormatSettings(9);
-				case NNDatasetSplit.D_LIST_IT % __NNDatasetSplit.D_LIST_IT__
+				case 12 % NNDatasetSplit.D_LIST_IT
 					prop_settings = Format.getFormatSettings(8);
-				case NNDatasetSplit.TEMPLATE % __NNDatasetSplit.TEMPLATE__
+				case 4 % NNDatasetSplit.TEMPLATE
 					prop_settings = 'NNDatasetSplit';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -563,27 +563,27 @@ classdef NNDatasetSplit < ConcreteElement
 			prop = NNDatasetSplit.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNDatasetSplit.D % __NNDatasetSplit.D__
+				case 9 % NNDatasetSplit.D
 					prop_default = NNDataset('DP_CLASS', 'NNDataPoint', 'DP_DICT', IndexedDictionary('IT_CLASS', 'NNDataPoint'));
-				case NNDatasetSplit.SPLIT % __NNDatasetSplit.SPLIT__
+				case 10 % NNDatasetSplit.SPLIT
 					prop_default = Format.getFormatDefault(16, NNDatasetSplit.getPropSettings(prop));
-				case NNDatasetSplit.D_LIST % __NNDatasetSplit.D_LIST__
+				case 11 % NNDatasetSplit.D_LIST
 					prop_default = Format.getFormatDefault(9, NNDatasetSplit.getPropSettings(prop));
-				case NNDatasetSplit.D_LIST_IT % __NNDatasetSplit.D_LIST_IT__
+				case 12 % NNDatasetSplit.D_LIST_IT
 					prop_default = Format.getFormatDefault(8, NNDatasetSplit.getPropSettings(prop));
-				case NNDatasetSplit.ELCLASS % __NNDatasetSplit.ELCLASS__
+				case 1 % NNDatasetSplit.ELCLASS
 					prop_default = 'NNDatasetSplit';
-				case NNDatasetSplit.NAME % __NNDatasetSplit.NAME__
+				case 2 % NNDatasetSplit.NAME
 					prop_default = 'Neural Network Dataset Splitter';
-				case NNDatasetSplit.DESCRIPTION % __NNDatasetSplit.DESCRIPTION__
+				case 3 % NNDatasetSplit.DESCRIPTION
 					prop_default = 'A dataset splitter (NNDatasetSplit) allows users to split a given dataset into multiple smaller datasets, each forming a partition. The splitting can be achieved by providing either specific indices or proportions for the datapoints in each partitioned dataset. For example usage, to split the dataset into two partitions, one containing datapoints 1 and 2, and the other containing datapoints 3, 4, and 5, the SPLIT property should be set as {[1 2], [3 4 5]}. Alternatively, using the SPLIT property as {0.2, 0.8}, NNDatasetSplit will randomly assign datapoints to two datasets, with the first dataset containing approximately 20 percent of the total datapoints (datapoints 1 and 3, for instance), and the second dataset containing the remaining 80 percent of the datapoints (datapoints 2, 4, and 5).';
-				case NNDatasetSplit.TEMPLATE % __NNDatasetSplit.TEMPLATE__
+				case 4 % NNDatasetSplit.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNDatasetSplit.getPropSettings(prop));
-				case NNDatasetSplit.ID % __NNDatasetSplit.ID__
+				case 5 % NNDatasetSplit.ID
 					prop_default = 'NNDatasetSplit ID';
-				case NNDatasetSplit.LABEL % __NNDatasetSplit.LABEL__
+				case 6 % NNDatasetSplit.LABEL
 					prop_default = 'NNDatasetSplit label';
-				case NNDatasetSplit.NOTES % __NNDatasetSplit.NOTES__
+				case 7 % NNDatasetSplit.NOTES
 					prop_default = 'NNDatasetSplit notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -649,18 +649,18 @@ classdef NNDatasetSplit < ConcreteElement
 			prop = NNDatasetSplit.getPropProp(pointer);
 			
 			switch prop
-				case NNDatasetSplit.D % __NNDatasetSplit.D__
+				case 9 % NNDatasetSplit.D
 					check = Format.checkFormat(8, value, NNDatasetSplit.getPropSettings(prop));
-				case NNDatasetSplit.SPLIT % __NNDatasetSplit.SPLIT__
+				case 10 % NNDatasetSplit.SPLIT
 					check = Format.checkFormat(16, value, NNDatasetSplit.getPropSettings(prop));
-				case NNDatasetSplit.D_LIST % __NNDatasetSplit.D_LIST__
+				case 11 % NNDatasetSplit.D_LIST
 					check = Format.checkFormat(9, value, NNDatasetSplit.getPropSettings(prop));
-				case NNDatasetSplit.D_LIST_IT % __NNDatasetSplit.D_LIST_IT__
+				case 12 % NNDatasetSplit.D_LIST_IT
 					check = Format.checkFormat(8, value, NNDatasetSplit.getPropSettings(prop));
-				case NNDatasetSplit.TEMPLATE % __NNDatasetSplit.TEMPLATE__
+				case 4 % NNDatasetSplit.TEMPLATE
 					check = Format.checkFormat(8, value, NNDatasetSplit.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -690,7 +690,7 @@ classdef NNDatasetSplit < ConcreteElement
 			%  checkValue.
 			
 			switch prop
-				case NNDatasetSplit.SPLIT % __NNDatasetSplit.SPLIT__
+				case 10 % NNDatasetSplit.SPLIT
 					value = dsp.get('SPLIT');
 					if all(cellfun(@isscalar, value)) & sum(cell2mat(value)) <= 1 & sum(cell2mat(value)) > 0 
 					    num_sub = dsp.get('D').get('DP_DICT').get('LENGTH');
@@ -714,7 +714,7 @@ classdef NNDatasetSplit < ConcreteElement
 					end
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						postset@ConcreteElement(dsp, prop);
 					end
 			end
@@ -737,8 +737,8 @@ classdef NNDatasetSplit < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case NNDatasetSplit.D_LIST % __NNDatasetSplit.D_LIST__
-					rng_settings_ = rng(); rng(dsp.getPropSeed(NNDatasetSplit.D_LIST), 'twister')
+				case 11 % NNDatasetSplit.D_LIST
+					rng_settings_ = rng(); rng(dsp.getPropSeed(11), 'twister')
 					
 					d = dsp.get('D');
 					dp_list = d.get('DP_DICT').get('IT_LIST');
@@ -752,7 +752,7 @@ classdef NNDatasetSplit < ConcreteElement
 					
 					rng(rng_settings_)
 					
-				case NNDatasetSplit.D_LIST_IT % __NNDatasetSplit.D_LIST_IT__
+				case 12 % NNDatasetSplit.D_LIST_IT
 					% d = dsp.get('D_LIST_IT', index) returns the NNDataset at the specified 
 					%  index from the D_LIST property.
 					if isempty(varargin)
@@ -766,7 +766,7 @@ classdef NNDatasetSplit < ConcreteElement
 					value = d_list{index};
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(dsp, prop, varargin{:});
 					else
 						value = calculateValue@Element(dsp, prop, varargin{:});
@@ -791,11 +791,11 @@ classdef NNDatasetSplit < ConcreteElement
 			msg = ['Error while checking ' tostring(dsp) ' ' dsp.getPropTag(prop) '.'];
 			
 			switch prop
-				case NNDatasetSplit.SPLIT % __NNDatasetSplit.SPLIT__
+				case 10 % NNDatasetSplit.SPLIT
 					check = all(cellfun(@(x) all(round(x) == x & all(x <= dsp.get('D').get('DP_DICT').get('LENGTH'))), dsp.get('SPLIT')));
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						[check, msg] = checkValue@ConcreteElement(dsp, prop, value);
 					end
 			end

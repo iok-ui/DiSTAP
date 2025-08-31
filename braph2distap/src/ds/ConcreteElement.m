@@ -223,7 +223,7 @@ classdef ConcreteElement < Element
 			%
 			% See also subclasses.
 			
-			subclass_list = { 'ConcreteElement'  'BaselineEstimator'  'BaselineRemover'  'CosmicRayNoiseRemover'  'DistapPP_ID'  'ImporterRamanExperiment_ASC'  'ImporterRamanExperiment_B2'  'ImporterRamanExperiment_TXT'  'PanelPropRVectorDate'  'REAnalysisModule'  'RamanExperiment'  'RamanExperimentPF'  'RamanExperimentPFPP_SelectedSp'  'Smoothener'  'SpectraTrimmer'  'Spectrum'  'WavelengthCalibrator'  'NNDataPoint_Image'  'NNDataPoint_Spectrum'  'NNDatasetNormalize'  'NNDatasetProcess'  'NNDatasetProcess_MNIST'  'NNDatasetTransform'  'NNVariationalAutoencoder'  'Group'  'Subject'  'SubjectPP_VOIDict'  'VOI'  'VOICategoric'  'VOINumeric'  'IndexedDictionary'  'ExporterPipelineBRAPH2'  'GUI'  'GUIElement'  'GUIFig'  'GUILayout'  'ImporterPipelineBRAPH2'  'Panel'  'PanelElement'  'PanelFig'  'PanelProp'  'PanelPropAlpha'  'PanelPropCell'  'PanelPropClass'  'PanelPropClassList'  'PanelPropColor'  'PanelPropIDict'  'PanelPropIDictTable'  'PanelPropItem'  'PanelPropItemList'  'PanelPropLine'  'PanelPropLogical'  'PanelPropMarker'  'PanelPropMatrix'  'PanelPropNet'  'PanelPropOption'  'PanelPropRVectorSmart'  'PanelPropRVectorView'  'PanelPropScalar'  'PanelPropSize'  'PanelPropString'  'PanelPropStringList'  'PanelPropStringTextArea'  'Pipeline'  'PipelineCode'  'PipelinePP_Notes'  'PipelinePP_PSDict'  'PipelineSection'  'Settings'  'SettingsAmbient'  'SettingsAmbientPP'  'SettingsArea'  'SettingsAreaPP'  'SettingsAxis'  'SettingsAxisPP'  'SettingsLine'  'SettingsLinePP'  'SettingsPP'  'SettingsPosition'  'SettingsPositionPP'  'SettingsSphere'  'SettingsSurface'  'SettingsSurfacePP'  'SettingsSymbol'  'SettingsText'  'SettingsTextPP'  'NNBase'  'NNCrossValidation'  'NNDataPoint'  'NNDataset'  'NNDatasetCombine'  'NNDatasetSplit'  'NNEvaluator'  'Exporter'  'Importer' }; %CET: Computational Efficiency Trick
+			subclass_list = { 'ConcreteElement'  'BaselineEstimator'  'BaselineRemover'  'CosmicRayNoiseRemover'  'DistapPP_ID'  'ImporterRamanExperiment_ASC'  'ImporterRamanExperiment_B2'  'ImporterRamanExperiment_TXT'  'PanelPropRVectorDate'  'REAnalysisModule'  'RamanExperiment'  'RamanExperimentPF'  'RamanExperimentPFPP_SelectedSp'  'Smoothener'  'SpectraTrimmer'  'Spectrum'  'WavelengthCalibrator'  'NNAutoencoder'  'NNDataPoint_Image'  'NNDatasetProcess'  'NNDatasetProcess_MNIST'  'NNVariationalAutoencoder'  'NNVariationalAutoencoder2DCNN'  'NNVariationalAutoencoderEvaluator'  'NNVariationalAutoencoderEvaluator_Image'  'NNVariationalAutoencoderMLP'  'NNDataPoint_RamanSpectra'  'NNDatasetProcess_RamanSpectra'  'NNVariationalAutoencoderEvaluator_RamanSpectral'  'Group'  'Subject'  'SubjectPP_VOIDict'  'VOI'  'VOICategoric'  'VOINumeric'  'IndexedDictionary'  'ExporterPipelineBRAPH2'  'GUI'  'GUIElement'  'GUIFig'  'GUILayout'  'ImporterPipelineBRAPH2'  'Panel'  'PanelElement'  'PanelFig'  'PanelProp'  'PanelPropAlpha'  'PanelPropCell'  'PanelPropClass'  'PanelPropClassList'  'PanelPropColor'  'PanelPropIDict'  'PanelPropIDictTable'  'PanelPropItem'  'PanelPropItemList'  'PanelPropLine'  'PanelPropLogical'  'PanelPropMarker'  'PanelPropMatrix'  'PanelPropNet'  'PanelPropOption'  'PanelPropRVectorSmart'  'PanelPropRVectorView'  'PanelPropScalar'  'PanelPropSize'  'PanelPropString'  'PanelPropStringList'  'PanelPropStringTextArea'  'Pipeline'  'PipelineCode'  'PipelinePP_Notes'  'PipelinePP_PSDict'  'PipelineSection'  'Settings'  'SettingsAmbient'  'SettingsAmbientPP'  'SettingsArea'  'SettingsAreaPP'  'SettingsAxis'  'SettingsAxisPP'  'SettingsLine'  'SettingsLinePP'  'SettingsPP'  'SettingsPosition'  'SettingsPositionPP'  'SettingsSphere'  'SettingsSurface'  'SettingsSurfacePP'  'SettingsSymbol'  'SettingsText'  'SettingsTextPP'  'GTA_AL'  'GTA_CA'  'GTA_CO'  'GTA_DI'  'GTA_EM'  'GTA_IT'  'GTA_LL'  'GTA_LN'  'GTA_LO'  'GTA_MR'  'GTA_NC'  'GTA_NM'  'GTA_NN'  'GTA_NR'  'GTA_NS'  'GTA_OP'  'GTA_PanelProp'  'GTA_ST'  'GTA_ST_TA'  'GTA_SZ'  'NNBase'  'NNCrossValidation'  'NNDataPoint'  'NNDataset'  'NNDatasetCombine'  'NNDatasetSplit'  'NNEvaluator'  'Exporter'  'Importer' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
 			%GETPROPS returns the property list of concrete element.
@@ -537,21 +537,21 @@ classdef ConcreteElement < Element
 			prop = ConcreteElement.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case ConcreteElement.ELCLASS % __ConcreteElement.ELCLASS__
+				case 1 % ConcreteElement.ELCLASS
 					prop_settings = Format.getFormatSettings(2);
-				case ConcreteElement.NAME % __ConcreteElement.NAME__
+				case 2 % ConcreteElement.NAME
 					prop_settings = Format.getFormatSettings(2);
-				case ConcreteElement.DESCRIPTION % __ConcreteElement.DESCRIPTION__
+				case 3 % ConcreteElement.DESCRIPTION
 					prop_settings = Format.getFormatSettings(2);
-				case ConcreteElement.TEMPLATE % __ConcreteElement.TEMPLATE__
+				case 4 % ConcreteElement.TEMPLATE
 					prop_settings = 'ConcreteElement';
-				case ConcreteElement.ID % __ConcreteElement.ID__
+				case 5 % ConcreteElement.ID
 					prop_settings = Format.getFormatSettings(2);
-				case ConcreteElement.LABEL % __ConcreteElement.LABEL__
+				case 6 % ConcreteElement.LABEL
 					prop_settings = Format.getFormatSettings(2);
-				case ConcreteElement.NOTES % __ConcreteElement.NOTES__
+				case 7 % ConcreteElement.NOTES
 					prop_settings = Format.getFormatSettings(2);
-				case ConcreteElement.TOSTRING % __ConcreteElement.TOSTRING__
+				case 8 % ConcreteElement.TOSTRING
 					prop_settings = Format.getFormatSettings(2);
 			end
 		end
@@ -578,21 +578,21 @@ classdef ConcreteElement < Element
 			prop = ConcreteElement.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case ConcreteElement.ELCLASS % __ConcreteElement.ELCLASS__
+				case 1 % ConcreteElement.ELCLASS
 					prop_default = 'ConcreteElement';
-				case ConcreteElement.NAME % __ConcreteElement.NAME__
+				case 2 % ConcreteElement.NAME
 					prop_default = 'Concrete Element';
-				case ConcreteElement.DESCRIPTION % __ConcreteElement.DESCRIPTION__
+				case 3 % ConcreteElement.DESCRIPTION
 					prop_default = 'A Concrete Element (ConcreteElement) provides the infrastructure necessary for all concrete elements. In particular, it has the constant properties NAME (string) and DESCRIPTION (string), the property TEMPLATE (item), and the indexing properties ID (string), LABEL (string), and NOTES (string). Even though it is possible to create instances of ConcreteElement, typically one uses its subclasses.';
-				case ConcreteElement.TEMPLATE % __ConcreteElement.TEMPLATE__
+				case 4 % ConcreteElement.TEMPLATE
 					prop_default = Format.getFormatDefault(8, ConcreteElement.getPropSettings(prop));
-				case ConcreteElement.ID % __ConcreteElement.ID__
+				case 5 % ConcreteElement.ID
 					prop_default = 'ConcreteElement ID';
-				case ConcreteElement.LABEL % __ConcreteElement.LABEL__
+				case 6 % ConcreteElement.LABEL
 					prop_default = 'ConcreteElement label';
-				case ConcreteElement.NOTES % __ConcreteElement.NOTES__
+				case 7 % ConcreteElement.NOTES
 					prop_default = 'ConcreteElement notes';
-				case ConcreteElement.TOSTRING % __ConcreteElement.TOSTRING__
+				case 8 % ConcreteElement.TOSTRING
 					prop_default = Format.getFormatDefault(2, ConcreteElement.getPropSettings(prop));
 			end
 		end
@@ -653,7 +653,7 @@ classdef ConcreteElement < Element
 			%  calculateValue, checkValue.
 			
 			switch prop
-				case ConcreteElement.TEMPLATE % __ConcreteElement.TEMPLATE__
+				case 4 % ConcreteElement.TEMPLATE
 					if ~isa(el, class(value))
 					    error( ...
 					        ['BRAPH2' ':' class(el) ':' 'WrongInput'], ...
@@ -699,21 +699,21 @@ classdef ConcreteElement < Element
 			prop = ConcreteElement.getPropProp(pointer);
 			
 			switch prop
-				case ConcreteElement.ELCLASS % __ConcreteElement.ELCLASS__
+				case 1 % ConcreteElement.ELCLASS
 					check = Format.checkFormat(2, value, ConcreteElement.getPropSettings(prop));
-				case ConcreteElement.NAME % __ConcreteElement.NAME__
+				case 2 % ConcreteElement.NAME
 					check = Format.checkFormat(2, value, ConcreteElement.getPropSettings(prop));
-				case ConcreteElement.DESCRIPTION % __ConcreteElement.DESCRIPTION__
+				case 3 % ConcreteElement.DESCRIPTION
 					check = Format.checkFormat(2, value, ConcreteElement.getPropSettings(prop));
-				case ConcreteElement.TEMPLATE % __ConcreteElement.TEMPLATE__
+				case 4 % ConcreteElement.TEMPLATE
 					check = Format.checkFormat(8, value, ConcreteElement.getPropSettings(prop));
-				case ConcreteElement.ID % __ConcreteElement.ID__
+				case 5 % ConcreteElement.ID
 					check = Format.checkFormat(2, value, ConcreteElement.getPropSettings(prop));
-				case ConcreteElement.LABEL % __ConcreteElement.LABEL__
+				case 6 % ConcreteElement.LABEL
 					check = Format.checkFormat(2, value, ConcreteElement.getPropSettings(prop));
-				case ConcreteElement.NOTES % __ConcreteElement.NOTES__
+				case 7 % ConcreteElement.NOTES
 					check = Format.checkFormat(2, value, ConcreteElement.getPropSettings(prop));
-				case ConcreteElement.TOSTRING % __ConcreteElement.TOSTRING__
+				case 8 % ConcreteElement.TOSTRING
 					check = Format.checkFormat(2, value, ConcreteElement.getPropSettings(prop));
 			end
 			
@@ -742,7 +742,7 @@ classdef ConcreteElement < Element
 			%  checkValue.
 			
 			switch prop
-				case ConcreteElement.TEMPLATE % __ConcreteElement.TEMPLATE__
+				case 4 % ConcreteElement.TEMPLATE
 					template = el.get('TEMPLATE');
 					
 					parameter_props = template.getProps(3);
@@ -779,7 +779,7 @@ classdef ConcreteElement < Element
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case ConcreteElement.TOSTRING % __ConcreteElement.TOSTRING__
+				case 8 % ConcreteElement.TOSTRING
 					value = el.tostring();
 					
 				otherwise
@@ -809,8 +809,8 @@ classdef ConcreteElement < Element
 			%  PanelPropString, PanelPropStringList.
 			
 			switch prop
-				case ConcreteElement.NOTES % __ConcreteElement.NOTES__
-					pr = PanelPropStringTextArea('EL', el, 'PROP', ConcreteElement.NOTES, varargin{:});
+				case 7 % ConcreteElement.NOTES
+					pr = PanelPropStringTextArea('EL', el, 'PROP', 7, varargin{:});
 					
 				otherwise
 					pr = getPanelProp@Element(el, prop, varargin{:});

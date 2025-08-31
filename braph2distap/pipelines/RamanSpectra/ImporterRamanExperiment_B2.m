@@ -650,7 +650,7 @@ classdef ImporterRamanExperiment_B2 < Importer
 				case 4 % ImporterRamanExperiment_B2.TEMPLATE
 					check = Format.checkFormat(8, value, ImporterRamanExperiment_B2.getPropSettings(prop));
 				otherwise
-					if prop <= Importer.getPropNumber()
+					if prop <= 9
 						check = checkProp@Importer(prop, value);
 					end
 			end
@@ -729,7 +729,7 @@ classdef ImporterRamanExperiment_B2 < Importer
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= Importer.getPropNumber()
+					if prop <= 9
 						value = calculateValue@Importer(im, prop, varargin{:});
 					else
 						value = calculateValue@Element(im, prop, varargin{:});

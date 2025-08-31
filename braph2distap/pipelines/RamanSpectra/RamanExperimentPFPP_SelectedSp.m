@@ -687,7 +687,7 @@ classdef RamanExperimentPFPP_SelectedSp < PanelProp
 				case 4 % RamanExperimentPFPP_SelectedSp.TEMPLATE
 					check = Format.checkFormat(8, value, RamanExperimentPFPP_SelectedSp.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -735,13 +735,13 @@ classdef RamanExperimentPFPP_SelectedSp < PanelProp
 					value = dropdown;
 					
 				case 20 % RamanExperimentPFPP_SelectedSp.X_DRAW
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('DROPDOWN')
 					end
 					
 				case 21 % RamanExperimentPFPP_SelectedSp.UPDATE
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    pf = pr.get('EL');
 					    SELECTED_SP = pr.get('PROP');
@@ -761,7 +761,7 @@ classdef RamanExperimentPFPP_SelectedSp < PanelProp
 					end
 					
 				case 22 % RamanExperimentPFPP_SelectedSp.REDRAW
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -769,13 +769,13 @@ classdef RamanExperimentPFPP_SelectedSp < PanelProp
 					end
 					
 				case 18 % RamanExperimentPFPP_SelectedSp.DELETE
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('DROPDOWN', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

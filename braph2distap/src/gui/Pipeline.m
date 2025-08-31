@@ -512,13 +512,13 @@ classdef Pipeline < ConcreteElement
 			prop = Pipeline.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Pipeline.README % __Pipeline.README__
+				case 9 % Pipeline.README
 					prop_settings = Format.getFormatSettings(2);
-				case Pipeline.PDF % __Pipeline.PDF__
+				case 10 % Pipeline.PDF
 					prop_settings = Format.getFormatSettings(2);
-				case Pipeline.PS_DICT % __Pipeline.PS_DICT__
+				case 11 % Pipeline.PS_DICT
 					prop_settings = 'PipelineSection';
-				case Pipeline.TEMPLATE % __Pipeline.TEMPLATE__
+				case 4 % Pipeline.TEMPLATE
 					prop_settings = 'Pipeline';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -547,25 +547,25 @@ classdef Pipeline < ConcreteElement
 			prop = Pipeline.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Pipeline.README % __Pipeline.README__
+				case 9 % Pipeline.README
 					prop_default = Format.getFormatDefault(2, Pipeline.getPropSettings(prop));
-				case Pipeline.PDF % __Pipeline.PDF__
+				case 10 % Pipeline.PDF
 					prop_default = Format.getFormatDefault(2, Pipeline.getPropSettings(prop));
-				case Pipeline.PS_DICT % __Pipeline.PS_DICT__
+				case 11 % Pipeline.PS_DICT
 					prop_default = Format.getFormatDefault(10, Pipeline.getPropSettings(prop));
-				case Pipeline.ELCLASS % __Pipeline.ELCLASS__
+				case 1 % Pipeline.ELCLASS
 					prop_default = 'Pipeline';
-				case Pipeline.NAME % __Pipeline.NAME__
+				case 2 % Pipeline.NAME
 					prop_default = 'Pipeline';
-				case Pipeline.DESCRIPTION % __Pipeline.DESCRIPTION__
+				case 3 % Pipeline.DESCRIPTION
 					prop_default = 'A Pipeline is an analysis pipeline.';
-				case Pipeline.TEMPLATE % __Pipeline.TEMPLATE__
+				case 4 % Pipeline.TEMPLATE
 					prop_default = Format.getFormatDefault(8, Pipeline.getPropSettings(prop));
-				case Pipeline.ID % __Pipeline.ID__
+				case 5 % Pipeline.ID
 					prop_default = 'Pipeline ID';
-				case Pipeline.LABEL % __Pipeline.LABEL__
+				case 6 % Pipeline.LABEL
 					prop_default = 'Pipeline label';
-				case Pipeline.NOTES % __Pipeline.NOTES__
+				case 7 % Pipeline.NOTES
 					prop_default = 'Pipeline notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -631,16 +631,16 @@ classdef Pipeline < ConcreteElement
 			prop = Pipeline.getPropProp(pointer);
 			
 			switch prop
-				case Pipeline.README % __Pipeline.README__
+				case 9 % Pipeline.README
 					check = Format.checkFormat(2, value, Pipeline.getPropSettings(prop));
-				case Pipeline.PDF % __Pipeline.PDF__
+				case 10 % Pipeline.PDF
 					check = Format.checkFormat(2, value, Pipeline.getPropSettings(prop));
-				case Pipeline.PS_DICT % __Pipeline.PS_DICT__
+				case 11 % Pipeline.PS_DICT
 					check = Format.checkFormat(10, value, Pipeline.getPropSettings(prop));
-				case Pipeline.TEMPLATE % __Pipeline.TEMPLATE__
+				case 4 % Pipeline.TEMPLATE
 					check = Format.checkFormat(8, value, Pipeline.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -673,11 +673,11 @@ classdef Pipeline < ConcreteElement
 			%  PanelPropString, PanelPropStringList.
 			
 			switch prop
-				case Pipeline.PS_DICT % __Pipeline.PS_DICT__
-					pr = PipelinePP_PSDict('EL', pip, 'PROP', Pipeline.PS_DICT, varargin{:});
+				case 11 % Pipeline.PS_DICT
+					pr = PipelinePP_PSDict('EL', pip, 'PROP', 11, varargin{:});
 					
-				case Pipeline.NOTES % __Pipeline.NOTES__
-					pr = PipelinePP_Notes('EL', pip, 'PROP', Pipeline.NOTES, varargin{:});
+				case 7 % Pipeline.NOTES
+					pr = PipelinePP_Notes('EL', pip, 'PROP', 7, varargin{:});
 					
 				otherwise
 					pr = getPanelProp@ConcreteElement(pip, prop, varargin{:});

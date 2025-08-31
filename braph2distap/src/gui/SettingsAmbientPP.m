@@ -637,29 +637,29 @@ classdef SettingsAmbientPP < SettingsPP
 			prop = SettingsAmbientPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsAmbientPP.ENABLE % __SettingsAmbientPP.ENABLE__
+				case 36 % SettingsAmbientPP.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsAmbientPP.LABEL_LIGHTING % __SettingsAmbientPP.LABEL_LIGHTING__
+				case 37 % SettingsAmbientPP.LABEL_LIGHTING
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAmbientPP.DROPDOWN_LIGHTING % __SettingsAmbientPP.DROPDOWN_LIGHTING__
+				case 38 % SettingsAmbientPP.DROPDOWN_LIGHTING
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAmbientPP.LABEL_MATERIAL % __SettingsAmbientPP.LABEL_MATERIAL__
+				case 39 % SettingsAmbientPP.LABEL_MATERIAL
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAmbientPP.DROPDOWN_MATERIAL % __SettingsAmbientPP.DROPDOWN_MATERIAL__
+				case 40 % SettingsAmbientPP.DROPDOWN_MATERIAL
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAmbientPP.LABEL_CAMLIGHT % __SettingsAmbientPP.LABEL_CAMLIGHT__
+				case 41 % SettingsAmbientPP.LABEL_CAMLIGHT
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAmbientPP.DROPDOWN_CAMLIGHT % __SettingsAmbientPP.DROPDOWN_CAMLIGHT__
+				case 42 % SettingsAmbientPP.DROPDOWN_CAMLIGHT
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAmbientPP.LABEL_SHADING % __SettingsAmbientPP.LABEL_SHADING__
+				case 43 % SettingsAmbientPP.LABEL_SHADING
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAmbientPP.DROPDOWN_SHADING % __SettingsAmbientPP.DROPDOWN_SHADING__
+				case 44 % SettingsAmbientPP.DROPDOWN_SHADING
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAmbientPP.LABEL_COLORMAP % __SettingsAmbientPP.LABEL_COLORMAP__
+				case 45 % SettingsAmbientPP.LABEL_COLORMAP
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAmbientPP.DROPDOWN_COLORMAP % __SettingsAmbientPP.DROPDOWN_COLORMAP__
+				case 46 % SettingsAmbientPP.DROPDOWN_COLORMAP
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAmbientPP.TEMPLATE % __SettingsAmbientPP.TEMPLATE__
+				case 4 % SettingsAmbientPP.TEMPLATE
 					prop_settings = 'SettingsAmbientPP';
 				otherwise
 					prop_settings = getPropSettings@SettingsPP(prop);
@@ -688,47 +688,47 @@ classdef SettingsAmbientPP < SettingsPP
 			prop = SettingsAmbientPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsAmbientPP.ENABLE % __SettingsAmbientPP.ENABLE__
+				case 36 % SettingsAmbientPP.ENABLE
 					prop_default = true;
-				case SettingsAmbientPP.LABEL_LIGHTING % __SettingsAmbientPP.LABEL_LIGHTING__
+				case 37 % SettingsAmbientPP.LABEL_LIGHTING
 					prop_default = Format.getFormatDefault(18, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.DROPDOWN_LIGHTING % __SettingsAmbientPP.DROPDOWN_LIGHTING__
+				case 38 % SettingsAmbientPP.DROPDOWN_LIGHTING
 					prop_default = Format.getFormatDefault(18, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.LABEL_MATERIAL % __SettingsAmbientPP.LABEL_MATERIAL__
+				case 39 % SettingsAmbientPP.LABEL_MATERIAL
 					prop_default = Format.getFormatDefault(18, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.DROPDOWN_MATERIAL % __SettingsAmbientPP.DROPDOWN_MATERIAL__
+				case 40 % SettingsAmbientPP.DROPDOWN_MATERIAL
 					prop_default = Format.getFormatDefault(18, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.LABEL_CAMLIGHT % __SettingsAmbientPP.LABEL_CAMLIGHT__
+				case 41 % SettingsAmbientPP.LABEL_CAMLIGHT
 					prop_default = Format.getFormatDefault(18, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.DROPDOWN_CAMLIGHT % __SettingsAmbientPP.DROPDOWN_CAMLIGHT__
+				case 42 % SettingsAmbientPP.DROPDOWN_CAMLIGHT
 					prop_default = Format.getFormatDefault(18, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.LABEL_SHADING % __SettingsAmbientPP.LABEL_SHADING__
+				case 43 % SettingsAmbientPP.LABEL_SHADING
 					prop_default = Format.getFormatDefault(18, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.DROPDOWN_SHADING % __SettingsAmbientPP.DROPDOWN_SHADING__
+				case 44 % SettingsAmbientPP.DROPDOWN_SHADING
 					prop_default = Format.getFormatDefault(18, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.LABEL_COLORMAP % __SettingsAmbientPP.LABEL_COLORMAP__
+				case 45 % SettingsAmbientPP.LABEL_COLORMAP
 					prop_default = Format.getFormatDefault(18, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.DROPDOWN_COLORMAP % __SettingsAmbientPP.DROPDOWN_COLORMAP__
+				case 46 % SettingsAmbientPP.DROPDOWN_COLORMAP
 					prop_default = Format.getFormatDefault(18, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.ELCLASS % __SettingsAmbientPP.ELCLASS__
+				case 1 % SettingsAmbientPP.ELCLASS
 					prop_default = 'SettingsAmbientPP';
-				case SettingsAmbientPP.NAME % __SettingsAmbientPP.NAME__
+				case 2 % SettingsAmbientPP.NAME
 					prop_default = 'Prop Panel for Ambient Settings';
-				case SettingsAmbientPP.DESCRIPTION % __SettingsAmbientPP.DESCRIPTION__
+				case 3 % SettingsAmbientPP.DESCRIPTION
 					prop_default = 'A Prop Panel for Ambient Settings (SettingsAmbientPP) plots the panel for ambient settings, including drop-down lists for lighting, material, camlight, shading, and colormap. It works for all categories.';
-				case SettingsAmbientPP.TEMPLATE % __SettingsAmbientPP.TEMPLATE__
+				case 4 % SettingsAmbientPP.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.ID % __SettingsAmbientPP.ID__
+				case 5 % SettingsAmbientPP.ID
 					prop_default = 'SettingsAmbientPP ID';
-				case SettingsAmbientPP.LABEL % __SettingsAmbientPP.LABEL__
+				case 6 % SettingsAmbientPP.LABEL
 					prop_default = 'SettingsAmbientPP label';
-				case SettingsAmbientPP.NOTES % __SettingsAmbientPP.NOTES__
+				case 7 % SettingsAmbientPP.NOTES
 					prop_default = 'SettingsAmbientPP notes';
-				case SettingsAmbientPP.EL % __SettingsAmbientPP.EL__
+				case 23 % SettingsAmbientPP.EL
 					prop_default = BrainSurfacePF();
-				case SettingsAmbientPP.PROP % __SettingsAmbientPP.PROP__
+				case 24 % SettingsAmbientPP.PROP
 					prop_default = BrainSurfacePF.ST_AMBIENT;
-				case SettingsAmbientPP.HEIGHT % __SettingsAmbientPP.HEIGHT__
+				case 25 % SettingsAmbientPP.HEIGHT
 					prop_default = 150;
 				otherwise
 					prop_default = getPropDefault@SettingsPP(prop);
@@ -794,32 +794,32 @@ classdef SettingsAmbientPP < SettingsPP
 			prop = SettingsAmbientPP.getPropProp(pointer);
 			
 			switch prop
-				case SettingsAmbientPP.ENABLE % __SettingsAmbientPP.ENABLE__
+				case 36 % SettingsAmbientPP.ENABLE
 					check = Format.checkFormat(4, value, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.LABEL_LIGHTING % __SettingsAmbientPP.LABEL_LIGHTING__
+				case 37 % SettingsAmbientPP.LABEL_LIGHTING
 					check = Format.checkFormat(18, value, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.DROPDOWN_LIGHTING % __SettingsAmbientPP.DROPDOWN_LIGHTING__
+				case 38 % SettingsAmbientPP.DROPDOWN_LIGHTING
 					check = Format.checkFormat(18, value, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.LABEL_MATERIAL % __SettingsAmbientPP.LABEL_MATERIAL__
+				case 39 % SettingsAmbientPP.LABEL_MATERIAL
 					check = Format.checkFormat(18, value, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.DROPDOWN_MATERIAL % __SettingsAmbientPP.DROPDOWN_MATERIAL__
+				case 40 % SettingsAmbientPP.DROPDOWN_MATERIAL
 					check = Format.checkFormat(18, value, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.LABEL_CAMLIGHT % __SettingsAmbientPP.LABEL_CAMLIGHT__
+				case 41 % SettingsAmbientPP.LABEL_CAMLIGHT
 					check = Format.checkFormat(18, value, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.DROPDOWN_CAMLIGHT % __SettingsAmbientPP.DROPDOWN_CAMLIGHT__
+				case 42 % SettingsAmbientPP.DROPDOWN_CAMLIGHT
 					check = Format.checkFormat(18, value, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.LABEL_SHADING % __SettingsAmbientPP.LABEL_SHADING__
+				case 43 % SettingsAmbientPP.LABEL_SHADING
 					check = Format.checkFormat(18, value, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.DROPDOWN_SHADING % __SettingsAmbientPP.DROPDOWN_SHADING__
+				case 44 % SettingsAmbientPP.DROPDOWN_SHADING
 					check = Format.checkFormat(18, value, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.LABEL_COLORMAP % __SettingsAmbientPP.LABEL_COLORMAP__
+				case 45 % SettingsAmbientPP.LABEL_COLORMAP
 					check = Format.checkFormat(18, value, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.DROPDOWN_COLORMAP % __SettingsAmbientPP.DROPDOWN_COLORMAP__
+				case 46 % SettingsAmbientPP.DROPDOWN_COLORMAP
 					check = Format.checkFormat(18, value, SettingsAmbientPP.getPropSettings(prop));
-				case SettingsAmbientPP.TEMPLATE % __SettingsAmbientPP.TEMPLATE__
+				case 4 % SettingsAmbientPP.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsAmbientPP.getPropSettings(prop));
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						check = checkProp@SettingsPP(prop, value);
 					end
 			end
@@ -852,7 +852,7 @@ classdef SettingsAmbientPP < SettingsPP
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case SettingsAmbientPP.LABEL_LIGHTING % __SettingsAmbientPP.LABEL_LIGHTING__
+				case 37 % SettingsAmbientPP.LABEL_LIGHTING
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					label_lighting =  uilabel( ...
@@ -867,7 +867,7 @@ classdef SettingsAmbientPP < SettingsPP
 						);
 					value = label_lighting;
 					
-				case SettingsAmbientPP.DROPDOWN_LIGHTING % __SettingsAmbientPP.DROPDOWN_LIGHTING__
+				case 38 % SettingsAmbientPP.DROPDOWN_LIGHTING
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					dropdown_lighting = uidropdown( ...
@@ -880,7 +880,7 @@ classdef SettingsAmbientPP < SettingsPP
 					    );
 					value = dropdown_lighting;
 					
-				case SettingsAmbientPP.LABEL_MATERIAL % __SettingsAmbientPP.LABEL_MATERIAL__
+				case 39 % SettingsAmbientPP.LABEL_MATERIAL
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					label_material =  uilabel( ...
@@ -895,7 +895,7 @@ classdef SettingsAmbientPP < SettingsPP
 					    );
 					value = label_material;
 					
-				case SettingsAmbientPP.DROPDOWN_MATERIAL % __SettingsAmbientPP.DROPDOWN_MATERIAL__
+				case 40 % SettingsAmbientPP.DROPDOWN_MATERIAL
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					dropdown_material = uidropdown( ...
@@ -908,7 +908,7 @@ classdef SettingsAmbientPP < SettingsPP
 					        );
 					value = dropdown_material;
 					
-				case SettingsAmbientPP.LABEL_CAMLIGHT % __SettingsAmbientPP.LABEL_CAMLIGHT__
+				case 41 % SettingsAmbientPP.LABEL_CAMLIGHT
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					label_camlight =  uilabel( ...
@@ -923,7 +923,7 @@ classdef SettingsAmbientPP < SettingsPP
 					    );
 					value = label_camlight;
 					
-				case SettingsAmbientPP.DROPDOWN_CAMLIGHT % __SettingsAmbientPP.DROPDOWN_CAMLIGHT__
+				case 42 % SettingsAmbientPP.DROPDOWN_CAMLIGHT
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					dropdown_camlight = uidropdown( ...
@@ -936,7 +936,7 @@ classdef SettingsAmbientPP < SettingsPP
 					    );
 					value = dropdown_camlight;
 					
-				case SettingsAmbientPP.LABEL_SHADING % __SettingsAmbientPP.LABEL_SHADING__
+				case 43 % SettingsAmbientPP.LABEL_SHADING
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					label_shading =  uilabel( ...
@@ -951,7 +951,7 @@ classdef SettingsAmbientPP < SettingsPP
 					    );
 					value = label_shading;
 					
-				case SettingsAmbientPP.DROPDOWN_SHADING % __SettingsAmbientPP.DROPDOWN_SHADING__
+				case 44 % SettingsAmbientPP.DROPDOWN_SHADING
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					dropdown_shading = uidropdown( ...
@@ -964,7 +964,7 @@ classdef SettingsAmbientPP < SettingsPP
 					    );
 					value = dropdown_shading;
 					
-				case SettingsAmbientPP.LABEL_COLORMAP % __SettingsAmbientPP.LABEL_COLORMAP__
+				case 45 % SettingsAmbientPP.LABEL_COLORMAP
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					label_colormap =  uilabel( ...
@@ -979,7 +979,7 @@ classdef SettingsAmbientPP < SettingsPP
 					    );
 					value = label_colormap;
 					
-				case SettingsAmbientPP.DROPDOWN_COLORMAP % __SettingsAmbientPP.DROPDOWN_COLORMAP__
+				case 46 % SettingsAmbientPP.DROPDOWN_COLORMAP
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					dropdown_colormap = uidropdown( ...
@@ -992,8 +992,8 @@ classdef SettingsAmbientPP < SettingsPP
 					    );
 					value = dropdown_colormap;
 					
-				case SettingsAmbientPP.X_DRAW % __SettingsAmbientPP.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % SettingsAmbientPP.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('LABEL_LIGHTING')
 					    pr.memorize('DROPDOWN_LIGHTING')
@@ -1011,8 +1011,8 @@ classdef SettingsAmbientPP < SettingsPP
 					    pr.memorize('DROPDOWN_COLORMAP')
 					end
 					
-				case SettingsAmbientPP.UPDATE % __SettingsAmbientPP.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % SettingsAmbientPP.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					
 						el = pr.get('EL');
@@ -1121,8 +1121,8 @@ classdef SettingsAmbientPP < SettingsPP
 					    end
 					end
 					
-				case SettingsAmbientPP.REDRAW % __SettingsAmbientPP.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % SettingsAmbientPP.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -1142,8 +1142,8 @@ classdef SettingsAmbientPP < SettingsPP
 					    set(pr.get('DROPDOWN_COLORMAP'), 'Position', [104 4 w_p-120 21])
 					end
 					
-				case SettingsAmbientPP.DELETE % __SettingsAmbientPP.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % SettingsAmbientPP.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('LABEL_LIGHTING', Element.getNoValue())
 					    pr.set('DROPDOWN_LIGHTING', Element.getNoValue())
@@ -1162,7 +1162,7 @@ classdef SettingsAmbientPP < SettingsPP
 					end
 					
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						value = calculateValue@SettingsPP(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

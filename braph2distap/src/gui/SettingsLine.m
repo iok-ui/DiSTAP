@@ -591,29 +591,29 @@ classdef SettingsLine < Settings
 			prop = SettingsLine.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsLine.VISIBLE % __SettingsLine.VISIBLE__
+				case 15 % SettingsLine.VISIBLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsLine.X % __SettingsLine.X__
+				case 16 % SettingsLine.X
 					prop_settings = Format.getFormatSettings(12);
-				case SettingsLine.Y % __SettingsLine.Y__
+				case 17 % SettingsLine.Y
 					prop_settings = Format.getFormatSettings(12);
-				case SettingsLine.Z % __SettingsLine.Z__
+				case 18 % SettingsLine.Z
 					prop_settings = Format.getFormatSettings(12);
-				case SettingsLine.LINESTYLE % __SettingsLine.LINESTYLE__
+				case 19 % SettingsLine.LINESTYLE
 					prop_settings = Format.getFormatSettings(24);
-				case SettingsLine.LINEWIDTH % __SettingsLine.LINEWIDTH__
+				case 20 % SettingsLine.LINEWIDTH
 					prop_settings = Format.getFormatSettings(22);
-				case SettingsLine.LINECOLOR % __SettingsLine.LINECOLOR__
+				case 21 % SettingsLine.LINECOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case SettingsLine.SYMBOL % __SettingsLine.SYMBOL__
+				case 22 % SettingsLine.SYMBOL
 					prop_settings = Format.getFormatSettings(23);
-				case SettingsLine.SYMBOLSIZE % __SettingsLine.SYMBOLSIZE__
+				case 23 % SettingsLine.SYMBOLSIZE
 					prop_settings = Format.getFormatSettings(22);
-				case SettingsLine.EDGECOLOR % __SettingsLine.EDGECOLOR__
+				case 24 % SettingsLine.EDGECOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case SettingsLine.FACECOLOR % __SettingsLine.FACECOLOR__
+				case 25 % SettingsLine.FACECOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case SettingsLine.TEMPLATE % __SettingsLine.TEMPLATE__
+				case 4 % SettingsLine.TEMPLATE
 					prop_settings = 'SettingsLine';
 				otherwise
 					prop_settings = getPropSettings@Settings(prop);
@@ -642,41 +642,41 @@ classdef SettingsLine < Settings
 			prop = SettingsLine.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsLine.VISIBLE % __SettingsLine.VISIBLE__
+				case 15 % SettingsLine.VISIBLE
 					prop_default = true;
-				case SettingsLine.X % __SettingsLine.X__
+				case 16 % SettingsLine.X
 					prop_default = Format.getFormatDefault(12, SettingsLine.getPropSettings(prop));
-				case SettingsLine.Y % __SettingsLine.Y__
+				case 17 % SettingsLine.Y
 					prop_default = Format.getFormatDefault(12, SettingsLine.getPropSettings(prop));
-				case SettingsLine.Z % __SettingsLine.Z__
+				case 18 % SettingsLine.Z
 					prop_default = Format.getFormatDefault(12, SettingsLine.getPropSettings(prop));
-				case SettingsLine.LINESTYLE % __SettingsLine.LINESTYLE__
+				case 19 % SettingsLine.LINESTYLE
 					prop_default = Format.getFormatDefault(24, SettingsLine.getPropSettings(prop));
-				case SettingsLine.LINEWIDTH % __SettingsLine.LINEWIDTH__
+				case 20 % SettingsLine.LINEWIDTH
 					prop_default = Format.getFormatDefault(22, SettingsLine.getPropSettings(prop));
-				case SettingsLine.LINECOLOR % __SettingsLine.LINECOLOR__
+				case 21 % SettingsLine.LINECOLOR
 					prop_default = [0 0 0];
-				case SettingsLine.SYMBOL % __SettingsLine.SYMBOL__
+				case 22 % SettingsLine.SYMBOL
 					prop_default = Format.getFormatDefault(23, SettingsLine.getPropSettings(prop));
-				case SettingsLine.SYMBOLSIZE % __SettingsLine.SYMBOLSIZE__
+				case 23 % SettingsLine.SYMBOLSIZE
 					prop_default = 10;
-				case SettingsLine.EDGECOLOR % __SettingsLine.EDGECOLOR__
+				case 24 % SettingsLine.EDGECOLOR
 					prop_default = [0 0 0];
-				case SettingsLine.FACECOLOR % __SettingsLine.FACECOLOR__
+				case 25 % SettingsLine.FACECOLOR
 					prop_default = [0.9 0.4 0.1];
-				case SettingsLine.ELCLASS % __SettingsLine.ELCLASS__
+				case 1 % SettingsLine.ELCLASS
 					prop_default = 'SettingsLine';
-				case SettingsLine.NAME % __SettingsLine.NAME__
+				case 2 % SettingsLine.NAME
 					prop_default = 'Line Settings';
-				case SettingsLine.DESCRIPTION % __SettingsLine.DESCRIPTION__
+				case 3 % SettingsLine.DESCRIPTION
 					prop_default = 'A Line Settings (SettingsSymbol) provides the settings for a line, including visibility, x, y, z, line color, line width, line style, symbol marker, symbol size, symbol face color, and symbol edge color. The handle must be a line.';
-				case SettingsLine.TEMPLATE % __SettingsLine.TEMPLATE__
+				case 4 % SettingsLine.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsLine.getPropSettings(prop));
-				case SettingsLine.ID % __SettingsLine.ID__
+				case 5 % SettingsLine.ID
 					prop_default = 'SettingsLine ID';
-				case SettingsLine.LABEL % __SettingsLine.LABEL__
+				case 6 % SettingsLine.LABEL
 					prop_default = 'SettingsLine label';
-				case SettingsLine.NOTES % __SettingsLine.NOTES__
+				case 7 % SettingsLine.NOTES
 					prop_default = 'SettingsLine notes';
 				otherwise
 					prop_default = getPropDefault@Settings(prop);
@@ -726,17 +726,17 @@ classdef SettingsLine < Settings
 			prop = SettingsLine.getPropProp(pointer);
 			
 			switch prop
-				case SettingsLine.X % __SettingsLine.X__
+				case 16 % SettingsLine.X
 					value = value(:)';
 					
-				case SettingsLine.Y % __SettingsLine.Y__
+				case 17 % SettingsLine.Y
 					value = value(:)';
 					
-				case SettingsLine.Z % __SettingsLine.Z__
+				case 18 % SettingsLine.Z
 					value = value(:)';
 					
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						value = conditioning@Settings(pointer, value);
 					end
 			end
@@ -776,32 +776,32 @@ classdef SettingsLine < Settings
 			prop = SettingsLine.getPropProp(pointer);
 			
 			switch prop
-				case SettingsLine.VISIBLE % __SettingsLine.VISIBLE__
+				case 15 % SettingsLine.VISIBLE
 					check = Format.checkFormat(4, value, SettingsLine.getPropSettings(prop));
-				case SettingsLine.X % __SettingsLine.X__
+				case 16 % SettingsLine.X
 					check = Format.checkFormat(12, value, SettingsLine.getPropSettings(prop));
-				case SettingsLine.Y % __SettingsLine.Y__
+				case 17 % SettingsLine.Y
 					check = Format.checkFormat(12, value, SettingsLine.getPropSettings(prop));
-				case SettingsLine.Z % __SettingsLine.Z__
+				case 18 % SettingsLine.Z
 					check = Format.checkFormat(12, value, SettingsLine.getPropSettings(prop));
-				case SettingsLine.LINESTYLE % __SettingsLine.LINESTYLE__
+				case 19 % SettingsLine.LINESTYLE
 					check = Format.checkFormat(24, value, SettingsLine.getPropSettings(prop));
-				case SettingsLine.LINEWIDTH % __SettingsLine.LINEWIDTH__
+				case 20 % SettingsLine.LINEWIDTH
 					check = Format.checkFormat(22, value, SettingsLine.getPropSettings(prop));
-				case SettingsLine.LINECOLOR % __SettingsLine.LINECOLOR__
+				case 21 % SettingsLine.LINECOLOR
 					check = Format.checkFormat(20, value, SettingsLine.getPropSettings(prop));
-				case SettingsLine.SYMBOL % __SettingsLine.SYMBOL__
+				case 22 % SettingsLine.SYMBOL
 					check = Format.checkFormat(23, value, SettingsLine.getPropSettings(prop));
-				case SettingsLine.SYMBOLSIZE % __SettingsLine.SYMBOLSIZE__
+				case 23 % SettingsLine.SYMBOLSIZE
 					check = Format.checkFormat(22, value, SettingsLine.getPropSettings(prop));
-				case SettingsLine.EDGECOLOR % __SettingsLine.EDGECOLOR__
+				case 24 % SettingsLine.EDGECOLOR
 					check = Format.checkFormat(20, value, SettingsLine.getPropSettings(prop));
-				case SettingsLine.FACECOLOR % __SettingsLine.FACECOLOR__
+				case 25 % SettingsLine.FACECOLOR
 					check = Format.checkFormat(20, value, SettingsLine.getPropSettings(prop));
-				case SettingsLine.TEMPLATE % __SettingsLine.TEMPLATE__
+				case 4 % SettingsLine.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsLine.getPropSettings(prop));
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						check = checkProp@Settings(prop, value);
 					end
 			end
@@ -831,7 +831,7 @@ classdef SettingsLine < Settings
 			%  checkValue.
 			
 			switch prop
-				case SettingsLine.VISIBLE % __SettingsLine.VISIBLE__
+				case 15 % SettingsLine.VISIBLE
 					h = st.get('H');
 					if check_graphics(h, 'line') && ( ...
 					        get(h, 'Visible') ~= st.get('VISIBLE') || ...
@@ -866,7 +866,7 @@ classdef SettingsLine < Settings
 					end
 					
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						postprocessing@Settings(st, prop);
 					end
 			end

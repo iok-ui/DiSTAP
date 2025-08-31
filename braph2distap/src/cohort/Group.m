@@ -526,13 +526,13 @@ classdef Group < ConcreteElement
 			prop = Group.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Group.SUB_CLASS % __Group.SUB_CLASS__
+				case 9 % Group.SUB_CLASS
 					prop_settings = 'Subject';
-				case Group.SUB_DICT % __Group.SUB_DICT__
+				case 10 % Group.SUB_DICT
 					prop_settings = 'Subject';
-				case Group.VOIS % __Group.VOIS__
+				case 11 % Group.VOIS
 					prop_settings = Format.getFormatSettings(16);
-				case Group.COVARIATES % __Group.COVARIATES__
+				case 12 % Group.COVARIATES
 					prop_settings = Format.getFormatSettings(14);
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -561,25 +561,25 @@ classdef Group < ConcreteElement
 			prop = Group.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Group.SUB_CLASS % __Group.SUB_CLASS__
+				case 9 % Group.SUB_CLASS
 					prop_default = Format.getFormatDefault(6, Group.getPropSettings(prop));
-				case Group.SUB_DICT % __Group.SUB_DICT__
+				case 10 % Group.SUB_DICT
 					prop_default = Format.getFormatDefault(10, Group.getPropSettings(prop));
-				case Group.VOIS % __Group.VOIS__
+				case 11 % Group.VOIS
 					prop_default = Format.getFormatDefault(16, Group.getPropSettings(prop));
-				case Group.COVARIATES % __Group.COVARIATES__
+				case 12 % Group.COVARIATES
 					prop_default = Format.getFormatDefault(14, Group.getPropSettings(prop));
-				case Group.ELCLASS % __Group.ELCLASS__
+				case 1 % Group.ELCLASS
 					prop_default = 'Group';
-				case Group.NAME % __Group.NAME__
+				case 2 % Group.NAME
 					prop_default = 'Group';
-				case Group.DESCRIPTION % __Group.DESCRIPTION__
+				case 3 % Group.DESCRIPTION
 					prop_default = 'A Group represents a group of subjects whose class is defined in the property SUB_CLASS. Group provides the methods necessary to handle groups of subjects. It manages the subjects as an indexed dictionary of subjects SUB_DICT, whose methods can be used to inspect, add or remove subjects.';
-				case Group.ID % __Group.ID__
+				case 5 % Group.ID
 					prop_default = 'Group ID';
-				case Group.LABEL % __Group.LABEL__
+				case 6 % Group.LABEL
 					prop_default = 'Group label';
-				case Group.NOTES % __Group.NOTES__
+				case 7 % Group.NOTES
 					prop_default = 'Group notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -645,16 +645,16 @@ classdef Group < ConcreteElement
 			prop = Group.getPropProp(pointer);
 			
 			switch prop
-				case Group.SUB_CLASS % __Group.SUB_CLASS__
+				case 9 % Group.SUB_CLASS
 					check = Format.checkFormat(6, value, Group.getPropSettings(prop));
-				case Group.SUB_DICT % __Group.SUB_DICT__
+				case 10 % Group.SUB_DICT
 					check = Format.checkFormat(10, value, Group.getPropSettings(prop));
-				case Group.VOIS % __Group.VOIS__
+				case 11 % Group.VOIS
 					check = Format.checkFormat(16, value, Group.getPropSettings(prop));
-				case Group.COVARIATES % __Group.COVARIATES__
+				case 12 % Group.COVARIATES
 					check = Format.checkFormat(14, value, Group.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -687,8 +687,8 @@ classdef Group < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case Group.VOIS % __Group.VOIS__
-					rng_settings_ = rng(); rng(gr.getPropSeed(Group.VOIS), 'twister')
+				case 11 % Group.VOIS
+					rng_settings_ = rng(); rng(gr.getPropSeed(11), 'twister')
 					
 					sub_dict = gr.get('SUB_DICT');
 					
@@ -727,8 +727,8 @@ classdef Group < ConcreteElement
 					
 					rng(rng_settings_)
 					
-				case Group.COVARIATES % __Group.COVARIATES__
-					rng_settings_ = rng(); rng(gr.getPropSeed(Group.COVARIATES), 'twister')
+				case 12 % Group.COVARIATES
+					rng_settings_ = rng(); rng(gr.getPropSeed(12), 'twister')
 					
 					vois = gr.get('VOIS');
 					
@@ -745,7 +745,7 @@ classdef Group < ConcreteElement
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(gr, prop, varargin{:});
 					else
 						value = calculateValue@Element(gr, prop, varargin{:});
@@ -771,9 +771,9 @@ classdef Group < ConcreteElement
 			%  PanelPropString, PanelPropStringList.
 			
 			switch prop
-				case Group.SUB_DICT % __Group.SUB_DICT__
-					[order, title] = load_layout(gr.get(Group.SUB_DICT).get(IndexedDictionary.IT_CLASS));
-					cols(1) = PanelPropIDictTable.SELECTOR;
+				case 10 % Group.SUB_DICT
+					[order, title] = load_layout(gr.get(10).get(9));
+					cols(1) = -1;
 					columnname = {''};
 					for i = 1:1:length(order)
 					    if isfinite(order(i))
@@ -781,7 +781,7 @@ classdef Group < ConcreteElement
 					        columnname{order(i) + 1} = title{i};
 					    end
 					end
-					pr = PanelPropIDictTable('EL', gr, 'PROP', Group.SUB_DICT, ... 
+					pr = PanelPropIDictTable('EL', gr, 'PROP', 10, ... 
 					    'ROWNAME', 'numbered', ...
 					    'COLS', cols, ...
 					    'COLUMNNAME', columnname, ...

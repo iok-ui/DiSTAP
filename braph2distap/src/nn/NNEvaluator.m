@@ -193,7 +193,7 @@ classdef NNEvaluator < ConcreteElement
 			%
 			% See also subclasses.
 			
-			subclass_list = { 'NNEvaluator' }; %CET: Computational Efficiency Trick
+			subclass_list = { 'NNEvaluator'  'NNVariationalAutoencoderEvaluator'  'NNVariationalAutoencoderEvaluator_Image'  'NNVariationalAutoencoderEvaluator_RamanSpectral' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
 			%GETPROPS returns the property list of neural network evaluator.
@@ -507,11 +507,11 @@ classdef NNEvaluator < ConcreteElement
 			prop = NNEvaluator.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNEvaluator.NN % __NNEvaluator.NN__
+				case 9 % NNEvaluator.NN
 					prop_settings = 'NNBase';
-				case NNEvaluator.D % __NNEvaluator.D__
+				case 10 % NNEvaluator.D
 					prop_settings = 'NNDataset';
-				case NNEvaluator.TEMPLATE % __NNEvaluator.TEMPLATE__
+				case 4 % NNEvaluator.TEMPLATE
 					prop_settings = 'NNEvaluator';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -540,23 +540,23 @@ classdef NNEvaluator < ConcreteElement
 			prop = NNEvaluator.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case NNEvaluator.NN % __NNEvaluator.NN__
+				case 9 % NNEvaluator.NN
 					prop_default = Format.getFormatDefault(8, NNEvaluator.getPropSettings(prop));
-				case NNEvaluator.D % __NNEvaluator.D__
+				case 10 % NNEvaluator.D
 					prop_default = Format.getFormatDefault(8, NNEvaluator.getPropSettings(prop));
-				case NNEvaluator.ELCLASS % __NNEvaluator.ELCLASS__
+				case 1 % NNEvaluator.ELCLASS
 					prop_default = 'NNEvaluator';
-				case NNEvaluator.NAME % __NNEvaluator.NAME__
+				case 2 % NNEvaluator.NAME
 					prop_default = 'Neural Network Evaluator';
-				case NNEvaluator.DESCRIPTION % __NNEvaluator.DESCRIPTION__
+				case 3 % NNEvaluator.DESCRIPTION
 					prop_default = 'A neural network evaluator (NNEvaluator) evaluates the performance of a neural network model with a specific dataset. Instances of this class should not be created. Use one of its subclasses instead. Its subclasses shall be specifically designed to cater to different evaluation cases such as a classification task, a regression task, or a data generation task.';
-				case NNEvaluator.TEMPLATE % __NNEvaluator.TEMPLATE__
+				case 4 % NNEvaluator.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNEvaluator.getPropSettings(prop));
-				case NNEvaluator.ID % __NNEvaluator.ID__
+				case 5 % NNEvaluator.ID
 					prop_default = 'NNEvaluator ID';
-				case NNEvaluator.LABEL % __NNEvaluator.LABEL__
+				case 6 % NNEvaluator.LABEL
 					prop_default = 'NNEvaluator label';
-				case NNEvaluator.NOTES % __NNEvaluator.NOTES__
+				case 7 % NNEvaluator.NOTES
 					prop_default = 'NNEvaluator notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -622,14 +622,14 @@ classdef NNEvaluator < ConcreteElement
 			prop = NNEvaluator.getPropProp(pointer);
 			
 			switch prop
-				case NNEvaluator.NN % __NNEvaluator.NN__
+				case 9 % NNEvaluator.NN
 					check = Format.checkFormat(8, value, NNEvaluator.getPropSettings(prop));
-				case NNEvaluator.D % __NNEvaluator.D__
+				case 10 % NNEvaluator.D
 					check = Format.checkFormat(8, value, NNEvaluator.getPropSettings(prop));
-				case NNEvaluator.TEMPLATE % __NNEvaluator.TEMPLATE__
+				case 4 % NNEvaluator.TEMPLATE
 					check = Format.checkFormat(8, value, NNEvaluator.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end

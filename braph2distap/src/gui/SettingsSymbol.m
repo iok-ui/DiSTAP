@@ -569,23 +569,23 @@ classdef SettingsSymbol < Settings
 			prop = SettingsSymbol.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsSymbol.VISIBLE % __SettingsSymbol.VISIBLE__
+				case 15 % SettingsSymbol.VISIBLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsSymbol.X % __SettingsSymbol.X__
+				case 16 % SettingsSymbol.X
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsSymbol.Y % __SettingsSymbol.Y__
+				case 17 % SettingsSymbol.Y
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsSymbol.Z % __SettingsSymbol.Z__
+				case 18 % SettingsSymbol.Z
 					prop_settings = Format.getFormatSettings(11);
-				case SettingsSymbol.SYMBOL % __SettingsSymbol.SYMBOL__
+				case 19 % SettingsSymbol.SYMBOL
 					prop_settings = Format.getFormatSettings(23);
-				case SettingsSymbol.SYMBOLSIZE % __SettingsSymbol.SYMBOLSIZE__
+				case 20 % SettingsSymbol.SYMBOLSIZE
 					prop_settings = Format.getFormatSettings(22);
-				case SettingsSymbol.EDGECOLOR % __SettingsSymbol.EDGECOLOR__
+				case 21 % SettingsSymbol.EDGECOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case SettingsSymbol.FACECOLOR % __SettingsSymbol.FACECOLOR__
+				case 22 % SettingsSymbol.FACECOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case SettingsSymbol.TEMPLATE % __SettingsSymbol.TEMPLATE__
+				case 4 % SettingsSymbol.TEMPLATE
 					prop_settings = 'SettingsSymbol';
 				otherwise
 					prop_settings = getPropSettings@Settings(prop);
@@ -614,35 +614,35 @@ classdef SettingsSymbol < Settings
 			prop = SettingsSymbol.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsSymbol.VISIBLE % __SettingsSymbol.VISIBLE__
+				case 15 % SettingsSymbol.VISIBLE
 					prop_default = false;
-				case SettingsSymbol.X % __SettingsSymbol.X__
+				case 16 % SettingsSymbol.X
 					prop_default = Format.getFormatDefault(11, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.Y % __SettingsSymbol.Y__
+				case 17 % SettingsSymbol.Y
 					prop_default = Format.getFormatDefault(11, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.Z % __SettingsSymbol.Z__
+				case 18 % SettingsSymbol.Z
 					prop_default = Format.getFormatDefault(11, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.SYMBOL % __SettingsSymbol.SYMBOL__
+				case 19 % SettingsSymbol.SYMBOL
 					prop_default = Format.getFormatDefault(23, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.SYMBOLSIZE % __SettingsSymbol.SYMBOLSIZE__
+				case 20 % SettingsSymbol.SYMBOLSIZE
 					prop_default = 10;
-				case SettingsSymbol.EDGECOLOR % __SettingsSymbol.EDGECOLOR__
+				case 21 % SettingsSymbol.EDGECOLOR
 					prop_default = [0 0 0];
-				case SettingsSymbol.FACECOLOR % __SettingsSymbol.FACECOLOR__
+				case 22 % SettingsSymbol.FACECOLOR
 					prop_default = [0.9 0.4 0.1];
-				case SettingsSymbol.ELCLASS % __SettingsSymbol.ELCLASS__
+				case 1 % SettingsSymbol.ELCLASS
 					prop_default = 'SettingsSymbol';
-				case SettingsSymbol.NAME % __SettingsSymbol.NAME__
+				case 2 % SettingsSymbol.NAME
 					prop_default = 'Symbol Settings';
-				case SettingsSymbol.DESCRIPTION % __SettingsSymbol.DESCRIPTION__
+				case 3 % SettingsSymbol.DESCRIPTION
 					prop_default = 'A Symbol Settings (SettingsSymbol) provides the settings for a symbol, including visibility, x, y, z, symbol marker, symbol size, face color, and edge color.';
-				case SettingsSymbol.TEMPLATE % __SettingsSymbol.TEMPLATE__
+				case 4 % SettingsSymbol.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.ID % __SettingsSymbol.ID__
+				case 5 % SettingsSymbol.ID
 					prop_default = 'SettingsSymbol ID';
-				case SettingsSymbol.LABEL % __SettingsSymbol.LABEL__
+				case 6 % SettingsSymbol.LABEL
 					prop_default = 'SettingsSymbol label';
-				case SettingsSymbol.NOTES % __SettingsSymbol.NOTES__
+				case 7 % SettingsSymbol.NOTES
 					prop_default = 'SettingsSymbol notes';
 				otherwise
 					prop_default = getPropDefault@Settings(prop);
@@ -708,26 +708,26 @@ classdef SettingsSymbol < Settings
 			prop = SettingsSymbol.getPropProp(pointer);
 			
 			switch prop
-				case SettingsSymbol.VISIBLE % __SettingsSymbol.VISIBLE__
+				case 15 % SettingsSymbol.VISIBLE
 					check = Format.checkFormat(4, value, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.X % __SettingsSymbol.X__
+				case 16 % SettingsSymbol.X
 					check = Format.checkFormat(11, value, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.Y % __SettingsSymbol.Y__
+				case 17 % SettingsSymbol.Y
 					check = Format.checkFormat(11, value, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.Z % __SettingsSymbol.Z__
+				case 18 % SettingsSymbol.Z
 					check = Format.checkFormat(11, value, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.SYMBOL % __SettingsSymbol.SYMBOL__
+				case 19 % SettingsSymbol.SYMBOL
 					check = Format.checkFormat(23, value, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.SYMBOLSIZE % __SettingsSymbol.SYMBOLSIZE__
+				case 20 % SettingsSymbol.SYMBOLSIZE
 					check = Format.checkFormat(22, value, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.EDGECOLOR % __SettingsSymbol.EDGECOLOR__
+				case 21 % SettingsSymbol.EDGECOLOR
 					check = Format.checkFormat(20, value, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.FACECOLOR % __SettingsSymbol.FACECOLOR__
+				case 22 % SettingsSymbol.FACECOLOR
 					check = Format.checkFormat(20, value, SettingsSymbol.getPropSettings(prop));
-				case SettingsSymbol.TEMPLATE % __SettingsSymbol.TEMPLATE__
+				case 4 % SettingsSymbol.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsSymbol.getPropSettings(prop));
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						check = checkProp@Settings(prop, value);
 					end
 			end
@@ -757,7 +757,7 @@ classdef SettingsSymbol < Settings
 			%  checkValue.
 			
 			switch prop
-				case SettingsSymbol.VISIBLE % __SettingsSymbol.VISIBLE__
+				case 15 % SettingsSymbol.VISIBLE
 					h = st.get('H');
 					if check_graphics(h, 'line') && ( ...
 					        get(h, 'Visible') ~= st.get('VISIBLE') || ...
@@ -786,7 +786,7 @@ classdef SettingsSymbol < Settings
 					end
 					
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						postprocessing@Settings(st, prop);
 					end
 			end

@@ -500,7 +500,7 @@ classdef Subject < ConcreteElement
 			prop = Subject.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Subject.VOI_DICT % __Subject.VOI_DICT__
+				case 9 % Subject.VOI_DICT
 					prop_settings = 'VOI';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -529,19 +529,19 @@ classdef Subject < ConcreteElement
 			prop = Subject.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Subject.VOI_DICT % __Subject.VOI_DICT__
+				case 9 % Subject.VOI_DICT
 					prop_default = Format.getFormatDefault(10, Subject.getPropSettings(prop));
-				case Subject.ELCLASS % __Subject.ELCLASS__
+				case 1 % Subject.ELCLASS
 					prop_default = 'Subject';
-				case Subject.NAME % __Subject.NAME__
+				case 2 % Subject.NAME
 					prop_default = 'Subject';
-				case Subject.DESCRIPTION % __Subject.DESCRIPTION__
+				case 3 % Subject.DESCRIPTION
 					prop_default = 'A Subject provides the methods necessary for all subjects. Instances of this element should not be created. Use one of its subelements instead.';
-				case Subject.ID % __Subject.ID__
+				case 5 % Subject.ID
 					prop_default = 'Subject ID';
-				case Subject.LABEL % __Subject.LABEL__
+				case 6 % Subject.LABEL
 					prop_default = 'Subject label';
-				case Subject.NOTES % __Subject.NOTES__
+				case 7 % Subject.NOTES
 					prop_default = 'Subject notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -607,10 +607,10 @@ classdef Subject < ConcreteElement
 			prop = Subject.getPropProp(pointer);
 			
 			switch prop
-				case Subject.VOI_DICT % __Subject.VOI_DICT__
+				case 9 % Subject.VOI_DICT
 					check = Format.checkFormat(10, value, Subject.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -643,8 +643,8 @@ classdef Subject < ConcreteElement
 			%  PanelPropString, PanelPropStringList.
 			
 			switch prop
-				case Subject.VOI_DICT % __Subject.VOI_DICT__
-					pr = SubjectPP_VOIDict('EL', sub, 'PROP', Subject.VOI_DICT, varargin{:});
+				case 9 % Subject.VOI_DICT
+					pr = SubjectPP_VOIDict('EL', sub, 'PROP', 9, varargin{:});
 					
 				otherwise
 					pr = getPanelProp@ConcreteElement(sub, prop, varargin{:});

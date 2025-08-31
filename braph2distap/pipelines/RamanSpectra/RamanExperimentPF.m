@@ -914,7 +914,7 @@ classdef RamanExperimentPF < PanelFig
 				case 4 % RamanExperimentPF.TEMPLATE
 					check = Format.checkFormat(8, value, RamanExperimentPF.getPropSettings(prop));
 				otherwise
-					if prop <= PanelFig.getPropNumber()
+					if prop <= 22
 						check = checkProp@PanelFig(prop, value);
 					end
 			end
@@ -1005,7 +1005,7 @@ classdef RamanExperimentPF < PanelFig
 					end
 					
 				otherwise
-					if prop <= PanelFig.getPropNumber()
+					if prop <= 22
 						postset@PanelFig(pf, prop);
 					end
 			end
@@ -1173,7 +1173,7 @@ classdef RamanExperimentPF < PanelFig
 					end
 					
 				case 11 % RamanExperimentPF.DRAW
-					value = calculateValue@PanelFig(pf, PanelFig.DRAW, varargin{:}); % also warning
+					value = calculateValue@PanelFig(pf, 11, varargin{:}); % also warning
 					if value
 					    pf.memorize('H_AXES')
 					
@@ -1204,7 +1204,7 @@ classdef RamanExperimentPF < PanelFig
 					end
 					
 				case 18 % RamanExperimentPF.DELETE
-					value = calculateValue@PanelFig(pf, PanelFig.DELETE, varargin{:}); % also warning
+					value = calculateValue@PanelFig(pf, 18, varargin{:}); % also warning
 					if value
 					    pf.set('H_AXES', Element.getNoValue())
 					
@@ -1228,7 +1228,7 @@ classdef RamanExperimentPF < PanelFig
 				case 22 % RamanExperimentPF.H_TOOLS
 					toolbar = pf.memorize('H_TOOLBAR');
 					if check_graphics(toolbar, 'uitoolbar')
-					    value = calculateValue@PanelFig(pf, PanelFig.H_TOOLS);
+					    value = calculateValue@PanelFig(pf, 22);
 					    
 					    tool_separator_1 = uipushtool(toolbar, 'Separator', 'on', 'Visible', 'off');
 					
@@ -1292,7 +1292,7 @@ classdef RamanExperimentPF < PanelFig
 					end
 					
 				otherwise
-					if prop <= PanelFig.getPropNumber()
+					if prop <= 22
 						value = calculateValue@PanelFig(pf, prop, varargin{:});
 					else
 						value = calculateValue@Element(pf, prop, varargin{:});
@@ -1384,7 +1384,7 @@ classdef RamanExperimentPF < PanelFig
 					
 				case 37 % RamanExperimentPF.LINE_DICT
 					pr = PanelPropIDictTable('EL', pf, 'PROP', 37, ...
-					    'COLS', [PanelPropIDictTable.SELECTOR SettingsLine.VISIBLE SettingsLine.LINESTYLE SettingsLine.LINEWIDTH SettingsLine.LINECOLOR SettingsLine.SYMBOL SettingsLine.SYMBOLSIZE SettingsLine.EDGECOLOR SettingsLine.FACECOLOR], ...
+					    'COLS', [-1 15 19 20 21 22 23 24 25], ...
 					    varargin{:});
 					
 				case 39 % RamanExperimentPF.ST_TITLE

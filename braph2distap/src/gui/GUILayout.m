@@ -600,17 +600,17 @@ classdef GUILayout < GUI
 			prop = GUILayout.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case GUILayout.EL_CLASS % __GUILayout.EL_CLASS__
+				case 30 % GUILayout.EL_CLASS
 					prop_settings = Format.getFormatSettings(6);
-				case GUILayout.P % __GUILayout.P__
+				case 31 % GUILayout.P
 					prop_settings = Format.getFormatSettings(18);
-				case GUILayout.TABLE % __GUILayout.TABLE__
+				case 32 % GUILayout.TABLE
 					prop_settings = Format.getFormatSettings(18);
-				case GUILayout.SAVE_BTN % __GUILayout.SAVE_BTN__
+				case 33 % GUILayout.SAVE_BTN
 					prop_settings = Format.getFormatSettings(18);
-				case GUILayout.CANCEL_BTN % __GUILayout.CANCEL_BTN__
+				case 34 % GUILayout.CANCEL_BTN
 					prop_settings = Format.getFormatSettings(18);
-				case GUILayout.TEMPLATE % __GUILayout.TEMPLATE__
+				case 4 % GUILayout.TEMPLATE
 					prop_settings = 'GUILayout';
 				otherwise
 					prop_settings = getPropSettings@GUI(prop);
@@ -639,33 +639,33 @@ classdef GUILayout < GUI
 			prop = GUILayout.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case GUILayout.EL_CLASS % __GUILayout.EL_CLASS__
+				case 30 % GUILayout.EL_CLASS
 					prop_default = Format.getFormatDefault(6, GUILayout.getPropSettings(prop));
-				case GUILayout.P % __GUILayout.P__
+				case 31 % GUILayout.P
 					prop_default = Format.getFormatDefault(18, GUILayout.getPropSettings(prop));
-				case GUILayout.TABLE % __GUILayout.TABLE__
+				case 32 % GUILayout.TABLE
 					prop_default = Format.getFormatDefault(18, GUILayout.getPropSettings(prop));
-				case GUILayout.SAVE_BTN % __GUILayout.SAVE_BTN__
+				case 33 % GUILayout.SAVE_BTN
 					prop_default = Format.getFormatDefault(18, GUILayout.getPropSettings(prop));
-				case GUILayout.CANCEL_BTN % __GUILayout.CANCEL_BTN__
+				case 34 % GUILayout.CANCEL_BTN
 					prop_default = Format.getFormatDefault(18, GUILayout.getPropSettings(prop));
-				case GUILayout.ELCLASS % __GUILayout.ELCLASS__
+				case 1 % GUILayout.ELCLASS
 					prop_default = 'GUILayout';
-				case GUILayout.NAME % __GUILayout.NAME__
+				case 2 % GUILayout.NAME
 					prop_default = 'GUI Layout';
-				case GUILayout.DESCRIPTION % __GUILayout.DESCRIPTION__
+				case 3 % GUILayout.DESCRIPTION
 					prop_default = 'A GUI Layout (GUILayout) renders a layout editor.';
-				case GUILayout.TEMPLATE % __GUILayout.TEMPLATE__
+				case 4 % GUILayout.TEMPLATE
 					prop_default = Format.getFormatDefault(8, GUILayout.getPropSettings(prop));
-				case GUILayout.ID % __GUILayout.ID__
+				case 5 % GUILayout.ID
 					prop_default = 'GUILayout ID';
-				case GUILayout.LABEL % __GUILayout.LABEL__
+				case 6 % GUILayout.LABEL
 					prop_default = 'GUILayout label';
-				case GUILayout.NOTES % __GUILayout.NOTES__
+				case 7 % GUILayout.NOTES
 					prop_default = 'GUILayout notes';
-				case GUILayout.TITLE % __GUILayout.TITLE__
+				case 12 % GUILayout.TITLE
 					prop_default = ['Layout Editor - ' 'BRAPH2'];
-				case GUILayout.CLOSEREQ % __GUILayout.CLOSEREQ__
+				case 23 % GUILayout.CLOSEREQ
 					prop_default = false;
 				otherwise
 					prop_default = getPropDefault@GUI(prop);
@@ -715,11 +715,11 @@ classdef GUILayout < GUI
 			prop = GUILayout.getPropProp(pointer);
 			
 			switch prop
-				case GUILayout.EL_CLASS % __GUILayout.EL_CLASS__
+				case 30 % GUILayout.EL_CLASS
 					value = Element.getClass(value);
 					
 				otherwise
-					if prop <= GUI.getPropNumber()
+					if prop <= 29
 						value = conditioning@GUI(pointer, value);
 					end
 			end
@@ -759,20 +759,20 @@ classdef GUILayout < GUI
 			prop = GUILayout.getPropProp(pointer);
 			
 			switch prop
-				case GUILayout.EL_CLASS % __GUILayout.EL_CLASS__
+				case 30 % GUILayout.EL_CLASS
 					check = Format.checkFormat(6, value, GUILayout.getPropSettings(prop));
-				case GUILayout.P % __GUILayout.P__
+				case 31 % GUILayout.P
 					check = Format.checkFormat(18, value, GUILayout.getPropSettings(prop));
-				case GUILayout.TABLE % __GUILayout.TABLE__
+				case 32 % GUILayout.TABLE
 					check = Format.checkFormat(18, value, GUILayout.getPropSettings(prop));
-				case GUILayout.SAVE_BTN % __GUILayout.SAVE_BTN__
+				case 33 % GUILayout.SAVE_BTN
 					check = Format.checkFormat(18, value, GUILayout.getPropSettings(prop));
-				case GUILayout.CANCEL_BTN % __GUILayout.CANCEL_BTN__
+				case 34 % GUILayout.CANCEL_BTN
 					check = Format.checkFormat(18, value, GUILayout.getPropSettings(prop));
-				case GUILayout.TEMPLATE % __GUILayout.TEMPLATE__
+				case 4 % GUILayout.TEMPLATE
 					check = Format.checkFormat(8, value, GUILayout.getPropSettings(prop));
 				otherwise
-					if prop <= GUI.getPropNumber()
+					if prop <= 29
 						check = checkProp@GUI(prop, value);
 					end
 			end
@@ -802,14 +802,14 @@ classdef GUILayout < GUI
 			%  checkValue.
 			
 			switch prop
-				case GUILayout.EL_CLASS % __GUILayout.EL_CLASS__
+				case 30 % GUILayout.EL_CLASS
 					if isa(gui.getr('TITLE'), 'NoValue')
 					    gui.set('TITLE', ['Layout Editor - ' gui.get('EL_CLASS') ' - ' 'BRAPH2'])
 					end
 					gui.lock('EL_CLASS', 'Iterative', false)
 					
 				otherwise
-					if prop <= GUI.getPropNumber()
+					if prop <= 29
 						postset@GUI(gui, prop);
 					end
 			end
@@ -832,7 +832,7 @@ classdef GUILayout < GUI
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case GUILayout.P % __GUILayout.P__
+				case 31 % GUILayout.P
 					p = uipanel( ...
 					    'Parent', gui.memorize('H'), ...
 					    'Tag', 'p', ...
@@ -843,7 +843,7 @@ classdef GUILayout < GUI
 					    );
 					value = p;
 					
-				case GUILayout.TABLE % __GUILayout.TABLE__
+				case 32 % GUILayout.TABLE
 					table = uitable( ...
 					    'Parent', gui.memorize('P'), ...
 					    'Tag', 'table', ...
@@ -874,7 +874,7 @@ classdef GUILayout < GUI
 					
 					value = table;
 					
-				case GUILayout.SAVE_BTN % __GUILayout.SAVE_BTN__
+				case 33 % GUILayout.SAVE_BTN
 					save_btn = uibutton( ...
 					    'Parent', gui.memorize('P'), ...
 					    'Tag', 'save_btn', ...
@@ -887,7 +887,7 @@ classdef GUILayout < GUI
 					    );
 					value = save_btn;
 					
-				case GUILayout.CANCEL_BTN % __GUILayout.CANCEL_BTN__
+				case 34 % GUILayout.CANCEL_BTN
 					cancel_btn = uibutton( ...
 					    'Parent', gui.memorize('P'), ...
 					    'Tag', 'save_btn', ...
@@ -899,7 +899,7 @@ classdef GUILayout < GUI
 					    );
 					value = cancel_btn;
 					
-				case GUILayout.DRAW % __GUILayout.DRAW__
+				case 10 % GUILayout.DRAW
 					if check_graphics(gui.memorize('H'), 'figure')
 						el_class = gui.memorize('EL_CLASS');
 					
@@ -923,8 +923,8 @@ classdef GUILayout < GUI
 					    value = false;
 					end
 					
-				case GUILayout.RESIZE % __GUILayout.RESIZE__
-					value = calculateValue@GUI(gui, GUI.RESIZE, varargin{:}); % also warning
+				case 25 % GUILayout.RESIZE
+					value = calculateValue@GUI(gui, 25, varargin{:}); % also warning
 					if value    
 					    p = gui.get('P');
 					    
@@ -933,8 +933,8 @@ classdef GUILayout < GUI
 					    set(gui.get('CANCEL_BTN'), 'Position', [144 12 120 24])
 					end
 					
-				case GUILayout.DELETE % __GUILayout.DELETE__
-					value = calculateValue@GUI(gui, GUI.DELETE, varargin{:}); % also warning
+				case 28 % GUILayout.DELETE
+					value = calculateValue@GUI(gui, 28, varargin{:}); % also warning
 					if value
 					    gui.set('P', Element.getNoValue())
 					    gui.set('TABLE', Element.getNoValue())
@@ -943,7 +943,7 @@ classdef GUILayout < GUI
 					end
 					
 				otherwise
-					if prop <= GUI.getPropNumber()
+					if prop <= 29
 						value = calculateValue@GUI(gui, prop, varargin{:});
 					else
 						value = calculateValue@Element(gui, prop, varargin{:});

@@ -565,9 +565,9 @@ classdef PanelPropColor < PanelProp
 			prop = PanelPropColor.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropColor.BUTTON % __PanelPropColor.BUTTON__
+				case 36 % PanelPropColor.BUTTON
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropColor.TEMPLATE % __PanelPropColor.TEMPLATE__
+				case 4 % PanelPropColor.TEMPLATE
 					prop_settings = 'PanelPropColor';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -596,27 +596,27 @@ classdef PanelPropColor < PanelProp
 			prop = PanelPropColor.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropColor.BUTTON % __PanelPropColor.BUTTON__
+				case 36 % PanelPropColor.BUTTON
 					prop_default = Format.getFormatDefault(18, PanelPropColor.getPropSettings(prop));
-				case PanelPropColor.ELCLASS % __PanelPropColor.ELCLASS__
+				case 1 % PanelPropColor.ELCLASS
 					prop_default = 'PanelPropColor';
-				case PanelPropColor.NAME % __PanelPropColor.NAME__
+				case 2 % PanelPropColor.NAME
 					prop_default = 'Color Prop Panel';
-				case PanelPropColor.DESCRIPTION % __PanelPropColor.DESCRIPTION__
+				case 3 % PanelPropColor.DESCRIPTION
 					prop_default = 'A Color Prop Panel (PanelPropColor) plots the panel for a COLOR property with a button. It works for all categories.';
-				case PanelPropColor.TEMPLATE % __PanelPropColor.TEMPLATE__
+				case 4 % PanelPropColor.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropColor.getPropSettings(prop));
-				case PanelPropColor.ID % __PanelPropColor.ID__
+				case 5 % PanelPropColor.ID
 					prop_default = 'PanelPropColor ID';
-				case PanelPropColor.LABEL % __PanelPropColor.LABEL__
+				case 6 % PanelPropColor.LABEL
 					prop_default = 'PanelPropColor label';
-				case PanelPropColor.NOTES % __PanelPropColor.NOTES__
+				case 7 % PanelPropColor.NOTES
 					prop_default = 'PanelPropColor notes';
-				case PanelPropColor.EL % __PanelPropColor.EL__
+				case 23 % PanelPropColor.EL
 					prop_default = PanelProp();
-				case PanelPropColor.PROP % __PanelPropColor.PROP__
-					prop_default = PanelProp.BKGCOLOR;
-				case PanelPropColor.HEIGHT % __PanelPropColor.HEIGHT__
+				case 24 % PanelPropColor.PROP
+					prop_default = 14;
+				case 25 % PanelPropColor.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -682,12 +682,12 @@ classdef PanelPropColor < PanelProp
 			prop = PanelPropColor.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropColor.BUTTON % __PanelPropColor.BUTTON__
+				case 36 % PanelPropColor.BUTTON
 					check = Format.checkFormat(18, value, PanelPropColor.getPropSettings(prop));
-				case PanelPropColor.TEMPLATE % __PanelPropColor.TEMPLATE__
+				case 4 % PanelPropColor.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropColor.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -720,7 +720,7 @@ classdef PanelPropColor < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropColor.BUTTON % __PanelPropColor.BUTTON__
+				case 36 % PanelPropColor.BUTTON
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -737,14 +737,14 @@ classdef PanelPropColor < PanelProp
 					
 					value = button;
 					
-				case PanelPropColor.X_DRAW % __PanelPropColor.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropColor.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('BUTTON')
 					end
 					
-				case PanelPropColor.UPDATE % __PanelPropColor.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropColor.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -784,22 +784,22 @@ classdef PanelPropColor < PanelProp
 					    end
 					end
 					
-				case PanelPropColor.REDRAW % __PanelPropColor.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropColor.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('BUTTON'), 'Position', [4 4 .70*w_p 21])
 					end
 					
-				case PanelPropColor.DELETE % __PanelPropColor.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropColor.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('BUTTON', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

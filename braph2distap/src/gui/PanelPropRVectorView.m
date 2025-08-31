@@ -612,21 +612,21 @@ classdef PanelPropRVectorView < PanelProp
 			prop = PanelPropRVectorView.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropRVectorView.ENABLE % __PanelPropRVectorView.ENABLE__
+				case 36 % PanelPropRVectorView.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropRVectorView.LABEL_AZ % __PanelPropRVectorView.LABEL_AZ__
+				case 37 % PanelPropRVectorView.LABEL_AZ
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropRVectorView.EDITFIELD_AZ % __PanelPropRVectorView.EDITFIELD_AZ__
+				case 38 % PanelPropRVectorView.EDITFIELD_AZ
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropRVectorView.SLIDER_AZ % __PanelPropRVectorView.SLIDER_AZ__
+				case 39 % PanelPropRVectorView.SLIDER_AZ
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropRVectorView.LABEL_EL % __PanelPropRVectorView.LABEL_EL__
+				case 40 % PanelPropRVectorView.LABEL_EL
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropRVectorView.EDITFIELD_EL % __PanelPropRVectorView.EDITFIELD_EL__
+				case 41 % PanelPropRVectorView.EDITFIELD_EL
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropRVectorView.SLIDER_EL % __PanelPropRVectorView.SLIDER_EL__
+				case 42 % PanelPropRVectorView.SLIDER_EL
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropRVectorView.TEMPLATE % __PanelPropRVectorView.TEMPLATE__
+				case 4 % PanelPropRVectorView.TEMPLATE
 					prop_settings = 'PanelPropRVectorView';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -655,39 +655,39 @@ classdef PanelPropRVectorView < PanelProp
 			prop = PanelPropRVectorView.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropRVectorView.ENABLE % __PanelPropRVectorView.ENABLE__
+				case 36 % PanelPropRVectorView.ENABLE
 					prop_default = true;
-				case PanelPropRVectorView.LABEL_AZ % __PanelPropRVectorView.LABEL_AZ__
+				case 37 % PanelPropRVectorView.LABEL_AZ
 					prop_default = Format.getFormatDefault(18, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.EDITFIELD_AZ % __PanelPropRVectorView.EDITFIELD_AZ__
+				case 38 % PanelPropRVectorView.EDITFIELD_AZ
 					prop_default = Format.getFormatDefault(18, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.SLIDER_AZ % __PanelPropRVectorView.SLIDER_AZ__
+				case 39 % PanelPropRVectorView.SLIDER_AZ
 					prop_default = Format.getFormatDefault(18, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.LABEL_EL % __PanelPropRVectorView.LABEL_EL__
+				case 40 % PanelPropRVectorView.LABEL_EL
 					prop_default = Format.getFormatDefault(18, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.EDITFIELD_EL % __PanelPropRVectorView.EDITFIELD_EL__
+				case 41 % PanelPropRVectorView.EDITFIELD_EL
 					prop_default = Format.getFormatDefault(18, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.SLIDER_EL % __PanelPropRVectorView.SLIDER_EL__
+				case 42 % PanelPropRVectorView.SLIDER_EL
 					prop_default = Format.getFormatDefault(18, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.ELCLASS % __PanelPropRVectorView.ELCLASS__
+				case 1 % PanelPropRVectorView.ELCLASS
 					prop_default = 'PanelPropRVectorView';
-				case PanelPropRVectorView.NAME % __PanelPropRVectorView.NAME__
+				case 2 % PanelPropRVectorView.NAME
 					prop_default = 'View Prop Panel';
-				case PanelPropRVectorView.DESCRIPTION % __PanelPropRVectorView.DESCRIPTION__
+				case 3 % PanelPropRVectorView.DESCRIPTION
 					prop_default = 'A View Prop Panel (PanelPropRVectorView) plots the panel for the azimuth and elevation angles of the camera''s line of sight. Azimuth — The angle of rotation around the z-axis, as measured from the negative y-axis. Increasing this angle corresponds to counterclockwise rotation about the z-axis when viewing the xy plane from above. Elevation — The minimum angle between the line of sight and the xy plane. Increasing the elevation from -90 to 90 degrees corresponds to a rotation from the negative z-axis to the positive z-axis.It works for all categories.';
-				case PanelPropRVectorView.TEMPLATE % __PanelPropRVectorView.TEMPLATE__
+				case 4 % PanelPropRVectorView.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.ID % __PanelPropRVectorView.ID__
+				case 5 % PanelPropRVectorView.ID
 					prop_default = 'PanelPropRVectorView ID';
-				case PanelPropRVectorView.LABEL % __PanelPropRVectorView.LABEL__
+				case 6 % PanelPropRVectorView.LABEL
 					prop_default = 'PanelPropRVectorView label';
-				case PanelPropRVectorView.NOTES % __PanelPropRVectorView.NOTES__
+				case 7 % PanelPropRVectorView.NOTES
 					prop_default = 'PanelPropRVectorView notes';
-				case PanelPropRVectorView.EL % __PanelPropRVectorView.EL__
+				case 23 % PanelPropRVectorView.EL
 					prop_default = BrainSurfacePF();
-				case PanelPropRVectorView.PROP % __PanelPropRVectorView.PROP__
+				case 24 % PanelPropRVectorView.PROP
 					prop_default = BrainSurfacePF.VIEW;
-				case PanelPropRVectorView.HEIGHT % __PanelPropRVectorView.HEIGHT__
+				case 25 % PanelPropRVectorView.HEIGHT
 					prop_default = 77;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -753,24 +753,24 @@ classdef PanelPropRVectorView < PanelProp
 			prop = PanelPropRVectorView.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropRVectorView.ENABLE % __PanelPropRVectorView.ENABLE__
+				case 36 % PanelPropRVectorView.ENABLE
 					check = Format.checkFormat(4, value, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.LABEL_AZ % __PanelPropRVectorView.LABEL_AZ__
+				case 37 % PanelPropRVectorView.LABEL_AZ
 					check = Format.checkFormat(18, value, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.EDITFIELD_AZ % __PanelPropRVectorView.EDITFIELD_AZ__
+				case 38 % PanelPropRVectorView.EDITFIELD_AZ
 					check = Format.checkFormat(18, value, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.SLIDER_AZ % __PanelPropRVectorView.SLIDER_AZ__
+				case 39 % PanelPropRVectorView.SLIDER_AZ
 					check = Format.checkFormat(18, value, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.LABEL_EL % __PanelPropRVectorView.LABEL_EL__
+				case 40 % PanelPropRVectorView.LABEL_EL
 					check = Format.checkFormat(18, value, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.EDITFIELD_EL % __PanelPropRVectorView.EDITFIELD_EL__
+				case 41 % PanelPropRVectorView.EDITFIELD_EL
 					check = Format.checkFormat(18, value, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.SLIDER_EL % __PanelPropRVectorView.SLIDER_EL__
+				case 42 % PanelPropRVectorView.SLIDER_EL
 					check = Format.checkFormat(18, value, PanelPropRVectorView.getPropSettings(prop));
-				case PanelPropRVectorView.TEMPLATE % __PanelPropRVectorView.TEMPLATE__
+				case 4 % PanelPropRVectorView.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropRVectorView.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -803,7 +803,7 @@ classdef PanelPropRVectorView < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropRVectorView.LABEL_AZ % __PanelPropRVectorView.LABEL_AZ__
+				case 37 % PanelPropRVectorView.LABEL_AZ
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					label_az =  uilabel( ...
@@ -817,7 +817,7 @@ classdef PanelPropRVectorView < PanelProp
 					    );
 					value = label_az;
 					
-				case PanelPropRVectorView.EDITFIELD_AZ % __PanelPropRVectorView.EDITFIELD_AZ__
+				case 38 % PanelPropRVectorView.EDITFIELD_AZ
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_az = uieditfield('numeric', ...
@@ -830,7 +830,7 @@ classdef PanelPropRVectorView < PanelProp
 					    );
 					value = editfield_az;
 					
-				case PanelPropRVectorView.SLIDER_AZ % __PanelPropRVectorView.SLIDER_AZ__
+				case 39 % PanelPropRVectorView.SLIDER_AZ
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					slider_az = uislider( ...
@@ -843,7 +843,7 @@ classdef PanelPropRVectorView < PanelProp
 					    );
 					value = slider_az;
 					
-				case PanelPropRVectorView.LABEL_EL % __PanelPropRVectorView.LABEL_EL__
+				case 40 % PanelPropRVectorView.LABEL_EL
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					label_el =  uilabel( ...
@@ -857,7 +857,7 @@ classdef PanelPropRVectorView < PanelProp
 					    );
 					value = label_el;
 					
-				case PanelPropRVectorView.EDITFIELD_EL % __PanelPropRVectorView.EDITFIELD_EL__
+				case 41 % PanelPropRVectorView.EDITFIELD_EL
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_el = uieditfield('numeric', ...
@@ -870,7 +870,7 @@ classdef PanelPropRVectorView < PanelProp
 					    );
 					value = editfield_el;
 					
-				case PanelPropRVectorView.SLIDER_EL % __PanelPropRVectorView.SLIDER_EL__
+				case 42 % PanelPropRVectorView.SLIDER_EL
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					slider_el = uislider( ...
@@ -883,8 +883,8 @@ classdef PanelPropRVectorView < PanelProp
 					    );
 					value = slider_el;
 					
-				case PanelPropRVectorView.X_DRAW % __PanelPropRVectorView.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropRVectorView.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('LABEL_AZ')
 					    pr.memorize('EDITFIELD_AZ')
@@ -895,8 +895,8 @@ classdef PanelPropRVectorView < PanelProp
 					    pr.memorize('SLIDER_EL')
 					end
 					
-				case PanelPropRVectorView.UPDATE % __PanelPropRVectorView.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropRVectorView.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -990,8 +990,8 @@ classdef PanelPropRVectorView < PanelProp
 					    end
 					end
 					
-				case PanelPropRVectorView.REDRAW % __PanelPropRVectorView.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropRVectorView.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -1003,8 +1003,8 @@ classdef PanelPropRVectorView < PanelProp
 					    set(pr.get('SLIDER_EL'),    'Position', [8+.35*w_p+21  27 .50*w_p   3]) % the height of a slider cannot be changed
 					end
 					
-				case PanelPropRVectorView.DELETE % __PanelPropRVectorView.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropRVectorView.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('LABEL_AZ', Element.getNoValue())
 					    pr.set('EDITFIELD_AZ', Element.getNoValue())
@@ -1016,7 +1016,7 @@ classdef PanelPropRVectorView < PanelProp
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

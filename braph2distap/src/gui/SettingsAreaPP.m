@@ -615,23 +615,23 @@ classdef SettingsAreaPP < SettingsPP
 			prop = SettingsAreaPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsAreaPP.ENABLE % __SettingsAreaPP.ENABLE__
+				case 36 % SettingsAreaPP.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsAreaPP.CHECKBOX_VISIBLE % __SettingsAreaPP.CHECKBOX_VISIBLE__
+				case 37 % SettingsAreaPP.CHECKBOX_VISIBLE
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAreaPP.BUTTON_FACECOLOR % __SettingsAreaPP.BUTTON_FACECOLOR__
+				case 38 % SettingsAreaPP.BUTTON_FACECOLOR
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAreaPP.EDITFIELD_FACEALPHA % __SettingsAreaPP.EDITFIELD_FACEALPHA__
+				case 39 % SettingsAreaPP.EDITFIELD_FACEALPHA
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAreaPP.SLIDER_FACEALPHA % __SettingsAreaPP.SLIDER_FACEALPHA__
+				case 40 % SettingsAreaPP.SLIDER_FACEALPHA
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAreaPP.BUTTON_EDGECOLOR % __SettingsAreaPP.BUTTON_EDGECOLOR__
+				case 41 % SettingsAreaPP.BUTTON_EDGECOLOR
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAreaPP.EDITFIELD_EDGEALPHA % __SettingsAreaPP.EDITFIELD_EDGEALPHA__
+				case 42 % SettingsAreaPP.EDITFIELD_EDGEALPHA
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAreaPP.SLIDER_EDGEALPHA % __SettingsAreaPP.SLIDER_EDGEALPHA__
+				case 43 % SettingsAreaPP.SLIDER_EDGEALPHA
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsAreaPP.TEMPLATE % __SettingsAreaPP.TEMPLATE__
+				case 4 % SettingsAreaPP.TEMPLATE
 					prop_settings = 'SettingsAreaPP';
 				otherwise
 					prop_settings = getPropSettings@SettingsPP(prop);
@@ -660,41 +660,41 @@ classdef SettingsAreaPP < SettingsPP
 			prop = SettingsAreaPP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsAreaPP.ENABLE % __SettingsAreaPP.ENABLE__
+				case 36 % SettingsAreaPP.ENABLE
 					prop_default = true;
-				case SettingsAreaPP.CHECKBOX_VISIBLE % __SettingsAreaPP.CHECKBOX_VISIBLE__
+				case 37 % SettingsAreaPP.CHECKBOX_VISIBLE
 					prop_default = Format.getFormatDefault(18, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.BUTTON_FACECOLOR % __SettingsAreaPP.BUTTON_FACECOLOR__
+				case 38 % SettingsAreaPP.BUTTON_FACECOLOR
 					prop_default = Format.getFormatDefault(18, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.EDITFIELD_FACEALPHA % __SettingsAreaPP.EDITFIELD_FACEALPHA__
+				case 39 % SettingsAreaPP.EDITFIELD_FACEALPHA
 					prop_default = Format.getFormatDefault(18, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.SLIDER_FACEALPHA % __SettingsAreaPP.SLIDER_FACEALPHA__
+				case 40 % SettingsAreaPP.SLIDER_FACEALPHA
 					prop_default = Format.getFormatDefault(18, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.BUTTON_EDGECOLOR % __SettingsAreaPP.BUTTON_EDGECOLOR__
+				case 41 % SettingsAreaPP.BUTTON_EDGECOLOR
 					prop_default = Format.getFormatDefault(18, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.EDITFIELD_EDGEALPHA % __SettingsAreaPP.EDITFIELD_EDGEALPHA__
+				case 42 % SettingsAreaPP.EDITFIELD_EDGEALPHA
 					prop_default = Format.getFormatDefault(18, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.SLIDER_EDGEALPHA % __SettingsAreaPP.SLIDER_EDGEALPHA__
+				case 43 % SettingsAreaPP.SLIDER_EDGEALPHA
 					prop_default = Format.getFormatDefault(18, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.ELCLASS % __SettingsAreaPP.ELCLASS__
+				case 1 % SettingsAreaPP.ELCLASS
 					prop_default = 'SettingsAreaPP';
-				case SettingsAreaPP.NAME % __SettingsAreaPP.NAME__
+				case 2 % SettingsAreaPP.NAME
 					prop_default = 'Prop Panel for Area Settings';
-				case SettingsAreaPP.DESCRIPTION % __SettingsAreaPP.DESCRIPTION__
+				case 3 % SettingsAreaPP.DESCRIPTION
 					prop_default = 'A Prop Panel for Area Settings (SettingsAreaPP) plots the panel for area settings, including visibility, face color, face alpha, edge color, and edge alpha. It works for all categories.';
-				case SettingsAreaPP.TEMPLATE % __SettingsAreaPP.TEMPLATE__
+				case 4 % SettingsAreaPP.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.ID % __SettingsAreaPP.ID__
+				case 5 % SettingsAreaPP.ID
 					prop_default = 'SettingsAreaPP ID';
-				case SettingsAreaPP.LABEL % __SettingsAreaPP.LABEL__
+				case 6 % SettingsAreaPP.LABEL
 					prop_default = 'SettingsAreaPP label';
-				case SettingsAreaPP.NOTES % __SettingsAreaPP.NOTES__
+				case 7 % SettingsAreaPP.NOTES
 					prop_default = 'SettingsAreaPP notes';
-				case SettingsAreaPP.EL % __SettingsAreaPP.EL__
+				case 23 % SettingsAreaPP.EL
 					prop_default = GraphHistPF();
-				case SettingsAreaPP.PROP % __SettingsAreaPP.PROP__
+				case 24 % SettingsAreaPP.PROP
 					prop_default = GraphHistPF.ST_HIST_AREA;
-				case SettingsAreaPP.HEIGHT % __SettingsAreaPP.HEIGHT__
+				case 25 % SettingsAreaPP.HEIGHT
 					prop_default = 111;
 				otherwise
 					prop_default = getPropDefault@SettingsPP(prop);
@@ -760,26 +760,26 @@ classdef SettingsAreaPP < SettingsPP
 			prop = SettingsAreaPP.getPropProp(pointer);
 			
 			switch prop
-				case SettingsAreaPP.ENABLE % __SettingsAreaPP.ENABLE__
+				case 36 % SettingsAreaPP.ENABLE
 					check = Format.checkFormat(4, value, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.CHECKBOX_VISIBLE % __SettingsAreaPP.CHECKBOX_VISIBLE__
+				case 37 % SettingsAreaPP.CHECKBOX_VISIBLE
 					check = Format.checkFormat(18, value, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.BUTTON_FACECOLOR % __SettingsAreaPP.BUTTON_FACECOLOR__
+				case 38 % SettingsAreaPP.BUTTON_FACECOLOR
 					check = Format.checkFormat(18, value, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.EDITFIELD_FACEALPHA % __SettingsAreaPP.EDITFIELD_FACEALPHA__
+				case 39 % SettingsAreaPP.EDITFIELD_FACEALPHA
 					check = Format.checkFormat(18, value, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.SLIDER_FACEALPHA % __SettingsAreaPP.SLIDER_FACEALPHA__
+				case 40 % SettingsAreaPP.SLIDER_FACEALPHA
 					check = Format.checkFormat(18, value, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.BUTTON_EDGECOLOR % __SettingsAreaPP.BUTTON_EDGECOLOR__
+				case 41 % SettingsAreaPP.BUTTON_EDGECOLOR
 					check = Format.checkFormat(18, value, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.EDITFIELD_EDGEALPHA % __SettingsAreaPP.EDITFIELD_EDGEALPHA__
+				case 42 % SettingsAreaPP.EDITFIELD_EDGEALPHA
 					check = Format.checkFormat(18, value, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.SLIDER_EDGEALPHA % __SettingsAreaPP.SLIDER_EDGEALPHA__
+				case 43 % SettingsAreaPP.SLIDER_EDGEALPHA
 					check = Format.checkFormat(18, value, SettingsAreaPP.getPropSettings(prop));
-				case SettingsAreaPP.TEMPLATE % __SettingsAreaPP.TEMPLATE__
+				case 4 % SettingsAreaPP.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsAreaPP.getPropSettings(prop));
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						check = checkProp@SettingsPP(prop, value);
 					end
 			end
@@ -812,7 +812,7 @@ classdef SettingsAreaPP < SettingsPP
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case SettingsAreaPP.CHECKBOX_VISIBLE % __SettingsAreaPP.CHECKBOX_VISIBLE__
+				case 37 % SettingsAreaPP.CHECKBOX_VISIBLE
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					checkbox_visible = uicheckbox( ...
@@ -825,7 +825,7 @@ classdef SettingsAreaPP < SettingsPP
 					    );
 					value = checkbox_visible;
 					
-				case SettingsAreaPP.BUTTON_FACECOLOR % __SettingsAreaPP.BUTTON_FACECOLOR__
+				case 38 % SettingsAreaPP.BUTTON_FACECOLOR
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					button_facecolor = uibutton( ...
@@ -839,7 +839,7 @@ classdef SettingsAreaPP < SettingsPP
 					    );
 					value = button_facecolor;
 					
-				case SettingsAreaPP.EDITFIELD_FACEALPHA % __SettingsAreaPP.EDITFIELD_FACEALPHA__
+				case 39 % SettingsAreaPP.EDITFIELD_FACEALPHA
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_facealpha = uieditfield('numeric', ...
@@ -852,7 +852,7 @@ classdef SettingsAreaPP < SettingsPP
 					    );
 					value = editfield_facealpha;
 					
-				case SettingsAreaPP.SLIDER_FACEALPHA % __SettingsAreaPP.SLIDER_FACEALPHA__
+				case 40 % SettingsAreaPP.SLIDER_FACEALPHA
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					slider_facealpha = uislider( ...
@@ -865,7 +865,7 @@ classdef SettingsAreaPP < SettingsPP
 					    );
 					value = slider_facealpha;
 					
-				case SettingsAreaPP.BUTTON_EDGECOLOR % __SettingsAreaPP.BUTTON_EDGECOLOR__
+				case 41 % SettingsAreaPP.BUTTON_EDGECOLOR
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					button_edgecolor = uibutton( ...
@@ -879,7 +879,7 @@ classdef SettingsAreaPP < SettingsPP
 					    );
 					value = button_edgecolor;
 					
-				case SettingsAreaPP.EDITFIELD_EDGEALPHA % __SettingsAreaPP.EDITFIELD_EDGEALPHA__
+				case 42 % SettingsAreaPP.EDITFIELD_EDGEALPHA
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_edgealpha = uieditfield('numeric', ...
@@ -892,7 +892,7 @@ classdef SettingsAreaPP < SettingsPP
 					    );
 					value = editfield_edgealpha;
 					
-				case SettingsAreaPP.SLIDER_EDGEALPHA % __SettingsAreaPP.SLIDER_EDGEALPHA__
+				case 43 % SettingsAreaPP.SLIDER_EDGEALPHA
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					slider_edgealpha = uislider( ...
@@ -905,8 +905,8 @@ classdef SettingsAreaPP < SettingsPP
 					    );
 					value = slider_edgealpha;
 					
-				case SettingsAreaPP.X_DRAW % __SettingsAreaPP.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % SettingsAreaPP.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('CHECKBOX_VISIBLE')
 					
@@ -919,8 +919,8 @@ classdef SettingsAreaPP < SettingsPP
 					    pr.memorize('SLIDER_EDGEALPHA')
 					end
 					
-				case SettingsAreaPP.UPDATE % __SettingsAreaPP.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % SettingsAreaPP.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -1064,8 +1064,8 @@ classdef SettingsAreaPP < SettingsPP
 					    end
 					end
 					
-				case SettingsAreaPP.REDRAW % __SettingsAreaPP.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % SettingsAreaPP.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -1080,8 +1080,8 @@ classdef SettingsAreaPP < SettingsPP
 					    set(pr.get('SLIDER_EDGEALPHA'),    'Position', [8+.35*w_p+21   27 .50*w_p   3]) % the height of a slider cannot be changed
 					end
 					
-				case SettingsAreaPP.DELETE % __SettingsAreaPP.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % SettingsAreaPP.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('CHECKBOX_VISIBLE', Element.getNoValue())
 					
@@ -1095,7 +1095,7 @@ classdef SettingsAreaPP < SettingsPP
 					end
 					
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						value = calculateValue@SettingsPP(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

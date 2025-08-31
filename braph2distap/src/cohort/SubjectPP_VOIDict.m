@@ -601,21 +601,21 @@ classdef SubjectPP_VOIDict < PanelProp
 			prop = SubjectPP_VOIDict.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SubjectPP_VOIDict.HEIGHT_MIN % __SubjectPP_VOIDict.HEIGHT_MIN__
+				case 36 % SubjectPP_VOIDict.HEIGHT_MIN
 					prop_settings = Format.getFormatSettings(11);
-				case SubjectPP_VOIDict.HEIGHT_VOI_EDITFIELD % __SubjectPP_VOIDict.HEIGHT_VOI_EDITFIELD__
+				case 37 % SubjectPP_VOIDict.HEIGHT_VOI_EDITFIELD
 					prop_settings = Format.getFormatSettings(11);
-				case SubjectPP_VOIDict.HEIGHT_VOI_DROPDOWN % __SubjectPP_VOIDict.HEIGHT_VOI_DROPDOWN__
+				case 38 % SubjectPP_VOIDict.HEIGHT_VOI_DROPDOWN
 					prop_settings = Format.getFormatSettings(11);
-				case SubjectPP_VOIDict.ENABLE % __SubjectPP_VOIDict.ENABLE__
+				case 39 % SubjectPP_VOIDict.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case SubjectPP_VOIDict.HANDLES_VOI % __SubjectPP_VOIDict.HANDLES_VOI__
+				case 40 % SubjectPP_VOIDict.HANDLES_VOI
 					prop_settings = Format.getFormatSettings(19);
-				case SubjectPP_VOIDict.LABELS_VOI % __SubjectPP_VOIDict.LABELS_VOI__
+				case 41 % SubjectPP_VOIDict.LABELS_VOI
 					prop_settings = Format.getFormatSettings(19);
-				case SubjectPP_VOIDict.TEMPLATE % __SubjectPP_VOIDict.TEMPLATE__
+				case 4 % SubjectPP_VOIDict.TEMPLATE
 					prop_settings = 'SubjectPP_VOIDict';
-				case SubjectPP_VOIDict.EL % __SubjectPP_VOIDict.EL__
+				case 23 % SubjectPP_VOIDict.EL
 					prop_settings = 'Subject';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -644,36 +644,36 @@ classdef SubjectPP_VOIDict < PanelProp
 			prop = SubjectPP_VOIDict.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SubjectPP_VOIDict.HEIGHT_MIN % __SubjectPP_VOIDict.HEIGHT_MIN__
+				case 36 % SubjectPP_VOIDict.HEIGHT_MIN
 					prop_default = 24;
-				case SubjectPP_VOIDict.HEIGHT_VOI_EDITFIELD % __SubjectPP_VOIDict.HEIGHT_VOI_EDITFIELD__
+				case 37 % SubjectPP_VOIDict.HEIGHT_VOI_EDITFIELD
 					prop_default = 24;
-				case SubjectPP_VOIDict.HEIGHT_VOI_DROPDOWN % __SubjectPP_VOIDict.HEIGHT_VOI_DROPDOWN__
+				case 38 % SubjectPP_VOIDict.HEIGHT_VOI_DROPDOWN
 					prop_default = 24;
-				case SubjectPP_VOIDict.ENABLE % __SubjectPP_VOIDict.ENABLE__
+				case 39 % SubjectPP_VOIDict.ENABLE
 					prop_default = true;
-				case SubjectPP_VOIDict.HANDLES_VOI % __SubjectPP_VOIDict.HANDLES_VOI__
+				case 40 % SubjectPP_VOIDict.HANDLES_VOI
 					prop_default = Format.getFormatDefault(19, SubjectPP_VOIDict.getPropSettings(prop));
-				case SubjectPP_VOIDict.LABELS_VOI % __SubjectPP_VOIDict.LABELS_VOI__
+				case 41 % SubjectPP_VOIDict.LABELS_VOI
 					prop_default = Format.getFormatDefault(19, SubjectPP_VOIDict.getPropSettings(prop));
-				case SubjectPP_VOIDict.ELCLASS % __SubjectPP_VOIDict.ELCLASS__
+				case 1 % SubjectPP_VOIDict.ELCLASS
 					prop_default = 'SubjectPP_VOIDict';
-				case SubjectPP_VOIDict.NAME % __SubjectPP_VOIDict.NAME__
+				case 2 % SubjectPP_VOIDict.NAME
 					prop_default = 'VOI Prop Panel';
-				case SubjectPP_VOIDict.DESCRIPTION % __SubjectPP_VOIDict.DESCRIPTION__
+				case 3 % SubjectPP_VOIDict.DESCRIPTION
 					prop_default = 'A VOI Prop Panel (SubjectPP_VOIDict) plots a VOI (variables of interest) dictionary using numeric editfields and drop-down lists. It is intended to be used with the property VOI_DICT of Subject.';
-				case SubjectPP_VOIDict.TEMPLATE % __SubjectPP_VOIDict.TEMPLATE__
+				case 4 % SubjectPP_VOIDict.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SubjectPP_VOIDict.getPropSettings(prop));
-				case SubjectPP_VOIDict.ID % __SubjectPP_VOIDict.ID__
+				case 5 % SubjectPP_VOIDict.ID
 					prop_default = 'SubjectPP_VOIDict ID';
-				case SubjectPP_VOIDict.LABEL % __SubjectPP_VOIDict.LABEL__
+				case 6 % SubjectPP_VOIDict.LABEL
 					prop_default = 'SubjectPP_VOIDict label';
-				case SubjectPP_VOIDict.NOTES % __SubjectPP_VOIDict.NOTES__
+				case 7 % SubjectPP_VOIDict.NOTES
 					prop_default = 'SubjectPP_VOIDict notes';
-				case SubjectPP_VOIDict.EL % __SubjectPP_VOIDict.EL__
+				case 23 % SubjectPP_VOIDict.EL
 					prop_default = Format.getFormatDefault(8, SubjectPP_VOIDict.getPropSettings(prop));
-				case SubjectPP_VOIDict.PROP % __SubjectPP_VOIDict.PROP__
-					prop_default = Subject.VOI_DICT;
+				case 24 % SubjectPP_VOIDict.PROP
+					prop_default = 9;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
 			end
@@ -738,24 +738,24 @@ classdef SubjectPP_VOIDict < PanelProp
 			prop = SubjectPP_VOIDict.getPropProp(pointer);
 			
 			switch prop
-				case SubjectPP_VOIDict.HEIGHT_MIN % __SubjectPP_VOIDict.HEIGHT_MIN__
+				case 36 % SubjectPP_VOIDict.HEIGHT_MIN
 					check = Format.checkFormat(11, value, SubjectPP_VOIDict.getPropSettings(prop));
-				case SubjectPP_VOIDict.HEIGHT_VOI_EDITFIELD % __SubjectPP_VOIDict.HEIGHT_VOI_EDITFIELD__
+				case 37 % SubjectPP_VOIDict.HEIGHT_VOI_EDITFIELD
 					check = Format.checkFormat(11, value, SubjectPP_VOIDict.getPropSettings(prop));
-				case SubjectPP_VOIDict.HEIGHT_VOI_DROPDOWN % __SubjectPP_VOIDict.HEIGHT_VOI_DROPDOWN__
+				case 38 % SubjectPP_VOIDict.HEIGHT_VOI_DROPDOWN
 					check = Format.checkFormat(11, value, SubjectPP_VOIDict.getPropSettings(prop));
-				case SubjectPP_VOIDict.ENABLE % __SubjectPP_VOIDict.ENABLE__
+				case 39 % SubjectPP_VOIDict.ENABLE
 					check = Format.checkFormat(4, value, SubjectPP_VOIDict.getPropSettings(prop));
-				case SubjectPP_VOIDict.HANDLES_VOI % __SubjectPP_VOIDict.HANDLES_VOI__
+				case 40 % SubjectPP_VOIDict.HANDLES_VOI
 					check = Format.checkFormat(19, value, SubjectPP_VOIDict.getPropSettings(prop));
-				case SubjectPP_VOIDict.LABELS_VOI % __SubjectPP_VOIDict.LABELS_VOI__
+				case 41 % SubjectPP_VOIDict.LABELS_VOI
 					check = Format.checkFormat(19, value, SubjectPP_VOIDict.getPropSettings(prop));
-				case SubjectPP_VOIDict.TEMPLATE % __SubjectPP_VOIDict.TEMPLATE__
+				case 4 % SubjectPP_VOIDict.TEMPLATE
 					check = Format.checkFormat(8, value, SubjectPP_VOIDict.getPropSettings(prop));
-				case SubjectPP_VOIDict.EL % __SubjectPP_VOIDict.EL__
+				case 23 % SubjectPP_VOIDict.EL
 					check = Format.checkFormat(8, value, SubjectPP_VOIDict.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -788,7 +788,7 @@ classdef SubjectPP_VOIDict < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case SubjectPP_VOIDict.HANDLES_VOI % __SubjectPP_VOIDict.HANDLES_VOI__
+				case 40 % SubjectPP_VOIDict.HANDLES_VOI
 					sub = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -825,7 +825,7 @@ classdef SubjectPP_VOIDict < PanelProp
 					
 					value = handles_voi;
 					
-				case SubjectPP_VOIDict.LABELS_VOI % __SubjectPP_VOIDict.LABELS_VOI__
+				case 41 % SubjectPP_VOIDict.LABELS_VOI
 					sub = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -847,15 +847,15 @@ classdef SubjectPP_VOIDict < PanelProp
 					
 					value = labels_voi;
 					
-				case SubjectPP_VOIDict.X_DRAW % __SubjectPP_VOIDict.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % SubjectPP_VOIDict.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('HANDLES_VOI')
 					    pr.memorize('LABELS_VOI')
 					end
 					
-				case SubjectPP_VOIDict.UPDATE % __SubjectPP_VOIDict.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % SubjectPP_VOIDict.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    sub = pr.get('EL');
 					
@@ -902,8 +902,8 @@ classdef SubjectPP_VOIDict < PanelProp
 					    pr.set('HEIGHT', height)
 					end
 					
-				case SubjectPP_VOIDict.REDRAW % __SubjectPP_VOIDict.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % SubjectPP_VOIDict.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 						w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -936,15 +936,15 @@ classdef SubjectPP_VOIDict < PanelProp
 					    end
 					end
 					
-				case SubjectPP_VOIDict.DELETE % __SubjectPP_VOIDict.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % SubjectPP_VOIDict.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('HANDLES_VOI', Element.getNoValue())
 					    pr.set('LABELS_VOI', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

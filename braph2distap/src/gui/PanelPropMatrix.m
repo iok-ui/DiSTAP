@@ -613,21 +613,21 @@ classdef PanelPropMatrix < PanelProp
 			prop = PanelPropMatrix.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropMatrix.ENABLE % __PanelPropMatrix.ENABLE__
+				case 36 % PanelPropMatrix.ENABLE
 					prop_settings = {'on', 'off'};
-				case PanelPropMatrix.ROWNAME % __PanelPropMatrix.ROWNAME__
+				case 37 % PanelPropMatrix.ROWNAME
 					prop_settings = Format.getFormatSettings(3);
-				case PanelPropMatrix.COLUMNNAME % __PanelPropMatrix.COLUMNNAME__
+				case 38 % PanelPropMatrix.COLUMNNAME
 					prop_settings = Format.getFormatSettings(3);
-				case PanelPropMatrix.MENU_EXPORT % __PanelPropMatrix.MENU_EXPORT__
+				case 39 % PanelPropMatrix.MENU_EXPORT
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropMatrix.TABLE_HEIGHT % __PanelPropMatrix.TABLE_HEIGHT__
+				case 40 % PanelPropMatrix.TABLE_HEIGHT
 					prop_settings = Format.getFormatSettings(22);
-				case PanelPropMatrix.TABLE % __PanelPropMatrix.TABLE__
+				case 41 % PanelPropMatrix.TABLE
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropMatrix.CONTEXTMENU % __PanelPropMatrix.CONTEXTMENU__
+				case 42 % PanelPropMatrix.CONTEXTMENU
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropMatrix.TEMPLATE % __PanelPropMatrix.TEMPLATE__
+				case 4 % PanelPropMatrix.TEMPLATE
 					prop_settings = 'PanelPropMatrix';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -656,38 +656,38 @@ classdef PanelPropMatrix < PanelProp
 			prop = PanelPropMatrix.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropMatrix.ENABLE % __PanelPropMatrix.ENABLE__
+				case 36 % PanelPropMatrix.ENABLE
 					prop_default = 'on';
-				case PanelPropMatrix.ROWNAME % __PanelPropMatrix.ROWNAME__
+				case 37 % PanelPropMatrix.ROWNAME
 					prop_default = {'numbered'};
-				case PanelPropMatrix.COLUMNNAME % __PanelPropMatrix.COLUMNNAME__
+				case 38 % PanelPropMatrix.COLUMNNAME
 					prop_default = {'numbered'};
-				case PanelPropMatrix.MENU_EXPORT % __PanelPropMatrix.MENU_EXPORT__
+				case 39 % PanelPropMatrix.MENU_EXPORT
 					prop_default = true;
-				case PanelPropMatrix.TABLE_HEIGHT % __PanelPropMatrix.TABLE_HEIGHT__
+				case 40 % PanelPropMatrix.TABLE_HEIGHT
 					prop_default = 240;
-				case PanelPropMatrix.TABLE % __PanelPropMatrix.TABLE__
+				case 41 % PanelPropMatrix.TABLE
 					prop_default = Format.getFormatDefault(18, PanelPropMatrix.getPropSettings(prop));
-				case PanelPropMatrix.CONTEXTMENU % __PanelPropMatrix.CONTEXTMENU__
+				case 42 % PanelPropMatrix.CONTEXTMENU
 					prop_default = Format.getFormatDefault(18, PanelPropMatrix.getPropSettings(prop));
-				case PanelPropMatrix.ELCLASS % __PanelPropMatrix.ELCLASS__
+				case 1 % PanelPropMatrix.ELCLASS
 					prop_default = 'PanelPropMatrix';
-				case PanelPropMatrix.NAME % __PanelPropMatrix.NAME__
+				case 2 % PanelPropMatrix.NAME
 					prop_default = 'Matrix Prop Panel';
-				case PanelPropMatrix.DESCRIPTION % __PanelPropMatrix.DESCRIPTION__
+				case 3 % PanelPropMatrix.DESCRIPTION
 					prop_default = 'A Matrix Prop Panel (PanelPropMatrix) plots the panel for a RVECTOR, CVECTOR, MATRIX or SMATRIX property with a table. It works for all categories. It can be personalized with the following props: TABLE_HEIGHT, ROWNAME, COLUMNAME, MENU_EXPORT.';
-				case PanelPropMatrix.TEMPLATE % __PanelPropMatrix.TEMPLATE__
+				case 4 % PanelPropMatrix.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropMatrix.getPropSettings(prop));
-				case PanelPropMatrix.ID % __PanelPropMatrix.ID__
+				case 5 % PanelPropMatrix.ID
 					prop_default = 'PanelPropMatrix ID';
-				case PanelPropMatrix.LABEL % __PanelPropMatrix.LABEL__
+				case 6 % PanelPropMatrix.LABEL
 					prop_default = 'PanelPropMatrix label';
-				case PanelPropMatrix.NOTES % __PanelPropMatrix.NOTES__
+				case 7 % PanelPropMatrix.NOTES
 					prop_default = 'PanelPropMatrix notes';
-				case PanelPropMatrix.EL % __PanelPropMatrix.EL__
+				case 23 % PanelPropMatrix.EL
 					prop_default = IndexedDictionary();
-				case PanelPropMatrix.PROP % __PanelPropMatrix.PROP__
-					prop_default = IndexedDictionary.REMOVE_ALL;
+				case 24 % PanelPropMatrix.PROP
+					prop_default = 34;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
 			end
@@ -752,24 +752,24 @@ classdef PanelPropMatrix < PanelProp
 			prop = PanelPropMatrix.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropMatrix.ENABLE % __PanelPropMatrix.ENABLE__
+				case 36 % PanelPropMatrix.ENABLE
 					check = Format.checkFormat(5, value, PanelPropMatrix.getPropSettings(prop));
-				case PanelPropMatrix.ROWNAME % __PanelPropMatrix.ROWNAME__
+				case 37 % PanelPropMatrix.ROWNAME
 					check = Format.checkFormat(3, value, PanelPropMatrix.getPropSettings(prop));
-				case PanelPropMatrix.COLUMNNAME % __PanelPropMatrix.COLUMNNAME__
+				case 38 % PanelPropMatrix.COLUMNNAME
 					check = Format.checkFormat(3, value, PanelPropMatrix.getPropSettings(prop));
-				case PanelPropMatrix.MENU_EXPORT % __PanelPropMatrix.MENU_EXPORT__
+				case 39 % PanelPropMatrix.MENU_EXPORT
 					check = Format.checkFormat(4, value, PanelPropMatrix.getPropSettings(prop));
-				case PanelPropMatrix.TABLE_HEIGHT % __PanelPropMatrix.TABLE_HEIGHT__
+				case 40 % PanelPropMatrix.TABLE_HEIGHT
 					check = Format.checkFormat(22, value, PanelPropMatrix.getPropSettings(prop));
-				case PanelPropMatrix.TABLE % __PanelPropMatrix.TABLE__
+				case 41 % PanelPropMatrix.TABLE
 					check = Format.checkFormat(18, value, PanelPropMatrix.getPropSettings(prop));
-				case PanelPropMatrix.CONTEXTMENU % __PanelPropMatrix.CONTEXTMENU__
+				case 42 % PanelPropMatrix.CONTEXTMENU
 					check = Format.checkFormat(18, value, PanelPropMatrix.getPropSettings(prop));
-				case PanelPropMatrix.TEMPLATE % __PanelPropMatrix.TEMPLATE__
+				case 4 % PanelPropMatrix.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropMatrix.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -799,18 +799,18 @@ classdef PanelPropMatrix < PanelProp
 			%  checkValue.
 			
 			switch prop
-				case PanelPropMatrix.ROWNAME % __PanelPropMatrix.ROWNAME__
+				case 37 % PanelPropMatrix.ROWNAME
 					if pr.get('DRAWN')
 					    pr.get('UPDATE')
 					end
 					
-				case PanelPropMatrix.COLUMNNAME % __PanelPropMatrix.COLUMNNAME__
+				case 38 % PanelPropMatrix.COLUMNNAME
 					if pr.get('DRAWN')
 					    pr.get('UPDATE')
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						postset@PanelProp(pr, prop);
 					end
 			end
@@ -833,7 +833,7 @@ classdef PanelPropMatrix < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropMatrix.TABLE % __PanelPropMatrix.TABLE__
+				case 41 % PanelPropMatrix.TABLE
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -847,7 +847,7 @@ classdef PanelPropMatrix < PanelProp
 					
 					value = table;
 					
-				case PanelPropMatrix.CONTEXTMENU % __PanelPropMatrix.CONTEXTMENU__
+				case 42 % PanelPropMatrix.CONTEXTMENU
 					contextmenu = uicontextmenu(...
 					    'Parent', ancestor(pr.get('H'), 'figure'), ...
 					    'Tag', 'CONTEXTMENU' ...
@@ -863,15 +863,15 @@ classdef PanelPropMatrix < PanelProp
 					end
 					value = contextmenu;
 					
-				case PanelPropMatrix.X_DRAW % __PanelPropMatrix.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropMatrix.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('TABLE')
 					    pr.memorize('CONTEXTMENU')
 					end
 					
-				case PanelPropMatrix.UPDATE % __PanelPropMatrix.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropMatrix.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -947,23 +947,23 @@ classdef PanelPropMatrix < PanelProp
 					    end
 					end
 					
-				case PanelPropMatrix.REDRAW % __PanelPropMatrix.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropMatrix.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('TABLE'), 'Position', [4 4 w_p-8 max(1, pr.get('HEIGHT')-27)])
 					end
 					
-				case PanelPropMatrix.DELETE % __PanelPropMatrix.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropMatrix.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('TABLE', Element.getNoValue())
 					    pr.set('CONTEXTMENU', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

@@ -618,25 +618,25 @@ classdef PanelElement < Panel
 			prop = PanelElement.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelElement.EL % __PanelElement.EL__
+				case 20 % PanelElement.EL
 					prop_settings = Format.getFormatSettings(8);
-				case PanelElement.PR_ORDER % __PanelElement.PR_ORDER__
+				case 21 % PanelElement.PR_ORDER
 					prop_settings = Format.getFormatSettings(12);
-				case PanelElement.PR_TITLE % __PanelElement.PR_TITLE__
+				case 22 % PanelElement.PR_TITLE
 					prop_settings = Format.getFormatSettings(3);
-				case PanelElement.PR_VISIBLE % __PanelElement.PR_VISIBLE__
+				case 23 % PanelElement.PR_VISIBLE
 					prop_settings = Format.getFormatSettings(12);
-				case PanelElement.PR_DICT % __PanelElement.PR_DICT__
+				case 24 % PanelElement.PR_DICT
 					prop_settings = 'PanelProp';
-				case PanelElement.MIN_WIDTH % __PanelElement.MIN_WIDTH__
+				case 25 % PanelElement.MIN_WIDTH
 					prop_settings = Format.getFormatSettings(22);
-				case PanelElement.RESIZEX % __PanelElement.RESIZEX__
+				case 26 % PanelElement.RESIZEX
 					prop_settings = Format.getFormatSettings(4);
-				case PanelElement.RESIZEY % __PanelElement.RESIZEY__
+				case 27 % PanelElement.RESIZEY
 					prop_settings = Format.getFormatSettings(4);
-				case PanelElement.LISTENER_PPHEIGHT % __PanelElement.LISTENER_PPHEIGHT__
+				case 28 % PanelElement.LISTENER_PPHEIGHT
 					prop_settings = Format.getFormatSettings(19);
-				case PanelElement.TEMPLATE % __PanelElement.TEMPLATE__
+				case 4 % PanelElement.TEMPLATE
 					prop_settings = 'PanelElement';
 				otherwise
 					prop_settings = getPropSettings@Panel(prop);
@@ -665,39 +665,39 @@ classdef PanelElement < Panel
 			prop = PanelElement.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelElement.EL % __PanelElement.EL__
+				case 20 % PanelElement.EL
 					prop_default = Format.getFormatDefault(8, PanelElement.getPropSettings(prop));
-				case PanelElement.PR_ORDER % __PanelElement.PR_ORDER__
+				case 21 % PanelElement.PR_ORDER
 					prop_default = Format.getFormatDefault(12, PanelElement.getPropSettings(prop));
-				case PanelElement.PR_TITLE % __PanelElement.PR_TITLE__
+				case 22 % PanelElement.PR_TITLE
 					prop_default = Format.getFormatDefault(3, PanelElement.getPropSettings(prop));
-				case PanelElement.PR_VISIBLE % __PanelElement.PR_VISIBLE__
+				case 23 % PanelElement.PR_VISIBLE
 					prop_default = Format.getFormatDefault(12, PanelElement.getPropSettings(prop));
-				case PanelElement.PR_DICT % __PanelElement.PR_DICT__
+				case 24 % PanelElement.PR_DICT
 					prop_default = Format.getFormatDefault(10, PanelElement.getPropSettings(prop));
-				case PanelElement.MIN_WIDTH % __PanelElement.MIN_WIDTH__
+				case 25 % PanelElement.MIN_WIDTH
 					prop_default = 300;
-				case PanelElement.RESIZEX % __PanelElement.RESIZEX__
+				case 26 % PanelElement.RESIZEX
 					prop_default = Format.getFormatDefault(4, PanelElement.getPropSettings(prop));
-				case PanelElement.RESIZEY % __PanelElement.RESIZEY__
+				case 27 % PanelElement.RESIZEY
 					prop_default = Format.getFormatDefault(4, PanelElement.getPropSettings(prop));
-				case PanelElement.LISTENER_PPHEIGHT % __PanelElement.LISTENER_PPHEIGHT__
+				case 28 % PanelElement.LISTENER_PPHEIGHT
 					prop_default = Format.getFormatDefault(19, PanelElement.getPropSettings(prop));
-				case PanelElement.ELCLASS % __PanelElement.ELCLASS__
+				case 1 % PanelElement.ELCLASS
 					prop_default = 'PanelElement';
-				case PanelElement.NAME % __PanelElement.NAME__
+				case 2 % PanelElement.NAME
 					prop_default = 'Element Panel';
-				case PanelElement.DESCRIPTION % __PanelElement.DESCRIPTION__
+				case 3 % PanelElement.DESCRIPTION
 					prop_default = 'An Element Panel (PanelElement) plots all properties of an element in a panel, which contains a series of stacked property panels, one for each property of the element being plotted.';
-				case PanelElement.TEMPLATE % __PanelElement.TEMPLATE__
+				case 4 % PanelElement.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelElement.getPropSettings(prop));
-				case PanelElement.ID % __PanelElement.ID__
+				case 5 % PanelElement.ID
 					prop_default = 'PanelElement ID';
-				case PanelElement.LABEL % __PanelElement.LABEL__
+				case 6 % PanelElement.LABEL
 					prop_default = 'PanelElement label';
-				case PanelElement.NOTES % __PanelElement.NOTES__
+				case 7 % PanelElement.NOTES
 					prop_default = 'PanelElement notes';
-				case PanelElement.PARENT % __PanelElement.PARENT__
+				case 13 % PanelElement.PARENT
 					prop_default = GUI();
 				otherwise
 					prop_default = getPropDefault@Panel(prop);
@@ -743,23 +743,23 @@ classdef PanelElement < Panel
 			%  calculateValue, checkValue.
 			
 			switch prop
-				case PanelElement.PR_ORDER % __PanelElement.PR_ORDER__
+				case 21 % PanelElement.PR_ORDER
 					if isempty(value) && ~isa(pe.getr('EL'), 'NoValue')
 					    [value, ~, ~] = load_layout(pe.get('EL'));
 					end
 					
-				case PanelElement.PR_TITLE % __PanelElement.PR_TITLE__
+				case 22 % PanelElement.PR_TITLE
 					if isempty(value) && ~isa(pe.getr('EL'), 'NoValue')
 					    [~, value, ~] = load_layout(pe.get('EL'));
 					end
 					
-				case PanelElement.PR_VISIBLE % __PanelElement.PR_VISIBLE__
+				case 23 % PanelElement.PR_VISIBLE
 					if isempty(value) && ~isa(pe.getr('EL'), 'NoValue')
 					    [~, ~, value] = load_layout(pe.get('EL'));
 					end
 					
 				otherwise
-					if prop <= Panel.getPropNumber()
+					if prop <= 19
 						value = preset@Panel(pe, prop, value);
 					end
 			end
@@ -799,33 +799,33 @@ classdef PanelElement < Panel
 			prop = PanelElement.getPropProp(pointer);
 			
 			switch prop
-				case PanelElement.EL % __PanelElement.EL__
+				case 20 % PanelElement.EL
 					check = Format.checkFormat(8, value, PanelElement.getPropSettings(prop));
-				case PanelElement.PR_ORDER % __PanelElement.PR_ORDER__
+				case 21 % PanelElement.PR_ORDER
 					check = Format.checkFormat(12, value, PanelElement.getPropSettings(prop));
-				case PanelElement.PR_TITLE % __PanelElement.PR_TITLE__
+				case 22 % PanelElement.PR_TITLE
 					check = Format.checkFormat(3, value, PanelElement.getPropSettings(prop));
-				case PanelElement.PR_VISIBLE % __PanelElement.PR_VISIBLE__
+				case 23 % PanelElement.PR_VISIBLE
 					check = Format.checkFormat(12, value, PanelElement.getPropSettings(prop));
-				case PanelElement.PR_DICT % __PanelElement.PR_DICT__
+				case 24 % PanelElement.PR_DICT
 					check = Format.checkFormat(10, value, PanelElement.getPropSettings(prop));
-				case PanelElement.MIN_WIDTH % __PanelElement.MIN_WIDTH__
+				case 25 % PanelElement.MIN_WIDTH
 					check = Format.checkFormat(22, value, PanelElement.getPropSettings(prop));
-				case PanelElement.RESIZEX % __PanelElement.RESIZEX__
+				case 26 % PanelElement.RESIZEX
 					check = Format.checkFormat(4, value, PanelElement.getPropSettings(prop));
-				case PanelElement.RESIZEY % __PanelElement.RESIZEY__
+				case 27 % PanelElement.RESIZEY
 					check = Format.checkFormat(4, value, PanelElement.getPropSettings(prop));
-				case PanelElement.LISTENER_PPHEIGHT % __PanelElement.LISTENER_PPHEIGHT__
+				case 28 % PanelElement.LISTENER_PPHEIGHT
 					check = Format.checkFormat(19, value, PanelElement.getPropSettings(prop));
-				case PanelElement.TEMPLATE % __PanelElement.TEMPLATE__
+				case 4 % PanelElement.TEMPLATE
 					check = Format.checkFormat(8, value, PanelElement.getPropSettings(prop));
-				case PanelElement.PARENT % __PanelElement.PARENT__
+				case 13 % PanelElement.PARENT
 					check = Format.checkFormat(8, value, PanelElement.getPropSettings(prop));
 					if check
 						check = isa(value, 'GUI') || isa(value, 'Panel');
 					end
 				otherwise
-					if prop <= Panel.getPropNumber()
+					if prop <= 19
 						check = checkProp@Panel(prop, value);
 					end
 			end
@@ -855,7 +855,7 @@ classdef PanelElement < Panel
 			%  checkValue.
 			
 			switch prop
-				case PanelElement.EL % __PanelElement.EL__
+				case 20 % PanelElement.EL
 					pe.lock('EL', 'Iterative', false)
 					
 					[order, title, visible] = load_layout(pe.get('EL'));
@@ -865,13 +865,13 @@ classdef PanelElement < Panel
 					    'PR_VISIBLE', visible ...
 					    )
 					
-				case PanelElement.PARENT % __PanelElement.PARENT__
+				case 13 % PanelElement.PARENT
 					if check_graphics(pe.getr('H'), 'uigridlayout') % H = gl for grid layout
 					    set(pe.get('H'), 'Parent', pe.get('PARENT').get('H')) % H = f for GUI and H = p for Panel
 					end
 					
 				otherwise
-					if prop <= Panel.getPropNumber()
+					if prop <= 19
 						postset@Panel(pe, prop);
 					end
 			end
@@ -894,8 +894,8 @@ classdef PanelElement < Panel
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelElement.PR_DICT % __PanelElement.PR_DICT__
-					rng_settings_ = rng(); rng(pe.getPropSeed(PanelElement.PR_DICT), 'twister')
+				case 24 % PanelElement.PR_DICT
+					rng_settings_ = rng(); rng(pe.getPropSeed(24), 'twister')
 					
 					el = pe.get('EL');
 					
@@ -922,7 +922,7 @@ classdef PanelElement < Panel
 					        end
 					        
 					        if isa(pr.getr('WAITBAR'), 'NoValue')
-					            pr.set('WAITBAR', pe.getCallback(PanelElement.WAITBAR))
+					            pr.set('WAITBAR', pe.getCallback(9))
 					        end
 					        
 					        pr_list{order(prop)} = pr;
@@ -937,7 +937,7 @@ classdef PanelElement < Panel
 					
 					rng(rng_settings_)
 					
-				case PanelElement.RESIZEX % __PanelElement.RESIZEX__
+				case 26 % PanelElement.RESIZEX
 					if pe.get('DRAWN')
 					    pr_dict = pe.get('PR_DICT');
 					    
@@ -960,7 +960,7 @@ classdef PanelElement < Panel
 					    value = false;
 					end
 					
-				case PanelElement.RESIZEY % __PanelElement.RESIZEY__
+				case 27 % PanelElement.RESIZEY
 					if pe.get('DRAWN')
 					    set(pe.get('H'), 'RowHeight', cellfun(@(pr) {pr.get('HEIGHT')}, pe.get('PR_DICT').get('IT_LIST')))
 					
@@ -976,10 +976,10 @@ classdef PanelElement < Panel
 					    value = false;
 					end
 					
-				case PanelElement.LISTENER_PPHEIGHT % __PanelElement.LISTENER_PPHEIGHT__
+				case 28 % PanelElement.LISTENER_PPHEIGHT
 					value = cellfun(@(pr) listener(pr, 'PropSet', @cb_listener_ppheight), pe.get('PR_DICT').get('IT_LIST'), 'UniformOutput', false);
 					
-				case PanelElement.H % __PanelElement.H__
+				case 15 % PanelElement.H
 					gl = uigridlayout([pe.memorize('PR_DICT').get('LENGTH') 1], ... % set grid layout
 					    'Parent', pe.memorize('PARENT').memorize('H'), ... % H = f for GUI and H = p for Panel
 					    'Tag', 'H', ...
@@ -992,14 +992,14 @@ classdef PanelElement < Panel
 					    );
 					value = gl;
 					
-				case PanelElement.H_WAITBAR % __PanelElement.H_WAITBAR__
+				case 10 % PanelElement.H_WAITBAR
 					if pe.get('WAITBAR')
 					    value = braph2waitbar(pe.get('WAITBAR'), 0, 'Drawing the element panel ...'); % wb
 					else
 					    value = gobjects(1);
 					end
 					
-				case PanelElement.DRAW % __PanelElement.DRAW__
+				case 11 % PanelElement.DRAW
 					if check_graphics(pe.memorize('H'), 'uigridlayout') % H = gl for grid layout
 					    gl = pe.get('H');
 					    
@@ -1034,10 +1034,10 @@ classdef PanelElement < Panel
 					    value = false;
 					end
 					
-				case PanelElement.DRAWN % __PanelElement.DRAWN__
+				case 12 % PanelElement.DRAWN
 					value = check_graphics(pe.getr('H'), 'uigridlayout'); % H = gl for grid layout
 					
-				case PanelElement.SHOW % __PanelElement.SHOW__
+				case 16 % PanelElement.SHOW
 					if pe.get('DRAWN')
 					    
 					    pr_dict = pe.get('PR_DICT');
@@ -1046,7 +1046,7 @@ classdef PanelElement < Panel
 					        pr.get('SHOW', 'ShowParentFigure', false)
 					    end
 					
-					    calculateValue@Panel(pe, Panel.SHOW, varargin{:});
+					    calculateValue@Panel(pe, 16, varargin{:});
 					    
 					    value = true;
 					else
@@ -1060,7 +1060,7 @@ classdef PanelElement < Panel
 					    value = false;
 					end
 					
-				case PanelElement.HIDE % __PanelElement.HIDE__
+				case 17 % PanelElement.HIDE
 					if pe.get('DRAWN')
 					    
 					    pr_dict = pe.get('PR_DICT');
@@ -1069,7 +1069,7 @@ classdef PanelElement < Panel
 					        pr.get('HIDE', 'HideParentFigure', false)
 					    end
 					
-					    calculateValue@Panel(pe, Panel.HIDE, varargin{:});
+					    calculateValue@Panel(pe, 17, varargin{:});
 					
 					    value = true;
 					else
@@ -1083,13 +1083,13 @@ classdef PanelElement < Panel
 					    value = false;
 					end
 					
-				case PanelElement.DELETE % __PanelElement.DELETE__
-					value = calculateValue@Panel(pe, Panel.DELETE, varargin{:}); % also warning
+				case 18 % PanelElement.DELETE
+					value = calculateValue@Panel(pe, 18, varargin{:}); % also warning
 					if value
 					    pe.set('LISTENER_PPHEIGHT', Element.getNoValue())
 					end
 					
-				case PanelElement.CLOSE % __PanelElement.CLOSE__
+				case 19 % PanelElement.CLOSE
 					if pe.get('DRAWN')
 					    
 					    pr_dict = pe.get('PR_DICT');
@@ -1098,7 +1098,7 @@ classdef PanelElement < Panel
 					        pr.get('CLOSE', 'CloseParentFigure', false)
 					    end
 					    
-					    calculateValue@Panel(pe, Panel.CLOSE, varargin{:});
+					    calculateValue@Panel(pe, 19, varargin{:});
 					    
 					    value = true;
 					else
@@ -1113,7 +1113,7 @@ classdef PanelElement < Panel
 					end
 					
 				otherwise
-					if prop <= Panel.getPropNumber()
+					if prop <= 19
 						value = calculateValue@Panel(pe, prop, varargin{:});
 					else
 						value = calculateValue@Element(pe, prop, varargin{:});
@@ -1124,7 +1124,7 @@ classdef PanelElement < Panel
 				pe.get(varargin{:})
 			end
 			function cb_listener_ppheight(~, event)
-			    if ismember(PanelProp.HEIGHT, cell2mat(event.props)) && pe.get('DRAWN')
+			    if ismember(25, cell2mat(event.props)) && pe.get('DRAWN')
 			        pe.get('RESIZEY')
 			    end
 			end

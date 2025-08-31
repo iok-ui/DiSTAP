@@ -572,11 +572,11 @@ classdef PanelPropScalar < PanelProp
 			prop = PanelPropScalar.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropScalar.ENABLE % __PanelPropScalar.ENABLE__
+				case 36 % PanelPropScalar.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropScalar.EDITFIELD % __PanelPropScalar.EDITFIELD__
+				case 37 % PanelPropScalar.EDITFIELD
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropScalar.TEMPLATE % __PanelPropScalar.TEMPLATE__
+				case 4 % PanelPropScalar.TEMPLATE
 					prop_settings = 'PanelPropScalar';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -605,29 +605,29 @@ classdef PanelPropScalar < PanelProp
 			prop = PanelPropScalar.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropScalar.ENABLE % __PanelPropScalar.ENABLE__
+				case 36 % PanelPropScalar.ENABLE
 					prop_default = true;
-				case PanelPropScalar.EDITFIELD % __PanelPropScalar.EDITFIELD__
+				case 37 % PanelPropScalar.EDITFIELD
 					prop_default = Format.getFormatDefault(18, PanelPropScalar.getPropSettings(prop));
-				case PanelPropScalar.ELCLASS % __PanelPropScalar.ELCLASS__
+				case 1 % PanelPropScalar.ELCLASS
 					prop_default = 'PanelPropScalar';
-				case PanelPropScalar.NAME % __PanelPropScalar.NAME__
+				case 2 % PanelPropScalar.NAME
 					prop_default = 'Scalar Prop Panel';
-				case PanelPropScalar.DESCRIPTION % __PanelPropScalar.DESCRIPTION__
+				case 3 % PanelPropScalar.DESCRIPTION
 					prop_default = 'A Scalar Prop Panel (PanelPropScalar) plots the panel for a SCALAR property with a numeric edit field. It works for all categories.';
-				case PanelPropScalar.TEMPLATE % __PanelPropScalar.TEMPLATE__
+				case 4 % PanelPropScalar.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropScalar.getPropSettings(prop));
-				case PanelPropScalar.ID % __PanelPropScalar.ID__
+				case 5 % PanelPropScalar.ID
 					prop_default = 'PanelPropScalar ID';
-				case PanelPropScalar.LABEL % __PanelPropScalar.LABEL__
+				case 6 % PanelPropScalar.LABEL
 					prop_default = 'PanelPropScalar label';
-				case PanelPropScalar.NOTES % __PanelPropScalar.NOTES__
+				case 7 % PanelPropScalar.NOTES
 					prop_default = 'PanelPropScalar notes';
-				case PanelPropScalar.EL % __PanelPropScalar.EL__
+				case 23 % PanelPropScalar.EL
 					prop_default = PanelProp();
-				case PanelPropScalar.PROP % __PanelPropScalar.PROP__
-					prop_default = PanelProp.PROP;
-				case PanelPropScalar.HEIGHT % __PanelPropScalar.HEIGHT__
+				case 24 % PanelPropScalar.PROP
+					prop_default = 24;
+				case 25 % PanelPropScalar.HEIGHT
 					prop_default = 48;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -693,14 +693,14 @@ classdef PanelPropScalar < PanelProp
 			prop = PanelPropScalar.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropScalar.ENABLE % __PanelPropScalar.ENABLE__
+				case 36 % PanelPropScalar.ENABLE
 					check = Format.checkFormat(4, value, PanelPropScalar.getPropSettings(prop));
-				case PanelPropScalar.EDITFIELD % __PanelPropScalar.EDITFIELD__
+				case 37 % PanelPropScalar.EDITFIELD
 					check = Format.checkFormat(18, value, PanelPropScalar.getPropSettings(prop));
-				case PanelPropScalar.TEMPLATE % __PanelPropScalar.TEMPLATE__
+				case 4 % PanelPropScalar.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropScalar.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -733,7 +733,7 @@ classdef PanelPropScalar < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropScalar.EDITFIELD % __PanelPropScalar.EDITFIELD__
+				case 37 % PanelPropScalar.EDITFIELD
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -747,14 +747,14 @@ classdef PanelPropScalar < PanelProp
 					
 					value = editfield;
 					
-				case PanelPropScalar.X_DRAW % __PanelPropScalar.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropScalar.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('EDITFIELD')
 					end
 					
-				case PanelPropScalar.UPDATE % __PanelPropScalar.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropScalar.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -804,22 +804,22 @@ classdef PanelPropScalar < PanelProp
 					    end
 					end
 					
-				case PanelPropScalar.REDRAW % __PanelPropScalar.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropScalar.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('EDITFIELD'), 'Position', [4 4 .25*w_p 21])
 					end
 					
-				case PanelPropScalar.DELETE % __PanelPropScalar.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropScalar.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('EDITFIELD', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

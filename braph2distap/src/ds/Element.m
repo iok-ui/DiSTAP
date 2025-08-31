@@ -671,9 +671,9 @@ classdef Element < Category & Format & matlab.mixin.Copyable
             
             if ~isa(el.props{prop}.callback, 'Callback')
                 cb = Callback('EL', el, 'PROP', prop);
-                cb.props{Callback.EL}.locked = true;
-                cb.props{Callback.PROP}.locked = true;
-                cb.props{Callback.TAG}.locked = true;
+                cb.props{1}.locked = true;
+                cb.props{2}.locked = true;
+                cb.props{3}.locked = true;
                 el.props{prop}.callback = cb;
             end
             

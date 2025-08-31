@@ -676,7 +676,7 @@ classdef REAnalysisModule < ConcreteElement
 				case 4 % REAnalysisModule.TEMPLATE
 					check = Format.checkFormat(8, value, REAnalysisModule.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end
@@ -781,7 +781,7 @@ classdef REAnalysisModule < ConcreteElement
 					rng(rng_settings_)
 					
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						value = calculateValue@ConcreteElement(ream, prop, varargin{:});
 					else
 						value = calculateValue@Element(ream, prop, varargin{:});

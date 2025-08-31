@@ -502,9 +502,9 @@ classdef Exporter < ConcreteElement
 			prop = Exporter.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Exporter.WAITBAR % __Exporter.WAITBAR__
+				case 9 % Exporter.WAITBAR
 					prop_settings = Format.getFormatSettings(4);
-				case Exporter.TEMPLATE % __Exporter.TEMPLATE__
+				case 4 % Exporter.TEMPLATE
 					prop_settings = 'Exporter';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -533,21 +533,21 @@ classdef Exporter < ConcreteElement
 			prop = Exporter.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case Exporter.WAITBAR % __Exporter.WAITBAR__
+				case 9 % Exporter.WAITBAR
 					prop_default = Format.getFormatDefault(4, Exporter.getPropSettings(prop));
-				case Exporter.ELCLASS % __Exporter.ELCLASS__
+				case 1 % Exporter.ELCLASS
 					prop_default = 'Exporter';
-				case Exporter.NAME % __Exporter.NAME__
+				case 2 % Exporter.NAME
 					prop_default = 'Exporter';
-				case Exporter.DESCRIPTION % __Exporter.DESCRIPTION__
+				case 3 % Exporter.DESCRIPTION
 					prop_default = 'An Exporter is the base class for the exporter of an element (ConcreteElement) to a file.';
-				case Exporter.TEMPLATE % __Exporter.TEMPLATE__
+				case 4 % Exporter.TEMPLATE
 					prop_default = Format.getFormatDefault(8, Exporter.getPropSettings(prop));
-				case Exporter.ID % __Exporter.ID__
+				case 5 % Exporter.ID
 					prop_default = 'Exporter ID';
-				case Exporter.LABEL % __Exporter.LABEL__
+				case 6 % Exporter.LABEL
 					prop_default = 'Exporter label';
-				case Exporter.NOTES % __Exporter.NOTES__
+				case 7 % Exporter.NOTES
 					prop_default = 'Exporter notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -613,12 +613,12 @@ classdef Exporter < ConcreteElement
 			prop = Exporter.getPropProp(pointer);
 			
 			switch prop
-				case Exporter.WAITBAR % __Exporter.WAITBAR__
+				case 9 % Exporter.WAITBAR
 					check = Format.checkFormat(4, value, Exporter.getPropSettings(prop));
-				case Exporter.TEMPLATE % __Exporter.TEMPLATE__
+				case 4 % Exporter.TEMPLATE
 					check = Format.checkFormat(8, value, Exporter.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end

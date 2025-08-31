@@ -572,11 +572,11 @@ classdef PanelPropStringTextArea < PanelProp
 			prop = PanelPropStringTextArea.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropStringTextArea.ENABLE % __PanelPropStringTextArea.ENABLE__
+				case 36 % PanelPropStringTextArea.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropStringTextArea.TEXTAREA % __PanelPropStringTextArea.TEXTAREA__
+				case 37 % PanelPropStringTextArea.TEXTAREA
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropStringTextArea.TEMPLATE % __PanelPropStringTextArea.TEMPLATE__
+				case 4 % PanelPropStringTextArea.TEMPLATE
 					prop_settings = 'PanelPropStringTextArea';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -605,29 +605,29 @@ classdef PanelPropStringTextArea < PanelProp
 			prop = PanelPropStringTextArea.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropStringTextArea.ENABLE % __PanelPropStringTextArea.ENABLE__
+				case 36 % PanelPropStringTextArea.ENABLE
 					prop_default = true;
-				case PanelPropStringTextArea.TEXTAREA % __PanelPropStringTextArea.TEXTAREA__
+				case 37 % PanelPropStringTextArea.TEXTAREA
 					prop_default = Format.getFormatDefault(18, PanelPropStringTextArea.getPropSettings(prop));
-				case PanelPropStringTextArea.ELCLASS % __PanelPropStringTextArea.ELCLASS__
+				case 1 % PanelPropStringTextArea.ELCLASS
 					prop_default = 'PanelPropStringTextArea';
-				case PanelPropStringTextArea.NAME % __PanelPropStringTextArea.NAME__
+				case 2 % PanelPropStringTextArea.NAME
 					prop_default = 'String Prop Panel with Text-Area';
-				case PanelPropStringTextArea.DESCRIPTION % __PanelPropStringTextArea.DESCRIPTION__
+				case 3 % PanelPropStringTextArea.DESCRIPTION
 					prop_default = 'A String Prop Panel with Text-Area (PanelPropStringTextArea) plots the panel for a STRING property with a text-area. It works for all categories.';
-				case PanelPropStringTextArea.TEMPLATE % __PanelPropStringTextArea.TEMPLATE__
+				case 4 % PanelPropStringTextArea.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropStringTextArea.getPropSettings(prop));
-				case PanelPropStringTextArea.ID % __PanelPropStringTextArea.ID__
+				case 5 % PanelPropStringTextArea.ID
 					prop_default = 'PanelPropStringTextArea ID';
-				case PanelPropStringTextArea.LABEL % __PanelPropStringTextArea.LABEL__
+				case 6 % PanelPropStringTextArea.LABEL
 					prop_default = 'PanelPropStringTextArea label';
-				case PanelPropStringTextArea.NOTES % __PanelPropStringTextArea.NOTES__
+				case 7 % PanelPropStringTextArea.NOTES
 					prop_default = 'PanelPropStringTextArea notes';
-				case PanelPropStringTextArea.EL % __PanelPropStringTextArea.EL__
+				case 23 % PanelPropStringTextArea.EL
 					prop_default = ConcreteElement();
-				case PanelPropStringTextArea.PROP % __PanelPropStringTextArea.PROP__
-					prop_default = ConcreteElement.NOTES;
-				case PanelPropStringTextArea.HEIGHT % __PanelPropStringTextArea.HEIGHT__
+				case 24 % PanelPropStringTextArea.PROP
+					prop_default = 7;
+				case 25 % PanelPropStringTextArea.HEIGHT
 					prop_default = 84;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -693,14 +693,14 @@ classdef PanelPropStringTextArea < PanelProp
 			prop = PanelPropStringTextArea.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropStringTextArea.ENABLE % __PanelPropStringTextArea.ENABLE__
+				case 36 % PanelPropStringTextArea.ENABLE
 					check = Format.checkFormat(4, value, PanelPropStringTextArea.getPropSettings(prop));
-				case PanelPropStringTextArea.TEXTAREA % __PanelPropStringTextArea.TEXTAREA__
+				case 37 % PanelPropStringTextArea.TEXTAREA
 					check = Format.checkFormat(18, value, PanelPropStringTextArea.getPropSettings(prop));
-				case PanelPropStringTextArea.TEMPLATE % __PanelPropStringTextArea.TEMPLATE__
+				case 4 % PanelPropStringTextArea.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropStringTextArea.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -733,7 +733,7 @@ classdef PanelPropStringTextArea < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropStringTextArea.TEXTAREA % __PanelPropStringTextArea.TEXTAREA__
+				case 37 % PanelPropStringTextArea.TEXTAREA
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -747,14 +747,14 @@ classdef PanelPropStringTextArea < PanelProp
 					
 					value = textarea;
 					
-				case PanelPropStringTextArea.X_DRAW % __PanelPropStringTextArea.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropStringTextArea.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('TEXTAREA')
 					end
 					
-				case PanelPropStringTextArea.UPDATE % __PanelPropStringTextArea.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropStringTextArea.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					
 					    el = pr.get('EL');
@@ -805,22 +805,22 @@ classdef PanelPropStringTextArea < PanelProp
 					    end
 					end
 					
-				case PanelPropStringTextArea.REDRAW % __PanelPropStringTextArea.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropStringTextArea.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
 					    set(pr.get('TEXTAREA'), 'Position', [4 4 w_p-8 max(1, pr.get('HEIGHT')-27)])
 					end
 					
-				case PanelPropStringTextArea.DELETE % __PanelPropStringTextArea.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropStringTextArea.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('TEXTAREA', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

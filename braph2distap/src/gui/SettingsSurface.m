@@ -541,15 +541,15 @@ classdef SettingsSurface < Settings
 			prop = SettingsSurface.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsSurface.EDGECOLOR % __SettingsSurface.EDGECOLOR__
+				case 15 % SettingsSurface.EDGECOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case SettingsSurface.EDGEALPHA % __SettingsSurface.EDGEALPHA__
+				case 16 % SettingsSurface.EDGEALPHA
 					prop_settings = Format.getFormatSettings(21);
-				case SettingsSurface.FACECOLOR % __SettingsSurface.FACECOLOR__
+				case 17 % SettingsSurface.FACECOLOR
 					prop_settings = Format.getFormatSettings(20);
-				case SettingsSurface.FACEALPHA % __SettingsSurface.FACEALPHA__
+				case 18 % SettingsSurface.FACEALPHA
 					prop_settings = Format.getFormatSettings(21);
-				case SettingsSurface.TEMPLATE % __SettingsSurface.TEMPLATE__
+				case 4 % SettingsSurface.TEMPLATE
 					prop_settings = 'SettingsSurface';
 				otherwise
 					prop_settings = getPropSettings@Settings(prop);
@@ -578,27 +578,27 @@ classdef SettingsSurface < Settings
 			prop = SettingsSurface.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsSurface.EDGECOLOR % __SettingsSurface.EDGECOLOR__
+				case 15 % SettingsSurface.EDGECOLOR
 					prop_default = [0 0 0];
-				case SettingsSurface.EDGEALPHA % __SettingsSurface.EDGEALPHA__
+				case 16 % SettingsSurface.EDGEALPHA
 					prop_default = 0;
-				case SettingsSurface.FACECOLOR % __SettingsSurface.FACECOLOR__
+				case 17 % SettingsSurface.FACECOLOR
 					prop_default = [.5 .5 .5];
-				case SettingsSurface.FACEALPHA % __SettingsSurface.FACEALPHA__
+				case 18 % SettingsSurface.FACEALPHA
 					prop_default = .5;
-				case SettingsSurface.ELCLASS % __SettingsSurface.ELCLASS__
+				case 1 % SettingsSurface.ELCLASS
 					prop_default = 'SettingsSurface';
-				case SettingsSurface.NAME % __SettingsSurface.NAME__
+				case 2 % SettingsSurface.NAME
 					prop_default = 'Surface Settings';
-				case SettingsSurface.DESCRIPTION % __SettingsSurface.DESCRIPTION__
+				case 3 % SettingsSurface.DESCRIPTION
 					prop_default = 'A Surface Settings (SettingsSurface) provides the settings for a surface, including face color, face alpha, edge color, and edge alpha.';
-				case SettingsSurface.TEMPLATE % __SettingsSurface.TEMPLATE__
+				case 4 % SettingsSurface.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsSurface.getPropSettings(prop));
-				case SettingsSurface.ID % __SettingsSurface.ID__
+				case 5 % SettingsSurface.ID
 					prop_default = 'SettingsSurface ID';
-				case SettingsSurface.LABEL % __SettingsSurface.LABEL__
+				case 6 % SettingsSurface.LABEL
 					prop_default = 'SettingsSurface label';
-				case SettingsSurface.NOTES % __SettingsSurface.NOTES__
+				case 7 % SettingsSurface.NOTES
 					prop_default = 'SettingsSurface notes';
 				otherwise
 					prop_default = getPropDefault@Settings(prop);
@@ -664,18 +664,18 @@ classdef SettingsSurface < Settings
 			prop = SettingsSurface.getPropProp(pointer);
 			
 			switch prop
-				case SettingsSurface.EDGECOLOR % __SettingsSurface.EDGECOLOR__
+				case 15 % SettingsSurface.EDGECOLOR
 					check = Format.checkFormat(20, value, SettingsSurface.getPropSettings(prop));
-				case SettingsSurface.EDGEALPHA % __SettingsSurface.EDGEALPHA__
+				case 16 % SettingsSurface.EDGEALPHA
 					check = Format.checkFormat(21, value, SettingsSurface.getPropSettings(prop));
-				case SettingsSurface.FACECOLOR % __SettingsSurface.FACECOLOR__
+				case 17 % SettingsSurface.FACECOLOR
 					check = Format.checkFormat(20, value, SettingsSurface.getPropSettings(prop));
-				case SettingsSurface.FACEALPHA % __SettingsSurface.FACEALPHA__
+				case 18 % SettingsSurface.FACEALPHA
 					check = Format.checkFormat(21, value, SettingsSurface.getPropSettings(prop));
-				case SettingsSurface.TEMPLATE % __SettingsSurface.TEMPLATE__
+				case 4 % SettingsSurface.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsSurface.getPropSettings(prop));
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						check = checkProp@Settings(prop, value);
 					end
 			end
@@ -705,32 +705,32 @@ classdef SettingsSurface < Settings
 			%  checkValue.
 			
 			switch prop
-				case SettingsSurface.EDGECOLOR % __SettingsSurface.EDGECOLOR__
+				case 15 % SettingsSurface.EDGECOLOR
 					h = st.get('H');
 					if check_graphics(h, 'patch') || check_graphics(h, 'surface')
 					    set(h, 'EdgeColor', st.get('EDGECOLOR'))
 					end
 					
-				case SettingsSurface.EDGEALPHA % __SettingsSurface.EDGEALPHA__
+				case 16 % SettingsSurface.EDGEALPHA
 					h = st.get('H');
 					if check_graphics(h, 'patch') || check_graphics(h, 'surface')
 					    set(h, 'EdgeAlpha', st.get('EDGEALPHA'))
 					end
 					
-				case SettingsSurface.FACECOLOR % __SettingsSurface.FACECOLOR__
+				case 17 % SettingsSurface.FACECOLOR
 					h = st.get('H');
 					if check_graphics(h, 'patch') || check_graphics(h, 'surface')
 					    set(h, 'FaceColor', st.get('FACECOLOR'))
 					end
 					
-				case SettingsSurface.FACEALPHA % __SettingsSurface.FACEALPHA__
+				case 18 % SettingsSurface.FACEALPHA
 					h = st.get('H');
 					if check_graphics(h, 'patch') || check_graphics(h, 'surface')
 					    set(h, 'FaceAlpha', st.get('FACEALPHA'))
 					end
 					
 				otherwise
-					if prop <= Settings.getPropNumber()
+					if prop <= 14
 						postset@Settings(st, prop);
 					end
 			end

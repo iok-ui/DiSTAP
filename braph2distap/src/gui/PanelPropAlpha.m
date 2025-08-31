@@ -580,13 +580,13 @@ classdef PanelPropAlpha < PanelProp
 			prop = PanelPropAlpha.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropAlpha.ENABLE % __PanelPropAlpha.ENABLE__
+				case 36 % PanelPropAlpha.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case PanelPropAlpha.EDITFIELD % __PanelPropAlpha.EDITFIELD__
+				case 37 % PanelPropAlpha.EDITFIELD
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropAlpha.SLIDER % __PanelPropAlpha.SLIDER__
+				case 38 % PanelPropAlpha.SLIDER
 					prop_settings = Format.getFormatSettings(18);
-				case PanelPropAlpha.TEMPLATE % __PanelPropAlpha.TEMPLATE__
+				case 4 % PanelPropAlpha.TEMPLATE
 					prop_settings = 'PanelPropAlpha';
 				otherwise
 					prop_settings = getPropSettings@PanelProp(prop);
@@ -615,31 +615,31 @@ classdef PanelPropAlpha < PanelProp
 			prop = PanelPropAlpha.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PanelPropAlpha.ENABLE % __PanelPropAlpha.ENABLE__
+				case 36 % PanelPropAlpha.ENABLE
 					prop_default = true;
-				case PanelPropAlpha.EDITFIELD % __PanelPropAlpha.EDITFIELD__
+				case 37 % PanelPropAlpha.EDITFIELD
 					prop_default = Format.getFormatDefault(18, PanelPropAlpha.getPropSettings(prop));
-				case PanelPropAlpha.SLIDER % __PanelPropAlpha.SLIDER__
+				case 38 % PanelPropAlpha.SLIDER
 					prop_default = Format.getFormatDefault(18, PanelPropAlpha.getPropSettings(prop));
-				case PanelPropAlpha.ELCLASS % __PanelPropAlpha.ELCLASS__
+				case 1 % PanelPropAlpha.ELCLASS
 					prop_default = 'PanelPropAlpha';
-				case PanelPropAlpha.NAME % __PanelPropAlpha.NAME__
+				case 2 % PanelPropAlpha.NAME
 					prop_default = 'Alpha Prop Panel';
-				case PanelPropAlpha.DESCRIPTION % __PanelPropAlpha.DESCRIPTION__
+				case 3 % PanelPropAlpha.DESCRIPTION
 					prop_default = 'An Alpha Prop Panel (PanelPropAlpha) plots the panel for a ALPHA property with a numeric edit field and a slider. It works for all categories.';
-				case PanelPropAlpha.TEMPLATE % __PanelPropAlpha.TEMPLATE__
+				case 4 % PanelPropAlpha.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PanelPropAlpha.getPropSettings(prop));
-				case PanelPropAlpha.ID % __PanelPropAlpha.ID__
+				case 5 % PanelPropAlpha.ID
 					prop_default = 'PanelPropAlpha ID';
-				case PanelPropAlpha.LABEL % __PanelPropAlpha.LABEL__
+				case 6 % PanelPropAlpha.LABEL
 					prop_default = 'PanelPropAlpha label';
-				case PanelPropAlpha.NOTES % __PanelPropAlpha.NOTES__
+				case 7 % PanelPropAlpha.NOTES
 					prop_default = 'PanelPropAlpha notes';
-				case PanelPropAlpha.EL % __PanelPropAlpha.EL__
+				case 23 % PanelPropAlpha.EL
 					prop_default = SettingsSurface();
-				case PanelPropAlpha.PROP % __PanelPropAlpha.PROP__
-					prop_default = SettingsSurface.FACEALPHA;
-				case PanelPropAlpha.HEIGHT % __PanelPropAlpha.HEIGHT__
+				case 24 % PanelPropAlpha.PROP
+					prop_default = 18;
+				case 25 % PanelPropAlpha.HEIGHT
 					prop_default = 60;
 				otherwise
 					prop_default = getPropDefault@PanelProp(prop);
@@ -705,16 +705,16 @@ classdef PanelPropAlpha < PanelProp
 			prop = PanelPropAlpha.getPropProp(pointer);
 			
 			switch prop
-				case PanelPropAlpha.ENABLE % __PanelPropAlpha.ENABLE__
+				case 36 % PanelPropAlpha.ENABLE
 					check = Format.checkFormat(4, value, PanelPropAlpha.getPropSettings(prop));
-				case PanelPropAlpha.EDITFIELD % __PanelPropAlpha.EDITFIELD__
+				case 37 % PanelPropAlpha.EDITFIELD
 					check = Format.checkFormat(18, value, PanelPropAlpha.getPropSettings(prop));
-				case PanelPropAlpha.SLIDER % __PanelPropAlpha.SLIDER__
+				case 38 % PanelPropAlpha.SLIDER
 					check = Format.checkFormat(18, value, PanelPropAlpha.getPropSettings(prop));
-				case PanelPropAlpha.TEMPLATE % __PanelPropAlpha.TEMPLATE__
+				case 4 % PanelPropAlpha.TEMPLATE
 					check = Format.checkFormat(8, value, PanelPropAlpha.getPropSettings(prop));
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						check = checkProp@PanelProp(prop, value);
 					end
 			end
@@ -747,7 +747,7 @@ classdef PanelPropAlpha < PanelProp
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case PanelPropAlpha.EDITFIELD % __PanelPropAlpha.EDITFIELD__
+				case 37 % PanelPropAlpha.EDITFIELD
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -762,7 +762,7 @@ classdef PanelPropAlpha < PanelProp
 					
 					value = editfield;
 					
-				case PanelPropAlpha.SLIDER % __PanelPropAlpha.SLIDER__
+				case 38 % PanelPropAlpha.SLIDER
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -778,15 +778,15 @@ classdef PanelPropAlpha < PanelProp
 					% output
 					value = slider;
 					
-				case PanelPropAlpha.X_DRAW % __PanelPropAlpha.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % PanelPropAlpha.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('EDITFIELD')
 					    pr.memorize('SLIDER')
 					end
 					
-				case PanelPropAlpha.UPDATE % __PanelPropAlpha.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % PanelPropAlpha.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -847,8 +847,8 @@ classdef PanelPropAlpha < PanelProp
 					    end
 					end
 					
-				case PanelPropAlpha.REDRAW % __PanelPropAlpha.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % PanelPropAlpha.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -856,15 +856,15 @@ classdef PanelPropAlpha < PanelProp
 					    set(pr.get('SLIDER'), 'Position', [4+.15*w_p+21 27 .70*w_p 3]) % the height of a slider cannot be changed
 					end
 					
-				case PanelPropAlpha.DELETE % __PanelPropAlpha.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % PanelPropAlpha.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 					    pr.set('EDITFIELD', Element.getNoValue())
 					    pr.set('SLIDER', Element.getNoValue())
 					end
 					
 				otherwise
-					if prop <= PanelProp.getPropNumber()
+					if prop <= 35
 						value = calculateValue@PanelProp(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

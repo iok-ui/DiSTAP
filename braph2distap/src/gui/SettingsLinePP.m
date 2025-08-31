@@ -623,25 +623,25 @@ classdef SettingsLinePP < SettingsPP
 			prop = SettingsLinePP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsLinePP.ENABLE % __SettingsLinePP.ENABLE__
+				case 36 % SettingsLinePP.ENABLE
 					prop_settings = Format.getFormatSettings(4);
-				case SettingsLinePP.CHECKBOX_VISIBLE % __SettingsLinePP.CHECKBOX_VISIBLE__
+				case 37 % SettingsLinePP.CHECKBOX_VISIBLE
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsLinePP.DROPDOWN_LINESTYLE % __SettingsLinePP.DROPDOWN_LINESTYLE__
+				case 38 % SettingsLinePP.DROPDOWN_LINESTYLE
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsLinePP.EDITFIELD_LINEWIDTH % __SettingsLinePP.EDITFIELD_LINEWIDTH__
+				case 39 % SettingsLinePP.EDITFIELD_LINEWIDTH
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsLinePP.BUTTON_LINECOLOR % __SettingsLinePP.BUTTON_LINECOLOR__
+				case 40 % SettingsLinePP.BUTTON_LINECOLOR
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsLinePP.DROPDOWN_SYMBOL % __SettingsLinePP.DROPDOWN_SYMBOL__
+				case 41 % SettingsLinePP.DROPDOWN_SYMBOL
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsLinePP.EDITFIELD_SYMBOLSIZE % __SettingsLinePP.EDITFIELD_SYMBOLSIZE__
+				case 42 % SettingsLinePP.EDITFIELD_SYMBOLSIZE
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsLinePP.BUTTON_FACECOLOR % __SettingsLinePP.BUTTON_FACECOLOR__
+				case 43 % SettingsLinePP.BUTTON_FACECOLOR
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsLinePP.BUTTON_EDGECOLOR % __SettingsLinePP.BUTTON_EDGECOLOR__
+				case 44 % SettingsLinePP.BUTTON_EDGECOLOR
 					prop_settings = Format.getFormatSettings(18);
-				case SettingsLinePP.TEMPLATE % __SettingsLinePP.TEMPLATE__
+				case 4 % SettingsLinePP.TEMPLATE
 					prop_settings = 'SettingsLinePP';
 				otherwise
 					prop_settings = getPropSettings@SettingsPP(prop);
@@ -670,43 +670,43 @@ classdef SettingsLinePP < SettingsPP
 			prop = SettingsLinePP.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case SettingsLinePP.ENABLE % __SettingsLinePP.ENABLE__
+				case 36 % SettingsLinePP.ENABLE
 					prop_default = true;
-				case SettingsLinePP.CHECKBOX_VISIBLE % __SettingsLinePP.CHECKBOX_VISIBLE__
+				case 37 % SettingsLinePP.CHECKBOX_VISIBLE
 					prop_default = Format.getFormatDefault(18, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.DROPDOWN_LINESTYLE % __SettingsLinePP.DROPDOWN_LINESTYLE__
+				case 38 % SettingsLinePP.DROPDOWN_LINESTYLE
 					prop_default = Format.getFormatDefault(18, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.EDITFIELD_LINEWIDTH % __SettingsLinePP.EDITFIELD_LINEWIDTH__
+				case 39 % SettingsLinePP.EDITFIELD_LINEWIDTH
 					prop_default = Format.getFormatDefault(18, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.BUTTON_LINECOLOR % __SettingsLinePP.BUTTON_LINECOLOR__
+				case 40 % SettingsLinePP.BUTTON_LINECOLOR
 					prop_default = Format.getFormatDefault(18, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.DROPDOWN_SYMBOL % __SettingsLinePP.DROPDOWN_SYMBOL__
+				case 41 % SettingsLinePP.DROPDOWN_SYMBOL
 					prop_default = Format.getFormatDefault(18, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.EDITFIELD_SYMBOLSIZE % __SettingsLinePP.EDITFIELD_SYMBOLSIZE__
+				case 42 % SettingsLinePP.EDITFIELD_SYMBOLSIZE
 					prop_default = Format.getFormatDefault(18, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.BUTTON_FACECOLOR % __SettingsLinePP.BUTTON_FACECOLOR__
+				case 43 % SettingsLinePP.BUTTON_FACECOLOR
 					prop_default = Format.getFormatDefault(18, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.BUTTON_EDGECOLOR % __SettingsLinePP.BUTTON_EDGECOLOR__
+				case 44 % SettingsLinePP.BUTTON_EDGECOLOR
 					prop_default = Format.getFormatDefault(18, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.ELCLASS % __SettingsLinePP.ELCLASS__
+				case 1 % SettingsLinePP.ELCLASS
 					prop_default = 'SettingsLinePP';
-				case SettingsLinePP.NAME % __SettingsLinePP.NAME__
+				case 2 % SettingsLinePP.NAME
 					prop_default = 'Prop Panel for Line Settings';
-				case SettingsLinePP.DESCRIPTION % __SettingsLinePP.DESCRIPTION__
+				case 3 % SettingsLinePP.DESCRIPTION
 					prop_default = 'A Prop Panel for Line Settings (SettingsLinePP) plots the panel for line settings, including visibility, line style, size and color, and symbol style, size, edge color, and face color. It works for all categories.';
-				case SettingsLinePP.TEMPLATE % __SettingsLinePP.TEMPLATE__
+				case 4 % SettingsLinePP.TEMPLATE
 					prop_default = Format.getFormatDefault(8, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.ID % __SettingsLinePP.ID__
+				case 5 % SettingsLinePP.ID
 					prop_default = 'SettingsLinePP ID';
-				case SettingsLinePP.LABEL % __SettingsLinePP.LABEL__
+				case 6 % SettingsLinePP.LABEL
 					prop_default = 'SettingsLinePP label';
-				case SettingsLinePP.NOTES % __SettingsLinePP.NOTES__
+				case 7 % SettingsLinePP.NOTES
 					prop_default = 'SettingsLinePP notes';
-				case SettingsLinePP.EL % __SettingsLinePP.EL__
+				case 23 % SettingsLinePP.EL
 					prop_default = GraphHistPF();
-				case SettingsLinePP.PROP % __SettingsLinePP.PROP__
+				case 24 % SettingsLinePP.PROP
 					prop_default = GraphHistPF.ST_DENSITY_LINE;
-				case SettingsLinePP.HEIGHT % __SettingsLinePP.HEIGHT__
+				case 25 % SettingsLinePP.HEIGHT
 					prop_default = 111;
 				otherwise
 					prop_default = getPropDefault@SettingsPP(prop);
@@ -772,28 +772,28 @@ classdef SettingsLinePP < SettingsPP
 			prop = SettingsLinePP.getPropProp(pointer);
 			
 			switch prop
-				case SettingsLinePP.ENABLE % __SettingsLinePP.ENABLE__
+				case 36 % SettingsLinePP.ENABLE
 					check = Format.checkFormat(4, value, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.CHECKBOX_VISIBLE % __SettingsLinePP.CHECKBOX_VISIBLE__
+				case 37 % SettingsLinePP.CHECKBOX_VISIBLE
 					check = Format.checkFormat(18, value, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.DROPDOWN_LINESTYLE % __SettingsLinePP.DROPDOWN_LINESTYLE__
+				case 38 % SettingsLinePP.DROPDOWN_LINESTYLE
 					check = Format.checkFormat(18, value, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.EDITFIELD_LINEWIDTH % __SettingsLinePP.EDITFIELD_LINEWIDTH__
+				case 39 % SettingsLinePP.EDITFIELD_LINEWIDTH
 					check = Format.checkFormat(18, value, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.BUTTON_LINECOLOR % __SettingsLinePP.BUTTON_LINECOLOR__
+				case 40 % SettingsLinePP.BUTTON_LINECOLOR
 					check = Format.checkFormat(18, value, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.DROPDOWN_SYMBOL % __SettingsLinePP.DROPDOWN_SYMBOL__
+				case 41 % SettingsLinePP.DROPDOWN_SYMBOL
 					check = Format.checkFormat(18, value, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.EDITFIELD_SYMBOLSIZE % __SettingsLinePP.EDITFIELD_SYMBOLSIZE__
+				case 42 % SettingsLinePP.EDITFIELD_SYMBOLSIZE
 					check = Format.checkFormat(18, value, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.BUTTON_FACECOLOR % __SettingsLinePP.BUTTON_FACECOLOR__
+				case 43 % SettingsLinePP.BUTTON_FACECOLOR
 					check = Format.checkFormat(18, value, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.BUTTON_EDGECOLOR % __SettingsLinePP.BUTTON_EDGECOLOR__
+				case 44 % SettingsLinePP.BUTTON_EDGECOLOR
 					check = Format.checkFormat(18, value, SettingsLinePP.getPropSettings(prop));
-				case SettingsLinePP.TEMPLATE % __SettingsLinePP.TEMPLATE__
+				case 4 % SettingsLinePP.TEMPLATE
 					check = Format.checkFormat(8, value, SettingsLinePP.getPropSettings(prop));
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						check = checkProp@SettingsPP(prop, value);
 					end
 			end
@@ -826,7 +826,7 @@ classdef SettingsLinePP < SettingsPP
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case SettingsLinePP.CHECKBOX_VISIBLE % __SettingsLinePP.CHECKBOX_VISIBLE__
+				case 37 % SettingsLinePP.CHECKBOX_VISIBLE
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					checkbox_visible = uicheckbox( ...
@@ -839,7 +839,7 @@ classdef SettingsLinePP < SettingsPP
 					    );
 					value = checkbox_visible;
 					
-				case SettingsLinePP.DROPDOWN_LINESTYLE % __SettingsLinePP.DROPDOWN_LINESTYLE__
+				case 38 % SettingsLinePP.DROPDOWN_LINESTYLE
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					dropdown_linestyle = uidropdown( ...
@@ -853,7 +853,7 @@ classdef SettingsLinePP < SettingsPP
 					
 					value = dropdown_linestyle;
 					
-				case SettingsLinePP.EDITFIELD_LINEWIDTH % __SettingsLinePP.EDITFIELD_LINEWIDTH__
+				case 39 % SettingsLinePP.EDITFIELD_LINEWIDTH
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					editfield_linewidth = uieditfield('numeric', ...
@@ -868,7 +868,7 @@ classdef SettingsLinePP < SettingsPP
 					
 					value = editfield_linewidth;
 					
-				case SettingsLinePP.BUTTON_LINECOLOR % __SettingsLinePP.BUTTON_LINECOLOR__
+				case 40 % SettingsLinePP.BUTTON_LINECOLOR
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					button_linecolor = uibutton( ...
@@ -882,7 +882,7 @@ classdef SettingsLinePP < SettingsPP
 					    );
 					value = button_linecolor;
 					
-				case SettingsLinePP.DROPDOWN_SYMBOL % __SettingsLinePP.DROPDOWN_SYMBOL__
+				case 41 % SettingsLinePP.DROPDOWN_SYMBOL
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					dropdown_symbol = uidropdown( ...
@@ -896,7 +896,7 @@ classdef SettingsLinePP < SettingsPP
 					
 					value = dropdown_symbol;
 					
-				case SettingsLinePP.EDITFIELD_SYMBOLSIZE % __SettingsLinePP.EDITFIELD_SYMBOLSIZE__
+				case 42 % SettingsLinePP.EDITFIELD_SYMBOLSIZE
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					
@@ -912,7 +912,7 @@ classdef SettingsLinePP < SettingsPP
 					
 					value = editfield_symbolsize;
 					
-				case SettingsLinePP.BUTTON_FACECOLOR % __SettingsLinePP.BUTTON_FACECOLOR__
+				case 43 % SettingsLinePP.BUTTON_FACECOLOR
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					button_facecolor = uibutton( ...
@@ -926,7 +926,7 @@ classdef SettingsLinePP < SettingsPP
 					    );
 					value = button_facecolor;
 					
-				case SettingsLinePP.BUTTON_EDGECOLOR % __SettingsLinePP.BUTTON_EDGECOLOR__
+				case 44 % SettingsLinePP.BUTTON_EDGECOLOR
 					el = pr.get('EL');
 					prop = pr.get('PROP');
 					button_edgecolor = uibutton( ...
@@ -940,8 +940,8 @@ classdef SettingsLinePP < SettingsPP
 					    );
 					value = button_edgecolor;
 					
-				case SettingsLinePP.X_DRAW % __SettingsLinePP.X_DRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.X_DRAW, varargin{:}); % also warning
+				case 20 % SettingsLinePP.X_DRAW
+					value = calculateValue@PanelProp(pr, 20, varargin{:}); % also warning
 					if value
 					    pr.memorize('CHECKBOX_VISIBLE')
 					
@@ -955,8 +955,8 @@ classdef SettingsLinePP < SettingsPP
 					    pr.memorize('BUTTON_EDGECOLOR')
 					end
 					
-				case SettingsLinePP.UPDATE % __SettingsLinePP.UPDATE__
-					value = calculateValue@PanelProp(pr, PanelProp.UPDATE, varargin{:}); % also warning
+				case 21 % SettingsLinePP.UPDATE
+					value = calculateValue@PanelProp(pr, 21, varargin{:}); % also warning
 					if value
 					    el = pr.get('EL');
 					    prop = pr.get('PROP');
@@ -1119,8 +1119,8 @@ classdef SettingsLinePP < SettingsPP
 					    end
 					end
 					
-				case SettingsLinePP.REDRAW % __SettingsLinePP.REDRAW__
-					value = calculateValue@PanelProp(pr, PanelProp.REDRAW, varargin{:}); % also warning
+				case 22 % SettingsLinePP.REDRAW
+					value = calculateValue@PanelProp(pr, 22, varargin{:}); % also warning
 					if value
 					    w_p = get_from_varargin(w(pr.get('H'), 'pixels'), 'Width', varargin);
 					    
@@ -1136,8 +1136,8 @@ classdef SettingsLinePP < SettingsPP
 					    set(pr.get('BUTTON_EDGECOLOR'),     'Position', [4+.65*w_p  9 .20*w_p 21])
 					end
 					
-				case SettingsLinePP.DELETE % __SettingsLinePP.DELETE__
-					value = calculateValue@PanelProp(pr, PanelProp.DELETE, varargin{:}); % also warning
+				case 18 % SettingsLinePP.DELETE
+					value = calculateValue@PanelProp(pr, 18, varargin{:}); % also warning
 					if value
 						pr.set('CHECKBOX_VISIBLE', Element.getNoValue())
 					    
@@ -1152,7 +1152,7 @@ classdef SettingsLinePP < SettingsPP
 					end
 					
 				otherwise
-					if prop <= SettingsPP.getPropNumber()
+					if prop <= 35
 						value = calculateValue@SettingsPP(pr, prop, varargin{:});
 					else
 						value = calculateValue@Element(pr, prop, varargin{:});

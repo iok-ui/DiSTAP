@@ -498,9 +498,9 @@ classdef PipelineSection < ConcreteElement
 			prop = PipelineSection.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PipelineSection.PC_DICT % __PipelineSection.PC_DICT__
+				case 9 % PipelineSection.PC_DICT
 					prop_settings = 'PipelineCode';
-				case PipelineSection.TEMPLATE % __PipelineSection.TEMPLATE__
+				case 4 % PipelineSection.TEMPLATE
 					prop_settings = 'PipelineSection';
 				otherwise
 					prop_settings = getPropSettings@ConcreteElement(prop);
@@ -529,21 +529,21 @@ classdef PipelineSection < ConcreteElement
 			prop = PipelineSection.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case PipelineSection.PC_DICT % __PipelineSection.PC_DICT__
+				case 9 % PipelineSection.PC_DICT
 					prop_default = Format.getFormatDefault(10, PipelineSection.getPropSettings(prop));
-				case PipelineSection.ELCLASS % __PipelineSection.ELCLASS__
+				case 1 % PipelineSection.ELCLASS
 					prop_default = 'PipelineSection';
-				case PipelineSection.NAME % __PipelineSection.NAME__
+				case 2 % PipelineSection.NAME
 					prop_default = 'Pipeline Section';
-				case PipelineSection.DESCRIPTION % __PipelineSection.DESCRIPTION__
+				case 3 % PipelineSection.DESCRIPTION
 					prop_default = 'A Pipeline Section (PipelineSection) represents a section of executable code in a pipeline.';
-				case PipelineSection.TEMPLATE % __PipelineSection.TEMPLATE__
+				case 4 % PipelineSection.TEMPLATE
 					prop_default = Format.getFormatDefault(8, PipelineSection.getPropSettings(prop));
-				case PipelineSection.ID % __PipelineSection.ID__
+				case 5 % PipelineSection.ID
 					prop_default = 'PipelineSection ID';
-				case PipelineSection.LABEL % __PipelineSection.LABEL__
+				case 6 % PipelineSection.LABEL
 					prop_default = 'PipelineSection label';
-				case PipelineSection.NOTES % __PipelineSection.NOTES__
+				case 7 % PipelineSection.NOTES
 					prop_default = 'PipelineSection notes';
 				otherwise
 					prop_default = getPropDefault@ConcreteElement(prop);
@@ -609,12 +609,12 @@ classdef PipelineSection < ConcreteElement
 			prop = PipelineSection.getPropProp(pointer);
 			
 			switch prop
-				case PipelineSection.PC_DICT % __PipelineSection.PC_DICT__
+				case 9 % PipelineSection.PC_DICT
 					check = Format.checkFormat(10, value, PipelineSection.getPropSettings(prop));
-				case PipelineSection.TEMPLATE % __PipelineSection.TEMPLATE__
+				case 4 % PipelineSection.TEMPLATE
 					check = Format.checkFormat(8, value, PipelineSection.getPropSettings(prop));
 				otherwise
-					if prop <= ConcreteElement.getPropNumber()
+					if prop <= 8
 						check = checkProp@ConcreteElement(prop, value);
 					end
 			end

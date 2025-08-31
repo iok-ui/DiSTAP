@@ -500,9 +500,9 @@ classdef VOICategoric < VOI
 			prop = VOICategoric.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case VOICategoric.CATEGORIES % __VOICategoric.CATEGORIES__
+				case 10 % VOICategoric.CATEGORIES
 					prop_settings = Format.getFormatSettings(3);
-				case VOICategoric.TEMPLATE % __VOICategoric.TEMPLATE__
+				case 4 % VOICategoric.TEMPLATE
 					prop_settings = 'VOICategoric';
 				otherwise
 					prop_settings = getPropSettings@VOI(prop);
@@ -531,23 +531,23 @@ classdef VOICategoric < VOI
 			prop = VOICategoric.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case VOICategoric.CATEGORIES % __VOICategoric.CATEGORIES__
+				case 10 % VOICategoric.CATEGORIES
 					prop_default = {'Male', 'Female'};
-				case VOICategoric.ELCLASS % __VOICategoric.ELCLASS__
+				case 1 % VOICategoric.ELCLASS
 					prop_default = 'VOICategoric';
-				case VOICategoric.NAME % __VOICategoric.NAME__
+				case 2 % VOICategoric.NAME
 					prop_default = 'Categorical Variable Of Interest';
-				case VOICategoric.DESCRIPTION % __VOICategoric.DESCRIPTION__
+				case 3 % VOICategoric.DESCRIPTION
 					prop_default = 'A Categorical Variable Of Interest (VOICategoric) is a categorical variable of interest.';
-				case VOICategoric.TEMPLATE % __VOICategoric.TEMPLATE__
+				case 4 % VOICategoric.TEMPLATE
 					prop_default = Format.getFormatDefault(8, VOICategoric.getPropSettings(prop));
-				case VOICategoric.ID % __VOICategoric.ID__
+				case 5 % VOICategoric.ID
 					prop_default = 'VOICategoric ID';
-				case VOICategoric.LABEL % __VOICategoric.LABEL__
+				case 6 % VOICategoric.LABEL
 					prop_default = 'VOICategoric label';
-				case VOICategoric.NOTES % __VOICategoric.NOTES__
+				case 7 % VOICategoric.NOTES
 					prop_default = 'VOICategoric notes';
-				case VOICategoric.V % __VOICategoric.V__
+				case 9 % VOICategoric.V
 					prop_default = 1;
 				otherwise
 					prop_default = getPropDefault@VOI(prop);
@@ -613,12 +613,12 @@ classdef VOICategoric < VOI
 			prop = VOICategoric.getPropProp(pointer);
 			
 			switch prop
-				case VOICategoric.CATEGORIES % __VOICategoric.CATEGORIES__
+				case 10 % VOICategoric.CATEGORIES
 					check = Format.checkFormat(3, value, VOICategoric.getPropSettings(prop));
-				case VOICategoric.TEMPLATE % __VOICategoric.TEMPLATE__
+				case 4 % VOICategoric.TEMPLATE
 					check = Format.checkFormat(8, value, VOICategoric.getPropSettings(prop));
 				otherwise
-					if prop <= VOI.getPropNumber()
+					if prop <= 9
 						check = checkProp@VOI(prop, value);
 					end
 			end
@@ -650,7 +650,7 @@ classdef VOICategoric < VOI
 			msg = ['Error while checking ' tostring(voi) ' ' voi.getPropTag(prop) '.'];
 			
 			switch prop
-				case VOICategoric.V % __VOICategoric.V__
+				case 9 % VOICategoric.V
 					check = ismember(voi.get('V'), [1:1:length(voi.get('CATEGORIES'))]);
 					if check 
 					    msg = 'All ok!';
@@ -659,7 +659,7 @@ classdef VOICategoric < VOI
 					end
 					
 				otherwise
-					if prop <= VOI.getPropNumber()
+					if prop <= 9
 						[check, msg] = checkValue@VOI(voi, prop, value);
 					end
 			end
