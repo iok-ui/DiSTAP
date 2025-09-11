@@ -56,6 +56,22 @@ D (result, item) is the neural network dataset containing the datapoint processe
 raw_spectrum_list = dproc.get('EXTRACT_DATA');
 raw_label_list = dproc.get('EXTRACT_LABELS');
 
+targets_to_remove = dproc.get('TARGETS_TO_REMOVE');
+idx_to_remove = [];
+if ~isempty(targets_to_remove)
+    for t = 1:length(targets_to_remove)
+        target_to_remove = targets_to_remove{t};
+        for i = 1:length(raw_label_list)
+            if any(contains(cellstr(raw_label_list{i}), target_to_remove))
+                idx_to_remove = [idx_to_remove i];
+            end
+        end
+    end
+end
+
+raw_spectrum_list(idx_to_remove) = [];
+raw_label_list(idx_to_remove) = [];
+
 it_list = cellfun(@(data, label) NNDataPoint_RamanSpectra( ...
     'SP_DATA', data, ...
     'WL', dproc.getCallback('WAVELENGTH'), ...
@@ -71,11 +87,16 @@ dp_list = IndexedDictionary(...
         );
 
 value = NNDataset( ...
-    'DP_CLASS', 'NNDataPoint_SpectrumSignal', ...
+    'DP_CLASS', 'NNDataPoint_RamanSpectra', ...
     'DP_DICT', dp_list ...
     );
 
 %% ¡props!
+
+%%% ¡prop!
+TARGETS_TO_REMOVE (data, stringlist) contains the directory of the b2 file for spectrum data.
+%%%% ¡default!
+{'ps'}
 
 %%% ¡prop!
 RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.
