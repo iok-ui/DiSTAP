@@ -96,12 +96,15 @@ IDX_LABEL_OF_INTEREST (parameter, scalar) indentifies importance peaks.
 
 %%% ¡prop!
 PEAK_IDENTIFICATION (result, rvector) indentifies importance peaks.
+%%%% ¡calculate!
 
 %%% ¡prop!
 ZERO_CROSSING_P2N (query, rvector) indentifies the index when crossing from positve to negative.
+%%%% ¡calculate!
 
 %%% ¡prop!
 ZERO_CROSSING_N2P (query, rvector) indentifies the index when crossing from negative to positive.
+%%%% ¡calculate!
 
 %%% ¡prop!
 DIRECTORY (data, string) is the directory saving the exporting figure.
