@@ -112,9 +112,32 @@ DIRECTORY (data, string) is the directory saving the exporting figure.
 fileparts(which('test_braph2'))
 
 %%% ¡prop!
-PLOT_R_SCRIPT (metadata, logical) indentifies the index when crossing from negative to positive.
+PLOT_R_LATENT_REPRESENTATIONS (query, empty) indentifies the index when crossing from negative to positive.
 
+%%% ¡prop!
+PLOT_R_PEAK_IDENTIFICATIONS (query, empty) indentifies the index when crossing from negative to positive.
 
+%%% ¡prop!
+DECODED_PRED (query, empty) indentifies the index when crossing from negative to positive.
+
+% get reconstructed spectrum for the cluster of this single lable
+ZSelected{i} = median(ZLatent(:, idx_type), 2);
+ZSelected{i} = dlarray(ZSelected{i}, 'CB'); % convert to deep learning array
+
+% get recontructed data
+decoded_inputs{i} = extractdata(predict(netD, ZSelected{i}));
+
+if denormalization
+    decoded_inputs{i} = get_denormalization(decoded_inputs{i}, normalization, avg_X_to_be_used, mean(auc_X_to_be_used(idx_type)));
+end
+if detransformation
+    decoded_inputs{i} = get_detransformation(decoded_inputs{i}, transformation, detransformation_infor_to_be_used, idx_type);
+end
+if raman_sep_slidingWindow
+    [decoded_inputs{i}, ~] = get_raman_by_slidingWindow(decoded_inputs{i}, length_sliding_window);
+elseif raman_sep_baselineRemover
+    decoded_inputs{i} = get_raman_by_blremover(decoded_inputs{i}, wavelength_TBP);
+end
 %% ¡tests!
 
 %%% ¡excluded_props!

@@ -14,9 +14,9 @@
 close all; delete(findall(0, 'type', 'figure')); clear all
 
 %% copy folders
-%el_to_edit = ['VariationalAutoencoders_RamanSpectrum']
+el_to_edit = ['VariationalAutoencoderRamanSpectra']
 %el_to_edit = ['VariationalAutoencoders_MNIST']
-el_to_edit = ['VariationalAutoencoderMLP']
+%el_to_edit = ['VariationalAutoencoderMLP']
 el_to_compile = ['braph2genesis' filesep 'pipelines' filesep el_to_edit]
 copyfile(el_to_edit, el_to_compile);
 
@@ -26,7 +26,8 @@ el_path = [filesep 'pipelines' filesep el_to_edit];
 %el_class_list = {'NNDataPoint_Image'};
 %el_class_list = {'NNDataPoint_Spectrum' 'NNDatasetProcess_Spectrum'}; 
 
-el_class_list = {'NNVariationalAutoencoderMLP'};
+%el_class_list = {'NNDataPoint_RamanSpectra' 'NNDatasetProcess_RamanSpectra' 'NNVariationalAutoencoderEvaluator_RS'};
+el_class_list = {'NNVariationalAutoencoderEvaluator_RS'};
 regenerate(el_path, el_class_list, 'DoubleCompilation', false)
 
 %% dependent class compiletion
@@ -40,7 +41,8 @@ el_path = [filesep 'pipelines' filesep el_to_edit];
 %el_class_list = {'NNDataPoint_Image'};
 %el_class_list = {'NNDataPoint_Spectrum' 'NNDatasetProcess_Spectrum'};
 %el_class_list = {'NNVariationalAutoencoder' 'NNVariationalAutoencoder2DCNN' 'NNVariationalAutoencoderEvaluator'};
-el_class_list = {'NNVariationalAutoencoderMLP'};
+%el_class_list = {'NNDataPoint_RamanSpectra' 'NNDatasetProcess_RamanSpectra' 'NNVariationalAutoencoderEvaluator_RS'};
+el_class_list = {'NNVariationalAutoencoderEvaluator_RS'};
 regenerate(el_path, el_class_list, 'DoubleCompilation', true)
 
 %%

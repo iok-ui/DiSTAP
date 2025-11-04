@@ -1,7 +1,8 @@
 .DS_Store
 
 *.asv
-
+*archive
+*braph2genesis
 *.synctex*
 *.log
 *.aux

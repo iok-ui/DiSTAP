@@ -20,10 +20,7 @@ nnvae.get('TRAIN')
 %% Evaluate and Visualize Latent Space
 nne = NNVariationalAutoencoderEvaluator_RS('NN', nnvae, 'D', d_sp);
 
-% latent space
-figure
-nne.get('PLOT_LATENT_REPRESENTATIONS')
+% publication figures
+nne.get('PLOT_R_LATENT_REPRESENTATIONS');
+nne.get('PLOT_R_PEAK_IDENTIFICATIONS');
 
-% Peak identification
-% % % figure
-% % % nne.get('PLOT_PEAK_IDENTIFICATIONS')

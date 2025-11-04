@@ -680,7 +680,7 @@ classdef NNVariationalAutoencoderEvaluator < NNEvaluator
 					
 					%figure;
 					%h = scatter(ZLatent(1, index_selected), ZLatent(2, index_selected), 30, YLatent(index_selected), 'filled');
-					h = scatter(ZLatent(1, :), ZLatent(2, :), 30, YLatent(:), 'filled');
+					h = gscatter(ZLatent(1, :), ZLatent(2, :), YLatent, [], '.', 12);
 					
 					title('Scatter Plot with Color-Coded Categories');
 					value = [];

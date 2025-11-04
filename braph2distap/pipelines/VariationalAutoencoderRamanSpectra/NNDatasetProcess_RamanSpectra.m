@@ -15,17 +15,18 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
-	%  <strong>10</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.
-	%  <strong>11</strong> <strong>WAVELENGTH_START</strong> 	WAVELENGTH_START (parameter, scalar) is the starting wavelength.
-	%  <strong>12</strong> <strong>WAVELENGTH_END</strong> 	WAVELENGTH_END (parameter, scalar) is the ending  wavelength.
-	%  <strong>13</strong> <strong>TRANSFORMATION_RULE</strong> 	TRANSFORMATION_RULE (parameter, option) is the transformation methods.
-	%  <strong>14</strong> <strong>NORMALIZATION_RULE</strong> 	NORMALIZATION_RULE (parameter, option) is the normalization methods.
-	%  <strong>15</strong> <strong>SCALE_FACTOR</strong> 	SCALE_FACTOR (parameter, scalar) is the normalization methods.
-	%  <strong>16</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (result, cvector) is the wavelength.
-	%  <strong>17</strong> <strong>TRANSFORM_DATA</strong> 	TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.
-	%  <strong>18</strong> <strong>NORMALIZE_DATA</strong> 	NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.
-	%  <strong>19</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.
-	%  <strong>20</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
+	%  <strong>10</strong> <strong>TARGETS_TO_REMOVE</strong> 	TARGETS_TO_REMOVE (data, stringlist) contains the directory of the b2 file for spectrum data.
+	%  <strong>11</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.
+	%  <strong>12</strong> <strong>WAVELENGTH_START</strong> 	WAVELENGTH_START (parameter, scalar) is the starting wavelength.
+	%  <strong>13</strong> <strong>WAVELENGTH_END</strong> 	WAVELENGTH_END (parameter, scalar) is the ending  wavelength.
+	%  <strong>14</strong> <strong>TRANSFORMATION_RULE</strong> 	TRANSFORMATION_RULE (parameter, option) is the transformation methods.
+	%  <strong>15</strong> <strong>NORMALIZATION_RULE</strong> 	NORMALIZATION_RULE (parameter, option) is the normalization methods.
+	%  <strong>16</strong> <strong>SCALE_FACTOR</strong> 	SCALE_FACTOR (parameter, scalar) is the normalization methods.
+	%  <strong>17</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (result, cvector) is the wavelength.
+	%  <strong>18</strong> <strong>TRANSFORM_DATA</strong> 	TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.
+	%  <strong>19</strong> <strong>NORMALIZE_DATA</strong> 	NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.
+	%  <strong>20</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.
+	%  <strong>21</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
 	%
 	% NNDatasetProcess_RamanSpectra methods (constructor):
 	%  NNDatasetProcess_RamanSpectra - constructor
@@ -118,57 +119,62 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 	% BUILD BRAPH2 7 class_name 1
 	
 	properties (Constant) % properties
-		RAW_DATA_DIR = 10; %CET: Computational Efficiency Trick
+		TARGETS_TO_REMOVE = 10; %CET: Computational Efficiency Trick
+		TARGETS_TO_REMOVE_TAG = 'TARGETS_TO_REMOVE';
+		TARGETS_TO_REMOVE_CATEGORY = 4;
+		TARGETS_TO_REMOVE_FORMAT = 3;
+		
+		RAW_DATA_DIR = 11; %CET: Computational Efficiency Trick
 		RAW_DATA_DIR_TAG = 'RAW_DATA_DIR';
 		RAW_DATA_DIR_CATEGORY = 4;
 		RAW_DATA_DIR_FORMAT = 2;
 		
-		WAVELENGTH_START = 11; %CET: Computational Efficiency Trick
+		WAVELENGTH_START = 12; %CET: Computational Efficiency Trick
 		WAVELENGTH_START_TAG = 'WAVELENGTH_START';
 		WAVELENGTH_START_CATEGORY = 3;
 		WAVELENGTH_START_FORMAT = 11;
 		
-		WAVELENGTH_END = 12; %CET: Computational Efficiency Trick
+		WAVELENGTH_END = 13; %CET: Computational Efficiency Trick
 		WAVELENGTH_END_TAG = 'WAVELENGTH_END';
 		WAVELENGTH_END_CATEGORY = 3;
 		WAVELENGTH_END_FORMAT = 11;
 		
-		TRANSFORMATION_RULE = 13; %CET: Computational Efficiency Trick
+		TRANSFORMATION_RULE = 14; %CET: Computational Efficiency Trick
 		TRANSFORMATION_RULE_TAG = 'TRANSFORMATION_RULE';
 		TRANSFORMATION_RULE_CATEGORY = 3;
 		TRANSFORMATION_RULE_FORMAT = 5;
 		
-		NORMALIZATION_RULE = 14; %CET: Computational Efficiency Trick
+		NORMALIZATION_RULE = 15; %CET: Computational Efficiency Trick
 		NORMALIZATION_RULE_TAG = 'NORMALIZATION_RULE';
 		NORMALIZATION_RULE_CATEGORY = 3;
 		NORMALIZATION_RULE_FORMAT = 5;
 		
-		SCALE_FACTOR = 15; %CET: Computational Efficiency Trick
+		SCALE_FACTOR = 16; %CET: Computational Efficiency Trick
 		SCALE_FACTOR_TAG = 'SCALE_FACTOR';
 		SCALE_FACTOR_CATEGORY = 3;
 		SCALE_FACTOR_FORMAT = 11;
 		
-		WAVELENGTH = 16; %CET: Computational Efficiency Trick
+		WAVELENGTH = 17; %CET: Computational Efficiency Trick
 		WAVELENGTH_TAG = 'WAVELENGTH';
 		WAVELENGTH_CATEGORY = 5;
 		WAVELENGTH_FORMAT = 13;
 		
-		TRANSFORM_DATA = 17; %CET: Computational Efficiency Trick
+		TRANSFORM_DATA = 18; %CET: Computational Efficiency Trick
 		TRANSFORM_DATA_TAG = 'TRANSFORM_DATA';
 		TRANSFORM_DATA_CATEGORY = 6;
 		TRANSFORM_DATA_FORMAT = 16;
 		
-		NORMALIZE_DATA = 18; %CET: Computational Efficiency Trick
+		NORMALIZE_DATA = 19; %CET: Computational Efficiency Trick
 		NORMALIZE_DATA_TAG = 'NORMALIZE_DATA';
 		NORMALIZE_DATA_CATEGORY = 6;
 		NORMALIZE_DATA_FORMAT = 16;
 		
-		EXTRACT_DATA = 19; %CET: Computational Efficiency Trick
+		EXTRACT_DATA = 20; %CET: Computational Efficiency Trick
 		EXTRACT_DATA_TAG = 'EXTRACT_DATA';
 		EXTRACT_DATA_CATEGORY = 6;
 		EXTRACT_DATA_FORMAT = 16;
 		
-		EXTRACT_LABELS = 20; %CET: Computational Efficiency Trick
+		EXTRACT_LABELS = 21; %CET: Computational Efficiency Trick
 		EXTRACT_LABELS_TAG = 'EXTRACT_LABELS';
 		EXTRACT_LABELS_CATEGORY = 6;
 		EXTRACT_LABELS_FORMAT = 3;
@@ -194,17 +200,18 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
-			%  <strong>10</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.
-			%  <strong>11</strong> <strong>WAVELENGTH_START</strong> 	WAVELENGTH_START (parameter, scalar) is the starting wavelength.
-			%  <strong>12</strong> <strong>WAVELENGTH_END</strong> 	WAVELENGTH_END (parameter, scalar) is the ending  wavelength.
-			%  <strong>13</strong> <strong>TRANSFORMATION_RULE</strong> 	TRANSFORMATION_RULE (parameter, option) is the transformation methods.
-			%  <strong>14</strong> <strong>NORMALIZATION_RULE</strong> 	NORMALIZATION_RULE (parameter, option) is the normalization methods.
-			%  <strong>15</strong> <strong>SCALE_FACTOR</strong> 	SCALE_FACTOR (parameter, scalar) is the normalization methods.
-			%  <strong>16</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (result, cvector) is the wavelength.
-			%  <strong>17</strong> <strong>TRANSFORM_DATA</strong> 	TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.
-			%  <strong>18</strong> <strong>NORMALIZE_DATA</strong> 	NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.
-			%  <strong>19</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.
-			%  <strong>20</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
+			%  <strong>10</strong> <strong>TARGETS_TO_REMOVE</strong> 	TARGETS_TO_REMOVE (data, stringlist) contains the directory of the b2 file for spectrum data.
+			%  <strong>11</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.
+			%  <strong>12</strong> <strong>WAVELENGTH_START</strong> 	WAVELENGTH_START (parameter, scalar) is the starting wavelength.
+			%  <strong>13</strong> <strong>WAVELENGTH_END</strong> 	WAVELENGTH_END (parameter, scalar) is the ending  wavelength.
+			%  <strong>14</strong> <strong>TRANSFORMATION_RULE</strong> 	TRANSFORMATION_RULE (parameter, option) is the transformation methods.
+			%  <strong>15</strong> <strong>NORMALIZATION_RULE</strong> 	NORMALIZATION_RULE (parameter, option) is the normalization methods.
+			%  <strong>16</strong> <strong>SCALE_FACTOR</strong> 	SCALE_FACTOR (parameter, scalar) is the normalization methods.
+			%  <strong>17</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (result, cvector) is the wavelength.
+			%  <strong>18</strong> <strong>TRANSFORM_DATA</strong> 	TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.
+			%  <strong>19</strong> <strong>NORMALIZE_DATA</strong> 	NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.
+			%  <strong>20</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.
+			%  <strong>21</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
 			%
 			% See also Category, Format.
 			
@@ -281,7 +288,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20];
+				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21];
 				return
 			end
 			
@@ -291,13 +298,13 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 				case 2 % Category.METADATA
 					prop_list = [6 7];
 				case 3 % Category.PARAMETER
-					prop_list = [4 11 12 13 14 15];
+					prop_list = [4 12 13 14 15 16];
 				case 4 % Category.DATA
-					prop_list = [5 10];
+					prop_list = [5 10 11];
 				case 5 % Category.RESULT
-					prop_list = [9 16];
+					prop_list = [9 17];
 				case 6 % Category.QUERY
-					prop_list = [8 17 18 19 20];
+					prop_list = [8 18 19 20 21];
 				otherwise
 					prop_list = [];
 			end
@@ -323,7 +330,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_number = 20;
+				prop_number = 21;
 				return
 			end
 			
@@ -335,7 +342,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 				case 3 % Category.PARAMETER
 					prop_number = 6;
 				case 4 % Category.DATA
-					prop_number = 2;
+					prop_number = 3;
 				case 5 % Category.RESULT
 					prop_number = 2;
 				case 6 % Category.QUERY
@@ -370,7 +377,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 20 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = prop >= 1 && prop <= 21 && round(prop) == prop; %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -408,7 +415,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'TRANSFORM_DATA'  'NORMALIZE_DATA'  'EXTRACT_DATA'  'EXTRACT_LABELS' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'TARGETS_TO_REMOVE'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'TRANSFORM_DATA'  'NORMALIZE_DATA'  'EXTRACT_DATA'  'EXTRACT_LABELS' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -441,7 +448,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'TRANSFORM_DATA'  'NORMALIZE_DATA'  'EXTRACT_DATA'  'EXTRACT_LABELS' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'TARGETS_TO_REMOVE'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'TRANSFORM_DATA'  'NORMALIZE_DATA'  'EXTRACT_DATA'  'EXTRACT_LABELS' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -470,7 +477,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				nndatasetprocess_ramanspectra_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'TRANSFORM_DATA'  'NORMALIZE_DATA'  'EXTRACT_DATA'  'EXTRACT_LABELS' };
+				nndatasetprocess_ramanspectra_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'D'  'TARGETS_TO_REMOVE'  'RAW_DATA_DIR'  'WAVELENGTH_START'  'WAVELENGTH_END'  'TRANSFORMATION_RULE'  'NORMALIZATION_RULE'  'SCALE_FACTOR'  'WAVELENGTH'  'TRANSFORM_DATA'  'NORMALIZE_DATA'  'EXTRACT_DATA'  'EXTRACT_LABELS' };
 				tag = nndatasetprocess_ramanspectra_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -497,7 +504,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			prop = NNDatasetProcess_RamanSpectra.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_ramanspectra_category_list = { 1  1  1  3  4  2  2  6  5  4  3  3  3  3  3  5  6  6  6  6 };
+			nndatasetprocess_ramanspectra_category_list = { 1  1  1  3  4  2  2  6  5  4  4  3  3  3  3  3  5  6  6  6  6 };
 			prop_category = nndatasetprocess_ramanspectra_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -523,7 +530,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			prop = NNDatasetProcess_RamanSpectra.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_ramanspectra_format_list = { 2  2  2  8  2  2  2  2  8  2  11  11  5  5  11  13  16  16  16  3 };
+			nndatasetprocess_ramanspectra_format_list = { 2  2  2  8  2  2  2  2  8  3  2  11  11  5  5  11  13  16  16  16  3 };
 			prop_format = nndatasetprocess_ramanspectra_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
@@ -549,7 +556,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			prop = NNDatasetProcess_RamanSpectra.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_ramanspectra_description_list = { 'ELCLASS (constant, string) is the class of processing MNIST data for a neural networks datasets.'  'NAME (constant, string) is the name of processing MNIST data for a neural networks datasets.'  'DESCRIPTION (constant, string) is the description of processing data for a neural networks datasets.'  'TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.'  'ID (data, string) is a few-letter code of processing data for a neural networks datasets.'  'LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.'  'NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural network dataset containing the datapoint processed from the raw data.'  'RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.'  'WAVELENGTH_START (parameter, scalar) is the starting wavelength.'  'WAVELENGTH_END (parameter, scalar) is the ending  wavelength.'  'TRANSFORMATION_RULE (parameter, option) is the transformation methods.'  'NORMALIZATION_RULE (parameter, option) is the normalization methods.'  'SCALE_FACTOR (parameter, scalar) is the normalization methods.'  'WAVELENGTH (result, cvector) is the wavelength.'  'TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.'  'NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.'  'EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.'  'EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.' };
+			nndatasetprocess_ramanspectra_description_list = { 'ELCLASS (constant, string) is the class of processing MNIST data for a neural networks datasets.'  'NAME (constant, string) is the name of processing MNIST data for a neural networks datasets.'  'DESCRIPTION (constant, string) is the description of processing data for a neural networks datasets.'  'TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.'  'ID (data, string) is a few-letter code of processing data for a neural networks datasets.'  'LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.'  'NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural network dataset containing the datapoint processed from the raw data.'  'TARGETS_TO_REMOVE (data, stringlist) contains the directory of the b2 file for spectrum data.'  'RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.'  'WAVELENGTH_START (parameter, scalar) is the starting wavelength.'  'WAVELENGTH_END (parameter, scalar) is the ending  wavelength.'  'TRANSFORMATION_RULE (parameter, option) is the transformation methods.'  'NORMALIZATION_RULE (parameter, option) is the normalization methods.'  'SCALE_FACTOR (parameter, scalar) is the normalization methods.'  'WAVELENGTH (result, cvector) is the wavelength.'  'TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.'  'NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.'  'EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.'  'EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.' };
 			prop_description = nndatasetprocess_ramanspectra_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -575,27 +582,29 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			prop = NNDatasetProcess_RamanSpectra.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case 10 % NNDatasetProcess_RamanSpectra.RAW_DATA_DIR
+				case 10 % NNDatasetProcess_RamanSpectra.TARGETS_TO_REMOVE
+					prop_settings = Format.getFormatSettings(3);
+				case 11 % NNDatasetProcess_RamanSpectra.RAW_DATA_DIR
 					prop_settings = Format.getFormatSettings(2);
-				case 11 % NNDatasetProcess_RamanSpectra.WAVELENGTH_START
+				case 12 % NNDatasetProcess_RamanSpectra.WAVELENGTH_START
 					prop_settings = Format.getFormatSettings(11);
-				case 12 % NNDatasetProcess_RamanSpectra.WAVELENGTH_END
+				case 13 % NNDatasetProcess_RamanSpectra.WAVELENGTH_END
 					prop_settings = Format.getFormatSettings(11);
-				case 13 % NNDatasetProcess_RamanSpectra.TRANSFORMATION_RULE
+				case 14 % NNDatasetProcess_RamanSpectra.TRANSFORMATION_RULE
 					prop_settings = {'First derivative'};
-				case 14 % NNDatasetProcess_RamanSpectra.NORMALIZATION_RULE
+				case 15 % NNDatasetProcess_RamanSpectra.NORMALIZATION_RULE
 					prop_settings = {'Scale'};
-				case 15 % NNDatasetProcess_RamanSpectra.SCALE_FACTOR
+				case 16 % NNDatasetProcess_RamanSpectra.SCALE_FACTOR
 					prop_settings = Format.getFormatSettings(11);
-				case 16 % NNDatasetProcess_RamanSpectra.WAVELENGTH
+				case 17 % NNDatasetProcess_RamanSpectra.WAVELENGTH
 					prop_settings = Format.getFormatSettings(13);
-				case 17 % NNDatasetProcess_RamanSpectra.TRANSFORM_DATA
+				case 18 % NNDatasetProcess_RamanSpectra.TRANSFORM_DATA
 					prop_settings = Format.getFormatSettings(16);
-				case 18 % NNDatasetProcess_RamanSpectra.NORMALIZE_DATA
+				case 19 % NNDatasetProcess_RamanSpectra.NORMALIZE_DATA
 					prop_settings = Format.getFormatSettings(16);
-				case 19 % NNDatasetProcess_RamanSpectra.EXTRACT_DATA
+				case 20 % NNDatasetProcess_RamanSpectra.EXTRACT_DATA
 					prop_settings = Format.getFormatSettings(16);
-				case 20 % NNDatasetProcess_RamanSpectra.EXTRACT_LABELS
+				case 21 % NNDatasetProcess_RamanSpectra.EXTRACT_LABELS
 					prop_settings = Format.getFormatSettings(3);
 				case 4 % NNDatasetProcess_RamanSpectra.TEMPLATE
 					prop_settings = 'NNDatasetProcess_RamanSpectra';
@@ -628,27 +637,29 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			prop = NNDatasetProcess_RamanSpectra.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
-				case 10 % NNDatasetProcess_RamanSpectra.RAW_DATA_DIR
+				case 10 % NNDatasetProcess_RamanSpectra.TARGETS_TO_REMOVE
+					prop_default = {'ps'};
+				case 11 % NNDatasetProcess_RamanSpectra.RAW_DATA_DIR
 					prop_default = Format.getFormatDefault(2, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 11 % NNDatasetProcess_RamanSpectra.WAVELENGTH_START
+				case 12 % NNDatasetProcess_RamanSpectra.WAVELENGTH_START
 					prop_default = 600;
-				case 12 % NNDatasetProcess_RamanSpectra.WAVELENGTH_END
+				case 13 % NNDatasetProcess_RamanSpectra.WAVELENGTH_END
 					prop_default = 1750;
-				case 13 % NNDatasetProcess_RamanSpectra.TRANSFORMATION_RULE
+				case 14 % NNDatasetProcess_RamanSpectra.TRANSFORMATION_RULE
 					prop_default = 'First derivative';
-				case 14 % NNDatasetProcess_RamanSpectra.NORMALIZATION_RULE
+				case 15 % NNDatasetProcess_RamanSpectra.NORMALIZATION_RULE
 					prop_default = 'Scale';
-				case 15 % NNDatasetProcess_RamanSpectra.SCALE_FACTOR
+				case 16 % NNDatasetProcess_RamanSpectra.SCALE_FACTOR
 					prop_default = 1;
-				case 16 % NNDatasetProcess_RamanSpectra.WAVELENGTH
+				case 17 % NNDatasetProcess_RamanSpectra.WAVELENGTH
 					prop_default = Format.getFormatDefault(13, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 17 % NNDatasetProcess_RamanSpectra.TRANSFORM_DATA
+				case 18 % NNDatasetProcess_RamanSpectra.TRANSFORM_DATA
 					prop_default = Format.getFormatDefault(16, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 18 % NNDatasetProcess_RamanSpectra.NORMALIZE_DATA
+				case 19 % NNDatasetProcess_RamanSpectra.NORMALIZE_DATA
 					prop_default = Format.getFormatDefault(16, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 19 % NNDatasetProcess_RamanSpectra.EXTRACT_DATA
+				case 20 % NNDatasetProcess_RamanSpectra.EXTRACT_DATA
 					prop_default = Format.getFormatDefault(16, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 20 % NNDatasetProcess_RamanSpectra.EXTRACT_LABELS
+				case 21 % NNDatasetProcess_RamanSpectra.EXTRACT_LABELS
 					prop_default = Format.getFormatDefault(3, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
 				case 1 % NNDatasetProcess_RamanSpectra.ELCLASS
 					prop_default = 'NNDatasetProcess_RamanSpectra';
@@ -730,27 +741,29 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			prop = NNDatasetProcess_RamanSpectra.getPropProp(pointer);
 			
 			switch prop
-				case 10 % NNDatasetProcess_RamanSpectra.RAW_DATA_DIR
+				case 10 % NNDatasetProcess_RamanSpectra.TARGETS_TO_REMOVE
+					check = Format.checkFormat(3, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
+				case 11 % NNDatasetProcess_RamanSpectra.RAW_DATA_DIR
 					check = Format.checkFormat(2, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 11 % NNDatasetProcess_RamanSpectra.WAVELENGTH_START
+				case 12 % NNDatasetProcess_RamanSpectra.WAVELENGTH_START
 					check = Format.checkFormat(11, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 12 % NNDatasetProcess_RamanSpectra.WAVELENGTH_END
+				case 13 % NNDatasetProcess_RamanSpectra.WAVELENGTH_END
 					check = Format.checkFormat(11, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 13 % NNDatasetProcess_RamanSpectra.TRANSFORMATION_RULE
+				case 14 % NNDatasetProcess_RamanSpectra.TRANSFORMATION_RULE
 					check = Format.checkFormat(5, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 14 % NNDatasetProcess_RamanSpectra.NORMALIZATION_RULE
+				case 15 % NNDatasetProcess_RamanSpectra.NORMALIZATION_RULE
 					check = Format.checkFormat(5, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 15 % NNDatasetProcess_RamanSpectra.SCALE_FACTOR
+				case 16 % NNDatasetProcess_RamanSpectra.SCALE_FACTOR
 					check = Format.checkFormat(11, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 16 % NNDatasetProcess_RamanSpectra.WAVELENGTH
+				case 17 % NNDatasetProcess_RamanSpectra.WAVELENGTH
 					check = Format.checkFormat(13, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 17 % NNDatasetProcess_RamanSpectra.TRANSFORM_DATA
+				case 18 % NNDatasetProcess_RamanSpectra.TRANSFORM_DATA
 					check = Format.checkFormat(16, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 18 % NNDatasetProcess_RamanSpectra.NORMALIZE_DATA
+				case 19 % NNDatasetProcess_RamanSpectra.NORMALIZE_DATA
 					check = Format.checkFormat(16, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 19 % NNDatasetProcess_RamanSpectra.EXTRACT_DATA
+				case 20 % NNDatasetProcess_RamanSpectra.EXTRACT_DATA
 					check = Format.checkFormat(16, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
-				case 20 % NNDatasetProcess_RamanSpectra.EXTRACT_LABELS
+				case 21 % NNDatasetProcess_RamanSpectra.EXTRACT_LABELS
 					check = Format.checkFormat(3, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
 				case 4 % NNDatasetProcess_RamanSpectra.TEMPLATE
 					check = Format.checkFormat(8, value, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
@@ -787,7 +800,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			%  checkValue.
 			
 			switch prop
-				case 15 % NNDatasetProcess_RamanSpectra.SCALE_FACTOR
+				case 16 % NNDatasetProcess_RamanSpectra.SCALE_FACTOR
 					if ~isequal(dproc.get('NORMALIZATION_RULE'), 'Scale')
 					    dproc.set('SCALE_FACTOR', 1)
 					end
@@ -816,8 +829,8 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case 16 % NNDatasetProcess_RamanSpectra.WAVELENGTH
-					rng_settings_ = rng(); rng(dproc.getPropSeed(16), 'twister')
+				case 17 % NNDatasetProcess_RamanSpectra.WAVELENGTH
+					rng_settings_ = rng(); rng(dproc.getPropSeed(17), 'twister')
 					
 					dir_name = dproc.get('RAW_DATA_DIR');
 					if isempty(dir_name)
@@ -850,7 +863,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					
 					rng(rng_settings_)
 					
-				case 17 % NNDatasetProcess_RamanSpectra.TRANSFORM_DATA
+				case 18 % NNDatasetProcess_RamanSpectra.TRANSFORM_DATA
 					if isempty(varargin)
 					    value = {};
 					    return
@@ -866,7 +879,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					end
 					value = data;
 					
-				case 18 % NNDatasetProcess_RamanSpectra.NORMALIZE_DATA
+				case 19 % NNDatasetProcess_RamanSpectra.NORMALIZE_DATA
 					if isempty(varargin)
 					    value = {};
 					    return
@@ -880,7 +893,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					end
 					value = data;
 					
-				case 19 % NNDatasetProcess_RamanSpectra.EXTRACT_DATA
+				case 20 % NNDatasetProcess_RamanSpectra.EXTRACT_DATA
 					dir_name = dproc.get('RAW_DATA_DIR');
 					if isempty(dir_name)
 					    value = {};
@@ -925,7 +938,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					    value{i} = X_tr_nor(:, i);
 					end
 					
-				case 20 % NNDatasetProcess_RamanSpectra.EXTRACT_LABELS
+				case 21 % NNDatasetProcess_RamanSpectra.EXTRACT_LABELS
 					dir_name = dproc.get('RAW_DATA_DIR');
 					if isempty(dir_name)
 					    value = {};
@@ -996,7 +1009,23 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					raw_spectrum_list = dproc.get('EXTRACT_DATA');
 					raw_label_list = dproc.get('EXTRACT_LABELS');
 					
-					it_list = cellfun(@(data, label) NNDataPoint_SpectrumSignal( ...
+					targets_to_remove = dproc.get('TARGETS_TO_REMOVE');
+					idx_to_remove = [];
+					if ~isempty(targets_to_remove)
+					    for t = 1:length(targets_to_remove)
+					        target_to_remove = targets_to_remove{t};
+					        for i = 1:length(raw_label_list)
+					            if any(contains(cellstr(raw_label_list{i}), target_to_remove))
+					                idx_to_remove = [idx_to_remove i];
+					            end
+					        end
+					    end
+					end
+					
+					raw_spectrum_list(idx_to_remove) = [];
+					raw_label_list(idx_to_remove) = [];
+					
+					it_list = cellfun(@(data, label) NNDataPoint_RamanSpectra( ...
 					    'SP_DATA', data, ...
 					    'WL', dproc.getCallback('WAVELENGTH'), ...
 					    'WL_START', dproc.getCallback('WAVELENGTH_START'), ...
@@ -1006,12 +1035,12 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					    'UniformOutput', false);
 					
 					dp_list = IndexedDictionary(...
-					        'IT_CLASS', 'NNDataPoint_SpectrumSignal', ...
+					        'IT_CLASS', 'NNDataPoint_RamanSpectra', ...
 					        'IT_LIST', it_list ...
 					        );
 					
 					value = NNDataset( ...
-					    'DP_CLASS', 'NNDataPoint_SpectrumSignal', ...
+					    'DP_CLASS', 'NNDataPoint_RamanSpectra', ...
 					    'DP_DICT', dp_list ...
 					    );
 					
