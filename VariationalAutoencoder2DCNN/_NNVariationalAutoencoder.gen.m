@@ -224,7 +224,7 @@ value = minibatchqueue(dsTrain, num_outputs, ...
 %%%% ¡calculate_callbacks!
 function [X, Y] = preprocess_minibatch(XCell, YCell)
     % Concatenate.
-    itr = nnvae.get('ITERATION_DIM')
+    itr = nnvae.get('ITERATION_DIM');
     X = cat(itr, XCell{:});
     
     % Extract label data from cell and concatenate.
