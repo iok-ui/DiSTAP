@@ -951,8 +951,8 @@ classdef NNVariationalAutoencoder < NNBase
 			
 			function [X, Y] = preprocess_minibatch(XCell, YCell)
 			    % Concatenate.
-                itr = nnvae.get('ITERATION_DIM');
-                X = cat(itr, XCell{:});
+			    itr = nnvae.get('ITERATION_DIM')
+			    X = cat(itr, XCell{:});
 			    
 			    % Extract label data from cell and concatenate.
 			    Y = cat(2, YCell{:});

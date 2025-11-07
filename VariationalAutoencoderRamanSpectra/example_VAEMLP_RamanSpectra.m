@@ -21,6 +21,6 @@ nnvae.get('TRAIN')
 nne = NNVariationalAutoencoderEvaluator_RS('NN', nnvae, 'D', d_sp);
 
 % publication figures
-nne.get('PLOT_R_LATENT_REPRESENTATIONS');
-nne.get('PLOT_R_PEAK_IDENTIFICATIONS');
+%nne.get('PLOT_R_LATENT_REPRESENTATIONS');
+%nne.get('PLOT_R_PEAK_IDENTIFICATIONS');
 

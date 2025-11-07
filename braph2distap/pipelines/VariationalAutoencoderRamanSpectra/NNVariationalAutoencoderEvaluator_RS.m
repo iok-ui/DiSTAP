@@ -24,7 +24,9 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 	%  <strong>15</strong> <strong>ZERO_CROSSING_P2N</strong> 	ZERO_CROSSING_P2N (query, rvector) indentifies the index when crossing from positve to negative.
 	%  <strong>16</strong> <strong>ZERO_CROSSING_N2P</strong> 	ZERO_CROSSING_N2P (query, rvector) indentifies the index when crossing from negative to positive.
 	%  <strong>17</strong> <strong>DIRECTORY</strong> 	DIRECTORY (data, string) is the directory saving the exporting figure.
-	%  <strong>18</strong> <strong>PLOT_R_SCRIPT</strong> 	PLOT_R_SCRIPT (metadata, logical) indentifies the index when crossing from negative to positive.
+	%  <strong>18</strong> <strong>PLOT_R_LATENT_REPRESENTATIONS</strong> 	PLOT_R_LATENT_REPRESENTATIONS (query, empty) indentifies the index when crossing from negative to positive.
+	%  <strong>19</strong> <strong>PLOT_R_PEAK_IDENTIFICATIONS</strong> 	PLOT_R_PEAK_IDENTIFICATIONS (query, empty) indentifies the index when crossing from negative to positive.
+	%  <strong>20</strong> <strong>DECODED_PRED</strong> 	DECODED_PRED (query, empty) indentifies the index when crossing from negative to positive.
 	%
 	% NNVariationalAutoencoderEvaluator_RS methods (constructor):
 	%  NNVariationalAutoencoderEvaluator_RS - constructor
@@ -142,10 +144,20 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 		DIRECTORY_CATEGORY = 4;
 		DIRECTORY_FORMAT = 2;
 		
-		PLOT_R_SCRIPT = 18; %CET: Computational Efficiency Trick
-		PLOT_R_SCRIPT_TAG = 'PLOT_R_SCRIPT';
-		PLOT_R_SCRIPT_CATEGORY = 2;
-		PLOT_R_SCRIPT_FORMAT = 4;
+		PLOT_R_LATENT_REPRESENTATIONS = 18; %CET: Computational Efficiency Trick
+		PLOT_R_LATENT_REPRESENTATIONS_TAG = 'PLOT_R_LATENT_REPRESENTATIONS';
+		PLOT_R_LATENT_REPRESENTATIONS_CATEGORY = 6;
+		PLOT_R_LATENT_REPRESENTATIONS_FORMAT = 1;
+		
+		PLOT_R_PEAK_IDENTIFICATIONS = 19; %CET: Computational Efficiency Trick
+		PLOT_R_PEAK_IDENTIFICATIONS_TAG = 'PLOT_R_PEAK_IDENTIFICATIONS';
+		PLOT_R_PEAK_IDENTIFICATIONS_CATEGORY = 6;
+		PLOT_R_PEAK_IDENTIFICATIONS_FORMAT = 1;
+		
+		DECODED_PRED = 20; %CET: Computational Efficiency Trick
+		DECODED_PRED_TAG = 'DECODED_PRED';
+		DECODED_PRED_CATEGORY = 6;
+		DECODED_PRED_FORMAT = 1;
 	end
 	methods % constructor
 		function nne = NNVariationalAutoencoderEvaluator_RS(varargin)
@@ -176,7 +188,9 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%  <strong>15</strong> <strong>ZERO_CROSSING_P2N</strong> 	ZERO_CROSSING_P2N (query, rvector) indentifies the index when crossing from positve to negative.
 			%  <strong>16</strong> <strong>ZERO_CROSSING_N2P</strong> 	ZERO_CROSSING_N2P (query, rvector) indentifies the index when crossing from negative to positive.
 			%  <strong>17</strong> <strong>DIRECTORY</strong> 	DIRECTORY (data, string) is the directory saving the exporting figure.
-			%  <strong>18</strong> <strong>PLOT_R_SCRIPT</strong> 	PLOT_R_SCRIPT (metadata, logical) indentifies the index when crossing from negative to positive.
+			%  <strong>18</strong> <strong>PLOT_R_LATENT_REPRESENTATIONS</strong> 	PLOT_R_LATENT_REPRESENTATIONS (query, empty) indentifies the index when crossing from negative to positive.
+			%  <strong>19</strong> <strong>PLOT_R_PEAK_IDENTIFICATIONS</strong> 	PLOT_R_PEAK_IDENTIFICATIONS (query, empty) indentifies the index when crossing from negative to positive.
+			%  <strong>20</strong> <strong>DECODED_PRED</strong> 	DECODED_PRED (query, empty) indentifies the index when crossing from negative to positive.
 			%
 			% See also Category, Format.
 			
@@ -253,7 +267,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18];
+				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20];
 				return
 			end
 			
@@ -261,7 +275,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				case 1 % Category.CONSTANT
 					prop_list = [1 2 3];
 				case 2 % Category.METADATA
-					prop_list = [6 7 18];
+					prop_list = [6 7];
 				case 3 % Category.PARAMETER
 					prop_list = [4 13];
 				case 4 % Category.DATA
@@ -269,7 +283,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				case 5 % Category.RESULT
 					prop_list = 14;
 				case 6 % Category.QUERY
-					prop_list = [8 11 12 15 16];
+					prop_list = [8 11 12 15 16 18 19 20];
 				otherwise
 					prop_list = [];
 			end
@@ -295,7 +309,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_number = 18;
+				prop_number = 20;
 				return
 			end
 			
@@ -303,7 +317,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				case 1 % Category.CONSTANT
 					prop_number = 3;
 				case 2 % Category.METADATA
-					prop_number = 3;
+					prop_number = 2;
 				case 3 % Category.PARAMETER
 					prop_number = 2;
 				case 4 % Category.DATA
@@ -311,7 +325,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				case 5 % Category.RESULT
 					prop_number = 1;
 				case 6 % Category.QUERY
-					prop_number = 5;
+					prop_number = 8;
 				otherwise
 					prop_number = 0;
 			end
@@ -342,7 +356,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 18 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = prop >= 1 && prop <= 20 && round(prop) == prop; %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -380,7 +394,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'IDX_LABEL_OF_INTEREST'  'PEAK_IDENTIFICATION'  'ZERO_CROSSING_P2N'  'ZERO_CROSSING_N2P'  'DIRECTORY'  'PLOT_R_SCRIPT' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'IDX_LABEL_OF_INTEREST'  'PEAK_IDENTIFICATION'  'ZERO_CROSSING_P2N'  'ZERO_CROSSING_N2P'  'DIRECTORY'  'PLOT_R_LATENT_REPRESENTATIONS'  'PLOT_R_PEAK_IDENTIFICATIONS'  'DECODED_PRED' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -413,7 +427,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'IDX_LABEL_OF_INTEREST'  'PEAK_IDENTIFICATION'  'ZERO_CROSSING_P2N'  'ZERO_CROSSING_N2P'  'DIRECTORY'  'PLOT_R_SCRIPT' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'IDX_LABEL_OF_INTEREST'  'PEAK_IDENTIFICATION'  'ZERO_CROSSING_P2N'  'ZERO_CROSSING_N2P'  'DIRECTORY'  'PLOT_R_LATENT_REPRESENTATIONS'  'PLOT_R_PEAK_IDENTIFICATIONS'  'DECODED_PRED' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -442,7 +456,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				nnvariationalautoencoderevaluator_rs_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'IDX_LABEL_OF_INTEREST'  'PEAK_IDENTIFICATION'  'ZERO_CROSSING_P2N'  'ZERO_CROSSING_N2P'  'DIRECTORY'  'PLOT_R_SCRIPT' };
+				nnvariationalautoencoderevaluator_rs_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'IDX_LABEL_OF_INTEREST'  'PEAK_IDENTIFICATION'  'ZERO_CROSSING_P2N'  'ZERO_CROSSING_N2P'  'DIRECTORY'  'PLOT_R_LATENT_REPRESENTATIONS'  'PLOT_R_PEAK_IDENTIFICATIONS'  'DECODED_PRED' };
 				tag = nnvariationalautoencoderevaluator_rs_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -469,7 +483,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			prop = NNVariationalAutoencoderEvaluator_RS.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nnvariationalautoencoderevaluator_rs_category_list = { 1  1  1  3  4  2  2  6  4  4  6  6  3  5  6  6  4  2 };
+			nnvariationalautoencoderevaluator_rs_category_list = { 1  1  1  3  4  2  2  6  4  4  6  6  3  5  6  6  4  6  6  6 };
 			prop_category = nnvariationalautoencoderevaluator_rs_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -495,7 +509,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			prop = NNVariationalAutoencoderEvaluator_RS.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nnvariationalautoencoderevaluator_rs_format_list = { 2  2  2  8  2  2  2  2  8  8  1  16  11  12  12  12  2  4 };
+			nnvariationalautoencoderevaluator_rs_format_list = { 2  2  2  8  2  2  2  2  8  8  1  16  11  12  12  12  2  1  1  1 };
 			prop_format = nnvariationalautoencoderevaluator_rs_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
@@ -521,7 +535,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			prop = NNVariationalAutoencoderEvaluator_RS.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nnvariationalautoencoderevaluator_rs_description_list = { 'ELCLASS (constant, string) is the class of the evaluator of the neural network analysis.'  'NAME (constant, string) is the name of the evaluator for the neural network analysis.'  'DESCRIPTION (constant, string) is the description of the evaluator for the neural network analysis.'  'TEMPLATE (parameter, item) is the template of the evaluator for the neural network analysis.'  'ID (data, string) is a few-letter code for the evaluator for the neural network analysis.'  'LABEL (metadata, string) is an extended label of the evaluator for the neural network analysis.'  'NOTES (metadata, string) are some specific notes about the evaluator for the neural network analysis.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'NN (data, item) contains a trained neural network model.'  'D (data, item) is the dataset to evaluate the neural network model.'  'PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.'  'PREDICT_ENCODER (query, cell) returns the predictions of an encoder.'  'IDX_LABEL_OF_INTEREST (parameter, scalar) indentifies importance peaks.'  'PEAK_IDENTIFICATION (result, rvector) indentifies importance peaks.'  'ZERO_CROSSING_P2N (query, rvector) indentifies the index when crossing from positve to negative.'  'ZERO_CROSSING_N2P (query, rvector) indentifies the index when crossing from negative to positive.'  'DIRECTORY (data, string) is the directory saving the exporting figure.'  'PLOT_R_SCRIPT (metadata, logical) indentifies the index when crossing from negative to positive.' };
+			nnvariationalautoencoderevaluator_rs_description_list = { 'ELCLASS (constant, string) is the class of the evaluator of the neural network analysis.'  'NAME (constant, string) is the name of the evaluator for the neural network analysis.'  'DESCRIPTION (constant, string) is the description of the evaluator for the neural network analysis.'  'TEMPLATE (parameter, item) is the template of the evaluator for the neural network analysis.'  'ID (data, string) is a few-letter code for the evaluator for the neural network analysis.'  'LABEL (metadata, string) is an extended label of the evaluator for the neural network analysis.'  'NOTES (metadata, string) are some specific notes about the evaluator for the neural network analysis.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'NN (data, item) contains a trained neural network model.'  'D (data, item) is the dataset to evaluate the neural network model.'  'PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.'  'PREDICT_ENCODER (query, cell) returns the predictions of an encoder.'  'IDX_LABEL_OF_INTEREST (parameter, scalar) indentifies importance peaks.'  'PEAK_IDENTIFICATION (result, rvector) indentifies importance peaks.'  'ZERO_CROSSING_P2N (query, rvector) indentifies the index when crossing from positve to negative.'  'ZERO_CROSSING_N2P (query, rvector) indentifies the index when crossing from negative to positive.'  'DIRECTORY (data, string) is the directory saving the exporting figure.'  'PLOT_R_LATENT_REPRESENTATIONS (query, empty) indentifies the index when crossing from negative to positive.'  'PLOT_R_PEAK_IDENTIFICATIONS (query, empty) indentifies the index when crossing from negative to positive.'  'DECODED_PRED (query, empty) indentifies the index when crossing from negative to positive.' };
 			prop_description = nnvariationalautoencoderevaluator_rs_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -557,8 +571,12 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					prop_settings = Format.getFormatSettings(12);
 				case 17 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY
 					prop_settings = Format.getFormatSettings(2);
-				case 18 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_SCRIPT
-					prop_settings = Format.getFormatSettings(4);
+				case 18 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_LATENT_REPRESENTATIONS
+					prop_settings = Format.getFormatSettings(1);
+				case 19 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_PEAK_IDENTIFICATIONS
+					prop_settings = Format.getFormatSettings(1);
+				case 20 % NNVariationalAutoencoderEvaluator_RS.DECODED_PRED
+					prop_settings = Format.getFormatSettings(1);
 				case 4 % NNVariationalAutoencoderEvaluator_RS.TEMPLATE
 					prop_settings = 'NNVariationalAutoencoderEvaluator_RS';
 				otherwise
@@ -598,8 +616,12 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					prop_default = Format.getFormatDefault(12, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
 				case 17 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY
 					prop_default = fileparts(which('test_braph2'));
-				case 18 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_SCRIPT
-					prop_default = Format.getFormatDefault(4, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case 18 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_LATENT_REPRESENTATIONS
+					prop_default = Format.getFormatDefault(1, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case 19 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_PEAK_IDENTIFICATIONS
+					prop_default = Format.getFormatDefault(1, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case 20 % NNVariationalAutoencoderEvaluator_RS.DECODED_PRED
+					prop_default = Format.getFormatDefault(1, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
 				case 1 % NNVariationalAutoencoderEvaluator_RS.ELCLASS
 					prop_default = 'NNVariationalAutoencoderEvaluator_RS';
 				case 2 % NNVariationalAutoencoderEvaluator_RS.NAME
@@ -688,8 +710,12 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					check = Format.checkFormat(12, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
 				case 17 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY
 					check = Format.checkFormat(2, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 18 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_SCRIPT
-					check = Format.checkFormat(4, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case 18 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_LATENT_REPRESENTATIONS
+					check = Format.checkFormat(1, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case 19 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_PEAK_IDENTIFICATIONS
+					check = Format.checkFormat(1, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case 20 % NNVariationalAutoencoderEvaluator_RS.DECODED_PRED
+					check = Format.checkFormat(1, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
 				case 4 % NNVariationalAutoencoderEvaluator_RS.TEMPLATE
 					check = Format.checkFormat(8, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
 				otherwise

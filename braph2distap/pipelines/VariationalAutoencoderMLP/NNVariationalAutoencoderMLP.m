@@ -773,15 +773,15 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 					if isempty(varargin)
 					    value = {};
 					    return
-                    end
-                    d = varargin{1};
-                    targets_group = d.get('TARGETS');
-                    if isempty(targets_group)
-                        value = {};
-                    else
-                        flat_cells = cellfun(@(c) c{1}, targets_group, 'UniformOutput', false);
-                        value = cat(1, flat_cells{:});
-                    end
+					end
+					d = varargin{1};
+					targets_group = d.get('TARGETS');
+					if isempty(targets_group)
+					    value = {};
+					else
+					    flat_cells = cellfun(@(c) c{1}, targets_group, 'UniformOutput', false);
+					    value = cat(1, flat_cells{:});
+					end
 					
 				case 18 % NNVariationalAutoencoderMLP.TRAIN
 					% --- Set up ENCODER ---

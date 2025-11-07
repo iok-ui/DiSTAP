@@ -53,7 +53,7 @@ D (result, item) is the neural network dataset containing the datapoint processe
 %%%% ¡settings!
 'NNDataset'
 %%%% ¡calculate!
-raw_spectrum_list = dproc.get('EXTRACT_DATA');
+processed_spectrum_list = dproc.get('PROCESS_DATA');
 raw_label_list = dproc.get('EXTRACT_LABELS');
 
 targets_to_remove = dproc.get('TARGETS_TO_REMOVE');
@@ -69,7 +69,7 @@ if ~isempty(targets_to_remove)
     end
 end
 
-raw_spectrum_list(idx_to_remove) = [];
+processed_spectrum_list(idx_to_remove) = [];
 raw_label_list(idx_to_remove) = [];
 
 it_list = cellfun(@(data, label) NNDataPoint_RamanSpectra( ...
@@ -78,7 +78,7 @@ it_list = cellfun(@(data, label) NNDataPoint_RamanSpectra( ...
     'WL_START', dproc.getCallback('WAVELENGTH_START'), ...
     'WL_END', dproc.getCallback('WAVELENGTH_END'), ...
     'TARGET_CLASS', {label}), ...
-    raw_spectrum_list, raw_label_list,...
+    processed_spectrum_list, raw_label_list,...
     'UniformOutput', false);
 
 dp_list = IndexedDictionary(...
@@ -174,7 +174,11 @@ if isempty(varargin)
     return
 end
 data = varargin{1};
-transformation = dproc.get('TRANSFORMATION_RULE')
+if isempty(data)
+    value = {};
+    return
+end
+transformation = dproc.get('TRANSFORMATION_RULE');
 switch transformation
     case 'First derivative' % first derivative
         data_tmp = data;
@@ -185,6 +189,26 @@ end
 value = data;
 
 %%% ¡prop!
+INV_TRANSFORM_DATA (query, cell) inverse-tranforms the images from the specified IDX files.
+%%%% ¡calculate!
+if isempty(varargin)
+    value = {};
+    return
+end
+deriv = varargin{1};
+if isempty(deriv)
+    value = {};
+    return
+end
+transformation = dproc.get('TRANSFORMATION_RULE');
+switch transformation
+    case 'First derivative' % first derivative
+        base_row = varargin{2}; % should be raw_data(1, :)
+        detransformed_x = base_row + cumsum([zeros(1, size(deriv, 2)); deriv(1:end-1,:)], 1);;
+end
+value = detransformed_x;
+
+%%% ¡prop!
 NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.
 %%%% ¡calculate!
 if isempty(varargin)
@@ -192,7 +216,11 @@ if isempty(varargin)
     return
 end
 data = varargin{1};
-normalization = dproc.get('NORMALIZATION_RULE')
+if isempty(data)
+    value = {};
+    return
+end
+normalization = dproc.get('NORMALIZATION_RULE');
 switch normalization
     case 'Scale' 
         scale_factor = dproc.get('SCALE_FACTOR');
@@ -201,7 +229,64 @@ end
 value = data;
 
 %%% ¡prop!
-EXTRACT_DATA (query, cell) extracts the images from the specified IDX files.
+INV_NORMALIZE_DATA (query, cell) inverse-normalizes the images from the specified IDX files.
+%%%% ¡calculate!
+if isempty(varargin)
+    value = {};
+    return
+end
+data = varargin{1};
+if isempty(data)
+    value = {};
+    return
+end
+normalization = dproc.get('NORMALIZATION_RULE');
+switch normalization
+    case 'Scale' 
+        scale_factor = dproc.get('SCALE_FACTOR');
+        data = data .* scale_factor;
+end
+value = data;
+
+%%% ¡prop!
+RAW_DATA (result, cell) processes the data with normalization and transformation.
+%%%% ¡calculate!
+value = dproc.get('EXTRACT_DATA');
+
+%%% ¡prop!
+PROCESS_DATA (query, cell) processes the data with normalization and transformation.
+%%%% ¡calculate!
+X_raw = dproc.get('RAW_DATA');
+if isempty(X_raw)
+    value = {};
+    return
+end
+X = cat(2, X_raw{:});
+X_tr = dproc.get('TRANSFORM_DATA', X);
+X_tr_nor = dproc.get('NORMALIZE_DATA', X_tr);
+
+for i = 1:size(X_tr_nor, 2)
+    value{i} = X_tr_nor(:, i);
+end
+
+%%% ¡prop!
+REV_PROCESS_DATA (query, cell) reverse the process step the data with normalization and transformation.
+%%%% ¡calculate!
+if isempty(varargin)
+    value = {};
+    return
+end
+data = varargin{1};
+selected_idx = varargin{2};
+inv_norm_data = dproc.get('INV_NORMALIZE_DATA', data);
+inv_tran_inv_norm_data = dproc.get('INV_TRANSFORM_DATA', inv_norm_data, selected_idx);
+
+for i = 1:size(inv_tran_inv_norm_data, 2)
+    value{i} = inv_tran_inv_norm_data(:, i);
+end
+
+%%% ¡prop!
+EXTRACT_DATA (query, cell) extracts the sepctral data with dimension of wavelength x datapoints.
 %%%% ¡calculate!
 dir_name = dproc.get('RAW_DATA_DIR');
 if isempty(dir_name)
@@ -240,11 +325,8 @@ for file_idx = 1:length(file_names)
     end
 end
 
-X_tr = dproc.get('TRANSFORM_DATA', X);
-X_tr_nor = dproc.get('NORMALIZE_DATA', X_tr);
-
 for i = 1:size(X, 2)
-    value{i} = X_tr_nor(:, i);
+    value{i} = X(:, i);
 end
 
 %%% ¡prop!
@@ -330,15 +412,49 @@ assert(isequal(d_sp.get('DP_DICT').get('LENGTH'), 0), ...
 
 %%% ¡test!
 %%%% ¡name!
-Construction of a MNIST Dataset
+Test normalization and inverse normalization
 %%%% ¡code!
-% % % dproc = NNDatasetProcess_MNIST( ...
-% % %     'MNIST_IMAGE_FILE', [fileparts(which('NNDatasetProcess_MNIST')) filesep 'mnist_data' filesep 'train-images-idx3-ubyte.gz'], ...
-% % %     'MNIST_LABEL_FILE', [fileparts(which('NNDatasetProcess_MNIST')) filesep 'mnist_data' filesep 'train-labels-idx1-ubyte.gz'] ...
-% % %     );
-% % % d_mnist = dproc.get('D');
+scale_factor = 10;
+dproc = NNDatasetProcess_RamanSpectra( ...
+    'NORMALIZATION_RULE', 'Scale', ...
+    'SCALE_FACTOR', scale_factor);
+
+raw_data = cumsum(randn(5, 100), 2); % 5 features each datapoint, overall 100 datapoints
+known_normed_data = raw_data / scale_factor;
+% % % calc_normed_data = dproc.get('NORMALIZE_DATA', raw_data);
 % % % 
-% % % assert(isequal(d_mnist.get('DP_DICT').get('LENGTH'), 60000), ...
-% % %     [BRAPH2.STR ':NNDatasetProcess_MNIST:' BRAPH2.FAIL_TEST], ...
-% % %     'NNDatasetProcess_MNIST does not construct the dataset correctly. The input value is not derived correctly.' ...
+% % % assert(isequal(calc_normed_data, known_normed_data), ...
+% % %     [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
+% % %     'NNDatasetProcess_RamanSpectra does not normalize the data correctly..' ...
 % % %     )
+% % % 
+% % % calc_inv_normed_data = dproc.get('INV_NORMALIZE_DATA', calc_normed_data);
+% % % 
+% % % assert(isequal(calc_inv_normed_data, raw_data), ...
+% % %     [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
+% % %     'NNDatasetProcess_RamanSpectra does not inverse-normalize the data correctly..' ...
+% % %     )
+
+%%% ¡test!
+%%%% ¡name!
+Test tranformation and inverse tranformation
+%%%% ¡code!
+dproc = NNDatasetProcess_RamanSpectra('TRANSFORMATION_RULE', 'First derivative');
+
+% Random MxL data (M rows = features, L columns = datapoints)
+raw_data = cumsum(randn(5, 100), 2);
+known_transformed = raw_data;
+known_transformed(1:end-1, :) = raw_data(2:end, :) - raw_data(1:end-1, :);
+known_transformed(end, :)= 0;
+calc_transformed = dproc.get('TRANSFORM_DATA', raw_data);
+
+% % % assert(isequal(calc_transformed, known_transformed), ...
+% % %     [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
+% % %     'NNDatasetProcess_RamanSpectra does not transform (1st derivative) correctly.')
+% % % 
+% % % calc_inv_transformed = dproc.get('INV_TRANSFORM_DATA', calc_transformed);
+% % % 
+% % % assert(isequal(calc_inv_transformed, raw_data), ...
+% % %     [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
+% % %     'NNDatasetProcess_RamanSpectra does not inverse-transform (1st derivative) correctly.')
+% % % 

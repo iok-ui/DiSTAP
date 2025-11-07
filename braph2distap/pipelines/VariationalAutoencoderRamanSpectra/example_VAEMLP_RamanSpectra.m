@@ -5,24 +5,22 @@
 clear variables %#ok<*NASGU>
 
 %% Load Spectra Dataset
-dproc = NNDatasetProcess_SpectrumSignal( ...
-    'RAW_DATA_DIR', [fileparts(which('NNDatasetProcess_SpectrumSignal')) filesep 'b2_files'], ...
+dproc = NNDatasetProcess_RamanSpectra( ...
+    'RAW_DATA_DIR', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'b2_files'], ...
     'TRANSFORMATION_RULE', 'First derivative', ...
     'NORMALIZATION_RULE', 'Scale', ...
-    'SCALE_FACTOR', 100);
+    'SCALE_FACTOR', 100, ...
+    'TARGETS_TO_REMOVE', {'ps'});
 d_sp = dproc.get('D');
 
 %% Train a Variational Autoencoder
-nnvae = NNVariationalAutoencoders_Structured('D', d_sp, 'EPOCHS', 10, 'BATCH', 32);
+nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'EPOCHS', 100, 'BATCH', 32);
 nnvae.get('TRAIN')
 
 %% Evaluate and Visualize Latent Space
-nne = NNVariationalAutoencoders_Evaluator('NN', nnvae, 'D', d_sp);
+nne = NNVariationalAutoencoderEvaluator_RS('NN', nnvae, 'D', d_sp);
 
-% latent space
-figure
-nne.get('PLOT_LATENT_REPRESENTATIONS')
+% publication figures
+%nne.get('PLOT_R_LATENT_REPRESENTATIONS');
+%nne.get('PLOT_R_PEAK_IDENTIFICATIONS');
 
-% Peak identification
-% % % figure
-% % % nne.get('PLOT_PEAK_IDENTIFICATIONS')

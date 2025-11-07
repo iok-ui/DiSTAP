@@ -27,12 +27,12 @@ el_path = [filesep 'pipelines' filesep el_to_edit];
 %el_class_list = {'NNDataPoint_Spectrum' 'NNDatasetProcess_Spectrum'}; 
 
 %el_class_list = {'NNDataPoint_RamanSpectra' 'NNDatasetProcess_RamanSpectra' 'NNVariationalAutoencoderEvaluator_RS'};
-el_class_list = {'NNVariationalAutoencoderEvaluator_RS'};
+el_class_list = {'NNDatasetProcess_RamanSpectra'};
 regenerate(el_path, el_class_list, 'DoubleCompilation', false)
 
 %% dependent class compiletion
 el_path = [filesep 'src' filesep 'nn'];
-el_class_list = {'NNDataPoint' 'NNBase' 'NNDataset'}
+el_class_list = {'NNDataPoint' 'NNDataset' 'NNBase' }
 regenerate(el_path, el_class_list, 'DoubleCompilation', true)
 
 %% second compiletion
@@ -42,8 +42,14 @@ el_path = [filesep 'pipelines' filesep el_to_edit];
 %el_class_list = {'NNDataPoint_Spectrum' 'NNDatasetProcess_Spectrum'};
 %el_class_list = {'NNVariationalAutoencoder' 'NNVariationalAutoencoder2DCNN' 'NNVariationalAutoencoderEvaluator'};
 %el_class_list = {'NNDataPoint_RamanSpectra' 'NNDatasetProcess_RamanSpectra' 'NNVariationalAutoencoderEvaluator_RS'};
-el_class_list = {'NNVariationalAutoencoderEvaluator_RS'};
+el_class_list = {'NNDatasetProcess_RamanSpectra'};
 regenerate(el_path, el_class_list, 'DoubleCompilation', true)
+
+%% 
+dproc = NNDatasetProcess_RamanSpectra( ...
+    'RAW_DATA_DIR', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'b2_files']);
+%d_sp = dproc.get('D');
+
 
 %%
 dproc = NNDatasetProcess_SpectrumSignal( ...
