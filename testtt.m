@@ -45,6 +45,51 @@ el_path = [filesep 'pipelines' filesep el_to_edit];
 el_class_list = {'NNDatasetProcess_RamanSpectra'};
 regenerate(el_path, el_class_list, 'DoubleCompilation', true)
 
+%%
+scale_factor = 10;
+dproc = NNDatasetProcess_RamanSpectra( ...
+    'NORMALIZATION_RULE', 'Scale', ...
+    'SCALE_FACTOR', scale_factor);
+
+raw_data = cumsum(randn(5, 100), 2); % 5 features each datapoint, overall 100 datapoints
+known_normed_data = raw_data / scale_factor;
+calc_normed_data = dproc.get('NORMALIZE_DATA', raw_data);
+
+tol = 1e-9;  % tweak as needed
+assert(max(abs(calc_normed_data(:) - known_normed_data(:))) <= tol, ...
+    [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
+    'NNDatasetProcess_RamanSpectra does not normalize the data correctly..' ...
+    )
+
+calc_inv_normed_data = dproc.get('INV_NORMALIZE_DATA', calc_normed_data);
+
+assert(max(abs(calc_inv_normed_data(:) - raw_data(:))) <= tol, ...
+    [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
+    'NNDatasetProcess_RamanSpectra does not inverse-normalize the data correctly..' ...
+    )
+
+%%
+dproc = NNDatasetProcess_RamanSpectra('TRANSFORMATION_RULE', 'First derivative');
+
+% Random MxL data (M rows = features, L columns = datapoints)
+raw_data = cumsum(randn(5, 100), 2);
+known_transformed = raw_data;
+known_transformed(1:end-1, :) = raw_data(2:end, :) - raw_data(1:end-1, :);
+known_transformed(end, :)= 0;
+calc_transformed = dproc.get('TRANSFORM_DATA', raw_data);
+
+tol = 1e-9;  % tweak as needed
+assert(max(abs(calc_transformed(:) - known_transformed(:))) <= tol, ...
+    [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
+    'NNDatasetProcess_RamanSpectra does not transform (1st derivative) correctly.')
+
+calc_inv_transformed = dproc.get('INV_TRANSFORM_DATA', calc_transformed, raw_data(1, :));
+
+assert(max(abs(calc_inv_transformed(:) - raw_data(:))) <= tol, ...
+    [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
+    'NNDatasetProcess_RamanSpectra does not inverse-transform (1st derivative) correctly.')
+
+
 %% 
 dproc = NNDatasetProcess_RamanSpectra( ...
     'RAW_DATA_DIR', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'b2_files']);
