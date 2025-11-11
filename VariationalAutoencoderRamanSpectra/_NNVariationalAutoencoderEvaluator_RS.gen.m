@@ -119,6 +119,12 @@ PLOT_R_PEAK_IDENTIFICATIONS (query, empty) indentifies the index when crossing f
 
 %%% ¡prop!
 DECODED_PRED (query, empty) indentifies the index when crossing from negative to positive.
+%%%% ¡calculate!
+if isempty(varargin)
+    value = {};
+    return
+end
+idx = varargin{1};
 
 % get reconstructed spectrum for the cluster of this single lable
 ZSelected{i} = median(ZLatent(:, idx_type), 2);
