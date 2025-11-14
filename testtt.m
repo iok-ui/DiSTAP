@@ -27,8 +27,8 @@ el_path = [filesep 'pipelines' filesep el_to_edit];
 %el_class_list = {'NNDataPoint_Spectrum' 'NNDatasetProcess_Spectrum'}; 
 
 %el_class_list = {'NNDataPoint_RamanSpectra' 'NNDatasetProcess_RamanSpectra' 'NNVariationalAutoencoderEvaluator_RS'};
-el_class_list = {'NNDatasetProcess_RamanSpectra'};
-regenerate(el_path, el_class_list, 'DoubleCompilation', false)
+el_class_list = {'NNDataPoint_RamanSpectra' 'NNVariationalAutoencoderEvaluator_RS'};
+regenerate(el_path, el_class_list, 'DoubleCompilation', false, 'UnitTest', false)
 
 %% dependent class compiletion
 el_path = [filesep 'src' filesep 'nn'];
@@ -42,8 +42,29 @@ el_path = [filesep 'pipelines' filesep el_to_edit];
 %el_class_list = {'NNDataPoint_Spectrum' 'NNDatasetProcess_Spectrum'};
 %el_class_list = {'NNVariationalAutoencoder' 'NNVariationalAutoencoder2DCNN' 'NNVariationalAutoencoderEvaluator'};
 %el_class_list = {'NNDataPoint_RamanSpectra' 'NNDatasetProcess_RamanSpectra' 'NNVariationalAutoencoderEvaluator_RS'};
-el_class_list = {'NNDatasetProcess_RamanSpectra'};
-regenerate(el_path, el_class_list, 'DoubleCompilation', true)
+el_class_list = {'NNDataPoint_RamanSpectra' 'NNVariationalAutoencoderEvaluator_RS'};
+regenerate(el_path, el_class_list, 'DoubleCompilation', true, 'UnitTest', false)
+
+%%
+
+clear variables %#ok<*NASGU>
+
+dproc = NNDatasetProcess_RamanSpectra( ...
+    'RAW_DATA_DIR', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'b2_files'], ...
+    'TRANSFORMATION_RULE', 'First derivative', ...
+    'NORMALIZATION_RULE', 'Scale', ...
+    'SCALE_FACTOR', 100, ...
+    'TARGETS_TO_REMOVE', {'ps'});
+d_sp = dproc.get('D');
+
+nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'EPOCHS', 2, 'BATCH', 32);
+nnvae.get('TRAIN')
+nne = NNVariationalAutoencoderEvaluator_RS('NN', nnvae, 'D', d_sp, 'DIRECTORY', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'R_files']);
+%%
+%a = nne.get('LATENT_REP')
+nne.memorize('LATENT_REP');
+%%nne.get('PREDICT_DECODER');
+nne.get('PEAK_IDENTIFICATION');
 
 %%
 scale_factor = 10;

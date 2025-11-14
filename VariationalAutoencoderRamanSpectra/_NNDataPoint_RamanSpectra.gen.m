@@ -53,14 +53,9 @@ NOTES (metadata, string) are some specific notes about the data point for spectr
 %%% ¡prop!
 INPUT (result, cell) is the input value for this data point for spectrum.
 %%%% ¡calculate!
-wavelength = dp.get('WL');
-wavelength_start = dp.get('WL_START');
-wavelength_end = dp.get('WL_END');
-
-diff_start = wavelength - wavelength_start;
-[~, idx_wav_start] = min(abs(diff_start));
-diff_end = wavelength - wavelength_end;
-[~, idx_wav_end] = min(abs(diff_end));
+wl_range = dp.get('WL_RANGE');
+idx_wav_start = wl_range(1);
+idx_wav_end = wl_range(2);
 
 sp_data = dp.get('SP_DATA');
 if isempty(sp_data)
@@ -100,5 +95,22 @@ WL_LABELS (query, stringlist) is the labels for the wavelengths.
 %%%% ¡calculate!
 value = arrayfun(@(wavelength) [num2str(wavelength) ' cm-1'], dp.get('WL')', 'UniformOutput', false);
 
+%%% ¡prop!
+WL_RANGE (result, rvector) is the ending wavelength.
+%%%% ¡calculate!
+wavelength = dp.get('WL');
+wavelength_start = dp.get('WL_START');
+wavelength_end = dp.get('WL_END');
 
+diff_start = wavelength - wavelength_start;
+[~, idx_wav_start] = min(abs(diff_start));
+diff_end = wavelength - wavelength_end;
+[~, idx_wav_end] = min(abs(diff_end));
+value = [idx_wav_start, idx_wav_end];
 
+%%% ¡prop!
+WL_OF_INTEREST (result, rvector) is the ending wavelength.
+%%%% ¡calculate!
+wl = dp.get('WL');
+wl_range = dp.get('WL_RANGE');
+value = wl(wl_range(1):wl_range(2));

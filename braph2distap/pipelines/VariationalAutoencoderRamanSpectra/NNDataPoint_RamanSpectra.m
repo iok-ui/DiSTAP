@@ -24,6 +24,8 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 	%  <strong>14</strong> <strong>WL_END</strong> 	WL_END (data, scalar) is the ending wavelength.
 	%  <strong>15</strong> <strong>TARGET_CLASS</strong> 	TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.
 	%  <strong>16</strong> <strong>WL_LABELS</strong> 	WL_LABELS (query, stringlist) is the labels for the wavelengths.
+	%  <strong>17</strong> <strong>WL_RANGE</strong> 	WL_RANGE (result, rvector) is the ending wavelength.
+	%  <strong>18</strong> <strong>WL_OF_INTEREST</strong> 	WL_OF_INTEREST (result, rvector) is the ending wavelength.
 	%
 	% NNDataPoint_RamanSpectra methods (constructor):
 	%  NNDataPoint_RamanSpectra - constructor
@@ -145,6 +147,16 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 		WL_LABELS_TAG = 'WL_LABELS';
 		WL_LABELS_CATEGORY = 6;
 		WL_LABELS_FORMAT = 3;
+		
+		WL_RANGE = 17; %CET: Computational Efficiency Trick
+		WL_RANGE_TAG = 'WL_RANGE';
+		WL_RANGE_CATEGORY = 5;
+		WL_RANGE_FORMAT = 12;
+		
+		WL_OF_INTEREST = 18; %CET: Computational Efficiency Trick
+		WL_OF_INTEREST_TAG = 'WL_OF_INTEREST';
+		WL_OF_INTEREST_CATEGORY = 5;
+		WL_OF_INTEREST_FORMAT = 12;
 	end
 	methods % constructor
 		function dp = NNDataPoint_RamanSpectra(varargin)
@@ -174,6 +186,8 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			%  <strong>14</strong> <strong>WL_END</strong> 	WL_END (data, scalar) is the ending wavelength.
 			%  <strong>15</strong> <strong>TARGET_CLASS</strong> 	TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.
 			%  <strong>16</strong> <strong>WL_LABELS</strong> 	WL_LABELS (query, stringlist) is the labels for the wavelengths.
+			%  <strong>17</strong> <strong>WL_RANGE</strong> 	WL_RANGE (result, rvector) is the ending wavelength.
+			%  <strong>18</strong> <strong>WL_OF_INTEREST</strong> 	WL_OF_INTEREST (result, rvector) is the ending wavelength.
 			%
 			% See also Category, Format.
 			
@@ -250,7 +264,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16];
+				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18];
 				return
 			end
 			
@@ -264,7 +278,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 				case 4 % Category.DATA
 					prop_list = [5 11 12 13 14];
 				case 5 % Category.RESULT
-					prop_list = [9 10];
+					prop_list = [9 10 17 18];
 				case 6 % Category.QUERY
 					prop_list = [8 16];
 				otherwise
@@ -292,7 +306,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_number = 16;
+				prop_number = 18;
 				return
 			end
 			
@@ -306,7 +320,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 				case 4 % Category.DATA
 					prop_number = 5;
 				case 5 % Category.RESULT
-					prop_number = 2;
+					prop_number = 4;
 				case 6 % Category.QUERY
 					prop_number = 2;
 				otherwise
@@ -339,7 +353,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 16 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = prop >= 1 && prop <= 18 && round(prop) == prop; %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -377,7 +391,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP_DATA'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS'  'WL_LABELS' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP_DATA'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS'  'WL_LABELS'  'WL_RANGE'  'WL_OF_INTEREST' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -410,7 +424,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP_DATA'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS'  'WL_LABELS' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP_DATA'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS'  'WL_LABELS'  'WL_RANGE'  'WL_OF_INTEREST' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -439,7 +453,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				nndatapoint_ramanspectra_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP_DATA'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS'  'WL_LABELS' };
+				nndatapoint_ramanspectra_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'INPUT'  'TARGET'  'SP_DATA'  'WL'  'WL_START'  'WL_END'  'TARGET_CLASS'  'WL_LABELS'  'WL_RANGE'  'WL_OF_INTEREST' };
 				tag = nndatapoint_ramanspectra_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -466,7 +480,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			prop = NNDataPoint_RamanSpectra.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatapoint_ramanspectra_category_list = { 1  1  1  3  4  2  2  6  5  5  4  4  4  4  3  6 };
+			nndatapoint_ramanspectra_category_list = { 1  1  1  3  4  2  2  6  5  5  4  4  4  4  3  6  5  5 };
 			prop_category = nndatapoint_ramanspectra_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -492,7 +506,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			prop = NNDataPoint_RamanSpectra.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatapoint_ramanspectra_format_list = { 2  2  2  8  2  2  2  2  16  16  13  13  11  11  3  3 };
+			nndatapoint_ramanspectra_format_list = { 2  2  2  8  2  2  2  2  16  16  13  13  11  11  3  3  12  12 };
 			prop_format = nndatapoint_ramanspectra_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
@@ -518,7 +532,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			prop = NNDataPoint_RamanSpectra.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatapoint_ramanspectra_description_list = { 'ELCLASS (constant, string) is the class of the data point for spectrum.'  'NAME (constant, string) is the name of the data point for spectrum.'  'DESCRIPTION (constant, string) is the description of the data point for spectrum.'  'TEMPLATE (parameter, item) is the template of the data point for spectrum.'  'ID (data, string) is a few-letter code for the data point for spectrum.'  'LABEL (metadata, string) is an extended label of the data point for spectrum.'  'NOTES (metadata, string) are some specific notes about the data point for spectrum.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'INPUT (result, cell) is the input value for this data point for spectrum.'  'TARGET (result, cell) is the target values for this data point for spectrum.'  'SP_DATA (data, cvector) is the spectrum value.'  'WL (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.'  'WL_START (data, scalar) is the starting wavelength.'  'WL_END (data, scalar) is the ending wavelength.'  'TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.'  'WL_LABELS (query, stringlist) is the labels for the wavelengths.' };
+			nndatapoint_ramanspectra_description_list = { 'ELCLASS (constant, string) is the class of the data point for spectrum.'  'NAME (constant, string) is the name of the data point for spectrum.'  'DESCRIPTION (constant, string) is the description of the data point for spectrum.'  'TEMPLATE (parameter, item) is the template of the data point for spectrum.'  'ID (data, string) is a few-letter code for the data point for spectrum.'  'LABEL (metadata, string) is an extended label of the data point for spectrum.'  'NOTES (metadata, string) are some specific notes about the data point for spectrum.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'INPUT (result, cell) is the input value for this data point for spectrum.'  'TARGET (result, cell) is the target values for this data point for spectrum.'  'SP_DATA (data, cvector) is the spectrum value.'  'WL (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.'  'WL_START (data, scalar) is the starting wavelength.'  'WL_END (data, scalar) is the ending wavelength.'  'TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.'  'WL_LABELS (query, stringlist) is the labels for the wavelengths.'  'WL_RANGE (result, rvector) is the ending wavelength.'  'WL_OF_INTEREST (result, rvector) is the ending wavelength.' };
 			prop_description = nndatapoint_ramanspectra_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -556,6 +570,10 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 					prop_settings = Format.getFormatSettings(3);
 				case 16 % NNDataPoint_RamanSpectra.WL_LABELS
 					prop_settings = Format.getFormatSettings(3);
+				case 17 % NNDataPoint_RamanSpectra.WL_RANGE
+					prop_settings = Format.getFormatSettings(12);
+				case 18 % NNDataPoint_RamanSpectra.WL_OF_INTEREST
+					prop_settings = Format.getFormatSettings(12);
 				case 4 % NNDataPoint_RamanSpectra.TEMPLATE
 					prop_settings = 'NNDataPoint_RamanSpectra';
 				otherwise
@@ -597,6 +615,10 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 					prop_default = Format.getFormatDefault(3, NNDataPoint_RamanSpectra.getPropSettings(prop));
 				case 16 % NNDataPoint_RamanSpectra.WL_LABELS
 					prop_default = Format.getFormatDefault(3, NNDataPoint_RamanSpectra.getPropSettings(prop));
+				case 17 % NNDataPoint_RamanSpectra.WL_RANGE
+					prop_default = Format.getFormatDefault(12, NNDataPoint_RamanSpectra.getPropSettings(prop));
+				case 18 % NNDataPoint_RamanSpectra.WL_OF_INTEREST
+					prop_default = Format.getFormatDefault(12, NNDataPoint_RamanSpectra.getPropSettings(prop));
 				case 1 % NNDataPoint_RamanSpectra.ELCLASS
 					prop_default = 'NNDataPoint_RamanSpectra';
 				case 2 % NNDataPoint_RamanSpectra.NAME
@@ -687,6 +709,10 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 					check = Format.checkFormat(3, value, NNDataPoint_RamanSpectra.getPropSettings(prop));
 				case 16 % NNDataPoint_RamanSpectra.WL_LABELS
 					check = Format.checkFormat(3, value, NNDataPoint_RamanSpectra.getPropSettings(prop));
+				case 17 % NNDataPoint_RamanSpectra.WL_RANGE
+					check = Format.checkFormat(12, value, NNDataPoint_RamanSpectra.getPropSettings(prop));
+				case 18 % NNDataPoint_RamanSpectra.WL_OF_INTEREST
+					check = Format.checkFormat(12, value, NNDataPoint_RamanSpectra.getPropSettings(prop));
 				case 4 % NNDataPoint_RamanSpectra.TEMPLATE
 					check = Format.checkFormat(8, value, NNDataPoint_RamanSpectra.getPropSettings(prop));
 				otherwise
@@ -726,8 +752,8 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 				case 16 % NNDataPoint_RamanSpectra.WL_LABELS
 					value = arrayfun(@(wavelength) [num2str(wavelength) ' cm-1'], dp.get('WL')', 'UniformOutput', false);
 					
-				case 9 % NNDataPoint_RamanSpectra.INPUT
-					rng_settings_ = rng(); rng(dp.getPropSeed(9), 'twister')
+				case 17 % NNDataPoint_RamanSpectra.WL_RANGE
+					rng_settings_ = rng(); rng(dp.getPropSeed(17), 'twister')
 					
 					wavelength = dp.get('WL');
 					wavelength_start = dp.get('WL_START');
@@ -737,6 +763,25 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 					[~, idx_wav_start] = min(abs(diff_start));
 					diff_end = wavelength - wavelength_end;
 					[~, idx_wav_end] = min(abs(diff_end));
+					value = [idx_wav_start, idx_wav_end];
+					
+					rng(rng_settings_)
+					
+				case 18 % NNDataPoint_RamanSpectra.WL_OF_INTEREST
+					rng_settings_ = rng(); rng(dp.getPropSeed(18), 'twister')
+					
+					wl = dp.get('WL');
+					wl_range = dp.get('WL_RANGE');
+					value = wl(wl_range(1):wl_range(2));
+					
+					rng(rng_settings_)
+					
+				case 9 % NNDataPoint_RamanSpectra.INPUT
+					rng_settings_ = rng(); rng(dp.getPropSeed(9), 'twister')
+					
+					wl_range = dp.get('WL_RANGE');
+					idx_wav_start = wl_range(1);
+					idx_wav_end = wl_range(2);
 					
 					sp_data = dp.get('SP_DATA');
 					if isempty(sp_data)
