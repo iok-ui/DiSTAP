@@ -24,7 +24,7 @@ d_sp.memorize('TARGETS');
 fprintf('Finished memorizing all dataset targets.%s', newline);
 
 %% Train a Variational Autoencoder
-nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'EPOCHS', 100, 'BATCH', 32);
+nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'EPOCHS', 500, 'BATCH', 32);
 nnvae.get('TRAIN')
 
 %% Evaluate and Produce Manuscript figures
