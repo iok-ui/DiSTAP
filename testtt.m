@@ -61,10 +61,13 @@ nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'EPOCHS', 2, 'BATCH', 32);
 nnvae.get('TRAIN')
 nne = NNVariationalAutoencoderEvaluator_RS('NN', nnvae, 'D', d_sp, 'DIRECTORY', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'R_files']);
 %%
-%a = nne.get('LATENT_REP')
 nne.memorize('LATENT_REP');
-%%nne.get('PREDICT_DECODER');
 nne.get('PEAK_IDENTIFICATION');
+nne.get('DATA_RECONSTRUCTION');
+nne.get('LATENT_IDENTIFICATION');
+nne.get('CREATE_R_CONTAINER');
+nne.get('PLOT_R_PALETTE');
+nne.get('PLOT_R_LS_QNORM_MED');
 
 %%
 scale_factor = 10;
