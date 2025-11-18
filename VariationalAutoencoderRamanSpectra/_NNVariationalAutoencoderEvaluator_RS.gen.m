@@ -89,6 +89,11 @@ value = [{Z}, {Y}];
 
 %% ¡props!
 %%% ¡prop!
+DPROC (data, item) row-index in TARGET_CLASS for stress.
+%%%% ¡settings!
+'NNDatasetProcess_RamanSpectra'
+
+%%% ¡prop!
 IDX_LABEL_STRESS (parameter, scalar) row-index in TARGET_CLASS for stress.
 %%%% ¡default!
 2
@@ -152,10 +157,13 @@ YLatent = latent_rep{2};
 if isempty(varargin)
     idx = 1:1:size(ZLatent, 2);
     reprentation_select = 'one-to-one';
-
+    denormalization = true;
+    detranformation = false;
 else
     idx = varargin{1};
     reprentation_select = varargin{2};
+    denormalization = varargin{3};
+    detranformation = varargin{4};
 end
 % get reconstructed spectrum for the cluster of this single lable
 switch reprentation_select
@@ -166,12 +174,21 @@ switch reprentation_select
     case 'mean'
         ZSelected = mean(ZLatent(:, idx), 2);
 end
+
 ZSelected = dlarray(ZSelected, 'CB'); % convert to deep learning array
 
 % get recontructed data
 nnvae = nne.get('NN');
 netD = nnvae.get('DECODER');
 decoded_inputs = extractdata(predict(netD, ZSelected));
+
+dproc = nne.get('DPROC');
+if denormalization
+    decoded_inputs = dproc.get('INV_NORMALIZE_DATA', decoded_inputs);
+end
+if detranformation
+    decoded_inputs = dproc.get('INV_TRANSFORM_DATA', decoded_inputs);
+end
 
 for i = 1:size(decoded_inputs, 2)
     value{i} = decoded_inputs(:, i);
@@ -684,7 +701,7 @@ for s = 1:numel(species_list)
             end
 
             % median-decoded spectrum for this group
-            dec = nne.get('PREDICT_DECODER', idx, 'median');  % 1x1 cell, column vector
+            dec = nne.get('PREDICT_DECODER', idx, 'median', true, false);  % 1x1 cell, column vector
             spectra_cell{si} = dec{1};
         end
 
@@ -769,7 +786,7 @@ for s = 1:numel(species_order)
 
         if any(idx)
             ci = ci + 1;
-            dec = nne.get('PREDICT_DECODER', idx, 'median');  % returns 1 cell
+            dec = nne.get('PREDICT_DECODER', idx, 'median', true, false);  % returns 1 cell
             data_cell{ci}   = dec{1};                         % numeric column
             cond_labels{ci} = char(st);                       % keeps same order
         end
