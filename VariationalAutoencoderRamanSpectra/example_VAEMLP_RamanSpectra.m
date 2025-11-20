@@ -11,32 +11,16 @@ dproc = NNDatasetProcess_RamanSpectra( ...
     'NORMALIZATION_RULE', 'Scale', ...
     'SCALE_FACTOR', 100, ...
     'TARGETS_TO_REMOVE', {'ps'});
-
 d_sp = dproc.get('D');
-
-% announce memorizing start
-fprintf('Memorizing all dataset inputs (may take a few minutes) ...%s', newline);
-d_sp.memorize('INPUTS');
-fprintf('Finished memorizing all dataset inputs.%s', newline);
-
-fprintf('Memorizing all dataset targets (may take a few minutes) ...%s', newline);
-d_sp.memorize('TARGETS');
-fprintf('Finished memorizing all dataset targets.%s', newline);
 
 %% Train a Variational Autoencoder
 nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'EPOCHS', 100, 'BATCH', 32);
 nnvae.get('TRAIN')
 
-%% Evaluate and Produce Manuscript figures
-nne = NNVariationalAutoencoderEvaluator_RS( ...
-    'NN', nnvae, ...
-    'D', d_sp, ...
-    'IDX_LABEL_SPECIES', 1, ...
-    'IDX_LABEL_STRESS', 2, ...
-    'IDX_LABEL_LOCATION', 3, ...
-    'STRESS_SEQ', {'WL', 'HL', 'LL', 'SH'}, ...
-    'DIRECTORY', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'R_files']);
+%% Evaluate and Visualize Latent Space
+nne = NNVariationalAutoencoderEvaluator_RS('NN', nnvae, 'D', d_sp);
 
-nne.memorize('LATENT_REP');
-nne.get('PLOT_R_PALETTE');
-nne.get('PLOT_R_LS_QNORM_MED');
+% publication figures
+%nne.get('PLOT_R_LATENT_REPRESENTATIONS');
+%nne.get('PLOT_R_PEAK_IDENTIFICATIONS');
+

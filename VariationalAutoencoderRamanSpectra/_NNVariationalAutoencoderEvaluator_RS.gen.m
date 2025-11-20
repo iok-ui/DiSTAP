@@ -462,7 +462,12 @@ end
 COND  = varargin{1};
 COMP  = varargin{2};
 state = char(string(varargin{3}));
-save_dir = nne.get('DIRECTORY');
+save_dir = nne.get('DIRECTORY_ANALYSIS');
+
+% ensure analysis directory exists
+if ~exist(save_dir, 'dir')
+    mkdir(save_dir);
+end
 
 % --- per-condition files: ranked_sig_pks_<COND> <state>.mat ---
 for c = 1:numel(COND)
@@ -574,7 +579,7 @@ end
 K = numel(stress_seq_labels);
 
 % --- output folder ---
-root_dir = nne.get('DIRECTORY');
+root_dir = nne.get('DIRECTORY_ANALYSIS');
 out_dir  = fullfile(root_dir, 'crnr_transformed');
 if ~exist(out_dir, 'dir')
     mkdir(out_dir);
@@ -672,7 +677,7 @@ else
 end
 
 % --- output folder for transformed spectra ---
-root_dir = nne.get('DIRECTORY');
+root_dir = nne.get('DIRECTORY_ANALYSIS');
 out_dir  = fullfile(root_dir, 'crnr_transformed');
 if ~exist(out_dir, 'dir')
     mkdir(out_dir);
@@ -809,7 +814,17 @@ end
 value = {};
 
 %%% ¡prop!
-DIRECTORY (data, string) is the directory saving the exporting figure.
+DIRECTORY_ANALYSIS (data, string) is the directory saving the exporting figure.
+%%%% ¡default!
+fileparts(which('test_braph2'))
+
+%%% ¡prop!
+DIRECTORY_FIG (data, string) is the directory saving the exporting figure.
+%%%% ¡default!
+fileparts(which('test_braph2'))
+
+%%% ¡prop!
+DIRECTORY_UTIL_R (data, string) is the directory saving the exporting figure.
 %%%% ¡default!
 fileparts(which('test_braph2'))
 
@@ -821,7 +836,7 @@ CREATE_R_CONTAINER (query, cell) ensures the Docker image for the R plots exists
 % VALUE = nne.get('CREATE_R_CONTAINER', docker_dir, image_tag)
 
 % --- inputs & defaults ---
-docker_dir = nne.get('DIRECTORY');
+docker_dir = nne.get('DIRECTORY_UTIL_R');
 image_tag  = 'rls-plot:latest';
 if ~isempty(varargin)
     docker_dir = varargin{1};
@@ -896,7 +911,6 @@ end
 
 value = {image_tag};
 
-
 %%% ¡prop!
 PLOT_R_PALETTE (query, empty) generates the palette figure via Docker+R.
 %%%% ¡calculate!
@@ -909,27 +923,35 @@ nne.get('PEAK_IDENTIFICATION');
 nne.get('DATA_RECONSTRUCTION');
 nne.get('LATENT_IDENTIFICATION');
 
-% container ready?
-out = nne.get('CREATE_R_CONTAINER'); 
+wd_analysis = nne.get('DIRECTORY_ANALYSIS'); % where .mat + fig_palette_p1.R live
+wd_fig    = nne.get('DIRECTORY_FIG');    % where you want the figures
+wd_rfile = nne.get('DIRECTORY_UTIL_R');
+
+% ensure container image exists
+out = nne.get('CREATE_R_CONTAINER');
 if isempty(out)
     value = {};
     return
 end
 image_tag = out{1};
 
-% run script
-wd = nne.get('DIRECTORY');
-cmd = sprintf('docker run --rm -v "%s":/work -w /work %s Rscript fig_palette_p1.R', wd, image_tag);
+% run the R script inside the container
+cmd = sprintf([ ...
+    'docker run --rm ' ...
+    '-v "%s":/rfiles ' ...   % R scripts dir -> /rfiles
+    '-v "%s":/work '   ...   % analysis/results dir (.mat) -> /work
+    '-v "%s":/fig '    ...   % figure output dir           -> /fig
+    '-w /work %s Rscript /rfiles/fig_palette_p1.R /fig'], ...
+    wd_rfile, wd_analysis, wd_fig, image_tag);
+
 fprintf('>> %s%s', cmd, newline);
-[st,outstr] = system(cmd);
+[st, outstr] = system(cmd);
 disp(outstr);
 assert(st == 0, 'Docker run failed (fig_palette_p1.R).');
 
-% success message
-fprintf('Palette figures produced successfully and saved in: %s%s', wd, newline);
+fprintf('Palette figures generated and saved in: %s%s', wd_fig, newline);
 
 value = {};
-
 
 %%% ¡prop!
 PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R.
@@ -952,7 +974,7 @@ end
 image_tag = out{1};
 
 % run script
-wd = nne.get('DIRECTORY');
+wd = nne.get('DIRECTORY_FIG');
 cmd = sprintf('docker run --rm -v "%s":/work -w /work %s Rscript plot_ls_qnorm_med.R', wd, image_tag);
 fprintf('>> %s%s', cmd, newline);
 [st,outstr] = system(cmd);
@@ -960,7 +982,7 @@ disp(outstr);
 assert(st == 0, 'Docker run failed (plot_ls_qnorm_med.R).');
 
 % success message
-fprintf('Ls qnorm figures produced successfully and saved in: %s%s', wd, newline);
+fprintf('Ls qnorm figures produced successfully and saved in: %s%s', wd_fig, newline);
 
 value = {};
 
