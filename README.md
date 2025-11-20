@@ -31,6 +31,7 @@ This folder contains four study-specific example scripts and their corresponding
 2. **Shade avoidance stress**  
    - Example script: `example_ShadeAvoidanceStress.m`  
    - Study folder: `study_ShadeAvoidanceStress`  
+   - Used to generate the panels in Figure 3 of the manuscript.
 
 3. **High temperature stress**  
    - Example script: `example_HighTemperatureStress.m`  
@@ -40,6 +41,7 @@ This folder contains four study-specific example scripts and their corresponding
 4. **Bacterial stress**  
    - Example script: `example_BacterialStress.m`  
    - Study folder: `study_BacterialStress`  
+   - Used to generate the panels in Figure 5 of the manuscript.
 
 Each study folder contains:
 
