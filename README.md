@@ -17,7 +17,7 @@ This distribution reuses the core analytical infrastructure of the standard BRAP
 
 ## DiSTAP studies and folder structure
 
-Within this repository, the DiSTAP pipelines are organised under:
+Within this repository, the VAE-based pipeline for Raman spectra is organised under:
 
 - `braph2distap/VariationalAutoencoderRamanSpectra/`
 
