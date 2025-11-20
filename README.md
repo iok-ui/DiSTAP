@@ -90,7 +90,30 @@ setenv('PATH', [getenv('PATH') ':/usr/local/bin']);
 ```
 (adjust the directory according to the output of which docker on your system).
 
-### Software compilation
+## Getting started: running BRAPH 2 DiSTAP
+
+Once the repository is downloaded or cloned, you can run the DiSTAP distribution directly from MATLAB.
+1. Add DiSTAP to the MATLAB path
+```
+cd /path/to/DiSTAP              % folder that contains braph2distap/
+addpath(genpath(pwd))
+savepath
+```
+2. Launch the DiSTAP distribution
+```
+cd braph2distap
+braph2distap
+```
+3. Run the example scripts
+To reproduce the analyses and figures from the manuscript, go to the VAE pipelines and run any of the example scripts:
+```
+example_LightStress           % Light-stress study
+example_ShadeAvoidanceStress  % Shade-avoidance study
+example_HighTemperatureStress % High-temperature study
+example_BacterialStress       % Bacterial-stress study
+```
+
+## Software compilation
 
 The compiled version of this distribution is already included in this repository under the braph2distap folder. However, if you extend the pipelines (for example, by adding new studies or altering the VAE architecture) you may wish to recompile.
 You can recompile DiSTAP using the BRAPH 2 Genesis mechanism. In MATLAB:
@@ -102,7 +125,7 @@ This will re-generate the braph2distap folder with the updated elements and GUIs
 Warning:
 Before recompiling, remove the existing braph2distap folder and take it off the MATLAB path to avoid conflicts. The folder will be recreated after a successful compilation, and you can then add the new braph2distap back to your path.
 
-### Citing
+## Citing
 
 If you use BRAPH 2 DiSTAP in your work, please cite:
 
