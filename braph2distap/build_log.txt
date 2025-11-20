@@ -27,7 +27,7 @@ NNVariationalAutoencoderEvaluator_Image,1
 NNVariationalAutoencoderMLP,1
 NNDataPoint_RamanSpectra,1
 NNDatasetProcess_RamanSpectra,1
-NNVariationalAutoencoderEvaluator_RamanSpectral,1
+NNVariationalAutoencoderEvaluator_RS,1
 Group,1
 Subject,1
 SubjectPP_VOIDict,1
