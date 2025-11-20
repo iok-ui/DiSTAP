@@ -319,7 +319,6 @@ for (i in 1:length(files)){
              device = "tiff", dpi = 600)
     }
 }
-setwd(save_filepath)
 
 
 

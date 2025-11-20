@@ -974,9 +974,18 @@ end
 image_tag = out{1};
 
 % run script
-wd = nne.get('DIRECTORY_FIG');
-cmd = sprintf('docker run --rm -v "%s":/work -w /work %s Rscript plot_ls_qnorm_med.R', wd, image_tag);
-fprintf('>> %s%s', cmd, newline);
+wd_analysis = nne.get('DIRECTORY_ANALYSIS'); % where .mat + fig_palette_p1.R live
+wd_fig    = nne.get('DIRECTORY_FIG');    % where you want the figures
+wd_rfile = nne.get('DIRECTORY_UTIL_R');
+
+cmd = sprintf([ ...
+    'docker run --rm ' ...
+    '-v "%s":/rfiles ' ...
+    '-v "%s":/work ' ...
+    '-v "%s":/fig ' ...
+    '-w /work %s Rscript /rfiles/plot_ls_qnorm_med.R /fig'], ...
+    wd_rfile, wd_analysis, wd_fig, image_tag);
+fprintf('>> %s%s', cmd, newline);fprintf('>> %s%s', cmd, newline);
 [st,outstr] = system(cmd);
 disp(outstr);
 assert(st == 0, 'Docker run failed (plot_ls_qnorm_med.R).');
