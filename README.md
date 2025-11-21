@@ -30,7 +30,7 @@ Within this repository, the VAE-based pipeline for Raman spectra is organised un
 
 - `braph2distap/VariationalAutoencoderRamanSpectra/`
 
-This folder contains four study-specific example scripts and their corresponding analysis subfolders, matching the datasets analysed in the paper:
+This folder contains four study-specific example scripts and their corresponding analysis subfolders, matching the datasets analysed in the manuscript:
 
 1. **Light stress**  
    - Example script: `example_LightStress.m`  
