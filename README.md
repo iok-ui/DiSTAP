@@ -15,6 +15,14 @@ The **BRAPH 2 DiSTAP** distribution provides a variational autoencoder (VAE)–b
 
 This distribution reuses the core analytical infrastructure of the standard BRAPH 2 distribution. For a general introduction to BRAPH 2, please refer to the main [BRAPH 2](https://github.com/braph-software/BRAPH-2/tree/develop) repository and its [tutorials](https://github.com/braph-software/BRAPH-2/tree/develop/tutorials).
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/56fbe000-57c6-4fa8-afba-b44a6eded197"
+       alt="Light stress figure"
+       width="100%">
+</p>
+> 
+> **Light-stress study (Figure 2 in Patil et al.)**  This figure shows the latent 2D VAE embeddings (z1, z2) and the corresponding peak-area summaries for the *Arabidopsis*, *Choy Sum*, and *Kai Lan* datasets under four light conditions (high light, white light, low light, and shade). All panels in this figure can be reproduced directly with the DiSTAP distribution using the **Light stress** pipeline. The scripts and generated outputs are located in `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/study_LightStress`.
+
 ## DiSTAP studies and folder structure
 
 Within this repository, the VAE-based pipeline for Raman spectra is organised under:
