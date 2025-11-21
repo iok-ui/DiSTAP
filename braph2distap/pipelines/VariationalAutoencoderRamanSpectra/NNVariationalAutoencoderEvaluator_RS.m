@@ -23,8 +23,8 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 	%  <strong>14</strong> <strong>IDX_LABEL_STRESS</strong> 	IDX_LABEL_STRESS (parameter, scalar) row-index in TARGET_CLASS for stress.
 	%  <strong>15</strong> <strong>STRESS_ORDER</strong> 	STRESS_ORDER (result, stringlist) canonical order for output.
 	%  <strong>16</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) canonical order for output.
-	%  <strong>17</strong> <strong>IDX_LABEL_SPECIES</strong> 	IDX_LABEL_SPECIES (parameter, scalar) row-index in TARGET_CLASS for species.
-	%  <strong>18</strong> <strong>SPECIES_ORDER</strong> 	SPECIES_ORDER (result, stringlist) canonical order for output.
+	%  <strong>17</strong> <strong>IDX_LABEL_KIND</strong> 	IDX_LABEL_KIND (parameter, scalar) row-index in TARGET_CLASS for species.
+	%  <strong>18</strong> <strong>KIND_ORDER</strong> 	KIND_ORDER (result, stringlist) canonical order for output.
 	%  <strong>19</strong> <strong>IDX_LABEL_LOCATION</strong> 	IDX_LABEL_LOCATION (parameter, scalar) row-index in TARGET_CLASS for species.
 	%  <strong>20</strong> <strong>LOCATION_ORDER</strong> 	LOCATION_ORDER (result, stringlist) canonical order for output.
 	%  <strong>21</strong> <strong>LATENT_REP</strong> 	LATENT_REP (result, cell) stores the latent representations for further processing.
@@ -155,15 +155,15 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 		STRESS_SEQ_CATEGORY = 3;
 		STRESS_SEQ_FORMAT = 3;
 		
-		IDX_LABEL_SPECIES = 17; %CET: Computational Efficiency Trick
-		IDX_LABEL_SPECIES_TAG = 'IDX_LABEL_SPECIES';
-		IDX_LABEL_SPECIES_CATEGORY = 3;
-		IDX_LABEL_SPECIES_FORMAT = 11;
+		IDX_LABEL_KIND = 17; %CET: Computational Efficiency Trick
+		IDX_LABEL_KIND_TAG = 'IDX_LABEL_KIND';
+		IDX_LABEL_KIND_CATEGORY = 3;
+		IDX_LABEL_KIND_FORMAT = 11;
 		
-		SPECIES_ORDER = 18; %CET: Computational Efficiency Trick
-		SPECIES_ORDER_TAG = 'SPECIES_ORDER';
-		SPECIES_ORDER_CATEGORY = 5;
-		SPECIES_ORDER_FORMAT = 3;
+		KIND_ORDER = 18; %CET: Computational Efficiency Trick
+		KIND_ORDER_TAG = 'KIND_ORDER';
+		KIND_ORDER_CATEGORY = 5;
+		KIND_ORDER_FORMAT = 3;
 		
 		IDX_LABEL_LOCATION = 19; %CET: Computational Efficiency Trick
 		IDX_LABEL_LOCATION_TAG = 'IDX_LABEL_LOCATION';
@@ -283,8 +283,8 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%  <strong>14</strong> <strong>IDX_LABEL_STRESS</strong> 	IDX_LABEL_STRESS (parameter, scalar) row-index in TARGET_CLASS for stress.
 			%  <strong>15</strong> <strong>STRESS_ORDER</strong> 	STRESS_ORDER (result, stringlist) canonical order for output.
 			%  <strong>16</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) canonical order for output.
-			%  <strong>17</strong> <strong>IDX_LABEL_SPECIES</strong> 	IDX_LABEL_SPECIES (parameter, scalar) row-index in TARGET_CLASS for species.
-			%  <strong>18</strong> <strong>SPECIES_ORDER</strong> 	SPECIES_ORDER (result, stringlist) canonical order for output.
+			%  <strong>17</strong> <strong>IDX_LABEL_KIND</strong> 	IDX_LABEL_KIND (parameter, scalar) row-index in TARGET_CLASS for species.
+			%  <strong>18</strong> <strong>KIND_ORDER</strong> 	KIND_ORDER (result, stringlist) canonical order for output.
 			%  <strong>19</strong> <strong>IDX_LABEL_LOCATION</strong> 	IDX_LABEL_LOCATION (parameter, scalar) row-index in TARGET_CLASS for species.
 			%  <strong>20</strong> <strong>LOCATION_ORDER</strong> 	LOCATION_ORDER (result, stringlist) canonical order for output.
 			%  <strong>21</strong> <strong>LATENT_REP</strong> 	LATENT_REP (result, cell) stores the latent representations for further processing.
@@ -506,7 +506,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'DPROC'  'IDX_LABEL_STRESS'  'STRESS_ORDER'  'STRESS_SEQ'  'IDX_LABEL_SPECIES'  'SPECIES_ORDER'  'IDX_LABEL_LOCATION'  'LOCATION_ORDER'  'LATENT_REP'  'PREDICT_DECODER'  'CROSSING'  'DERIV_PEAKS'  'PEAKS_COMPARE'  'DERIV_PEAKS_RUN'  'DERIV_PEAKS_SAVE'  'LATENT_IDENTIFICATION'  'DATA_RECONSTRUCTION'  'PEAK_IDENTIFICATION'  'DIRECTORY_ANALYSIS'  'DIRECTORY_FIG'  'DIRECTORY_UTIL_R'  'CREATE_R_CONTAINER'  'PLOT_R_PALETTE'  'PLOT_R_LS_QNORM_MED' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'DPROC'  'IDX_LABEL_STRESS'  'STRESS_ORDER'  'STRESS_SEQ'  'IDX_LABEL_KIND'  'KIND_ORDER'  'IDX_LABEL_LOCATION'  'LOCATION_ORDER'  'LATENT_REP'  'PREDICT_DECODER'  'CROSSING'  'DERIV_PEAKS'  'PEAKS_COMPARE'  'DERIV_PEAKS_RUN'  'DERIV_PEAKS_SAVE'  'LATENT_IDENTIFICATION'  'DATA_RECONSTRUCTION'  'PEAK_IDENTIFICATION'  'DIRECTORY_ANALYSIS'  'DIRECTORY_FIG'  'DIRECTORY_UTIL_R'  'CREATE_R_CONTAINER'  'PLOT_R_PALETTE'  'PLOT_R_LS_QNORM_MED' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -539,7 +539,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'DPROC'  'IDX_LABEL_STRESS'  'STRESS_ORDER'  'STRESS_SEQ'  'IDX_LABEL_SPECIES'  'SPECIES_ORDER'  'IDX_LABEL_LOCATION'  'LOCATION_ORDER'  'LATENT_REP'  'PREDICT_DECODER'  'CROSSING'  'DERIV_PEAKS'  'PEAKS_COMPARE'  'DERIV_PEAKS_RUN'  'DERIV_PEAKS_SAVE'  'LATENT_IDENTIFICATION'  'DATA_RECONSTRUCTION'  'PEAK_IDENTIFICATION'  'DIRECTORY_ANALYSIS'  'DIRECTORY_FIG'  'DIRECTORY_UTIL_R'  'CREATE_R_CONTAINER'  'PLOT_R_PALETTE'  'PLOT_R_LS_QNORM_MED' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'DPROC'  'IDX_LABEL_STRESS'  'STRESS_ORDER'  'STRESS_SEQ'  'IDX_LABEL_KIND'  'KIND_ORDER'  'IDX_LABEL_LOCATION'  'LOCATION_ORDER'  'LATENT_REP'  'PREDICT_DECODER'  'CROSSING'  'DERIV_PEAKS'  'PEAKS_COMPARE'  'DERIV_PEAKS_RUN'  'DERIV_PEAKS_SAVE'  'LATENT_IDENTIFICATION'  'DATA_RECONSTRUCTION'  'PEAK_IDENTIFICATION'  'DIRECTORY_ANALYSIS'  'DIRECTORY_FIG'  'DIRECTORY_UTIL_R'  'CREATE_R_CONTAINER'  'PLOT_R_PALETTE'  'PLOT_R_LS_QNORM_MED' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -568,7 +568,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				nnvariationalautoencoderevaluator_rs_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'DPROC'  'IDX_LABEL_STRESS'  'STRESS_ORDER'  'STRESS_SEQ'  'IDX_LABEL_SPECIES'  'SPECIES_ORDER'  'IDX_LABEL_LOCATION'  'LOCATION_ORDER'  'LATENT_REP'  'PREDICT_DECODER'  'CROSSING'  'DERIV_PEAKS'  'PEAKS_COMPARE'  'DERIV_PEAKS_RUN'  'DERIV_PEAKS_SAVE'  'LATENT_IDENTIFICATION'  'DATA_RECONSTRUCTION'  'PEAK_IDENTIFICATION'  'DIRECTORY_ANALYSIS'  'DIRECTORY_FIG'  'DIRECTORY_UTIL_R'  'CREATE_R_CONTAINER'  'PLOT_R_PALETTE'  'PLOT_R_LS_QNORM_MED' };
+				nnvariationalautoencoderevaluator_rs_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'DPROC'  'IDX_LABEL_STRESS'  'STRESS_ORDER'  'STRESS_SEQ'  'IDX_LABEL_KIND'  'KIND_ORDER'  'IDX_LABEL_LOCATION'  'LOCATION_ORDER'  'LATENT_REP'  'PREDICT_DECODER'  'CROSSING'  'DERIV_PEAKS'  'PEAKS_COMPARE'  'DERIV_PEAKS_RUN'  'DERIV_PEAKS_SAVE'  'LATENT_IDENTIFICATION'  'DATA_RECONSTRUCTION'  'PEAK_IDENTIFICATION'  'DIRECTORY_ANALYSIS'  'DIRECTORY_FIG'  'DIRECTORY_UTIL_R'  'CREATE_R_CONTAINER'  'PLOT_R_PALETTE'  'PLOT_R_LS_QNORM_MED' };
 				tag = nnvariationalautoencoderevaluator_rs_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -647,7 +647,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			prop = NNVariationalAutoencoderEvaluator_RS.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nnvariationalautoencoderevaluator_rs_description_list = { 'ELCLASS (constant, string) is the class of the evaluator of the neural network analysis.'  'NAME (constant, string) is the name of the evaluator for the neural network analysis.'  'DESCRIPTION (constant, string) is the description of the evaluator for the neural network analysis.'  'TEMPLATE (parameter, item) is the template of the evaluator for the neural network analysis.'  'ID (data, string) is a few-letter code for the evaluator for the neural network analysis.'  'LABEL (metadata, string) is an extended label of the evaluator for the neural network analysis.'  'NOTES (metadata, string) are some specific notes about the evaluator for the neural network analysis.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'NN (data, item) contains a trained neural network model.'  'D (data, item) is the dataset to evaluate the neural network model.'  'PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.'  'PREDICT_ENCODER (query, cell) returns the predictions of an encoder.'  'DPROC (data, item) row-index in TARGET_CLASS for stress.'  'IDX_LABEL_STRESS (parameter, scalar) row-index in TARGET_CLASS for stress.'  'STRESS_ORDER (result, stringlist) canonical order for output.'  'STRESS_SEQ (parameter, stringlist) canonical order for output.'  'IDX_LABEL_SPECIES (parameter, scalar) row-index in TARGET_CLASS for species.'  'SPECIES_ORDER (result, stringlist) canonical order for output.'  'IDX_LABEL_LOCATION (parameter, scalar) row-index in TARGET_CLASS for species.'  'LOCATION_ORDER (result, stringlist) canonical order for output.'  'LATENT_REP (result, cell) stores the latent representations for further processing.'  'PREDICT_DECODER (query, empty) indentifies the index when crossing from negative to positive.'  'CROSSING (query, cell) returns indices/times of level crossings.'  'DERIV_PEAKS (query, cell) finds p→n zero-crossing peaks in f′(x) and lobe areas.'  'PEAKS_COMPARE (query, cell) compares per-peak areas between two conditions.'  'DERIV_PEAKS_RUN (query, cell) runs DERIV_PEAKS for all conditions and compares all pairs.'  'DERIV_PEAKS_SAVE (query, cell) saves ranked tables (legacy-compatible filenames).'  'LATENT_IDENTIFICATION (query, empty) runs latent-space export per species × location.'  'DATA_RECONSTRUCTION (query, empty) runs decoding → saves per species × location.'  'PEAK_IDENTIFICATION (query, empty) runs decoding → peaks → save per species.'  'DIRECTORY_ANALYSIS (data, string) is the directory saving the exporting figure.'  'DIRECTORY_FIG (data, string) is the directory saving the exporting figure.'  'DIRECTORY_UTIL_R (data, string) is the directory saving the exporting figure.'  'CREATE_R_CONTAINER (query, cell) ensures the Docker image for the R plots exists.'  'PLOT_R_PALETTE (query, empty) generates the palette figure via Docker+R.'  'PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R.' };
+			nnvariationalautoencoderevaluator_rs_description_list = { 'ELCLASS (constant, string) is the class of the evaluator of the neural network analysis.'  'NAME (constant, string) is the name of the evaluator for the neural network analysis.'  'DESCRIPTION (constant, string) is the description of the evaluator for the neural network analysis.'  'TEMPLATE (parameter, item) is the template of the evaluator for the neural network analysis.'  'ID (data, string) is a few-letter code for the evaluator for the neural network analysis.'  'LABEL (metadata, string) is an extended label of the evaluator for the neural network analysis.'  'NOTES (metadata, string) are some specific notes about the evaluator for the neural network analysis.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'NN (data, item) contains a trained neural network model.'  'D (data, item) is the dataset to evaluate the neural network model.'  'PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.'  'PREDICT_ENCODER (query, cell) returns the predictions of an encoder.'  'DPROC (data, item) row-index in TARGET_CLASS for stress.'  'IDX_LABEL_STRESS (parameter, scalar) row-index in TARGET_CLASS for stress.'  'STRESS_ORDER (result, stringlist) canonical order for output.'  'STRESS_SEQ (parameter, stringlist) canonical order for output.'  'IDX_LABEL_KIND (parameter, scalar) row-index in TARGET_CLASS for species.'  'KIND_ORDER (result, stringlist) canonical order for output.'  'IDX_LABEL_LOCATION (parameter, scalar) row-index in TARGET_CLASS for species.'  'LOCATION_ORDER (result, stringlist) canonical order for output.'  'LATENT_REP (result, cell) stores the latent representations for further processing.'  'PREDICT_DECODER (query, empty) indentifies the index when crossing from negative to positive.'  'CROSSING (query, cell) returns indices/times of level crossings.'  'DERIV_PEAKS (query, cell) finds p→n zero-crossing peaks in f′(x) and lobe areas.'  'PEAKS_COMPARE (query, cell) compares per-peak areas between two conditions.'  'DERIV_PEAKS_RUN (query, cell) runs DERIV_PEAKS for all conditions and compares all pairs.'  'DERIV_PEAKS_SAVE (query, cell) saves ranked tables (legacy-compatible filenames).'  'LATENT_IDENTIFICATION (query, empty) runs latent-space export per species × location.'  'DATA_RECONSTRUCTION (query, empty) runs decoding → saves per species × location.'  'PEAK_IDENTIFICATION (query, empty) runs decoding → peaks → save per species.'  'DIRECTORY_ANALYSIS (data, string) is the directory saving the exporting figure.'  'DIRECTORY_FIG (data, string) is the directory saving the exporting figure.'  'DIRECTORY_UTIL_R (data, string) is the directory saving the exporting figure.'  'CREATE_R_CONTAINER (query, cell) ensures the Docker image for the R plots exists.'  'PLOT_R_PALETTE (query, empty) generates the palette figure via Docker+R.'  'PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R.' };
 			prop_description = nnvariationalautoencoderevaluator_rs_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -681,9 +681,9 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					prop_settings = Format.getFormatSettings(3);
 				case 16 % NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
 					prop_settings = Format.getFormatSettings(3);
-				case 17 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_SPECIES
+				case 17 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
 					prop_settings = Format.getFormatSettings(11);
-				case 18 % NNVariationalAutoencoderEvaluator_RS.SPECIES_ORDER
+				case 18 % NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
 					prop_settings = Format.getFormatSettings(3);
 				case 19 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
 					prop_settings = Format.getFormatSettings(11);
@@ -758,9 +758,9 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					prop_default = Format.getFormatDefault(3, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
 				case 16 % NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
 					prop_default = {'WL', 'HL', 'LL', 'SH'};
-				case 17 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_SPECIES
+				case 17 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
 					prop_default = 1;
-				case 18 % NNVariationalAutoencoderEvaluator_RS.SPECIES_ORDER
+				case 18 % NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
 					prop_default = Format.getFormatDefault(3, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
 				case 19 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
 					prop_default = 3;
@@ -884,9 +884,9 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
 				case 16 % NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
 					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 17 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_SPECIES
+				case 17 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
 					check = Format.checkFormat(11, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 18 % NNVariationalAutoencoderEvaluator_RS.SPECIES_ORDER
+				case 18 % NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
 					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
 				case 19 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
 					check = Format.checkFormat(11, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
@@ -970,10 +970,10 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					rng(rng_settings_)
 					
-				case 18 % NNVariationalAutoencoderEvaluator_RS.SPECIES_ORDER
+				case 18 % NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
 					rng_settings_ = rng(); rng(nne.getPropSeed(18), 'twister')
 					
-					idx = nne.get('IDX_LABEL_SPECIES');
+					idx = nne.get('IDX_LABEL_KIND');
 					latent_rep = nne.get('LATENT_REP');
 					YLatent = latent_rep{2};
 					value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'UniformOutput', false)));
@@ -983,7 +983,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				case 20 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
 					rng_settings_ = rng(); rng(nne.getPropSeed(20), 'twister')
 					
-					idx = nne.get('IDX_LABEL_SPECIES');
+					idx = nne.get('IDX_LABEL_KIND');
 					latent_rep = nne.get('LATENT_REP');
 					YLatent = latent_rep{2};
 					value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'UniformOutput', false)));
@@ -1367,7 +1367,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					end
 					
 					% --- indices for labels ---
-					i_species   = nne.get('IDX_LABEL_SPECIES');
+					i_species   = nne.get('IDX_LABEL_KIND');
 					i_stress    = nne.get('IDX_LABEL_STRESS');
 					i_location  = nne.get('IDX_LABEL_LOCATION');
 					stress_order = nne.get('STRESS_ORDER');   % e.g. {'WL','HL','LL','SH'}
@@ -1479,7 +1479,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					% --- wavenumbers and label row indices ---
 					x = d.get('DP_DICT').get('IT', 1).get('WL_OF_INTEREST');  % numeric vector, wavenumber axis
-					i_species   = nne.get('IDX_LABEL_SPECIES');
+					i_species   = nne.get('IDX_LABEL_KIND');
 					i_stress    = nne.get('IDX_LABEL_STRESS');
 					i_location  = nne.get('IDX_LABEL_LOCATION');
 					stress_order = nne.get('STRESS_ORDER');                   % e.g. {'WL','HL','LL','SH'}
@@ -1583,7 +1583,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					% pull wavenumbers and label row indices ---
 					x = d.get('DP_DICT').get('IT', 1).get('WL_OF_INTEREST');  % your x
-					i_species   = nne.get('IDX_LABEL_SPECIES');
+					i_species   = nne.get('IDX_LABEL_KIND');
 					i_stress    = nne.get('IDX_LABEL_STRESS');
 					stress_order = nne.get('STRESS_ORDER');
 					stress_seq   = nne.get('STRESS_SEQ');   % %% NEW: desired sequence of stresses
@@ -1598,7 +1598,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					lat = nne.get('LATENT_REP');  %#ok<NASGU> % ensures it's computed
 					
 					% --- unique species in dataset (stable order) ---
-					species_order = nne.get('SPECIES_ORDER');
+					kind_order = nne.get('KIND_ORDER');
 					
 					% %% NEW: resolve the stress labels sequence we actually want to use
 					if isempty(stress_seq)
@@ -1614,8 +1614,8 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					    end
 					end
 					
-					for s = 1:numel(species_order)
-					    sp = species_order(s);
+					for s = 1:numel(kind_order)
+					    sp = kind_order(s);
 					
 					    % build decoded spectra per stress, following STRESS_SEQ (or STRESS_ORDER fallback)
 					    data_cell   = {};
@@ -1790,17 +1790,18 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					image_tag = out{1};
 					
 					% run script
-                    wd_analysis = nne.get('DIRECTORY_ANALYSIS'); % where .mat + fig_palette_p1.R live
+					wd_analysis = nne.get('DIRECTORY_ANALYSIS'); % where .mat + fig_palette_p1.R live
 					wd_fig    = nne.get('DIRECTORY_FIG');    % where you want the figures
 					wd_rfile = nne.get('DIRECTORY_UTIL_R');
 					
-                    cmd = sprintf([ ...
-                        'docker run --rm ' ...
-                        '-v "%s":/rfiles ' ...
-                        '-v "%s":/work ' ...
-                        '-v "%s":/fig ' ...
-                        '-w /work %s Rscript /rfiles/plot_ls_qnorm_med.R /fig'], ...
-                        wd_rfile, wd_analysis, wd_fig, image_tag);fprintf('>> %s%s', cmd, newline);
+					cmd = sprintf([ ...
+					    'docker run --rm ' ...
+					    '-v "%s":/rfiles ' ...
+					    '-v "%s":/work ' ...
+					    '-v "%s":/fig ' ...
+					    '-w /work %s Rscript /rfiles/plot_ls_qnorm_med.R /fig'], ...
+					    wd_rfile, wd_analysis, wd_fig, image_tag);
+					fprintf('>> %s%s', cmd, newline);fprintf('>> %s%s', cmd, newline);
 					[st,outstr] = system(cmd);
 					disp(outstr);
 					assert(st == 0, 'Docker run failed (plot_ls_qnorm_med.R).');

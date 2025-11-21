@@ -112,14 +112,14 @@ STRESS_SEQ (parameter, stringlist) canonical order for output.
 {'WL', 'HL', 'LL', 'SH'}
 
 %%% ¡prop!
-IDX_LABEL_SPECIES (parameter, scalar) row-index in TARGET_CLASS for species.
+IDX_LABEL_KIND (parameter, scalar) row-index in TARGET_CLASS for species.
 %%%% ¡default!
 1
 
 %%% ¡prop!
-SPECIES_ORDER (result, stringlist) canonical order for output.
+KIND_ORDER (result, stringlist) canonical order for output.
 %%%% ¡calculate!
-idx = nne.get('IDX_LABEL_SPECIES');
+idx = nne.get('IDX_LABEL_KIND');
 latent_rep = nne.get('LATENT_REP');
 YLatent = latent_rep{2};
 value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'UniformOutput', false)));
@@ -132,7 +132,7 @@ IDX_LABEL_LOCATION (parameter, scalar) row-index in TARGET_CLASS for species.
 %%% ¡prop!
 LOCATION_ORDER (result, stringlist) canonical order for output.
 %%%% ¡calculate!
-idx = nne.get('IDX_LABEL_SPECIES');
+idx = nne.get('IDX_LABEL_KIND');
 latent_rep = nne.get('LATENT_REP');
 YLatent = latent_rep{2};
 value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'UniformOutput', false)));
@@ -526,7 +526,7 @@ if num_dp == 0
 end
 
 % --- indices for labels ---
-i_species   = nne.get('IDX_LABEL_SPECIES');
+i_species   = nne.get('IDX_LABEL_KIND');
 i_stress    = nne.get('IDX_LABEL_STRESS');
 i_location  = nne.get('IDX_LABEL_LOCATION');
 stress_order = nne.get('STRESS_ORDER');   % e.g. {'WL','HL','LL','SH'}
@@ -640,7 +640,7 @@ end
 
 % --- wavenumbers and label row indices ---
 x = d.get('DP_DICT').get('IT', 1).get('WL_OF_INTEREST');  % numeric vector, wavenumber axis
-i_species   = nne.get('IDX_LABEL_SPECIES');
+i_species   = nne.get('IDX_LABEL_KIND');
 i_stress    = nne.get('IDX_LABEL_STRESS');
 i_location  = nne.get('IDX_LABEL_LOCATION');
 stress_order = nne.get('STRESS_ORDER');                   % e.g. {'WL','HL','LL','SH'}
@@ -746,7 +746,7 @@ end
 
 % pull wavenumbers and label row indices ---
 x = d.get('DP_DICT').get('IT', 1).get('WL_OF_INTEREST');  % your x
-i_species   = nne.get('IDX_LABEL_SPECIES');
+i_species   = nne.get('IDX_LABEL_KIND');
 i_stress    = nne.get('IDX_LABEL_STRESS');
 stress_order = nne.get('STRESS_ORDER');
 stress_seq   = nne.get('STRESS_SEQ');   % %% NEW: desired sequence of stresses
@@ -761,7 +761,7 @@ stress_all  = string(cellfun(@(ind_labels) string(ind_labels(i_stress)),  YLaten
 lat = nne.get('LATENT_REP');  %#ok<NASGU> % ensures it's computed
 
 % --- unique species in dataset (stable order) ---
-species_order = nne.get('SPECIES_ORDER');
+kind_order = nne.get('KIND_ORDER');
 
 % %% NEW: resolve the stress labels sequence we actually want to use
 if isempty(stress_seq)
@@ -777,8 +777,8 @@ else
     end
 end
 
-for s = 1:numel(species_order)
-    sp = species_order(s);
+for s = 1:numel(kind_order)
+    sp = kind_order(s);
 
     % build decoded spectra per stress, following STRESS_SEQ (or STRESS_ORDER fallback)
     data_cell   = {};

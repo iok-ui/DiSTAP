@@ -94,6 +94,22 @@ value = NNDataset( ...
 %% ¡props!
 
 %%% ¡prop!
+STRESS_SEQ (parameter, stringlist) canonical order for output.
+%%%% ¡default!
+{'WL', 'HL', 'LL', 'SH'}
+
+%%% ¡prop!
+KIND_SEQ (parameter, stringlist) canonical order for output.
+%%%% ¡default!
+{'AB2', 'CS', 'KL'}
+
+
+%%% ¡prop!
+LOCATION_SEQ (parameter, stringlist) canonical order for output.
+%%%% ¡default!
+{'loc1', 'loc2'}
+
+%%% ¡prop!
 TARGETS_TO_REMOVE (data, stringlist) contains the directory of the b2 file for spectrum data.
 %%%% ¡default!
 {'ps'}
@@ -330,68 +346,104 @@ for i = 1:size(X, 2)
 end
 
 %%% ¡prop!
-EXTRACT_LABELS (query, stringlist) extracts the labels from the specified IDX files.
+EXTRACT_LABELS (query, stringlist) extracts labels from all *.b2 files in RAW_DATA_DIR.
 %%%% ¡calculate!
+% VALUE = dproc.get('EXTRACT_LABELS')
+%
+% For each spectrum column in each *.b2 file, this query builds a 4×N
+% label matrix:
+%   row 1 – species  (from KIND_SEQ and filename)
+%   row 2 – stress   (from STRESS_SEQ and spectrum ID)
+%   row 3 – location (from LOCATION_SEQ and spectrum ID)
+%   row 4 – plant ID (full spectrum ID)
+% and returns VALUE as a stringlist where VALUE{i} is a char array with
+% these 4 label rows for the i-th spectrum.
+
 dir_name = dproc.get('RAW_DATA_DIR');
 if isempty(dir_name)
     value = {};
     return
 end
-file_list = dir([dir_name filesep '*b2']);
-for i = 1:length(file_list)
-    file_names(i) = string(file_list(i).name);
+
+% sequences are defined in the process (and may differ per dataset)
+stress_seq   = string(dproc.get('STRESS_SEQ'));    % e.g. ["WL","HL","LL","SH","ps"]
+kind_seq     = string(dproc.get('KIND_SEQ'));      % e.g. ["AB","CS","KL"]
+location_seq = string(dproc.get('LOCATION_SEQ'));  % e.g. ["loc1","loc2","ps"]
+
+file_list = dir(fullfile(dir_name, '*b2'));
+if isempty(file_list)
+    value = {};
+    return
 end
-file_names = file_names';
 
-Y = "";
-for file_idx = 1:length(file_names)
-    file_name = file_names(file_idx);
-    b2_el = load([dir_name filesep char(file_name)], '-mat');
+% pre-allocate label matrix as we go
+Y = strings(4, 0);
+col_offset = 0;
 
-    num_spectrum_file = b2_el.el.get('RE_OUT').get('SP_DICT').get('LENGTH');
-    ids = cellfun(@(spectrum) spectrum.get('ID'), b2_el.el.get('RE_OUT').get('SP_DICT').get('IT_LIST') ,'UniformOutput', false);
+for f = 1:numel(file_list)
+    file_name = string(file_list(f).name);
+    b2_el = load(fullfile(dir_name, file_list(f).name), '-mat');
 
-    num_previous_col = size(Y, 2);
-    
+    sp_dict = b2_el.el.get('RE_OUT').get('SP_DICT');
+    num_spectrum_file = sp_dict.get('LENGTH');
+    ids = cellfun(@(sp) sp.get('ID'), sp_dict.get('IT_LIST'), 'UniformOutput', false);
+
+    % --- species (kind) from filename, via KIND_SEQ pattern matching ---
+    species_label = "";
+    for kk = 1:numel(kind_seq)
+        if contains(file_name, kind_seq(kk))
+            species_label = kind_seq(kk);
+            break
+        end
+    end
+    if species_label == ""
+        warning('EXTRACT_LABELS:NoSpeciesMatch', ...
+            'No KIND_SEQ label matched filename "%s". Leaving species row empty.', file_name);
+    end
+
+    % --- loop over spectra in this file ---
     for i = 1:num_spectrum_file
-        intensities = b2_el.el.get('RE_OUT').get('SP_DICT').get('IT', i).get('INTENSITIES');
+        sp_el = sp_dict.get('IT', i);
+        intensities = sp_el.get('INTENSITIES'); % (#wavenumbers × #columns)
         num_col = size(intensities, 2);
-        if file_idx == 1
-            counter1 = (i-1)*num_col + 1;
-            counter2 = num_col*i;
-        else
-            counter1 = (i-1)*num_col + 1 + num_previous_col;
-            counter2 = num_col*i + num_previous_col;
+        if num_col == 0
+            continue
         end
 
-        id = ids{i};
-        Y(1, counter1:counter2) = extractBetween(file_name, '_', '_'); % type
-        if Y(1, counter1:counter2) == "AB2"
-            Y(1, counter1:counter2) = "AB";
-        end 
+        id = string(ids{i});
 
-        if contains(id, 'WL')
-            Y(2, counter1:counter2) = "WL"; % shade
-        elseif contains(id, 'HL')
-            Y(2, counter1:counter2) = "HL"; % shade
-        elseif contains(id, 'LL')
-            Y(2, counter1:counter2) = "LL"; % shade
-        elseif contains(id, 'SH')
-            Y(2, counter1:counter2) = "SH"; % shade
-        elseif contains(id, 'ps')
-            Y(2, counter1:counter2) = "ps"; % shade
+        % stress label from STRESS_SEQ
+        stress_label = "";
+        for ss = 1:numel(stress_seq)
+            if contains(id, stress_seq(ss))
+                stress_label = stress_seq(ss);
+                break
+            end
         end
-        if contains(id, 'loc1')
-            Y(3, counter1:counter2) = "loc1"; % location
-        elseif contains(id, 'loc2')
-            Y(3, counter1:counter2) = "loc2"; % location
-        elseif contains(id, 'ps')
-            Y(3, counter1:counter2) = "ps"; % location
+
+        % location label from LOCATION_SEQ
+        location_label = "";
+        for ll = 1:numel(location_seq)
+            if contains(id, location_seq(ll))
+                location_label = location_seq(ll);
+                break
+            end
         end
-        Y(4, counter1:counter2) = id; % id of the plant
+
+        % expand Y to accommodate these columns
+        Y(:, col_offset + (1:num_col)) = [
+            repmat(species_label , 1, num_col)  % row 1: species
+            repmat(stress_label  , 1, num_col)  % row 2: stress
+            repmat(location_label, 1, num_col)  % row 3: location
+            repmat(id            , 1, num_col)  % row 4: plant ID
+        ];
+
+        col_offset = col_offset + num_col;
     end
 end
 
+% convert 4×N string matrix into stringlist of char arrays
+value = cell(1, size(Y, 2));
 for i = 1:size(Y, 2)
     value{i} = char(Y(:, i));
 end
