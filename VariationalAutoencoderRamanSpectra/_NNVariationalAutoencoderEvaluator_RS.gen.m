@@ -143,7 +143,7 @@ LATENT_REP (result, cell) stores the latent representations for further processi
 nnvae = nne.get('NN');
 netE = nnvae.get('ENCODER');
 d = nne.get('D');
-mbq = nnvae.get('MBQ', d);
+mbq = nnvae.get('MBQ', d, 1);
 
 value = nne.get('PREDICT_ENCODER', netE, mbq);
 
@@ -720,10 +720,14 @@ for s = 1:numel(species_list)
         data    = spectra_cell; %#ok<NASGU>
         x_local = x(:);        %#ok<NASGU>  % ensure column
 
-        % filename exactly as fig_palette_p1.R / plot_ls_qnorm_med.R expect:
-        % "(Tr) Diff Spectrum (WL-HL-LL-SH) with AB and loc1.mat"
-        fname = sprintf('(Tr) Diff Spectrum (WL-HL-LL-SH) with %s and %s.mat', ...
-                        char(sp), char(loc));
+        % build the "(WL-HL-...)" part dynamically from stress_seq_labels
+        stress_label_block = strjoin(cellstr(stress_seq_labels(:)), '-');
+
+        % filename that R scripts expect, now generic:
+        % e.g. "(Tr) Diff Spectrum (WL-HL-LL-SH) with AB and loc1.mat"
+        %      "(Tr) Diff Spectrum (WL-HL) with AB and loc1.mat"
+        fname = sprintf('(Tr) Diff Spectrum (%s) with %s and %s.mat', ...
+                        stress_label_block, char(sp), char(loc));
         save_path = fullfile(out_dir, fname);
 
         % R code uses "data" and "x"
