@@ -772,7 +772,11 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 					
 					wl = dp.get('WL');
 					wl_range = dp.get('WL_RANGE');
-					value = wl(wl_range(1):wl_range(2));
+					if isempty(wl_range)
+					    value = [];
+					else
+					    value = wl(wl_range(1):wl_range(2));
+					end
 					
 					rng(rng_settings_)
 					
@@ -780,6 +784,11 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 					rng_settings_ = rng(); rng(dp.getPropSeed(9), 'twister')
 					
 					wl_range = dp.get('WL_RANGE');
+					if isempty(wl_range)
+					    value = {};
+					    return
+					end
+					
 					idx_wav_start = wl_range(1);
 					idx_wav_end = wl_range(2);
 					

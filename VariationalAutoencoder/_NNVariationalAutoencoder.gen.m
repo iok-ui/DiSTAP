@@ -204,7 +204,11 @@ num_outputs = nnvae.get('NUM_MBQ_OUTPUT');
 itr = nnvae.get('ITERATION_DIM');
 format_input = string(nnvae.get('MINIBATCH_FORMAT_INPUT'));
 format_target = string(nnvae.get('MINIBATCH_FORMAT_TARGET'));
-miniBatchSize = nnvae.get('BATCH');
+if length(varargin) > 1
+    miniBatchSize = varargin{2};
+else
+    miniBatchSize = nnvae.get('BATCH');
+end
 
 XTrain = nnvae.get('INPUTS', d);
 %YTrain = categorical(nnvae.get('TARGETS', d));

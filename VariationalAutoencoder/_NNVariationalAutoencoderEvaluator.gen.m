@@ -55,6 +55,10 @@ NOTES (metadata, string) are some specific notes about the evaluator for the neu
 PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.
 %%%% ¡calculate!
 nnvae = nne.get('NN');
+if strcmp(class(nnvae), 'NNBase')
+    value = [];
+    return
+end
 netE = nnvae.get('ENCODER');
 d = nne.get('D');
 mbq = nnvae.get('MBQ', d);

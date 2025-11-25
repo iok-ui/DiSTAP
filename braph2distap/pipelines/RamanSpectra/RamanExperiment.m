@@ -14,6 +14,7 @@ classdef RamanExperiment < ConcreteElement
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about the Raman spectroscopy experiment.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>SP_DICT</strong> 	SP_DICT (data, idict) contains the aquired Raman spectra.
+	%  <strong>10</strong> <strong>DATE</strong> 	DATE (parameter, string) contains the date for the aquired Raman spectra.
 	%
 	% RamanExperiment methods (constructor):
 	%  RamanExperiment - constructor
@@ -106,6 +107,11 @@ classdef RamanExperiment < ConcreteElement
 		SP_DICT_TAG = 'SP_DICT';
 		SP_DICT_CATEGORY = 4;
 		SP_DICT_FORMAT = 10;
+		
+		DATE = 10; %CET: Computational Efficiency Trick
+		DATE_TAG = 'DATE';
+		DATE_CATEGORY = 3;
+		DATE_FORMAT = 2;
 	end
 	methods % constructor
 		function re = RamanExperiment(varargin)
@@ -128,6 +134,7 @@ classdef RamanExperiment < ConcreteElement
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about the Raman spectroscopy experiment.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>SP_DICT</strong> 	SP_DICT (data, idict) contains the aquired Raman spectra.
+			%  <strong>10</strong> <strong>DATE</strong> 	DATE (parameter, string) contains the date for the aquired Raman spectra.
 			%
 			% See also Category, Format.
 			
@@ -204,7 +211,7 @@ classdef RamanExperiment < ConcreteElement
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9];
+				prop_list = [1 2 3 4 5 6 7 8 9 10];
 				return
 			end
 			
@@ -214,7 +221,7 @@ classdef RamanExperiment < ConcreteElement
 				case 2 % Category.METADATA
 					prop_list = [6 7];
 				case 3 % Category.PARAMETER
-					prop_list = 4;
+					prop_list = [4 10];
 				case 4 % Category.DATA
 					prop_list = [5 9];
 				case 6 % Category.QUERY
@@ -244,7 +251,7 @@ classdef RamanExperiment < ConcreteElement
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_number = 9;
+				prop_number = 10;
 				return
 			end
 			
@@ -254,7 +261,7 @@ classdef RamanExperiment < ConcreteElement
 				case 2 % Category.METADATA
 					prop_number = 2;
 				case 3 % Category.PARAMETER
-					prop_number = 1;
+					prop_number = 2;
 				case 4 % Category.DATA
 					prop_number = 2;
 				case 6 % Category.QUERY
@@ -289,7 +296,7 @@ classdef RamanExperiment < ConcreteElement
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 9 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = prop >= 1 && prop <= 10 && round(prop) == prop; %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -327,7 +334,7 @@ classdef RamanExperiment < ConcreteElement
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT'  'DATE' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -360,7 +367,7 @@ classdef RamanExperiment < ConcreteElement
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT'  'DATE' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -389,7 +396,7 @@ classdef RamanExperiment < ConcreteElement
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				ramanexperiment_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT' };
+				ramanexperiment_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT'  'DATE' };
 				tag = ramanexperiment_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -416,7 +423,7 @@ classdef RamanExperiment < ConcreteElement
 			prop = RamanExperiment.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			ramanexperiment_category_list = { 1  1  1  3  4  2  2  6  4 };
+			ramanexperiment_category_list = { 1  1  1  3  4  2  2  6  4  3 };
 			prop_category = ramanexperiment_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -442,7 +449,7 @@ classdef RamanExperiment < ConcreteElement
 			prop = RamanExperiment.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			ramanexperiment_format_list = { 2  2  2  8  2  2  2  2  10 };
+			ramanexperiment_format_list = { 2  2  2  8  2  2  2  2  10  2 };
 			prop_format = ramanexperiment_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
@@ -468,7 +475,7 @@ classdef RamanExperiment < ConcreteElement
 			prop = RamanExperiment.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			ramanexperiment_description_list = { 'ELCLASS (constant, string) is the class of the Raman spectroscopy experiment.'  'NAME (constant, string) is the name of the Raman spectroscopy experiment.'  'DESCRIPTION (constant, string) is the description of the Raman spectroscopy experiment.'  'TEMPLATE (parameter, item) is the template of the Raman spectroscopy experiment.'  'ID (data, string) is a few-letter code for the Raman spectroscopy experiment.'  'LABEL (metadata, string) is an extended label of the Raman spectroscopy experiment.'  'NOTES (metadata, string) are some specific notes about the Raman spectroscopy experiment.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'SP_DICT (data, idict) contains the aquired Raman spectra.' };
+			ramanexperiment_description_list = { 'ELCLASS (constant, string) is the class of the Raman spectroscopy experiment.'  'NAME (constant, string) is the name of the Raman spectroscopy experiment.'  'DESCRIPTION (constant, string) is the description of the Raman spectroscopy experiment.'  'TEMPLATE (parameter, item) is the template of the Raman spectroscopy experiment.'  'ID (data, string) is a few-letter code for the Raman spectroscopy experiment.'  'LABEL (metadata, string) is an extended label of the Raman spectroscopy experiment.'  'NOTES (metadata, string) are some specific notes about the Raman spectroscopy experiment.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'SP_DICT (data, idict) contains the aquired Raman spectra.'  'DATE (parameter, string) contains the date for the aquired Raman spectra.' };
 			prop_description = ramanexperiment_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -496,6 +503,8 @@ classdef RamanExperiment < ConcreteElement
 			switch prop %CET: Computational Efficiency Trick
 				case 9 % RamanExperiment.SP_DICT
 					prop_settings = 'Spectrum';
+				case 10 % RamanExperiment.DATE
+					prop_settings = Format.getFormatSettings(2);
 				case 4 % RamanExperiment.TEMPLATE
 					prop_settings = 'RamanExperiment';
 				otherwise
@@ -527,6 +536,8 @@ classdef RamanExperiment < ConcreteElement
 			switch prop %CET: Computational Efficiency Trick
 				case 9 % RamanExperiment.SP_DICT
 					prop_default = Format.getFormatDefault(10, RamanExperiment.getPropSettings(prop));
+				case 10 % RamanExperiment.DATE
+					prop_default = Format.getFormatDefault(2, RamanExperiment.getPropSettings(prop));
 				case 1 % RamanExperiment.ELCLASS
 					prop_default = 'RamanExperiment';
 				case 2 % RamanExperiment.NAME
@@ -607,6 +618,8 @@ classdef RamanExperiment < ConcreteElement
 			switch prop
 				case 9 % RamanExperiment.SP_DICT
 					check = Format.checkFormat(10, value, RamanExperiment.getPropSettings(prop));
+				case 10 % RamanExperiment.DATE
+					check = Format.checkFormat(2, value, RamanExperiment.getPropSettings(prop));
 				case 4 % RamanExperiment.TEMPLATE
 					check = Format.checkFormat(8, value, RamanExperiment.getPropSettings(prop));
 				otherwise

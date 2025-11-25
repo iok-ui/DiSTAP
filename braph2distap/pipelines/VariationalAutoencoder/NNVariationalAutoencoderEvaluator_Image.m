@@ -658,7 +658,12 @@ classdef NNVariationalAutoencoderEvaluator_Image < NNVariationalAutoencoderEvalu
 			
 			switch prop
 				case 13 % NNVariationalAutoencoderEvaluator_Image.PLOT_LATENT_CONTINUITY
-					netD = nne.get('NN').get('DECODER');
+					nnvae = nne.get('NN');
+					if strcmp(class(nnvae), 'NNBase')
+					    value = [];
+					    return
+					end
+					netD = nnvae.get('DECODER');
 					n = 20;
 					figsize = 15;
 					
