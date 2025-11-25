@@ -836,10 +836,11 @@ classdef NNVariationalAutoencoder < NNBase
 					format_input = string(nnvae.get('MINIBATCH_FORMAT_INPUT'));
 					format_target = string(nnvae.get('MINIBATCH_FORMAT_TARGET'));
 					if length(varargin) > 1
-                        miniBatchSize = varargin{2};
-                    else
-                        miniBatchSize = nnvae.get('BATCH');
-                    end
+					    miniBatchSize = varargin{2};
+					else
+					    miniBatchSize = nnvae.get('BATCH');
+					end
+					
 					XTrain = nnvae.get('INPUTS', d);
 					%YTrain = categorical(nnvae.get('TARGETS', d));
 					YTrain = 1:1:num_dp;

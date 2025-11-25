@@ -791,6 +791,11 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 					inputSize = nnvae.get('SIZE_INPUT');
 					numFeature = prod(inputSize);
 					
+					if nnvae.isLocked('ENCODER')
+					    value = {};
+					    return
+					end
+					
 					% Define layers
 					layersE = [
 					    featureInputLayer(numFeature, Normalization="none")

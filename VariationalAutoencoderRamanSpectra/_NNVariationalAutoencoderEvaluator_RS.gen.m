@@ -99,7 +99,7 @@ IDX_LABEL_STRESS (parameter, scalar) row-index in TARGET_CLASS for stress.
 2
 
 %%% ¡prop!
-STRESS_ORDER (result, stringlist) canonical order for output.
+STRESS_ORDER (query, stringlist) canonical order for output.
 %%%% ¡calculate!
 idx = nne.get('IDX_LABEL_STRESS');
 latent_rep = nne.get('LATENT_REP');
@@ -109,7 +109,22 @@ value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'U
 %%% ¡prop!
 STRESS_SEQ (parameter, stringlist) canonical order for output.
 %%%% ¡default!
-{'WL', 'HL', 'LL', 'SH'}
+{'HL', 'WL', 'LL', 'SH'}
+
+%%% ¡prop!
+STRESS_LABEL (parameter, stringlist) canonical order for output.
+%%%% ¡default!
+{'High light', 'White light', 'Low light', 'Shade'}
+
+%%% ¡prop!
+STRESS_COLOUR (parameter, stringlist) canonical order for output.
+%%%% ¡default!
+{'#E64B35FF', '#7E6148FF', '#4DBBD5FF', '#3C5488FF'}
+
+%%% ¡prop!
+STRESS_SHAPE (parameter, stringlist) canonical order for output.
+%%%% ¡default!
+{'square', 'circle', 'triangle', 'diamond'}
 
 %%% ¡prop!
 IDX_LABEL_KIND (parameter, scalar) row-index in TARGET_CLASS for species.
@@ -117,7 +132,7 @@ IDX_LABEL_KIND (parameter, scalar) row-index in TARGET_CLASS for species.
 1
 
 %%% ¡prop!
-KIND_ORDER (result, stringlist) canonical order for output.
+KIND_ORDER (query, stringlist) canonical order for output.
 %%%% ¡calculate!
 idx = nne.get('IDX_LABEL_KIND');
 latent_rep = nne.get('LATENT_REP');
@@ -130,7 +145,7 @@ IDX_LABEL_LOCATION (parameter, scalar) row-index in TARGET_CLASS for species.
 3
 
 %%% ¡prop!
-LOCATION_ORDER (result, stringlist) canonical order for output.
+LOCATION_ORDER (query, stringlist) canonical order for output.
 %%%% ¡calculate!
 idx = nne.get('IDX_LABEL_KIND');
 latent_rep = nne.get('LATENT_REP');
@@ -141,6 +156,10 @@ value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'U
 LATENT_REP (result, cell) stores the latent representations for further processing.
 %%%% ¡calculate!
 nnvae = nne.get('NN');
+if strcmp(class(nnvae), 'NNBase') % nnvae is exactly NNBase (no subclass)
+    value = {};
+    return
+end
 netE = nnvae.get('ENCODER');
 d = nne.get('D');
 mbq = nnvae.get('MBQ', d, 1);
@@ -516,7 +535,7 @@ LATENT_IDENTIFICATION (query, empty) runs latent-space export per species × loc
 %     z1_range : [min_z1 max_z1] over all datapoints (global)
 %     z2_range : [min_z2 max_z2] over all datapoints (global)
 %
-% These are the inputs expected by plot_ls_qnorm_med.R and fig_palette_p1.R.
+% These are the inputs expected by generic_plot_ls_qnorm_med.R and generic_fig_palette_p1.R.
 
 d = nne.get('D');
 num_dp = d.get('DP_DICT').get('LENGTH');
@@ -577,6 +596,26 @@ else
 end
 
 K = numel(stress_seq_labels);
+% ---- map canonical STRESS_* onto the sequence we actually use ----
+canon_seq    = string(nne.get('STRESS_SEQ'));
+canon_label  = string(nne.get('STRESS_LABEL'));
+canon_colour = string(nne.get('STRESS_COLOUR'));
+canon_shape  = string(nne.get('STRESS_SHAPE'));
+
+[~, idx_map] = ismember(stress_seq_labels, canon_seq);
+
+if any(idx_map == 0)
+    warning('LATENT_IDENTIFICATION: some stresses not found in STRESS_SEQ; using tokens as labels, default colour/shape.');
+    stress_label_run  = cellstr(stress_seq_labels);
+    stress_colour_run = repmat({'#000000FF'}, size(stress_label_run));
+    stress_shape_run  = repmat({'circle'},    size(stress_label_run));
+else
+    stress_label_run  = cellstr(canon_label(idx_map));
+    stress_colour_run = cellstr(canon_colour(idx_map));
+    stress_shape_run  = cellstr(canon_shape(idx_map));
+end
+
+stress_seq_run = cellstr(stress_seq_labels(:));
 
 % --- output folder ---
 root_dir = nne.get('DIRECTORY_ANALYSIS');
@@ -622,7 +661,14 @@ for s = 1:numel(species_list)
         save_path = fullfile(out_dir, fname);
 
         % save variables: z1, z2, z1_range, z2_range
-        save(save_path, 'z1', 'z2', 'z1_range', 'z2_range');
+        stress_seq   = stress_seq_run;   %#ok<NASGU>
+        stress_label = stress_label_run; %#ok<NASGU>
+        stress_colour = stress_colour_run; %#ok<NASGU>
+        stress_shape  = stress_shape_run; %#ok<NASGU>
+
+        save(save_path, ...
+            'z1', 'z2', 'z1_range', 'z2_range', ...
+            'stress_seq', 'stress_label', 'stress_colour', 'stress_shape');
     end
 end
 
@@ -676,6 +722,29 @@ else
     end
 end
 
+% ---- map canonical STRESS_* onto the sequence we actually use ----
+canon_seq    = string(nne.get('STRESS_SEQ'));    % e.g. {"HL","WL","LL","SH"}
+canon_label  = string(nne.get('STRESS_LABEL'));  % same length/order as canon_seq
+canon_colour = string(nne.get('STRESS_COLOUR'));
+canon_shape  = string(nne.get('STRESS_SHAPE'));
+
+[~, idx_map] = ismember(stress_seq_labels, canon_seq);
+
+if any(idx_map == 0)
+    % fallback if user put a stress in STRESS_SEQ/STRESS_ORDER that isn't in canon_seq
+    warning('Some stresses in stress_seq_labels are not found in STRESS_SEQ; using labels=token, default colour/shape.');
+    stress_label_run  = cellstr(stress_seq_labels);
+    stress_colour_run = repmat({'#000000FF'}, size(stress_label_run)); % black
+    stress_shape_run  = repmat({'circle'},    size(stress_label_run)); % circle
+else
+    stress_label_run  = cellstr(canon_label(idx_map));
+    stress_colour_run = cellstr(canon_colour(idx_map));
+    stress_shape_run  = cellstr(canon_shape(idx_map));
+end
+
+% row cellstr → for saving
+stress_seq_run = cellstr(stress_seq_labels(:));
+
 % --- output folder for transformed spectra ---
 root_dir = nne.get('DIRECTORY_ANALYSIS');
 out_dir  = fullfile(root_dir, 'crnr_transformed');
@@ -727,12 +796,20 @@ for s = 1:numel(species_list)
         % e.g. "(Tr) Diff Spectrum (WL-HL-LL-SH) with AB and loc1.mat"
         %      "(Tr) Diff Spectrum (WL-HL) with AB and loc1.mat"
         fname = sprintf('(Tr) Diff Spectrum (%s) with %s and %s.mat', ...
-                        stress_label_block, char(sp), char(loc));
+            stress_label_block, char(sp), char(loc));
         save_path = fullfile(out_dir, fname);
 
         % R code uses "data" and "x"
+        stress_seq   = stress_seq_run;   %#ok<NASGU>
+        stress_label = stress_label_run; %#ok<NASGU>
+        stress_colour = stress_colour_run; %#ok<NASGU>
+        stress_shape  = stress_shape_run; %#ok<NASGU>
+
         x = x_local; %#ok<NASGU>
-        save(save_path, 'data', 'x');
+
+        save(save_path, ...
+            'data', 'x', ...
+            'stress_seq', 'stress_label', 'stress_colour', 'stress_shape');
     end
 end
 
@@ -871,7 +948,7 @@ end
 
 % --- 2) Dockerfile present? ---
 dkfile = fullfile(docker_dir, 'Dockerfile');
-if ~exist(dkfile, 'file')
+if ~exist(dkfile, 'file') && ~BRAPH2TEST.RANDOM
     warning('No Dockerfile at: %s', dkfile);
     value = {};
     return
@@ -919,7 +996,7 @@ value = {image_tag};
 PLOT_R_PALETTE (query, empty) generates the palette figure via Docker+R.
 %%%% ¡calculate!
 % Ensures container image, computes latent/peaks (so inputs for R exist),
-% then runs: Rscript fig_palette_p1.R  inside the mounted workdir.
+% then runs: Rscript generic_fig_palette_p1.R  inside the mounted workdir.
 
 % ensure prerequisites
 nne.memorize('LATENT_REP');
@@ -927,7 +1004,7 @@ nne.get('PEAK_IDENTIFICATION');
 nne.get('DATA_RECONSTRUCTION');
 nne.get('LATENT_IDENTIFICATION');
 
-wd_analysis = nne.get('DIRECTORY_ANALYSIS'); % where .mat + fig_palette_p1.R live
+wd_analysis = nne.get('DIRECTORY_ANALYSIS'); % where .mat + generic_fig_palette_p1.R live
 wd_fig    = nne.get('DIRECTORY_FIG');    % where you want the figures
 wd_rfile = nne.get('DIRECTORY_UTIL_R');
 
@@ -945,13 +1022,13 @@ cmd = sprintf([ ...
     '-v "%s":/rfiles ' ...   % R scripts dir -> /rfiles
     '-v "%s":/work '   ...   % analysis/results dir (.mat) -> /work
     '-v "%s":/fig '    ...   % figure output dir           -> /fig
-    '-w /work %s Rscript /rfiles/fig_palette_p1.R /fig'], ...
+    '-w /work %s Rscript /rfiles/generic_fig_palette_p1.R /fig'], ...
     wd_rfile, wd_analysis, wd_fig, image_tag);
 
 fprintf('>> %s%s', cmd, newline);
 [st, outstr] = system(cmd);
 disp(outstr);
-assert(st == 0, 'Docker run failed (fig_palette_p1.R).');
+assert(st == 0, 'Docker run failed (generic_fig_palette_p1.R).');
 
 fprintf('Palette figures generated and saved in: %s%s', wd_fig, newline);
 
@@ -961,7 +1038,7 @@ value = {};
 PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R.
 %%%% ¡calculate!
 % Ensures container image, computes latent/peaks, then runs:
-% Rscript plot_ls_qnorm_med.R  inside the mounted workdir.
+% Rscript generic_plot_ls_qnorm_med.R  inside the mounted workdir.
 
 % ensure prerequisites
 nne.memorize('LATENT_REP');
@@ -978,7 +1055,7 @@ end
 image_tag = out{1};
 
 % run script
-wd_analysis = nne.get('DIRECTORY_ANALYSIS'); % where .mat + fig_palette_p1.R live
+wd_analysis = nne.get('DIRECTORY_ANALYSIS'); % where .mat + generic_fig_palette_p1.R live
 wd_fig    = nne.get('DIRECTORY_FIG');    % where you want the figures
 wd_rfile = nne.get('DIRECTORY_UTIL_R');
 
@@ -987,12 +1064,12 @@ cmd = sprintf([ ...
     '-v "%s":/rfiles ' ...
     '-v "%s":/work ' ...
     '-v "%s":/fig ' ...
-    '-w /work %s Rscript /rfiles/plot_ls_qnorm_med.R /fig'], ...
+    '-w /work %s Rscript /rfiles/generic_plot_ls_qnorm_med.R /fig'], ...
     wd_rfile, wd_analysis, wd_fig, image_tag);
 fprintf('>> %s%s', cmd, newline);fprintf('>> %s%s', cmd, newline);
 [st,outstr] = system(cmd);
 disp(outstr);
-assert(st == 0, 'Docker run failed (plot_ls_qnorm_med.R).');
+assert(st == 0, 'Docker run failed (generic_plot_ls_qnorm_med.R).');
 
 % success message
 fprintf('Ls qnorm figures produced successfully and saved in: %s%s', wd_fig, newline);
@@ -1002,4 +1079,4 @@ value = {};
 %% ¡tests!
 
 %%% ¡excluded_props!
-[NNVariationalAutoencoderEvaluator_RS.PLOT_LATENT_REPRESENTATIONS NNVariationalAutoencoderEvaluator_RS.PREDICT_ENCODER]
+[NNVariationalAutoencoderEvaluator_RS.PLOT_LATENT_REPRESENTATIONS NNVariationalAutoencoderEvaluator_RS.PREDICT_ENCODER NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER NNVariationalAutoencoderEvaluator_RS.KIND_ORDER NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER]

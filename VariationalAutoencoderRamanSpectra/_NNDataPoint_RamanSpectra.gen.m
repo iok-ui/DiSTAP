@@ -54,6 +54,11 @@ NOTES (metadata, string) are some specific notes about the data point for spectr
 INPUT (result, cell) is the input value for this data point for spectrum.
 %%%% ¡calculate!
 wl_range = dp.get('WL_RANGE');
+if isempty(wl_range)
+    value = {};
+    return
+end
+
 idx_wav_start = wl_range(1);
 idx_wav_end = wl_range(2);
 
@@ -113,4 +118,8 @@ WL_OF_INTEREST (result, rvector) is the ending wavelength.
 %%%% ¡calculate!
 wl = dp.get('WL');
 wl_range = dp.get('WL_RANGE');
-value = wl(wl_range(1):wl_range(2));
+if isempty(wl_range)
+    value = [];
+else
+    value = wl(wl_range(1):wl_range(2));
+end

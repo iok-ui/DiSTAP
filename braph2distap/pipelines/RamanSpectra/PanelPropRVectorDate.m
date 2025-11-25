@@ -640,7 +640,7 @@ classdef PanelPropRVectorDate < PanelProp
 				case 23 % PanelPropRVectorDate.EL
 					prop_default = RamanExperiment();
 				case 24 % PanelPropRVectorDate.PROP
-					prop_default = RamanExperiment.DATE;
+					prop_default = 10;
 				case 25 % PanelPropRVectorDate.HEIGHT
 					prop_default = 48;
 				otherwise

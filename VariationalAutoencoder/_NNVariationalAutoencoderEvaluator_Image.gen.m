@@ -53,7 +53,12 @@ NOTES (metadata, string) are some specific notes about the evaluator for the neu
 %%% ¡prop!
 PLOT_LATENT_CONTINUITY (query, empty) is to plot latetn representations.
 %%%% ¡calculate!
-netD = nne.get('NN').get('DECODER');
+nnvae = nne.get('NN');
+if strcmp(class(nnvae), 'NNBase')
+    value = [];
+    return
+end
+netD = nnvae.get('DECODER');
 n = 20;
 figsize = 15;
 

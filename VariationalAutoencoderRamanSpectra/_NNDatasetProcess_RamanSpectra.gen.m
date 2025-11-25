@@ -103,7 +103,6 @@ KIND_SEQ (parameter, stringlist) canonical order for output.
 %%%% ¡default!
 {'AB2', 'CS', 'KL'}
 
-
 %%% ¡prop!
 LOCATION_SEQ (parameter, stringlist) canonical order for output.
 %%%% ¡default!

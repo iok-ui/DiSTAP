@@ -669,6 +669,10 @@ classdef NNVariationalAutoencoderEvaluator < NNEvaluator
 			switch prop
 				case 11 % NNVariationalAutoencoderEvaluator.PLOT_LATENT_REPRESENTATIONS
 					nnvae = nne.get('NN');
+					if strcmp(class(nnvae), 'NNBase')
+					    value = [];
+					    return
+					end
 					netE = nnvae.get('ENCODER');
 					d = nne.get('D');
 					mbq = nnvae.get('MBQ', d);
