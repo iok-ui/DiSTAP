@@ -55,7 +55,7 @@ This folder contains four study-specific example scripts and their corresponding
 Each study folder contains:
 
 - The original Raman spectra data used in the corresponding plant-stress experiment.  
-- Panels generated with the same algorithms and settings as the manuscript figures. Results may vary slightly between runs but the patterns are consistent.
+- Panels generated using the same algorithms and settings as in the manuscript. While the VAE introduces minor stochastic variation across runs, the key patterns remain robust and consistent with the manuscript’s results.
 
 ## Software requirements
 
