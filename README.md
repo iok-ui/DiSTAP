@@ -48,7 +48,7 @@ This folder contains four study-specific example scripts and their corresponding
    - Used to generate the panels in Figure 4 of the manuscript.
 
 4. **Bacterial stress study**  
-   - Example script: `example_BacterialStress.m`  
+   - Example script: `example_BacterialStress_AB.m` and `example_BacterialStress_CS.m` 
    - Study folder: `study_BacterialStress`  
    - Used to generate the panels in Figure 5 of the manuscript.
 
