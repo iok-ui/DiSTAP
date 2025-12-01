@@ -59,15 +59,20 @@ raw_label_list = dproc.get('EXTRACT_LABELS');
 targets_to_remove = dproc.get('TARGETS_TO_REMOVE');
 idx_to_remove = [];
 if ~isempty(targets_to_remove)
-    for t = 1:length(targets_to_remove)
-        target_to_remove = targets_to_remove{t};
-        for i = 1:length(raw_label_list)
-            if any(contains(cellstr(raw_label_list{i}), target_to_remove))
-                idx_to_remove = [idx_to_remove i];
+    for i = 1:numel(raw_label_list)
+        rows = strtrim(cellstr(raw_label_list{i}));   % 4 rows: species, stress, location, plant ID
+        rows = rows(1:3);                              % only species/stress/location
+        for t = 1:numel(targets_to_remove)
+            tok = strtrim(targets_to_remove{t});
+            if any(strcmpi(rows, tok))                 % exact match (no substring hits)
+                idx_to_remove(end+1) = i; %#ok<AGROW>
+                break
             end
         end
     end
 end
+
+idx_to_remove = unique(idx_to_remove);
 
 processed_spectrum_list(idx_to_remove) = [];
 raw_label_list(idx_to_remove) = [];

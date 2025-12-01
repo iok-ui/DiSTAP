@@ -1,6 +1,5 @@
-%% EXAMPLE_NNVAE_SPECTRUM
-% Script example pipeline for NN Variational Autoencoders with Raman
-% Spectrum Data
+%% EXAMPLE_HIGHTEMPERATURESTRESS
+% Script example DIVA pipeline for high temperature stress
 
 clear variables %#ok<*NASGU>
 
@@ -27,7 +26,7 @@ d_sp.memorize('TARGETS');
 fprintf('Finished memorizing all dataset targets.%s', newline);
 
 %% Train a Variational Autoencoder
-nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'EPOCHS', 100, 'BATCH', 32);
+nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'EPOCHS', 3000, 'BATCH', 32);
 nnvae.get('TRAIN')
 
 %% Evaluate and Produce Manuscript figures
@@ -49,3 +48,11 @@ nne = NNVariationalAutoencoderEvaluator_RS( ...
 nne.memorize('LATENT_REP');
 nne.get('PLOT_R_PALETTE');
 nne.get('PLOT_R_LS_QNORM_MED');
+
+%% save as b2 file
+fprintf('pipeline saving...\n')
+tic
+mkdir([fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_HighTemperatureStress' filesep 'trained_b2_files']);
+Element.save(nne, [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_HighTemperatureStress' filesep 'trained_b2_files' filesep 'nne.b2']);
+toc
+fprintf('pipeline saved\n')

@@ -2,8 +2,9 @@
 NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluator (nne, variational-autoencoder evaluator for Raman spectra) evaluates a trained variational autoencoder with a dataset.
 
 %%% ¡description!
-A variational-autoencoder evaluator (NNVariationalAutoencoderEvaluator_RS) evaluates a trained model on a specific dataset, producing latent representations, decoded spectra, peak analyses, and Docker-backed R figures for Raman-spectra workflows. Instances of this class should not be created directly—use one of its subclasses.
-
+A variational-autoencoder evaluator (NNVariationalAutoencoderEvaluator_RS) evaluates a trained varitional autoencoder on a specific dataset, 
+ producing latent representations, decoded spectra, peak analyses, and Docker-backed R figures for Raman-spectra workflows. 
+ 
 %%% ¡seealso!
 NNDataPoint, NNDataset, NNBase, NNDatasetProcess_RamanSpectra
 
@@ -146,6 +147,16 @@ idx = nne.get('IDX_LABEL_LOCATION');
 latent_rep = nne.get('LATENT_REP');
 YLatent = latent_rep{2};
 value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'UniformOutput', false)));
+
+%%% ¡prop!
+LOCATION_ALIAS_FROM (parameter, stringlist) lists source location labels to be replaced during export.
+%%%% ¡default!
+{}
+
+%%% ¡prop!
+LOCATION_ALIAS_TO (parameter, stringlist) lists target location labels used to replace LOCATION_ALIAS_FROM; it must have the same length as LOCATION_ALIAS_FROM.
+%%%% ¡default!
+{}
 
 %%% ¡prop!
 LATENT_REP (result, cell) stores {Z, Y} where Z are latent representations and Y are label vectors aligned to Z for downstream analyses.
@@ -482,7 +493,24 @@ species_all  = string(cellfun(@(lbl) string(lbl(i_species)),  YLatent, 'UniformO
 stress_all   = string(cellfun(@(lbl) string(lbl(i_stress)),   YLatent, 'UniformOutput', false));
 location_all = string(cellfun(@(lbl) string(lbl(i_location)), YLatent, 'UniformOutput', false));
 
-species_list  = unique(species_all,  'stable');
+% --- apply explicit alias mapping BEFORE building the location list ---
+alias_from = string(nne.get('LOCATION_ALIAS_FROM'));
+alias_to   = string(nne.get('LOCATION_ALIAS_TO'));
+location_all_resolved = location_all;
+
+if ~isempty(alias_from) && ~isempty(alias_to)
+    nmap = min(numel(alias_from), numel(alias_to));
+    for kk = 1:nmap
+        m = location_all_resolved == strtrim(alias_from(kk));
+        if any(m)
+            location_all_resolved(m) = strtrim(alias_to(kk));
+        end
+    end
+end
+
+location_all = location_all_resolved;
+
+species_list  = unique(species_all, 'stable');
 location_list = unique(location_all, 'stable');
 
 if isempty(stress_seq)
@@ -588,7 +616,24 @@ species_all  = string(cellfun(@(ind_labels) string(ind_labels(i_species)),  YLat
 stress_all   = string(cellfun(@(ind_labels) string(ind_labels(i_stress)),   YLatent, 'UniformOutput', false));
 location_all = string(cellfun(@(ind_labels) string(ind_labels(i_location)), YLatent, 'UniformOutput', false));
 
-species_list  = unique(species_all,  'stable');
+% --- apply explicit alias mapping BEFORE building the location list ---
+alias_from = string(nne.get('LOCATION_ALIAS_FROM'));
+alias_to   = string(nne.get('LOCATION_ALIAS_TO'));
+location_all_resolved = location_all;
+
+if ~isempty(alias_from) && ~isempty(alias_to)
+    nmap = min(numel(alias_from), numel(alias_to));
+    for kk = 1:nmap
+        m = location_all_resolved == strtrim(alias_from(kk));
+        if any(m)
+            location_all_resolved(m) = strtrim(alias_to(kk));
+        end
+    end
+end
+
+location_all = location_all_resolved;
+
+species_list  = unique(species_all, 'stable');
 location_list = unique(location_all, 'stable');
 
 if isempty(stress_seq)
