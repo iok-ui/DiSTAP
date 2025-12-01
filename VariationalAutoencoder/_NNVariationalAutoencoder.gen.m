@@ -1,13 +1,17 @@
 %% ¡header!
-NNVariationalAutoencoder < NNBase (nnvae, normalizer of a neural network data) transfroms neural network datasets.
+NNVariationalAutoencoder < NNBase (nnvae, a neural-network variational autoencoder) is a neural-network variational autoencoder.
 
 %%% ¡description!
-A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. 
-The resulting combined dataset contains all the unique datapoints from the input datasets, 
-and any overlapping datapoints are excluded to ensure data consistency.
+A neural-network variational autoencoder (NNVariationalAutoencoder) comprises an encoder and a decoder and is trained in an unsupervised manner 
+ to maximise the evidence lower bound (ELBO). The encoder outputs the parameters of a Gaussian latent distribution (mean μ and log-variance log σ²);
+ a latent sample z is obtained via the reparameterisation trick and decoded back to the input space. Training minimises a loss function equal to the 
+ negative ELBO, i.e., a reconstruction term plus a Kullback–Leibler divergence that regularises the approximate posterior towards a standard normal 
+ prior N(0, I). This element trains on a neural-network dataset (NNDataset).
+
+Instances of this class are not meant to be created directly—use one of its subclasses.
 
 %%% ¡seealso!
-NNDataset, NNDatasetSplit
+NNDataset, NNDatasetSplit, NNAutoencoder
 
 %%% ¡build!
 1
@@ -15,42 +19,42 @@ NNDataset, NNDatasetSplit
 %% ¡props_update!
 
 %%% ¡prop!
-ELCLASS (constant, string) is the class of the combiner of neural networks datasets.
+ELCLASS (constant, string) is the class of the neural-network variational autoencoder.
 %%%% ¡default!
 'NNVariationalAutoencoder'
 
 %%% ¡prop!
-NAME (constant, string) is the name of the combiner of neural networks datasets.
+NAME (constant, string) is the name of the neural-network variational autoencoder.
 %%%% ¡default!
-'Neural Network Autoencoder'
+'Neural-Network Variational Autoencoder'
 
 %%% ¡prop!
-DESCRIPTION (constant, string) is the description of the combiner of neural networks datasets.
+DESCRIPTION (constant, string) is the description of the neural-network variational autoencoder.
 %%%% ¡default!
-'A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. The resulting combined dataset contains all the unique datapoints from the input datasets, and any overlapping datapoints are excluded to ensure data consistency.'
+'A neural-network variational autoencoder (NNVariationalAutoencoder) comprises an encoder and a decoder and is trained in an unsupervised manner to maximise the ELBO. The encoder outputs mean μ and log-variance log σ²; a latent sample is obtained via the reparameterisation trick and decoded back to the input space. The loss is the negative ELBO (reconstruction + KL to N(0, I)). This element trains on a neural-network dataset (NNDataset). Instances of this class are not meant to be created directly—use one of its subclasses.'
 
 %%% ¡prop!
-TEMPLATE (parameter, item) is the template of the combiner of neural networks datasets.
+TEMPLATE (parameter, item) is the template of the neural-network variational autoencoder.
 %%%% ¡settings!
 'NNVariationalAutoencoder'
 
 %%% ¡prop!
-ID (data, string) is a few-letter code of the combiner of neural networks datasets.
+ID (data, string) is a few-letter code of the neural-network variational autoencoder.
 %%%% ¡default!
-'NNDatasetCombine ID'
+'NNVariationalAutoencoder ID'
 
 %%% ¡prop!
-LABEL (metadata, string) is an extended label of the combiner of neural networks datasets.
+LABEL (metadata, string) is an extended label of the neural-network variational autoencoder.
 %%%% ¡default!
-'NNDatasetCombine label'
+'NNVariationalAutoencoder label'
 
 %%% ¡prop!
-NOTES (metadata, string) are some specific notes of the combiner of neural networks datasets.
+NOTES (metadata, string) are some specific notes of the neural-network variational autoencoder.
 %%%% ¡default!
-'NNDatasetCombine notes'
+'NNVariationalAutoencoder notes'
 
 %%% ¡prop!
-D (data, item) is the dataset to train the neural network model, and its data point class DP_CLASS defaults to one of the compatible classes within the set of DP_CLASSES.
+D (data, item) is the dataset used to train the variational autoencoder. Its data-point class DP_CLASS must belong to the compatible set DP_CLASSES.
 %%%% ¡settings!
 'NNDataset'
 %%%% ¡default!
@@ -59,18 +63,18 @@ NNDataset('DP_CLASS', 'NNDataPoint')
 check = ismember(value.get('DP_CLASS'), nnvae.get('DP_CLASSES'));
 
 %%% ¡prop!
-DP_CLASSES (parameter, classlist) is the list of compatible data points.
+DP_CLASSES (parameter, classlist) is the list of compatible data-point classes for this variational autoencoder.
 %%%% ¡default!
 {'NNDataPoint'}
 
 %%% ¡prop!
-INPUTS (query, cell) constructs the cell array of the data.
+INPUTS (query, cell) constructs and returns the cell array of inputs from dataset D (format depends on the specific subclass/data point).
 
 %%% ¡prop!
-TARGETS (query, cell) constructs the cell array of the targets.
+TARGETS (query, cell) constructs and returns the cell array of targets from dataset D (if applicable).
 
 %%% ¡prop!
-TRAIN (query, empty) trains the neural network model with the given dataset.
+TRAIN (query, empty) trains the variational autoencoder by updating ENCODER and DECODER to minimise LOSS_FN (negative ELBO) using a mini-batch loop.
 %%%% ¡calculate!
 numEpochs = nnvae.get('EPOCHS');
 miniBatchSize = nnvae.get('BATCH');
@@ -141,14 +145,15 @@ nnvae.get('MODEL'); % to lock this element
 value = {};
 %%%% ¡calculate_callbacks!
 function [loss, gradientsE, gradientsD] = model_loss(netE, netD, X)
+% Computes the negative ELBO and its gradients w.r.t. ENCODER and DECODER (reconstruction + KL).
     
-    % Forward through encoder.
+    % Forward through encoder: return latent sample and its Gaussian params.
     [Z, mu, logSigmaSq] = forward(netE, X);
     
     % Forward through decoder.
     Y = forward(netD, Z);
     
-    % Calculate loss and gradients.
+    % Calculate loss and gradients (negative ELBO).
     loss = nnvae.get('LOSS_FN', Y, X, mu, logSigmaSq);
     [gradientsE, gradientsD] = dlgradient(loss, netE.Learnables, netD.Learnables);
 end
@@ -156,40 +161,40 @@ end
 %% ¡props!
 
 %%% ¡prop!
-LEARN_RATE (parameter, scalar) is the size of the mini-batch used for each training iteration.
+LEARN_RATE (parameter, scalar) is the learning rate for optimisation.
 %%%% ¡default!
 1e-3
 
 %%% ¡prop!
-NUM_LATENT_REP (parameter, scalar) is the size of the mini-batch used for each training iteration.
+NUM_LATENT_REP (parameter, scalar) is the number of latent representations (latent dimensions).
 %%%% ¡default!
 2
 
 %%% ¡prop!
-SIZE_INPUT (parameter, rvector) is the size of the input image.
+SIZE_INPUT (parameter, rvector) is the size of the input data (e.g., [H W C] for images, or feature vector length).
 
 %%% ¡prop!
-ITERATION_DIM (parameter, scalar) is the iteration dimension.
+ITERATION_DIM (parameter, scalar) is used by minibatchqueue (MBQ) to indicate the concatenation/batch dimension.
 
 %%% ¡prop!
-NUM_MBQ_OUTPUT (parameter, scalar) is the iteration dimension.
+NUM_MBQ_OUTPUT (parameter, scalar) is the number of outputs produced by the minibatchqueue (MBQ).
 %%%% ¡default!
 2
 
 %%% ¡prop!
-MINIBATCH_FORMAT_INPUT (query, string) returns the elbo loss.
+MINIBATCH_FORMAT_INPUT (query, string) is a deep learning array (dlarray) label string for input mini-batches (e.g., "SSCB" or "BC"), used by minibatchqueue (MBQ).
 
 %%% ¡prop!
-MINIBATCH_FORMAT_TARGET (query, string) returns the elbo loss.
+MINIBATCH_FORMAT_TARGET (query, string) is a deep learning array (dlarray) label string for target mini-batches (if used), for minibatchqueue (MBQ).
 
 %%% ¡prop!
-ENCODER (data, net) is a neural network encoder.
+ENCODER (data, net) is a learnable encoder network (e.g., a dlnetwork) that outputs μ and log σ² and samples z via reparameterisation.
 
 %%% ¡prop!
-DECODER (data, net) is a neural network decoder.
+DECODER (data, net) is a learnable decoder network (e.g., a dlnetwork) that maps latent samples z back to the input space.
 
 %%% ¡prop!
-MBQ (query, empty) constructs the cell array of the targets.
+MBQ (query, empty) returns a configured minibatchqueue (MBQ) for training on dataset D.
 %%%% ¡calculate!
 % targets = nn.get('PREDICT', D) returns a cell array with the
 %  targets for all data points in dataset D.
@@ -227,7 +232,7 @@ value = minibatchqueue(dsTrain, num_outputs, ...
 
 %%%% ¡calculate_callbacks!
 function [X, Y] = preprocess_minibatch(XCell, YCell)
-    % Concatenate.
+    % Concatenate along the iteration dimension.
     itr = nnvae.get('ITERATION_DIM');
     X = cat(itr, XCell{:});
     
@@ -236,7 +241,7 @@ function [X, Y] = preprocess_minibatch(XCell, YCell)
 end
 
 %%% ¡prop!
-LOSS_FN (query, scalar) returns the loss function.
+LOSS_FN (query, scalar) returns the scalar training loss (negative ELBO), computed as a reconstruction term plus a Kullback–Leibler divergence that regularises q(z|x) towards N(0, I).
 %%%% ¡calculate!
 if length(varargin) < 4
     value = 0;
@@ -247,14 +252,14 @@ t = varargin{2};
 mu = varargin{3};
 logSigmaSq = varargin{4};
 
-% Reconstruction loss
+% Reconstruction loss (e.g., mean-squared error between output y and input t).
 reconstructionLoss = mse(y, t);
 
-% KL divergence
+% KL divergence KL(q(z|x) || N(0, I)).
 KL = -1/2 * sum(1 + logSigmaSq - mu.^2 - exp(logSigmaSq),1);
 KL = mean(KL);
 
-% Combined loss
+% Negative ELBO = reconstruction + KL.
 value = reconstructionLoss + KL;
 
 %% ¡tests!

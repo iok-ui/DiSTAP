@@ -1,13 +1,14 @@
 %% ¡header!
-NNAutoencoder < NNBase (nnvae, normalizer of a neural network data) transfroms neural network datasets.
+NNAutoencoder < NNBase (nnae, a neural-network autoencoder) is a neural-network autoencoder.
 
 %%% ¡description!
-A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. 
-The resulting combined dataset contains all the unique datapoints from the input datasets, 
-and any overlapping datapoints are excluded to ensure data consistency.
+A neural-network autoencoder (NNAutoencoder) comprises an encoder and a decoder and is trained with a loss function that compares the reconstruction to the input in an unsupervised manner.
+ This element trains on a neural-network dataset (NNDataset).
+
+Instances of this class are not meant to be created directly—use one of its subclasses.
 
 %%% ¡seealso!
-NNDataset, NNDatasetSplit
+NNDataset, NNDatasetSplit, NNVariationalAutoencoder
 
 %%% ¡build!
 1
@@ -15,76 +16,76 @@ NNDataset, NNDatasetSplit
 %% ¡props_update!
 
 %%% ¡prop!
-ELCLASS (constant, string) is the class of the combiner of neural networks datasets.
+ELCLASS (constant, string) is the class of the neural-network autoencoder.
 %%%% ¡default!
 'NNAutoencoder'
 
 %%% ¡prop!
-NAME (constant, string) is the name of the combiner of neural networks datasets.
+NAME (constant, string) is the name of the neural-network autoencoder.
 %%%% ¡default!
-'Neural Network Autoencoder'
+'Neural-Network Autoencoder'
 
 %%% ¡prop!
-DESCRIPTION (constant, string) is the description of the combiner of neural networks datasets.
+DESCRIPTION (constant, string) is the description of the neural-network autoencoder.
 %%%% ¡default!
-'A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. The resulting combined dataset contains all the unique datapoints from the input datasets, and any overlapping datapoints are excluded to ensure data consistency.'
+'A neural-network autoencoder (NNAutoencoder) comprises an encoder and a decoder and is trained with a loss function that compares the reconstruction to the input in an unsupervised manner. This element trains on a neural-network dataset (NNDataset). Instances of this class are not meant to be created directly—use one of its subclasses.'
 
 %%% ¡prop!
-TEMPLATE (parameter, item) is the template of the combiner of neural networks datasets.
+TEMPLATE (parameter, item) is the template of the neural-network autoencoder.
 %%%% ¡settings!
 'NNAutoencoder'
 
 %%% ¡prop!
-ID (data, string) is a few-letter code of the combiner of neural networks datasets.
+ID (data, string) is a few-letter code of the nneural-network autoencoder.
 %%%% ¡default!
-'NNDatasetCombine ID'
+'NNAutoencoder ID'
 
 %%% ¡prop!
-LABEL (metadata, string) is an extended label of the combiner of neural networks datasets.
+LABEL (metadata, string) is an extended label of the neural-network autoencoder.
 %%%% ¡default!
-'NNDatasetCombine label'
+'NNAutoencoder label'
 
 %%% ¡prop!
-NOTES (metadata, string) are some specific notes of the combiner of neural networks datasets.
+NOTES (metadata, string) are some specific notes of the neural-network autoencoder.
 %%%% ¡default!
-'NNDatasetCombine notes'
+'NNAutoencoder notes'
 
 %%% ¡prop!
-D (data, item) is the dataset to train the neural network model, and its data point class DP_CLASS defaults to one of the compatible classes within the set of DP_CLASSES.
+D (data, item) is the dataset used to train the autoencoder. Its data-point class DP_CLASS must belong to the compatible set DP_CLASSES.
 %%%% ¡settings!
 'NNDataset'
 %%%% ¡default!
 NNDataset('DP_CLASS', 'NNDataPoint')
 %%%% ¡check_value!
-check = ismember(value.get('DP_CLASS'), nnvae.get('DP_CLASSES'));
+check = ismember(value.get('DP_CLASS'), nnae.get('DP_CLASSES'));
 
 %%% ¡prop!
-DP_CLASSES (parameter, classlist) is the list of compatible data points.
+DP_CLASSES (parameter, classlist) is the list of compatible data-point classes for this autoencoder.
 %%%% ¡default!
 {'NNDataPoint'}
 
 %%% ¡prop!
-INPUTS (query, cell) constructs the cell array of the data.
+INPUTS (query, cell) constructs and returns the cell array of inputs from dataset D (format depends on the specific subclass/data point).
 
 %%% ¡prop!
-TARGETS (query, cell) constructs the cell array of the targets.
+TARGETS (query, cell) constructs and returns the cell array of targets from dataset D (if applicable).
 
 %%% ¡prop!
-TRAIN (query, empty) trains the neural network model with the given dataset.
+TRAIN (query, empty) trains the autoencoder by updating ENCODER and DECODER to minimise LOSS_FN using a mini-batch loop.
 %%%% ¡calculate!
-numEpochs = nnvae.get('EPOCHS');
-miniBatchSize = nnvae.get('BATCH');
-learnRate = nnvae.get('LEARN_RATE');
+numEpochs = nnae.get('EPOCHS');
+miniBatchSize = nnae.get('BATCH');
+learnRate = nnae.get('LEARN_RATE');
 
-d = nnvae.get('D');
+d = nnae.get('D');
 if isequal(d.get('DP_DICT').get('LENGTH'), 0)
     value = [];
     return
 end
 
-mbq = nnvae.get('MBQ', d);
-netE = nnvae.get('ENCODER');
-netD = nnvae.get('DECODER');
+mbq = nnae.get('MBQ', d);
+netE = nnae.get('ENCODER');
+netD = nnae.get('DECODER');
 
 trailingAvgE = [];
 trailingAvgSqE = [];
@@ -134,13 +135,14 @@ while epoch < numEpochs && ~monitor.Stop
     end
 end
 
-nnvae.set('ENCODER', netE);
-nnvae.set('DECODER', netD);
-nnvae.get('MODEL'); % to lock this element
+nnae.set('ENCODER', netE);
+nnae.set('DECODER', netD);
+nnae.get('MODEL'); % to lock this element
 
 value = {};
 %%%% ¡calculate_callbacks!
 function [loss, gradientsE, gradientsD] = model_loss(~, ~)
+% It calculates the reconstruction loss and its gradients w.r.t. ENCODER and DECODER.
     netE = varargin{1};
     netD = varargin{2};
     X = varargin{3};
@@ -152,47 +154,47 @@ function [loss, gradientsE, gradientsD] = model_loss(~, ~)
     Y = forward(netD, Z);
     
     % Calculate loss and gradients.
-    loss = nnvae.get('LOSS_FN', Y, X);
+    loss = nnae.get('LOSS_FN', Y, X);
     [gradientsE, gradientsD] = dlgradient(loss, netE.Learnables, netD.Learnables);
 end
 
 %% ¡props!
 
 %%% ¡prop!
-LEARN_RATE (parameter, scalar) is the size of the mini-batch used for each training iteration.
+LEARN_RATE (parameter, scalar) is the learning rate for optimisation.
 %%%% ¡default!
 1e-3
 
 %%% ¡prop!
-NUM_LATENT_REP (parameter, scalar) is the size of the mini-batch used for each training iteration.
+NUM_LATENT_REP (parameter, scalar) is the number of latent representations (latent dimensions).
 %%%% ¡default!
 2
 
 %%% ¡prop!
-SIZE_INPUT (parameter, rvector) is the size of the input image.
+SIZE_INPUT (parameter, rvector) is the size of the input data (e.g., [H W C] for images, or feature vector length).
 
 %%% ¡prop!
-ITERATION_DIM (parameter, scalar) is the iteration dimension.
+ITERATION_DIM (parameter, scalar) is used by minibatchqueue (MBQ) when batching inputs (see MATLAB arrayDatastore/minibatchqueue).
 
 %%% ¡prop!
-NUM_MBQ_OUTPUT (parameter, scalar) is the iteration dimension.
+NUM_MBQ_OUTPUT (parameter, scalar) is the number of outputs produced by the minibatchqueue (MBQ).
 %%%% ¡default!
 2
 
 %%% ¡prop!
-MINIBATCH_FORMAT_INPUT (query, string) returns the elbo loss.
+MINIBATCH_FORMAT_INPUT (query, string) is a deep learning array (dlarray) label string for input mini-batches (e.g., "SSCB" or "BC"), used by minibatchqueue (MBQ).
 
 %%% ¡prop!
-MINIBATCH_FORMAT_TARGET (query, string) returns the elbo loss.
+MINIBATCH_FORMAT_TARGET (query, string) is the format of the target for a minibatchqueue (MBQ) object.
 
 %%% ¡prop!
-ENCODER (data, net) is a neural network encoder.
+ENCODER (data, net) is a learnable encoder network (e.g., a dlnetwork).
 
 %%% ¡prop!
-DECODER (data, net) is a neural network decoder.
+DECODER (data, net) is a learnable decoder network (e.g., a dlnetwork).
 
 %%% ¡prop!
-MBQ (query, empty) constructs the cell array of the targets.
+MBQ (query, empty) returns a configured minibatchqueue (MBQ) for training on dataset D.
 %%%% ¡calculate!
 % targets = nn.get('PREDICT', D) returns a cell array with the
 %  targets for all data points in dataset D.
@@ -202,13 +204,13 @@ if isempty(varargin)
 end
 d = varargin{1};
 
-num_outputs = nnvae.get('NUM_MBQ_OUTPUT');
-itr = nnvae.get('ITERATION_DIM');
-format_input = string(nnvae.get('MINIBATCH_FORMAT_INPUT'));
-format_target = string(nnvae.get('MINIBATCH_FORMAT_TARGET'));
-miniBatchSize = nnvae.get('BATCH');
+num_outputs = nnae.get('NUM_MBQ_OUTPUT');
+itr = nnae.get('ITERATION_DIM');
+format_input = string(nnae.get('MINIBATCH_FORMAT_INPUT'));
+format_target = string(nnae.get('MINIBATCH_FORMAT_TARGET'));
+miniBatchSize = nnae.get('BATCH');
 
-XTrain = nnvae.get('INPUTS', d);
+XTrain = nnae.get('INPUTS', d);
 %YTrain = categorical(nnvae.get('TARGETS', d));
 YTrain = 1:1:size(XTrain, 2);
 
@@ -238,7 +240,7 @@ function [X, Y] = preprocess_minibatch(~, ~)
 end
 
 %%% ¡prop!
-LOSS_FN (query, scalar) returns the loss function.
+LOSS_FN (query, scalar) returns the scalar training loss. By default, the reconstruction loss is the mean-squared error between the decoder output y and the input t.
 %%%% ¡calculate!
 if length(varargin) < 2
     value = 0;

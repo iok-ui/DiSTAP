@@ -1,13 +1,14 @@
 %% ¡header!
-NNVariationalAutoencoderMLP < NNVariationalAutoencoder (nnvae, normalizer of a neural network data) transfroms neural network datasets.
+NNVariationalAutoencoderMLP < NNVariationalAutoencoder (nnvae, a neural-network variational autoencoder with a multilayer perceptron backbone) is a neural-network variational autoencoder with a multilayer perceptron (MLP) encoder/decoder.
 
 %%% ¡description!
-A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. 
-The resulting combined dataset contains all the unique datapoints from the input datasets, 
-and any overlapping datapoints are excluded to ensure data consistency.
+A neural-network variational autoencoder with a multilayer perceptron backbone (NNVariationalAutoencoderMLP) comprises an encoder and a decoder and is trained in an unsupervised manner to maximise the evidence lower bound (ELBO).
+ The encoder outputs the parameters of a Gaussian latent distribution (mean μ and log-variance log σ²); a latent sample z is obtained via the reparameterisation trick and decoded back to the input space.
+ Training minimises the negative ELBO, i.e., a reconstruction term plus a Kullback–Leibler divergence that regularises the approximate posterior towards a standard normal prior N(0, I).
+ This subclass uses a multilayer perceptron (MLP) as the encoder/decoder backbone and trains on a neural-network dataset (NNDataset).
 
 %%% ¡seealso!
-NNDataset, NNDatasetSplit
+NNDataset, NNDatasetSplit, NNVariationalAutoencoder, NNAutoencoder
 
 %%% ¡build!
 1
@@ -15,42 +16,42 @@ NNDataset, NNDatasetSplit
 %% ¡props_update!
 
 %%% ¡prop!
-ELCLASS (constant, string) is the class of the combiner of neural networks datasets.
+ELCLASS (constant, string) is the class of the neural-network variational autoencoder (MLP).
 %%%% ¡default!
 'NNVariationalAutoencoderMLP'
 
 %%% ¡prop!
-NAME (constant, string) is the name of the combiner of neural networks datasets.
+NAME (constant, string) is the name of the neural-network variational autoencoder (MLP).
 %%%% ¡default!
-'Neural Network Variational Autoencoders'
+'Neural Network Variational Autoencoder (MLP)'
 
 %%% ¡prop!
-DESCRIPTION (constant, string) is the description of the combiner of neural networks datasets.
+DESCRIPTION (constant, string) is the description of the neural-network variational autoencoder (MLP).
 %%%% ¡default!
-'A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. The resulting combined dataset contains all the unique datapoints from the input datasets, and any overlapping datapoints are excluded to ensure data consistency.'
+'A neural-network variational autoencoder with a multilayer perceptron backbone (NNVariationalAutoencoderMLP) comprises an encoder and a decoder and is trained in an unsupervised manner to maximise the evidence lower bound (ELBO). The encoder outputs the parameters of a Gaussian latent distribution (mean μ and log-variance log σ²); a latent sample z is obtained via the reparameterisation trick and decoded back to the input space. Training minimises the negative ELBO, i.e., a reconstruction term plus a Kullback–Leibler divergence that regularises the approximate posterior towards a standard normal prior N(0, I). This subclass uses a multilayer perceptron (MLP) as the encoder/decoder backbone and trains on a neural-network dataset (NNDataset).'
 
 %%% ¡prop!
-TEMPLATE (parameter, item) is the template of the combiner of neural networks datasets.
+TEMPLATE (parameter, item) is the template of the neural-network variational autoencoder (MLP).
 %%%% ¡settings!
 'NNVariationalAutoencoderMLP'
 
 %%% ¡prop!
-ID (data, string) is a few-letter code of the combiner of neural networks datasets.
+ID (data, string) is a few-letter code of the neural-network variational autoencoder (MLP).
 %%%% ¡default!
-'NNDatasetCombine ID'
+'NNVariationalAutoencoderMLP ID'
 
 %%% ¡prop!
-LABEL (metadata, string) is an extended label of the combiner of neural networks datasets.
+LABEL (metadata, string) is an extended label of the neural-network variational autoencoder (MLP).
 %%%% ¡default!
-'NNDatasetCombine label'
+'NNVariationalAutoencoderMLP label'
 
 %%% ¡prop!
-NOTES (metadata, string) are some specific notes of the combiner of neural networks datasets.
+NOTES (metadata, string) are some specific notes of the neural-network variational autoencoder (MLP).
 %%%% ¡default!
-'NNDatasetCombine notes'
+'NNVariationalAutoencoderMLP notes'
 
 %%% ¡prop!
-D (data, item) is the dataset to train the neural network model, and its data point class DP_CLASS defaults to one of the compatible classes within the set of DP_CLASSES.
+D (data, item) is the dataset used to train the variational autoencoder. Its data-point class DP_CLASS must belong to the compatible set DP_CLASSES.
 %%%% ¡settings!
 'NNDataset'
 %%%% ¡default!
@@ -65,15 +66,14 @@ if ~isequal(nnvae.get('D').get('DP_DICT').get('LENGTH'), 0)
 end
 
 %%% ¡prop!
-DP_CLASSES (parameter, classlist) is the list of compatible data points.
+DP_CLASSES (parameter, classlist) is the list of compatible data-point classes for this variational autoencoder.
 %%%% ¡default!
 {'NNDataPoint' 'NNDataPoint_RamanSpectra' 'NNDataPoint_Image'}
 
 %%% ¡prop!
-INPUTS (query, cell) constructs the cell array of the data.
+INPUTS (query, cell) constructs and returns the input matrix from dataset D by flattening each input to length SIZE_INPUT and stacking column-wise.
 %%%% ¡calculate!
-% inputs = nn.get('inputs', D) returns a cell array with the
-%  inputs for all data points in dataset D.
+% inputs = nn.get('INPUTS', D) returns a cell/matrix of inputs for all data points in dataset D.
 if isempty(varargin)
     value = {};
     return
@@ -83,17 +83,15 @@ inputs_group = d.get('INPUTS');
 if isempty(inputs_group)
     value = {};
 else
-    %[s1, s2] = size(cell2mat(inputs_group{1}));
     s1 = nnvae.get('SIZE_INPUT');
     flat_cells = cellfun(@(c) c{1}, inputs_group, 'UniformOutput', false);
     value = reshape(cat(1, flat_cells{:}), s1, []);
 end
 
 %%% ¡prop!
-TARGETS (query, stringlist) constructs the cell array of the targets.
+TARGETS (query, stringlist) constructs and returns the targets from dataset D (if applicable).
 %%%% ¡calculate!
-% targets = nn.get('PREDICT', D) returns a cell array with the
-%  targets for all data points in dataset D.
+% targets = nn.get('TARGETS', D) returns targets for all data points in dataset D (if used).
 if isempty(varargin)
     value = {};
     return
@@ -108,30 +106,30 @@ else
 end
 
 %%% ¡prop!
-SIZE_INPUT (parameter, rvector) is the size of the input image.
+SIZE_INPUT (parameter, rvector) is the size of the input data once flattened (scalar number of features).
 %%%% ¡default!
 784
 
 %%% ¡prop!
-ITERATION_DIM (parameter, scalar) is the iteration dimension.
+ITERATION_DIM (parameter, scalar) is used by minibatchqueue (MBQ) to indicate the concatenation/batch dimension.
 %%%% ¡default!
 2
 
 %%% ¡prop!
-MINIBATCH_FORMAT_INPUT (query, string) returns the elbo loss.
+MINIBATCH_FORMAT_INPUT (query, string) is a dlarray label string for input mini-batches (e.g., "CB"), used by minibatchqueue (MBQ).
 %%%% ¡default!
 'CB'
 
 %%% ¡prop!
-MINIBATCH_FORMAT_TARGET (query, string) returns the elbo loss.
+MINIBATCH_FORMAT_TARGET (query, string) is a dlarray label string for target mini-batches (may be empty), used by minibatchqueue (MBQ).
 %%%% ¡default!
 ''
 
 %%% ¡prop!
-TRAIN (query, empty) trains the neural network model with the given dataset.
+TRAIN (query, empty) configures an MLP encoder/decoder and then trains via the superclass to minimise LOSS_FN (negative ELBO) using a mini-batch loop.
 %%%% ¡calculate!
 % --- Set up ENCODER ---
-% Retrieve hyperparam
+% Retrieve hyperparameters
 neurons = nnvae.get('NEURONS_PER_LAYER');
 numLatentChannels = nnvae.get('NUM_LATENT_REP');
 inputSize = nnvae.get('SIZE_INPUT');
@@ -185,7 +183,7 @@ value = calculateValue@NNVariationalAutoencoder(nnvae, prop);
 
 %% ¡props!
 %%% ¡prop!
-NEURONS_PER_LAYER (parameter, rvector) is the size of the input image.
+NEURONS_PER_LAYER (parameter, rvector) are the hidden-layer widths for the MLP encoder/decoder (mirrored in the decoder).
 %%%% ¡default!
 [64 64]
 

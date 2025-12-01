@@ -1,14 +1,13 @@
 %% ¡header!
-NNDataPoint_RamanSpectra < NNDataPoint (dp, spectrum data point) is a data point for a spectrum.
+NNDataPoint_RamanSpectra < NNDataPoint (dp, a neural-network data point for Raman spectra) is a neural-network data point for Raman spectra.
 
 %%% ¡description!
-A data point for a spectrum (NNDataPoint_RamanSpectra) 
- contains both spectral input and target for neural network analysis.
-The input is the value of the spectrum.
-The target is obtained from the variables of interest of the datapoint, such as the spectrum type.
+A neural-network data point for Raman spectra (NNDataPoint_RamanSpectra) that holds both the spectral input and the target used in learning tasks.
+ The input is the spectrum intensity vector clipped to the wavelength range defined by WL_START and WL_END.
+ The target is derived from variables of interest (VOIs) of this data point, typically specified via TARGET_CLASS (for example, a spectrum type or class label).
 
 %%% ¡seealso!
-NNDataPoint_Graph_REG, NNDataPoint_Measure_REG, NNDataPoint_Measure_CLA
+NNDataPoint, NNDataset, NNVariationalAutoencoderEvaluator_RS
 
 %%% ¡build!
 1
@@ -16,42 +15,42 @@ NNDataPoint_Graph_REG, NNDataPoint_Measure_REG, NNDataPoint_Measure_CLA
 %% ¡props_update!
 
 %%% ¡prop!
-ELCLASS (constant, string) is the class of the data point for spectrum.
+ELCLASS (constant, string) is the class of the Raman-spectra data point.
 %%%% ¡default!
 'NNDataPoint_RamanSpectra'
 
 %%% ¡prop!
-NAME (constant, string) is the name of the data point for spectrum.
+NAME (constant, string) is the name of the Raman-spectra data point.
 %%%% ¡default!
-'Neural Network Data Point for Classification with a Graph'
+'Neural Network Data Point for Raman Spectra'
 
 %%% ¡prop!
-DESCRIPTION (constant, string) is the description of the data point for spectrum.
+DESCRIPTION (constant, string) is the description of the Raman-spectra data point.
 %%%% ¡default!
-'A data point for a spectrum (NNDataPoint_RamanSpectra) contains both spectral input and target for neural network analysis. The input is the value of the spectrum. The target is obtained from the variables of interest of the datapoint, such as the spectrum type.'
+'A neural-network data point for Raman spectra (NNDataPoint_RamanSpectra) that holds both the spectral input and the target used in learning tasks. The input is the spectrum intensity vector clipped to the wavelength range defined by WL_START and WL_END. The target is derived from variables of interest (VOIs) of this data point, typically specified via TARGET_CLASS (for example, a spectrum type or class label).'
 
 %%% ¡prop!
-TEMPLATE (parameter, item) is the template of the data point for spectrum.
+TEMPLATE (parameter, item) is the template of the Raman-spectra data point.
 %%%% ¡settings!
 'NNDataPoint_RamanSpectra'
 
 %%% ¡prop!
-ID (data, string) is a few-letter code for the data point for spectrum.
+ID (data, string) is a few-letter code of the Raman-spectra data point.
 %%%% ¡default!
 'NNDataPoint_RamanSpectra ID'
 
 %%% ¡prop!
-LABEL (metadata, string) is an extended label of the data point for spectrum.
+LABEL (metadata, string) is an extended label of the Raman-spectra data point.
 %%%% ¡default!
 'NNDataPoint_RamanSpectra label'
 
 %%% ¡prop!
-NOTES (metadata, string) are some specific notes about the data point for spectrum.
+NOTES (metadata, string) are some specific notes of the Raman-spectra data point.
 %%%% ¡default!
 'NNDataPoint_RamanSpectra notes'
 
 %%% ¡prop!
-INPUT (result, cell) is the input value for this data point for spectrum.
+INPUT (result, cell) returns the spectral input within the wavelength range WL_RANGE for this Raman-spectra data point.
 %%%% ¡calculate!
 wl_range = dp.get('WL_RANGE');
 if isempty(wl_range)
@@ -70,38 +69,38 @@ else
 end
 
 %%% ¡prop!
-TARGET (result, cell) is the target values for this data point for spectrum.
+INPUT (result, cell) returns the spectral input within the wavelength range WL_RANGE for this Raman-spectra data point.
 %%%% ¡calculate!
 value = cellfun(@(c) sum(double(c)), dp.get('TARGET_CLASS'), 'UniformOutput', false);
 
 %% ¡props!
 
 %%% ¡prop!
-SP_DATA (data, cvector) is the spectrum value.
+SP_DATA (data, cvector) is the vector of spectral intensities for this Raman spectrum.
 
 %%% ¡prop!
-WL (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.
+WL (data, cvector) is the wavelength vector (cm^-1) aligned element-wise with SP_DATA.
 
 %%% ¡prop!
-WL_START (data, scalar) is the starting wavelength.
+WL_START (data, scalar) is the lower wavelength bound (cm^-1) used to crop the spectrum.
 %%%% ¡default!
 600
 
 %%% ¡prop!
-WL_END (data, scalar) is the ending wavelength.
+WL_END (data, scalar) is the upper wavelength bound (cm^-1) used to crop the spectrum.
 %%%% ¡default!
 1750
 
 %%% ¡prop!
-TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.
+TARGET_CLASS (parameter, stringlist) lists variable-of-interest IDs used to construct TARGET.
 
 %%% ¡prop!
-WL_LABELS (query, stringlist) is the labels for the wavelengths.
+WL_LABELS (query, stringlist) returns string labels for wavelength WL in the form "<wavenumber> cm^-1".
 %%%% ¡calculate!
 value = arrayfun(@(wavelength) [num2str(wavelength) ' cm-1'], dp.get('WL')', 'UniformOutput', false);
 
 %%% ¡prop!
-WL_RANGE (result, rvector) is the ending wavelength.
+WL_RANGE (result, rvector) returns the index pair [i_start, i_end] delimiting WL_START to WL_END within WL.
 %%%% ¡calculate!
 wavelength = dp.get('WL');
 wavelength_start = dp.get('WL_START');
@@ -114,7 +113,7 @@ diff_end = wavelength - wavelength_end;
 value = [idx_wav_start, idx_wav_end];
 
 %%% ¡prop!
-WL_OF_INTEREST (result, rvector) is the ending wavelength.
+WL_OF_INTEREST (result, rvector) returns the wavelength values within WL_RANGE.
 %%%% ¡calculate!
 wl = dp.get('WL');
 wl_range = dp.get('WL_RANGE');
