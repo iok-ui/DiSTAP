@@ -1,45 +1,46 @@
 classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
-	%NNVariationalAutoencoderMLP transfroms neural network datasets.
+	%NNVariationalAutoencoderMLP is a neural-network variational autoencoder with a multilayer perceptron (MLP) encoder/decoder.
 	% It is a subclass of <a href="matlab:help NNVariationalAutoencoder">NNVariationalAutoencoder</a>.
 	%
-	% A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. 
-	% The resulting combined dataset contains all the unique datapoints from the input datasets, 
-	% and any overlapping datapoints are excluded to ensure data consistency.
+	% A neural-network variational autoencoder with a multilayer perceptron backbone (NNVariationalAutoencoderMLP) comprises an encoder and a decoder and is trained in an unsupervised manner to maximise the evidence lower bound (ELBO).
+	%  The encoder outputs the parameters of a Gaussian latent distribution (mean μ and log-variance log σ²); a latent sample z is obtained via the reparameterisation trick and decoded back to the input space.
+	%  Training minimises the negative ELBO, i.e., a reconstruction term plus a Kullback–Leibler divergence that regularises the approximate posterior towards a standard normal prior N(0, I).
+	%  This subclass uses a multilayer perceptron (MLP) as the encoder/decoder backbone and trains on a neural-network dataset (NNDataset).
 	%
 	% The list of NNVariationalAutoencoderMLP properties is:
-	%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the combiner of neural networks datasets.
-	%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the combiner of neural networks datasets.
-	%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the combiner of neural networks datasets.
-	%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the combiner of neural networks datasets.
-	%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the combiner of neural networks datasets.
-	%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the combiner of neural networks datasets.
-	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of the combiner of neural networks datasets.
+	%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the neural-network variational autoencoder (MLP).
+	%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the neural-network variational autoencoder (MLP).
+	%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the neural-network variational autoencoder (MLP).
+	%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the neural-network variational autoencoder (MLP).
+	%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the neural-network variational autoencoder (MLP).
+	%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the neural-network variational autoencoder (MLP).
+	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of the neural-network variational autoencoder (MLP).
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-	%  <strong>9</strong> <strong>D</strong> 	D (data, item) is the dataset to train the neural network model, and its data point class DP_CLASS defaults to one of the compatible classes within the set of DP_CLASSES.
-	%  <strong>10</strong> <strong>DP_CLASSES</strong> 	DP_CLASSES (parameter, classlist) is the list of compatible data points.
+	%  <strong>9</strong> <strong>D</strong> 	D (data, item) is the dataset used to train the variational autoencoder. Its data-point class DP_CLASS must belong to the compatible set DP_CLASSES.
+	%  <strong>10</strong> <strong>DP_CLASSES</strong> 	DP_CLASSES (parameter, classlist) is the list of compatible data-point classes for this variational autoencoder.
 	%  <strong>11</strong> <strong>EPOCHS</strong> 	EPOCHS (parameter, scalar) is the maximum number of epochs.
 	%  <strong>12</strong> <strong>BATCH</strong> 	BATCH (parameter, scalar) is the size of the mini-batch used for each training iteration.
 	%  <strong>13</strong> <strong>SHUFFLE</strong> 	SHUFFLE (parameter, option) is an option for data shuffling.
 	%  <strong>14</strong> <strong>SOLVER</strong> 	SOLVER (parameter, option) is an option for the solver.
 	%  <strong>15</strong> <strong>MODEL</strong> 	MODEL (result, net) is a trained neural network model with the given dataset.
-	%  <strong>16</strong> <strong>INPUTS</strong> 	INPUTS (query, cell) constructs the cell array of the data.
-	%  <strong>17</strong> <strong>TARGETS</strong> 	TARGETS (query, stringlist) constructs the cell array of the targets.
-	%  <strong>18</strong> <strong>TRAIN</strong> 	TRAIN (query, empty) trains the neural network model with the given dataset.
+	%  <strong>16</strong> <strong>INPUTS</strong> 	INPUTS (query, cell) constructs and returns the input matrix from dataset D by flattening each input to length SIZE_INPUT and stacking column-wise.
+	%  <strong>17</strong> <strong>TARGETS</strong> 	TARGETS (query, stringlist) constructs and returns the targets from dataset D (if applicable).
+	%  <strong>18</strong> <strong>TRAIN</strong> 	TRAIN (query, empty) configures an MLP encoder/decoder and then trains via the superclass to minimise LOSS_FN (negative ELBO) using a mini-batch loop.
 	%  <strong>19</strong> <strong>VERBOSE</strong> 	VERBOSE (gui, logical) is an indicator to display training progress information.
 	%  <strong>20</strong> <strong>PLOT_TRAINING</strong> 	PLOT_TRAINING (metadata, option) determines whether to plot the training progress.
 	%  <strong>21</strong> <strong>PREDICT</strong> 	PREDICT (query, cell) returns the predictions of the trained neural network for a dataset.
-	%  <strong>22</strong> <strong>LEARN_RATE</strong> 	LEARN_RATE (parameter, scalar) is the size of the mini-batch used for each training iteration.
-	%  <strong>23</strong> <strong>NUM_LATENT_REP</strong> 	NUM_LATENT_REP (parameter, scalar) is the size of the mini-batch used for each training iteration.
-	%  <strong>24</strong> <strong>SIZE_INPUT</strong> 	SIZE_INPUT (parameter, rvector) is the size of the input image.
-	%  <strong>25</strong> <strong>ITERATION_DIM</strong> 	ITERATION_DIM (parameter, scalar) is the iteration dimension.
-	%  <strong>26</strong> <strong>NUM_MBQ_OUTPUT</strong> 	NUM_MBQ_OUTPUT (parameter, scalar) is the iteration dimension.
-	%  <strong>27</strong> <strong>MINIBATCH_FORMAT_INPUT</strong> 	MINIBATCH_FORMAT_INPUT (query, string) returns the elbo loss.
-	%  <strong>28</strong> <strong>MINIBATCH_FORMAT_TARGET</strong> 	MINIBATCH_FORMAT_TARGET (query, string) returns the elbo loss.
-	%  <strong>29</strong> <strong>ENCODER</strong> 	ENCODER (data, net) is a neural network encoder.
-	%  <strong>30</strong> <strong>DECODER</strong> 	DECODER (data, net) is a neural network decoder.
-	%  <strong>31</strong> <strong>MBQ</strong> 	MBQ (query, empty) constructs the cell array of the targets.
-	%  <strong>32</strong> <strong>LOSS_FN</strong> 	LOSS_FN (query, scalar) returns the loss function.
-	%  <strong>33</strong> <strong>NEURONS_PER_LAYER</strong> 	NEURONS_PER_LAYER (parameter, rvector) is the size of the input image.
+	%  <strong>22</strong> <strong>LEARN_RATE</strong> 	LEARN_RATE (parameter, scalar) is the learning rate for optimisation.
+	%  <strong>23</strong> <strong>NUM_LATENT_REP</strong> 	NUM_LATENT_REP (parameter, scalar) is the number of latent representations (latent dimensions).
+	%  <strong>24</strong> <strong>SIZE_INPUT</strong> 	SIZE_INPUT (parameter, rvector) is the size of the input data once flattened (scalar number of features).
+	%  <strong>25</strong> <strong>ITERATION_DIM</strong> 	ITERATION_DIM (parameter, scalar) is used by minibatchqueue (MBQ) to indicate the concatenation/batch dimension.
+	%  <strong>26</strong> <strong>NUM_MBQ_OUTPUT</strong> 	NUM_MBQ_OUTPUT (parameter, scalar) is the number of outputs produced by the minibatchqueue (MBQ).
+	%  <strong>27</strong> <strong>MINIBATCH_FORMAT_INPUT</strong> 	MINIBATCH_FORMAT_INPUT (query, string) is a dlarray label string for input mini-batches (e.g., "CB"), used by minibatchqueue (MBQ).
+	%  <strong>28</strong> <strong>MINIBATCH_FORMAT_TARGET</strong> 	MINIBATCH_FORMAT_TARGET (query, string) is a dlarray label string for target mini-batches (may be empty), used by minibatchqueue (MBQ).
+	%  <strong>29</strong> <strong>ENCODER</strong> 	ENCODER (data, net) is a learnable encoder network (e.g., a dlnetwork) that outputs μ and log σ² and samples z via reparameterisation.
+	%  <strong>30</strong> <strong>DECODER</strong> 	DECODER (data, net) is a learnable decoder network (e.g., a dlnetwork) that maps latent samples z back to the input space.
+	%  <strong>31</strong> <strong>MBQ</strong> 	MBQ (query, empty) returns a configured minibatchqueue (MBQ) for training on dataset D.
+	%  <strong>32</strong> <strong>LOSS_FN</strong> 	LOSS_FN (query, scalar) returns the scalar training loss (negative ELBO), computed as a reconstruction term plus a Kullback–Leibler divergence that regularises q(z|x) towards N(0, I).
+	%  <strong>33</strong> <strong>NEURONS_PER_LAYER</strong> 	NEURONS_PER_LAYER (parameter, rvector) are the hidden-layer widths for the MLP encoder/decoder (mirrored in the decoder).
 	%
 	% NNVariationalAutoencoderMLP methods (constructor):
 	%  NNVariationalAutoencoderMLP - constructor
@@ -59,33 +60,33 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 	%  unchecked - sets a property to NOT checked
 	%
 	% NNVariationalAutoencoderMLP methods (display):
-	%  tostring - string with information about the normalizer of a neural network data
-	%  disp - displays information about the normalizer of a neural network data
-	%  tree - displays the tree of the normalizer of a neural network data
+	%  tostring - string with information about the a neural-network variational autoencoder with a multilayer perceptron backbone
+	%  disp - displays information about the a neural-network variational autoencoder with a multilayer perceptron backbone
+	%  tree - displays the tree of the a neural-network variational autoencoder with a multilayer perceptron backbone
 	%
 	% NNVariationalAutoencoderMLP methods (miscellanea):
 	%  getNoValue - returns a pointer to a persistent instance of NoValue
 	%               Use it as Element.getNoValue()
 	%  getCallback - returns the callback to a property
-	%  isequal - determines whether two normalizer of a neural network data are equal (values, locked)
+	%  isequal - determines whether two a neural-network variational autoencoder with a multilayer perceptron backbone are equal (values, locked)
 	%  getElementList - returns a list with all subelements
-	%  copy - copies the normalizer of a neural network data
+	%  copy - copies the a neural-network variational autoencoder with a multilayer perceptron backbone
 	%
 	% NNVariationalAutoencoderMLP methods (save/load, Static):
-	%  save - saves BRAPH2 normalizer of a neural network data as b2 file
-	%  load - loads a BRAPH2 normalizer of a neural network data from a b2 file
+	%  save - saves BRAPH2 a neural-network variational autoencoder with a multilayer perceptron backbone as b2 file
+	%  load - loads a BRAPH2 a neural-network variational autoencoder with a multilayer perceptron backbone from a b2 file
 	%
 	% NNVariationalAutoencoderMLP method (JSON encode):
-	%  encodeJSON - returns a JSON string encoding the normalizer of a neural network data
+	%  encodeJSON - returns a JSON string encoding the a neural-network variational autoencoder with a multilayer perceptron backbone
 	%
 	% NNVariationalAutoencoderMLP method (JSON decode, Static):
-	%   decodeJSON - returns a JSON string encoding the normalizer of a neural network data
+	%   decodeJSON - returns a JSON string encoding the a neural-network variational autoencoder with a multilayer perceptron backbone
 	%
 	% NNVariationalAutoencoderMLP methods (inspection, Static):
-	%  getClass - returns the class of the normalizer of a neural network data
+	%  getClass - returns the class of the a neural-network variational autoencoder with a multilayer perceptron backbone
 	%  getSubclasses - returns all subclasses of NNVariationalAutoencoderMLP
-	%  getProps - returns the property list of the normalizer of a neural network data
-	%  getPropNumber - returns the property number of the normalizer of a neural network data
+	%  getProps - returns the property list of the a neural-network variational autoencoder with a multilayer perceptron backbone
+	%  getPropNumber - returns the property number of the a neural-network variational autoencoder with a multilayer perceptron backbone
 	%  existsProp - checks whether property exists/error
 	%  existsTag - checks whether tag exists/error
 	%  getPropProp - returns the property number of a property
@@ -127,7 +128,7 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 	% To print full list of constants, click here <a href="matlab:metaclass = ?NNVariationalAutoencoderMLP; properties = metaclass.PropertyList;for i = 1:1:length(properties), if properties(i).Constant, disp([properties(i).Name newline() tostring(properties(i).DefaultValue) newline()]), end, end">NNVariationalAutoencoderMLP constants</a>.
 	%
 	%
-	% See also NNDataset, NNDatasetSplit.
+	% See also NNDataset, NNDatasetSplit, NNVariationalAutoencoder, NNAutoencoder.
 	%
 	% BUILD BRAPH2 7 class_name 1
 	
@@ -139,7 +140,7 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 	end
 	methods % constructor
 		function nnvae = NNVariationalAutoencoderMLP(varargin)
-			%NNVariationalAutoencoderMLP() creates a normalizer of a neural network data.
+			%NNVariationalAutoencoderMLP() creates a a neural-network variational autoencoder with a multilayer perceptron backbone.
 			%
 			% NNVariationalAutoencoderMLP(PROP, VALUE, ...) with property PROP initialized to VALUE.
 			%
@@ -149,39 +150,39 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 			%  them with either property numbers (PROP) or tags (TAG).
 			%
 			% The list of NNVariationalAutoencoderMLP properties is:
-			%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the combiner of neural networks datasets.
-			%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the combiner of neural networks datasets.
-			%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the combiner of neural networks datasets.
-			%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the combiner of neural networks datasets.
-			%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the combiner of neural networks datasets.
-			%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the combiner of neural networks datasets.
-			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of the combiner of neural networks datasets.
+			%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the neural-network variational autoencoder (MLP).
+			%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the neural-network variational autoencoder (MLP).
+			%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the neural-network variational autoencoder (MLP).
+			%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the neural-network variational autoencoder (MLP).
+			%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the neural-network variational autoencoder (MLP).
+			%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the neural-network variational autoencoder (MLP).
+			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of the neural-network variational autoencoder (MLP).
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-			%  <strong>9</strong> <strong>D</strong> 	D (data, item) is the dataset to train the neural network model, and its data point class DP_CLASS defaults to one of the compatible classes within the set of DP_CLASSES.
-			%  <strong>10</strong> <strong>DP_CLASSES</strong> 	DP_CLASSES (parameter, classlist) is the list of compatible data points.
+			%  <strong>9</strong> <strong>D</strong> 	D (data, item) is the dataset used to train the variational autoencoder. Its data-point class DP_CLASS must belong to the compatible set DP_CLASSES.
+			%  <strong>10</strong> <strong>DP_CLASSES</strong> 	DP_CLASSES (parameter, classlist) is the list of compatible data-point classes for this variational autoencoder.
 			%  <strong>11</strong> <strong>EPOCHS</strong> 	EPOCHS (parameter, scalar) is the maximum number of epochs.
 			%  <strong>12</strong> <strong>BATCH</strong> 	BATCH (parameter, scalar) is the size of the mini-batch used for each training iteration.
 			%  <strong>13</strong> <strong>SHUFFLE</strong> 	SHUFFLE (parameter, option) is an option for data shuffling.
 			%  <strong>14</strong> <strong>SOLVER</strong> 	SOLVER (parameter, option) is an option for the solver.
 			%  <strong>15</strong> <strong>MODEL</strong> 	MODEL (result, net) is a trained neural network model with the given dataset.
-			%  <strong>16</strong> <strong>INPUTS</strong> 	INPUTS (query, cell) constructs the cell array of the data.
-			%  <strong>17</strong> <strong>TARGETS</strong> 	TARGETS (query, stringlist) constructs the cell array of the targets.
-			%  <strong>18</strong> <strong>TRAIN</strong> 	TRAIN (query, empty) trains the neural network model with the given dataset.
+			%  <strong>16</strong> <strong>INPUTS</strong> 	INPUTS (query, cell) constructs and returns the input matrix from dataset D by flattening each input to length SIZE_INPUT and stacking column-wise.
+			%  <strong>17</strong> <strong>TARGETS</strong> 	TARGETS (query, stringlist) constructs and returns the targets from dataset D (if applicable).
+			%  <strong>18</strong> <strong>TRAIN</strong> 	TRAIN (query, empty) configures an MLP encoder/decoder and then trains via the superclass to minimise LOSS_FN (negative ELBO) using a mini-batch loop.
 			%  <strong>19</strong> <strong>VERBOSE</strong> 	VERBOSE (gui, logical) is an indicator to display training progress information.
 			%  <strong>20</strong> <strong>PLOT_TRAINING</strong> 	PLOT_TRAINING (metadata, option) determines whether to plot the training progress.
 			%  <strong>21</strong> <strong>PREDICT</strong> 	PREDICT (query, cell) returns the predictions of the trained neural network for a dataset.
-			%  <strong>22</strong> <strong>LEARN_RATE</strong> 	LEARN_RATE (parameter, scalar) is the size of the mini-batch used for each training iteration.
-			%  <strong>23</strong> <strong>NUM_LATENT_REP</strong> 	NUM_LATENT_REP (parameter, scalar) is the size of the mini-batch used for each training iteration.
-			%  <strong>24</strong> <strong>SIZE_INPUT</strong> 	SIZE_INPUT (parameter, rvector) is the size of the input image.
-			%  <strong>25</strong> <strong>ITERATION_DIM</strong> 	ITERATION_DIM (parameter, scalar) is the iteration dimension.
-			%  <strong>26</strong> <strong>NUM_MBQ_OUTPUT</strong> 	NUM_MBQ_OUTPUT (parameter, scalar) is the iteration dimension.
-			%  <strong>27</strong> <strong>MINIBATCH_FORMAT_INPUT</strong> 	MINIBATCH_FORMAT_INPUT (query, string) returns the elbo loss.
-			%  <strong>28</strong> <strong>MINIBATCH_FORMAT_TARGET</strong> 	MINIBATCH_FORMAT_TARGET (query, string) returns the elbo loss.
-			%  <strong>29</strong> <strong>ENCODER</strong> 	ENCODER (data, net) is a neural network encoder.
-			%  <strong>30</strong> <strong>DECODER</strong> 	DECODER (data, net) is a neural network decoder.
-			%  <strong>31</strong> <strong>MBQ</strong> 	MBQ (query, empty) constructs the cell array of the targets.
-			%  <strong>32</strong> <strong>LOSS_FN</strong> 	LOSS_FN (query, scalar) returns the loss function.
-			%  <strong>33</strong> <strong>NEURONS_PER_LAYER</strong> 	NEURONS_PER_LAYER (parameter, rvector) is the size of the input image.
+			%  <strong>22</strong> <strong>LEARN_RATE</strong> 	LEARN_RATE (parameter, scalar) is the learning rate for optimisation.
+			%  <strong>23</strong> <strong>NUM_LATENT_REP</strong> 	NUM_LATENT_REP (parameter, scalar) is the number of latent representations (latent dimensions).
+			%  <strong>24</strong> <strong>SIZE_INPUT</strong> 	SIZE_INPUT (parameter, rvector) is the size of the input data once flattened (scalar number of features).
+			%  <strong>25</strong> <strong>ITERATION_DIM</strong> 	ITERATION_DIM (parameter, scalar) is used by minibatchqueue (MBQ) to indicate the concatenation/batch dimension.
+			%  <strong>26</strong> <strong>NUM_MBQ_OUTPUT</strong> 	NUM_MBQ_OUTPUT (parameter, scalar) is the number of outputs produced by the minibatchqueue (MBQ).
+			%  <strong>27</strong> <strong>MINIBATCH_FORMAT_INPUT</strong> 	MINIBATCH_FORMAT_INPUT (query, string) is a dlarray label string for input mini-batches (e.g., "CB"), used by minibatchqueue (MBQ).
+			%  <strong>28</strong> <strong>MINIBATCH_FORMAT_TARGET</strong> 	MINIBATCH_FORMAT_TARGET (query, string) is a dlarray label string for target mini-batches (may be empty), used by minibatchqueue (MBQ).
+			%  <strong>29</strong> <strong>ENCODER</strong> 	ENCODER (data, net) is a learnable encoder network (e.g., a dlnetwork) that outputs μ and log σ² and samples z via reparameterisation.
+			%  <strong>30</strong> <strong>DECODER</strong> 	DECODER (data, net) is a learnable decoder network (e.g., a dlnetwork) that maps latent samples z back to the input space.
+			%  <strong>31</strong> <strong>MBQ</strong> 	MBQ (query, empty) returns a configured minibatchqueue (MBQ) for training on dataset D.
+			%  <strong>32</strong> <strong>LOSS_FN</strong> 	LOSS_FN (query, scalar) returns the scalar training loss (negative ELBO), computed as a reconstruction term plus a Kullback–Leibler divergence that regularises q(z|x) towards N(0, I).
+			%  <strong>33</strong> <strong>NEURONS_PER_LAYER</strong> 	NEURONS_PER_LAYER (parameter, rvector) are the hidden-layer widths for the MLP encoder/decoder (mirrored in the decoder).
 			%
 			% See also Category, Format.
 			
@@ -190,12 +191,12 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 	end
 	methods (Static) % inspection
 		function build = getBuild()
-			%GETBUILD returns the build of the normalizer of a neural network data.
+			%GETBUILD returns the build of the a neural-network variational autoencoder with a multilayer perceptron backbone.
 			%
 			% BUILD = NNVariationalAutoencoderMLP.GETBUILD() returns the build of 'NNVariationalAutoencoderMLP'.
 			%
 			% Alternative forms to call this method are:
-			%  BUILD = NNVAE.GETBUILD() returns the build of the normalizer of a neural network data NNVAE.
+			%  BUILD = NNVAE.GETBUILD() returns the build of the a neural-network variational autoencoder with a multilayer perceptron backbone NNVAE.
 			%  BUILD = Element.GETBUILD(NNVAE) returns the build of 'NNVAE'.
 			%  BUILD = Element.GETBUILD('NNVariationalAutoencoderMLP') returns the build of 'NNVariationalAutoencoderMLP'.
 			%
@@ -205,12 +206,12 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 			build = 1;
 		end
 		function nnvae_class = getClass()
-			%GETCLASS returns the class of the normalizer of a neural network data.
+			%GETCLASS returns the class of the a neural-network variational autoencoder with a multilayer perceptron backbone.
 			%
 			% CLASS = NNVariationalAutoencoderMLP.GETCLASS() returns the class 'NNVariationalAutoencoderMLP'.
 			%
 			% Alternative forms to call this method are:
-			%  CLASS = NNVAE.GETCLASS() returns the class of the normalizer of a neural network data NNVAE.
+			%  CLASS = NNVAE.GETCLASS() returns the class of the a neural-network variational autoencoder with a multilayer perceptron backbone NNVAE.
 			%  CLASS = Element.GETCLASS(NNVAE) returns the class of 'NNVAE'.
 			%  CLASS = Element.GETCLASS('NNVariationalAutoencoderMLP') returns 'NNVariationalAutoencoderMLP'.
 			%
@@ -220,12 +221,12 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 			nnvae_class = 'NNVariationalAutoencoderMLP';
 		end
 		function subclass_list = getSubclasses()
-			%GETSUBCLASSES returns all subclasses of the normalizer of a neural network data.
+			%GETSUBCLASSES returns all subclasses of the a neural-network variational autoencoder with a multilayer perceptron backbone.
 			%
 			% LIST = NNVariationalAutoencoderMLP.GETSUBCLASSES() returns all subclasses of 'NNVariationalAutoencoderMLP'.
 			%
 			% Alternative forms to call this method are:
-			%  LIST = NNVAE.GETSUBCLASSES() returns all subclasses of the normalizer of a neural network data NNVAE.
+			%  LIST = NNVAE.GETSUBCLASSES() returns all subclasses of the a neural-network variational autoencoder with a multilayer perceptron backbone NNVAE.
 			%  LIST = Element.GETSUBCLASSES(NNVAE) returns all subclasses of 'NNVAE'.
 			%  LIST = Element.GETSUBCLASSES('NNVariationalAutoencoderMLP') returns all subclasses of 'NNVariationalAutoencoderMLP'.
 			%
@@ -237,16 +238,16 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 			subclass_list = { 'NNVariationalAutoencoderMLP' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
-			%GETPROPS returns the property list of normalizer of a neural network data.
+			%GETPROPS returns the property list of a neural-network variational autoencoder with a multilayer perceptron backbone.
 			%
-			% PROPS = NNVariationalAutoencoderMLP.GETPROPS() returns the property list of normalizer of a neural network data
+			% PROPS = NNVariationalAutoencoderMLP.GETPROPS() returns the property list of a neural-network variational autoencoder with a multilayer perceptron backbone
 			%  as a row vector.
 			%
 			% PROPS = NNVariationalAutoencoderMLP.GETPROPS(CATEGORY) returns the property list 
 			%  of category CATEGORY.
 			%
 			% Alternative forms to call this method are:
-			%  PROPS = NNVAE.GETPROPS([CATEGORY]) returns the property list of the normalizer of a neural network data NNVAE.
+			%  PROPS = NNVAE.GETPROPS([CATEGORY]) returns the property list of the a neural-network variational autoencoder with a multilayer perceptron backbone NNVAE.
 			%  PROPS = Element.GETPROPS(NNVAE[, CATEGORY]) returns the property list of 'NNVAE'.
 			%  PROPS = Element.GETPROPS('NNVariationalAutoencoderMLP'[, CATEGORY]) returns the property list of 'NNVariationalAutoencoderMLP'.
 			%
@@ -282,15 +283,15 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 			end
 		end
 		function prop_number = getPropNumber(varargin)
-			%GETPROPNUMBER returns the property number of normalizer of a neural network data.
+			%GETPROPNUMBER returns the property number of a neural-network variational autoencoder with a multilayer perceptron backbone.
 			%
-			% N = NNVariationalAutoencoderMLP.GETPROPNUMBER() returns the property number of normalizer of a neural network data.
+			% N = NNVariationalAutoencoderMLP.GETPROPNUMBER() returns the property number of a neural-network variational autoencoder with a multilayer perceptron backbone.
 			%
-			% N = NNVariationalAutoencoderMLP.GETPROPNUMBER(CATEGORY) returns the property number of normalizer of a neural network data
+			% N = NNVariationalAutoencoderMLP.GETPROPNUMBER(CATEGORY) returns the property number of a neural-network variational autoencoder with a multilayer perceptron backbone
 			%  of category CATEGORY
 			%
 			% Alternative forms to call this method are:
-			%  N = NNVAE.GETPROPNUMBER([CATEGORY]) returns the property number of the normalizer of a neural network data NNVAE.
+			%  N = NNVAE.GETPROPNUMBER([CATEGORY]) returns the property number of the a neural-network variational autoencoder with a multilayer perceptron backbone NNVAE.
 			%  N = Element.GETPROPNUMBER(NNVAE) returns the property number of 'NNVAE'.
 			%  N = Element.GETPROPNUMBER('NNVariationalAutoencoderMLP') returns the property number of 'NNVariationalAutoencoderMLP'.
 			%
@@ -326,7 +327,7 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 			end
 		end
 		function check_out = existsProp(prop)
-			%EXISTSPROP checks whether property exists in normalizer of a neural network data/error.
+			%EXISTSPROP checks whether property exists in a neural-network variational autoencoder with a multilayer perceptron backbone/error.
 			%
 			% CHECK = NNVariationalAutoencoderMLP.EXISTSPROP(PROP) checks whether the property PROP exists.
 			%
@@ -364,7 +365,7 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 			end
 		end
 		function check_out = existsTag(tag)
-			%EXISTSTAG checks whether tag exists in normalizer of a neural network data/error.
+			%EXISTSTAG checks whether tag exists in a neural-network variational autoencoder with a multilayer perceptron backbone/error.
 			%
 			% CHECK = NNVariationalAutoencoderMLP.EXISTSTAG(TAG) checks whether a property with tag TAG exists.
 			%
@@ -530,7 +531,7 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 			prop = NNVariationalAutoencoderMLP.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nnvariationalautoencodermlp_description_list = { 'ELCLASS (constant, string) is the class of the combiner of neural networks datasets.'  'NAME (constant, string) is the name of the combiner of neural networks datasets.'  'DESCRIPTION (constant, string) is the description of the combiner of neural networks datasets.'  'TEMPLATE (parameter, item) is the template of the combiner of neural networks datasets.'  'ID (data, string) is a few-letter code of the combiner of neural networks datasets.'  'LABEL (metadata, string) is an extended label of the combiner of neural networks datasets.'  'NOTES (metadata, string) are some specific notes of the combiner of neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (data, item) is the dataset to train the neural network model, and its data point class DP_CLASS defaults to one of the compatible classes within the set of DP_CLASSES.'  'DP_CLASSES (parameter, classlist) is the list of compatible data points.'  'EPOCHS (parameter, scalar) is the maximum number of epochs.'  'BATCH (parameter, scalar) is the size of the mini-batch used for each training iteration.'  'SHUFFLE (parameter, option) is an option for data shuffling.'  'SOLVER (parameter, option) is an option for the solver.'  'MODEL (result, net) is a trained neural network model with the given dataset.'  'INPUTS (query, cell) constructs the cell array of the data.'  'TARGETS (query, stringlist) constructs the cell array of the targets.'  'TRAIN (query, empty) trains the neural network model with the given dataset.'  'VERBOSE (gui, logical) is an indicator to display training progress information.'  'PLOT_TRAINING (metadata, option) determines whether to plot the training progress.'  'PREDICT (query, cell) returns the predictions of the trained neural network for a dataset.'  'LEARN_RATE (parameter, scalar) is the size of the mini-batch used for each training iteration.'  'NUM_LATENT_REP (parameter, scalar) is the size of the mini-batch used for each training iteration.'  'SIZE_INPUT (parameter, rvector) is the size of the input image.'  'ITERATION_DIM (parameter, scalar) is the iteration dimension.'  'NUM_MBQ_OUTPUT (parameter, scalar) is the iteration dimension.'  'MINIBATCH_FORMAT_INPUT (query, string) returns the elbo loss.'  'MINIBATCH_FORMAT_TARGET (query, string) returns the elbo loss.'  'ENCODER (data, net) is a neural network encoder.'  'DECODER (data, net) is a neural network decoder.'  'MBQ (query, empty) constructs the cell array of the targets.'  'LOSS_FN (query, scalar) returns the loss function.'  'NEURONS_PER_LAYER (parameter, rvector) is the size of the input image.' };
+			nnvariationalautoencodermlp_description_list = { 'ELCLASS (constant, string) is the class of the neural-network variational autoencoder (MLP).'  'NAME (constant, string) is the name of the neural-network variational autoencoder (MLP).'  'DESCRIPTION (constant, string) is the description of the neural-network variational autoencoder (MLP).'  'TEMPLATE (parameter, item) is the template of the neural-network variational autoencoder (MLP).'  'ID (data, string) is a few-letter code of the neural-network variational autoencoder (MLP).'  'LABEL (metadata, string) is an extended label of the neural-network variational autoencoder (MLP).'  'NOTES (metadata, string) are some specific notes of the neural-network variational autoencoder (MLP).'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (data, item) is the dataset used to train the variational autoencoder. Its data-point class DP_CLASS must belong to the compatible set DP_CLASSES.'  'DP_CLASSES (parameter, classlist) is the list of compatible data-point classes for this variational autoencoder.'  'EPOCHS (parameter, scalar) is the maximum number of epochs.'  'BATCH (parameter, scalar) is the size of the mini-batch used for each training iteration.'  'SHUFFLE (parameter, option) is an option for data shuffling.'  'SOLVER (parameter, option) is an option for the solver.'  'MODEL (result, net) is a trained neural network model with the given dataset.'  'INPUTS (query, cell) constructs and returns the input matrix from dataset D by flattening each input to length SIZE_INPUT and stacking column-wise.'  'TARGETS (query, stringlist) constructs and returns the targets from dataset D (if applicable).'  'TRAIN (query, empty) configures an MLP encoder/decoder and then trains via the superclass to minimise LOSS_FN (negative ELBO) using a mini-batch loop.'  'VERBOSE (gui, logical) is an indicator to display training progress information.'  'PLOT_TRAINING (metadata, option) determines whether to plot the training progress.'  'PREDICT (query, cell) returns the predictions of the trained neural network for a dataset.'  'LEARN_RATE (parameter, scalar) is the learning rate for optimisation.'  'NUM_LATENT_REP (parameter, scalar) is the number of latent representations (latent dimensions).'  'SIZE_INPUT (parameter, rvector) is the size of the input data once flattened (scalar number of features).'  'ITERATION_DIM (parameter, scalar) is used by minibatchqueue (MBQ) to indicate the concatenation/batch dimension.'  'NUM_MBQ_OUTPUT (parameter, scalar) is the number of outputs produced by the minibatchqueue (MBQ).'  'MINIBATCH_FORMAT_INPUT (query, string) is a dlarray label string for input mini-batches (e.g., "CB"), used by minibatchqueue (MBQ).'  'MINIBATCH_FORMAT_TARGET (query, string) is a dlarray label string for target mini-batches (may be empty), used by minibatchqueue (MBQ).'  'ENCODER (data, net) is a learnable encoder network (e.g., a dlnetwork) that outputs μ and log σ² and samples z via reparameterisation.'  'DECODER (data, net) is a learnable decoder network (e.g., a dlnetwork) that maps latent samples z back to the input space.'  'MBQ (query, empty) returns a configured minibatchqueue (MBQ) for training on dataset D.'  'LOSS_FN (query, scalar) returns the scalar training loss (negative ELBO), computed as a reconstruction term plus a Kullback–Leibler divergence that regularises q(z|x) towards N(0, I).'  'NEURONS_PER_LAYER (parameter, rvector) are the hidden-layer widths for the MLP encoder/decoder (mirrored in the decoder).' };
 			prop_description = nnvariationalautoencodermlp_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -594,17 +595,17 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 				case 1 % NNVariationalAutoencoderMLP.ELCLASS
 					prop_default = 'NNVariationalAutoencoderMLP';
 				case 2 % NNVariationalAutoencoderMLP.NAME
-					prop_default = 'Neural Network Variational Autoencoders';
+					prop_default = 'Neural Network Variational Autoencoder (MLP)';
 				case 3 % NNVariationalAutoencoderMLP.DESCRIPTION
-					prop_default = 'A dataset combiner (NNDatasetCombine) takes a list of neural network datasets and combines them into a single dataset. The resulting combined dataset contains all the unique datapoints from the input datasets, and any overlapping datapoints are excluded to ensure data consistency.';
+					prop_default = 'A neural-network variational autoencoder with a multilayer perceptron backbone (NNVariationalAutoencoderMLP) comprises an encoder and a decoder and is trained in an unsupervised manner to maximise the evidence lower bound (ELBO). The encoder outputs the parameters of a Gaussian latent distribution (mean μ and log-variance log σ²); a latent sample z is obtained via the reparameterisation trick and decoded back to the input space. Training minimises the negative ELBO, i.e., a reconstruction term plus a Kullback–Leibler divergence that regularises the approximate posterior towards a standard normal prior N(0, I). This subclass uses a multilayer perceptron (MLP) as the encoder/decoder backbone and trains on a neural-network dataset (NNDataset).';
 				case 4 % NNVariationalAutoencoderMLP.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNVariationalAutoencoderMLP.getPropSettings(prop));
 				case 5 % NNVariationalAutoencoderMLP.ID
-					prop_default = 'NNDatasetCombine ID';
+					prop_default = 'NNVariationalAutoencoderMLP ID';
 				case 6 % NNVariationalAutoencoderMLP.LABEL
-					prop_default = 'NNDatasetCombine label';
+					prop_default = 'NNVariationalAutoencoderMLP label';
 				case 7 % NNVariationalAutoencoderMLP.NOTES
-					prop_default = 'NNDatasetCombine notes';
+					prop_default = 'NNVariationalAutoencoderMLP notes';
 				case 9 % NNVariationalAutoencoderMLP.D
 					prop_default = NNDataset('DP_CLASS', 'NNDataPoint');
 				case 10 % NNVariationalAutoencoderMLP.DP_CLASSES
@@ -750,8 +751,7 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 			
 			switch prop
 				case 16 % NNVariationalAutoencoderMLP.INPUTS
-					% inputs = nn.get('inputs', D) returns a cell array with the
-					%  inputs for all data points in dataset D.
+					% inputs = nn.get('INPUTS', D) returns a cell/matrix of inputs for all data points in dataset D.
 					if isempty(varargin)
 					    value = {};
 					    return
@@ -761,15 +761,13 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 					if isempty(inputs_group)
 					    value = {};
 					else
-					    %[s1, s2] = size(cell2mat(inputs_group{1}));
 					    s1 = nnvae.get('SIZE_INPUT');
 					    flat_cells = cellfun(@(c) c{1}, inputs_group, 'UniformOutput', false);
 					    value = reshape(cat(1, flat_cells{:}), s1, []);
 					end
 					
 				case 17 % NNVariationalAutoencoderMLP.TARGETS
-					% targets = nn.get('PREDICT', D) returns a cell array with the
-					%  targets for all data points in dataset D.
+					% targets = nn.get('TARGETS', D) returns targets for all data points in dataset D (if used).
 					if isempty(varargin)
 					    value = {};
 					    return
@@ -785,7 +783,7 @@ classdef NNVariationalAutoencoderMLP < NNVariationalAutoencoder
 					
 				case 18 % NNVariationalAutoencoderMLP.TRAIN
 					% --- Set up ENCODER ---
-					% Retrieve hyperparam
+					% Retrieve hyperparameters
 					neurons = nnvae.get('NEURONS_PER_LAYER');
 					numLatentChannels = nnvae.get('NUM_LATENT_REP');
 					inputSize = nnvae.get('SIZE_INPUT');

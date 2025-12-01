@@ -1,40 +1,40 @@
 classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
-	%NNDatasetProcess_RamanSpectra processes raw MNIST data into a neural network datasets.
+	%NNDatasetProcess_RamanSpectra processes Raman spectra into a neural-network dataset.
 	% It is a subclass of <a href="matlab:help NNDatasetProcess">NNDatasetProcess</a>.
 	%
-	% The Raman sepctrum processing for a neural network dataset (NNDatasetProcess_Spectrum) processes the raw raman spectrum data into a neural network dataset. 
-	%  The resulting neural network dataset contains all the datapoints from the raw data, along with its corresponding labels.
+	% The Raman-spectra dataset process (NNDatasetProcess_RamanSpectra) converts raw Raman spectra stored in *.b2 files into an NNDataset of NNDataPoint_RamanSpectra, 
+	%  applying optional spectral transformation and normalisation and attaching label metadata.
 	%
 	% The list of NNDatasetProcess_RamanSpectra properties is:
-	%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of processing MNIST data for a neural networks datasets.
-	%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of processing MNIST data for a neural networks datasets.
-	%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of processing data for a neural networks datasets.
-	%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.
-	%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of processing data for a neural networks datasets.
-	%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.
-	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.
+	%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the Raman-spectra dataset process.
+	%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the Raman-spectra dataset process.
+	%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the Raman-spectra dataset process.
+	%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the Raman-spectra dataset process.
+	%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the Raman-spectra dataset process.
+	%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the Raman-spectra dataset process.
+	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are specific notes of the Raman-spectra dataset process.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-	%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
-	%  <strong>10</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) canonical order for output.
-	%  <strong>11</strong> <strong>KIND_SEQ</strong> 	KIND_SEQ (parameter, stringlist) canonical order for output.
-	%  <strong>12</strong> <strong>LOCATION_SEQ</strong> 	LOCATION_SEQ (parameter, stringlist) canonical order for output.
-	%  <strong>13</strong> <strong>TARGETS_TO_REMOVE</strong> 	TARGETS_TO_REMOVE (data, stringlist) contains the directory of the b2 file for spectrum data.
-	%  <strong>14</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.
-	%  <strong>15</strong> <strong>WAVELENGTH_START</strong> 	WAVELENGTH_START (parameter, scalar) is the starting wavelength.
-	%  <strong>16</strong> <strong>WAVELENGTH_END</strong> 	WAVELENGTH_END (parameter, scalar) is the ending  wavelength.
-	%  <strong>17</strong> <strong>TRANSFORMATION_RULE</strong> 	TRANSFORMATION_RULE (parameter, option) is the transformation methods.
-	%  <strong>18</strong> <strong>NORMALIZATION_RULE</strong> 	NORMALIZATION_RULE (parameter, option) is the normalization methods.
-	%  <strong>19</strong> <strong>SCALE_FACTOR</strong> 	SCALE_FACTOR (parameter, scalar) is the normalization methods.
-	%  <strong>20</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (result, cvector) is the wavelength.
-	%  <strong>21</strong> <strong>TRANSFORM_DATA</strong> 	TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.
-	%  <strong>22</strong> <strong>INV_TRANSFORM_DATA</strong> 	INV_TRANSFORM_DATA (query, cell) inverse-tranforms the images from the specified IDX files.
-	%  <strong>23</strong> <strong>NORMALIZE_DATA</strong> 	NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.
-	%  <strong>24</strong> <strong>INV_NORMALIZE_DATA</strong> 	INV_NORMALIZE_DATA (query, cell) inverse-normalizes the images from the specified IDX files.
-	%  <strong>25</strong> <strong>RAW_DATA</strong> 	RAW_DATA (result, cell) processes the data with normalization and transformation.
-	%  <strong>26</strong> <strong>PROCESS_DATA</strong> 	PROCESS_DATA (query, cell) processes the data with normalization and transformation.
-	%  <strong>27</strong> <strong>REV_PROCESS_DATA</strong> 	REV_PROCESS_DATA (query, cell) reverse the process step the data with normalization and transformation.
-	%  <strong>28</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts the sepctral data with dimension of wavelength x datapoints.
-	%  <strong>29</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts labels from all *.b2 files in RAW_DATA_DIR.
+	%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural-network dataset containing NNDataPoint_RamanSpectra built from RAW_DATA and EXTRACT_LABELS.
+	%  <strong>10</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) is the canonical stress-label ordering used by EXTRACT_LABELS.
+	%  <strong>11</strong> <strong>KIND_SEQ</strong> 	KIND_SEQ (parameter, stringlist) is the canonical species/cultivar code ordering used by EXTRACT_LABELS.
+	%  <strong>12</strong> <strong>LOCATION_SEQ</strong> 	LOCATION_SEQ (parameter, stringlist) is the canonical location label ordering used by EXTRACT_LABELS.
+	%  <strong>13</strong> <strong>TARGETS_TO_REMOVE</strong> 	TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any data point whose label contains a listed token is removed.
+	%  <strong>14</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (data, string) is the directory containing Raman *.b2 files to be processed.
+	%  <strong>15</strong> <strong>WAVELENGTH_START</strong> 	WAVELENGTH_START (parameter, scalar) is the starting wavelength (cm^-1).
+	%  <strong>16</strong> <strong>WAVELENGTH_END</strong> 	WAVELENGTH_END (parameter, scalar) is the ending wavelength (cm^-1).
+	%  <strong>17</strong> <strong>TRANSFORMATION_RULE</strong> 	TRANSFORMATION_RULE (parameter, option) is the spectral transformation applied before normalisation.
+	%  <strong>18</strong> <strong>NORMALIZATION_RULE</strong> 	NORMALIZATION_RULE (parameter, option) is the spectral normalisation applied after transformation.
+	%  <strong>19</strong> <strong>SCALE_FACTOR</strong> 	SCALE_FACTOR (parameter, scalar) is the scaling factor used when NORMALIZATION_RULE is Scale.
+	%  <strong>20</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (result, cvector) returns the wavelength vector parsed from the first *.b2 file in RAW_DATA_DIR.
+	%  <strong>21</strong> <strong>TRANSFORM_DATA</strong> 	TRANSFORM_DATA (query, cell) applies TRANSFORMATION_RULE to a wavelength×datapoints matrix and returns the transformed data.
+	%  <strong>22</strong> <strong>INV_TRANSFORM_DATA</strong> 	INV_TRANSFORM_DATA (query, cell) applies the inverse of TRANSFORMATION_RULE to recover spectra from a derivative representation.
+	%  <strong>23</strong> <strong>NORMALIZE_DATA</strong> 	NORMALIZE_DATA (query, cell) applies NORMALIZATION_RULE to a wavelength×datapoints matrix and returns the normalised data.
+	%  <strong>24</strong> <strong>INV_NORMALIZE_DATA</strong> 	INV_NORMALIZE_DATA (query, cell) applies the inverse of NORMALIZATION_RULE to restore original scale.
+	%  <strong>25</strong> <strong>RAW_DATA</strong> 	RAW_DATA (result, cell) returns the raw spectral data as a cell array (one column per datapoint) extracted by EXTRACT_DATA.
+	%  <strong>26</strong> <strong>PROCESS_DATA</strong> 	PROCESS_DATA (query, cell) returns spectra processed by TRANSFORM_DATA followed by NORMALIZE_DATA, packaged as a cell array of column vectors.
+	%  <strong>27</strong> <strong>REV_PROCESS_DATA</strong> 	REV_PROCESS_DATA (query, cell) returns spectra reconstructed by INV_NORMALIZE_DATA and INV_TRANSFORM_DATA, packaged as a cell array of column vectors.
+	%  <strong>28</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts spectral intensities from all *.b2 files in RAW_DATA_DIR and returns a cell array of wavelength×1 vectors (one per spectrum).
+	%  <strong>29</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts a 4-row label matrix per spectrum (species, stress, location, plant ID) using KIND_SEQ, STRESS_SEQ and LOCATION_SEQ, returned as a stringlist of char arrays.
 	%
 	% NNDatasetProcess_RamanSpectra methods (constructor):
 	%  NNDatasetProcess_RamanSpectra - constructor
@@ -54,33 +54,33 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 	%  unchecked - sets a property to NOT checked
 	%
 	% NNDatasetProcess_RamanSpectra methods (display):
-	%  tostring - string with information about the processing for a neural network data
-	%  disp - displays information about the processing for a neural network data
-	%  tree - displays the tree of the processing for a neural network data
+	%  tostring - string with information about the Raman-spectra dataset process
+	%  disp - displays information about the Raman-spectra dataset process
+	%  tree - displays the tree of the Raman-spectra dataset process
 	%
 	% NNDatasetProcess_RamanSpectra methods (miscellanea):
 	%  getNoValue - returns a pointer to a persistent instance of NoValue
 	%               Use it as Element.getNoValue()
 	%  getCallback - returns the callback to a property
-	%  isequal - determines whether two processing for a neural network data are equal (values, locked)
+	%  isequal - determines whether two Raman-spectra dataset process are equal (values, locked)
 	%  getElementList - returns a list with all subelements
-	%  copy - copies the processing for a neural network data
+	%  copy - copies the Raman-spectra dataset process
 	%
 	% NNDatasetProcess_RamanSpectra methods (save/load, Static):
-	%  save - saves BRAPH2 processing for a neural network data as b2 file
-	%  load - loads a BRAPH2 processing for a neural network data from a b2 file
+	%  save - saves BRAPH2 Raman-spectra dataset process as b2 file
+	%  load - loads a BRAPH2 Raman-spectra dataset process from a b2 file
 	%
 	% NNDatasetProcess_RamanSpectra method (JSON encode):
-	%  encodeJSON - returns a JSON string encoding the processing for a neural network data
+	%  encodeJSON - returns a JSON string encoding the Raman-spectra dataset process
 	%
 	% NNDatasetProcess_RamanSpectra method (JSON decode, Static):
-	%   decodeJSON - returns a JSON string encoding the processing for a neural network data
+	%   decodeJSON - returns a JSON string encoding the Raman-spectra dataset process
 	%
 	% NNDatasetProcess_RamanSpectra methods (inspection, Static):
-	%  getClass - returns the class of the processing for a neural network data
+	%  getClass - returns the class of the Raman-spectra dataset process
 	%  getSubclasses - returns all subclasses of NNDatasetProcess_RamanSpectra
-	%  getProps - returns the property list of the processing for a neural network data
-	%  getPropNumber - returns the property number of the processing for a neural network data
+	%  getProps - returns the property list of the Raman-spectra dataset process
+	%  getPropNumber - returns the property number of the Raman-spectra dataset process
 	%  existsProp - checks whether property exists/error
 	%  existsTag - checks whether tag exists/error
 	%  getPropProp - returns the property number of a property
@@ -122,7 +122,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 	% To print full list of constants, click here <a href="matlab:metaclass = ?NNDatasetProcess_RamanSpectra; properties = metaclass.PropertyList;for i = 1:1:length(properties), if properties(i).Constant, disp([properties(i).Name newline() tostring(properties(i).DefaultValue) newline()]), end, end">NNDatasetProcess_RamanSpectra constants</a>.
 	%
 	%
-	% See also NNDatasetProcess, NNDataPoint.
+	% See also NNDatasetProcess, NNDataPoint, NNDataPoint_RamanSpectra, NNDataset.
 	%
 	% BUILD BRAPH2 7 class_name 1
 	
@@ -229,7 +229,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 	end
 	methods % constructor
 		function dproc = NNDatasetProcess_RamanSpectra(varargin)
-			%NNDatasetProcess_RamanSpectra() creates a processing for a neural network data.
+			%NNDatasetProcess_RamanSpectra() creates a Raman-spectra dataset process.
 			%
 			% NNDatasetProcess_RamanSpectra(PROP, VALUE, ...) with property PROP initialized to VALUE.
 			%
@@ -239,35 +239,35 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			%  them with either property numbers (PROP) or tags (TAG).
 			%
 			% The list of NNDatasetProcess_RamanSpectra properties is:
-			%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of processing MNIST data for a neural networks datasets.
-			%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of processing MNIST data for a neural networks datasets.
-			%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of processing data for a neural networks datasets.
-			%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.
-			%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of processing data for a neural networks datasets.
-			%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.
-			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.
+			%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the Raman-spectra dataset process.
+			%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the Raman-spectra dataset process.
+			%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the Raman-spectra dataset process.
+			%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the Raman-spectra dataset process.
+			%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the Raman-spectra dataset process.
+			%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the Raman-spectra dataset process.
+			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are specific notes of the Raman-spectra dataset process.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-			%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural network dataset containing the datapoint processed from the raw data.
-			%  <strong>10</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) canonical order for output.
-			%  <strong>11</strong> <strong>KIND_SEQ</strong> 	KIND_SEQ (parameter, stringlist) canonical order for output.
-			%  <strong>12</strong> <strong>LOCATION_SEQ</strong> 	LOCATION_SEQ (parameter, stringlist) canonical order for output.
-			%  <strong>13</strong> <strong>TARGETS_TO_REMOVE</strong> 	TARGETS_TO_REMOVE (data, stringlist) contains the directory of the b2 file for spectrum data.
-			%  <strong>14</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.
-			%  <strong>15</strong> <strong>WAVELENGTH_START</strong> 	WAVELENGTH_START (parameter, scalar) is the starting wavelength.
-			%  <strong>16</strong> <strong>WAVELENGTH_END</strong> 	WAVELENGTH_END (parameter, scalar) is the ending  wavelength.
-			%  <strong>17</strong> <strong>TRANSFORMATION_RULE</strong> 	TRANSFORMATION_RULE (parameter, option) is the transformation methods.
-			%  <strong>18</strong> <strong>NORMALIZATION_RULE</strong> 	NORMALIZATION_RULE (parameter, option) is the normalization methods.
-			%  <strong>19</strong> <strong>SCALE_FACTOR</strong> 	SCALE_FACTOR (parameter, scalar) is the normalization methods.
-			%  <strong>20</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (result, cvector) is the wavelength.
-			%  <strong>21</strong> <strong>TRANSFORM_DATA</strong> 	TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.
-			%  <strong>22</strong> <strong>INV_TRANSFORM_DATA</strong> 	INV_TRANSFORM_DATA (query, cell) inverse-tranforms the images from the specified IDX files.
-			%  <strong>23</strong> <strong>NORMALIZE_DATA</strong> 	NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.
-			%  <strong>24</strong> <strong>INV_NORMALIZE_DATA</strong> 	INV_NORMALIZE_DATA (query, cell) inverse-normalizes the images from the specified IDX files.
-			%  <strong>25</strong> <strong>RAW_DATA</strong> 	RAW_DATA (result, cell) processes the data with normalization and transformation.
-			%  <strong>26</strong> <strong>PROCESS_DATA</strong> 	PROCESS_DATA (query, cell) processes the data with normalization and transformation.
-			%  <strong>27</strong> <strong>REV_PROCESS_DATA</strong> 	REV_PROCESS_DATA (query, cell) reverse the process step the data with normalization and transformation.
-			%  <strong>28</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts the sepctral data with dimension of wavelength x datapoints.
-			%  <strong>29</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts labels from all *.b2 files in RAW_DATA_DIR.
+			%  <strong>9</strong> <strong>D</strong> 	D (result, item) is the neural-network dataset containing NNDataPoint_RamanSpectra built from RAW_DATA and EXTRACT_LABELS.
+			%  <strong>10</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) is the canonical stress-label ordering used by EXTRACT_LABELS.
+			%  <strong>11</strong> <strong>KIND_SEQ</strong> 	KIND_SEQ (parameter, stringlist) is the canonical species/cultivar code ordering used by EXTRACT_LABELS.
+			%  <strong>12</strong> <strong>LOCATION_SEQ</strong> 	LOCATION_SEQ (parameter, stringlist) is the canonical location label ordering used by EXTRACT_LABELS.
+			%  <strong>13</strong> <strong>TARGETS_TO_REMOVE</strong> 	TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any data point whose label contains a listed token is removed.
+			%  <strong>14</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (data, string) is the directory containing Raman *.b2 files to be processed.
+			%  <strong>15</strong> <strong>WAVELENGTH_START</strong> 	WAVELENGTH_START (parameter, scalar) is the starting wavelength (cm^-1).
+			%  <strong>16</strong> <strong>WAVELENGTH_END</strong> 	WAVELENGTH_END (parameter, scalar) is the ending wavelength (cm^-1).
+			%  <strong>17</strong> <strong>TRANSFORMATION_RULE</strong> 	TRANSFORMATION_RULE (parameter, option) is the spectral transformation applied before normalisation.
+			%  <strong>18</strong> <strong>NORMALIZATION_RULE</strong> 	NORMALIZATION_RULE (parameter, option) is the spectral normalisation applied after transformation.
+			%  <strong>19</strong> <strong>SCALE_FACTOR</strong> 	SCALE_FACTOR (parameter, scalar) is the scaling factor used when NORMALIZATION_RULE is Scale.
+			%  <strong>20</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (result, cvector) returns the wavelength vector parsed from the first *.b2 file in RAW_DATA_DIR.
+			%  <strong>21</strong> <strong>TRANSFORM_DATA</strong> 	TRANSFORM_DATA (query, cell) applies TRANSFORMATION_RULE to a wavelength×datapoints matrix and returns the transformed data.
+			%  <strong>22</strong> <strong>INV_TRANSFORM_DATA</strong> 	INV_TRANSFORM_DATA (query, cell) applies the inverse of TRANSFORMATION_RULE to recover spectra from a derivative representation.
+			%  <strong>23</strong> <strong>NORMALIZE_DATA</strong> 	NORMALIZE_DATA (query, cell) applies NORMALIZATION_RULE to a wavelength×datapoints matrix and returns the normalised data.
+			%  <strong>24</strong> <strong>INV_NORMALIZE_DATA</strong> 	INV_NORMALIZE_DATA (query, cell) applies the inverse of NORMALIZATION_RULE to restore original scale.
+			%  <strong>25</strong> <strong>RAW_DATA</strong> 	RAW_DATA (result, cell) returns the raw spectral data as a cell array (one column per datapoint) extracted by EXTRACT_DATA.
+			%  <strong>26</strong> <strong>PROCESS_DATA</strong> 	PROCESS_DATA (query, cell) returns spectra processed by TRANSFORM_DATA followed by NORMALIZE_DATA, packaged as a cell array of column vectors.
+			%  <strong>27</strong> <strong>REV_PROCESS_DATA</strong> 	REV_PROCESS_DATA (query, cell) returns spectra reconstructed by INV_NORMALIZE_DATA and INV_TRANSFORM_DATA, packaged as a cell array of column vectors.
+			%  <strong>28</strong> <strong>EXTRACT_DATA</strong> 	EXTRACT_DATA (query, cell) extracts spectral intensities from all *.b2 files in RAW_DATA_DIR and returns a cell array of wavelength×1 vectors (one per spectrum).
+			%  <strong>29</strong> <strong>EXTRACT_LABELS</strong> 	EXTRACT_LABELS (query, stringlist) extracts a 4-row label matrix per spectrum (species, stress, location, plant ID) using KIND_SEQ, STRESS_SEQ and LOCATION_SEQ, returned as a stringlist of char arrays.
 			%
 			% See also Category, Format.
 			
@@ -276,12 +276,12 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 	end
 	methods (Static) % inspection
 		function build = getBuild()
-			%GETBUILD returns the build of the processing for a neural network data.
+			%GETBUILD returns the build of the Raman-spectra dataset process.
 			%
 			% BUILD = NNDatasetProcess_RamanSpectra.GETBUILD() returns the build of 'NNDatasetProcess_RamanSpectra'.
 			%
 			% Alternative forms to call this method are:
-			%  BUILD = DPROC.GETBUILD() returns the build of the processing for a neural network data DPROC.
+			%  BUILD = DPROC.GETBUILD() returns the build of the Raman-spectra dataset process DPROC.
 			%  BUILD = Element.GETBUILD(DPROC) returns the build of 'DPROC'.
 			%  BUILD = Element.GETBUILD('NNDatasetProcess_RamanSpectra') returns the build of 'NNDatasetProcess_RamanSpectra'.
 			%
@@ -291,12 +291,12 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			build = 1;
 		end
 		function dproc_class = getClass()
-			%GETCLASS returns the class of the processing for a neural network data.
+			%GETCLASS returns the class of the Raman-spectra dataset process.
 			%
 			% CLASS = NNDatasetProcess_RamanSpectra.GETCLASS() returns the class 'NNDatasetProcess_RamanSpectra'.
 			%
 			% Alternative forms to call this method are:
-			%  CLASS = DPROC.GETCLASS() returns the class of the processing for a neural network data DPROC.
+			%  CLASS = DPROC.GETCLASS() returns the class of the Raman-spectra dataset process DPROC.
 			%  CLASS = Element.GETCLASS(DPROC) returns the class of 'DPROC'.
 			%  CLASS = Element.GETCLASS('NNDatasetProcess_RamanSpectra') returns 'NNDatasetProcess_RamanSpectra'.
 			%
@@ -306,12 +306,12 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			dproc_class = 'NNDatasetProcess_RamanSpectra';
 		end
 		function subclass_list = getSubclasses()
-			%GETSUBCLASSES returns all subclasses of the processing for a neural network data.
+			%GETSUBCLASSES returns all subclasses of the Raman-spectra dataset process.
 			%
 			% LIST = NNDatasetProcess_RamanSpectra.GETSUBCLASSES() returns all subclasses of 'NNDatasetProcess_RamanSpectra'.
 			%
 			% Alternative forms to call this method are:
-			%  LIST = DPROC.GETSUBCLASSES() returns all subclasses of the processing for a neural network data DPROC.
+			%  LIST = DPROC.GETSUBCLASSES() returns all subclasses of the Raman-spectra dataset process DPROC.
 			%  LIST = Element.GETSUBCLASSES(DPROC) returns all subclasses of 'DPROC'.
 			%  LIST = Element.GETSUBCLASSES('NNDatasetProcess_RamanSpectra') returns all subclasses of 'NNDatasetProcess_RamanSpectra'.
 			%
@@ -323,16 +323,16 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			subclass_list = { 'NNDatasetProcess_RamanSpectra' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
-			%GETPROPS returns the property list of processing for a neural network data.
+			%GETPROPS returns the property list of Raman-spectra dataset process.
 			%
-			% PROPS = NNDatasetProcess_RamanSpectra.GETPROPS() returns the property list of processing for a neural network data
+			% PROPS = NNDatasetProcess_RamanSpectra.GETPROPS() returns the property list of Raman-spectra dataset process
 			%  as a row vector.
 			%
 			% PROPS = NNDatasetProcess_RamanSpectra.GETPROPS(CATEGORY) returns the property list 
 			%  of category CATEGORY.
 			%
 			% Alternative forms to call this method are:
-			%  PROPS = DPROC.GETPROPS([CATEGORY]) returns the property list of the processing for a neural network data DPROC.
+			%  PROPS = DPROC.GETPROPS([CATEGORY]) returns the property list of the Raman-spectra dataset process DPROC.
 			%  PROPS = Element.GETPROPS(DPROC[, CATEGORY]) returns the property list of 'DPROC'.
 			%  PROPS = Element.GETPROPS('NNDatasetProcess_RamanSpectra'[, CATEGORY]) returns the property list of 'NNDatasetProcess_RamanSpectra'.
 			%
@@ -366,15 +366,15 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			end
 		end
 		function prop_number = getPropNumber(varargin)
-			%GETPROPNUMBER returns the property number of processing for a neural network data.
+			%GETPROPNUMBER returns the property number of Raman-spectra dataset process.
 			%
-			% N = NNDatasetProcess_RamanSpectra.GETPROPNUMBER() returns the property number of processing for a neural network data.
+			% N = NNDatasetProcess_RamanSpectra.GETPROPNUMBER() returns the property number of Raman-spectra dataset process.
 			%
-			% N = NNDatasetProcess_RamanSpectra.GETPROPNUMBER(CATEGORY) returns the property number of processing for a neural network data
+			% N = NNDatasetProcess_RamanSpectra.GETPROPNUMBER(CATEGORY) returns the property number of Raman-spectra dataset process
 			%  of category CATEGORY
 			%
 			% Alternative forms to call this method are:
-			%  N = DPROC.GETPROPNUMBER([CATEGORY]) returns the property number of the processing for a neural network data DPROC.
+			%  N = DPROC.GETPROPNUMBER([CATEGORY]) returns the property number of the Raman-spectra dataset process DPROC.
 			%  N = Element.GETPROPNUMBER(DPROC) returns the property number of 'DPROC'.
 			%  N = Element.GETPROPNUMBER('NNDatasetProcess_RamanSpectra') returns the property number of 'NNDatasetProcess_RamanSpectra'.
 			%
@@ -408,7 +408,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			end
 		end
 		function check_out = existsProp(prop)
-			%EXISTSPROP checks whether property exists in processing for a neural network data/error.
+			%EXISTSPROP checks whether property exists in Raman-spectra dataset process/error.
 			%
 			% CHECK = NNDatasetProcess_RamanSpectra.EXISTSPROP(PROP) checks whether the property PROP exists.
 			%
@@ -446,7 +446,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			end
 		end
 		function check_out = existsTag(tag)
-			%EXISTSTAG checks whether tag exists in processing for a neural network data/error.
+			%EXISTSTAG checks whether tag exists in Raman-spectra dataset process/error.
 			%
 			% CHECK = NNDatasetProcess_RamanSpectra.EXISTSTAG(TAG) checks whether a property with tag TAG exists.
 			%
@@ -612,7 +612,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			prop = NNDatasetProcess_RamanSpectra.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_ramanspectra_description_list = { 'ELCLASS (constant, string) is the class of processing MNIST data for a neural networks datasets.'  'NAME (constant, string) is the name of processing MNIST data for a neural networks datasets.'  'DESCRIPTION (constant, string) is the description of processing data for a neural networks datasets.'  'TEMPLATE (parameter, item) is the template of processing data for a neural networks datasets.'  'ID (data, string) is a few-letter code of processing data for a neural networks datasets.'  'LABEL (metadata, string) is an extended label of processing data for a neural networks datasets.'  'NOTES (metadata, string) are some specific notes of processing data for a neural networks datasets.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural network dataset containing the datapoint processed from the raw data.'  'STRESS_SEQ (parameter, stringlist) canonical order for output.'  'KIND_SEQ (parameter, stringlist) canonical order for output.'  'LOCATION_SEQ (parameter, stringlist) canonical order for output.'  'TARGETS_TO_REMOVE (data, stringlist) contains the directory of the b2 file for spectrum data.'  'RAW_DATA_DIR (data, string) contains the directory of the b2 file for spectrum data.'  'WAVELENGTH_START (parameter, scalar) is the starting wavelength.'  'WAVELENGTH_END (parameter, scalar) is the ending  wavelength.'  'TRANSFORMATION_RULE (parameter, option) is the transformation methods.'  'NORMALIZATION_RULE (parameter, option) is the normalization methods.'  'SCALE_FACTOR (parameter, scalar) is the normalization methods.'  'WAVELENGTH (result, cvector) is the wavelength.'  'TRANSFORM_DATA (query, cell) normalizes the images from the specified IDX files.'  'INV_TRANSFORM_DATA (query, cell) inverse-tranforms the images from the specified IDX files.'  'NORMALIZE_DATA (query, cell) normalizes the images from the specified IDX files.'  'INV_NORMALIZE_DATA (query, cell) inverse-normalizes the images from the specified IDX files.'  'RAW_DATA (result, cell) processes the data with normalization and transformation.'  'PROCESS_DATA (query, cell) processes the data with normalization and transformation.'  'REV_PROCESS_DATA (query, cell) reverse the process step the data with normalization and transformation.'  'EXTRACT_DATA (query, cell) extracts the sepctral data with dimension of wavelength x datapoints.'  'EXTRACT_LABELS (query, stringlist) extracts labels from all *.b2 files in RAW_DATA_DIR.' };
+			nndatasetprocess_ramanspectra_description_list = { 'ELCLASS (constant, string) is the class of the Raman-spectra dataset process.'  'NAME (constant, string) is the name of the Raman-spectra dataset process.'  'DESCRIPTION (constant, string) is the description of the Raman-spectra dataset process.'  'TEMPLATE (parameter, item) is the template of the Raman-spectra dataset process.'  'ID (data, string) is a few-letter code of the Raman-spectra dataset process.'  'LABEL (metadata, string) is an extended label of the Raman-spectra dataset process.'  'NOTES (metadata, string) are specific notes of the Raman-spectra dataset process.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural-network dataset containing NNDataPoint_RamanSpectra built from RAW_DATA and EXTRACT_LABELS.'  'STRESS_SEQ (parameter, stringlist) is the canonical stress-label ordering used by EXTRACT_LABELS.'  'KIND_SEQ (parameter, stringlist) is the canonical species/cultivar code ordering used by EXTRACT_LABELS.'  'LOCATION_SEQ (parameter, stringlist) is the canonical location label ordering used by EXTRACT_LABELS.'  'TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any data point whose label contains a listed token is removed.'  'RAW_DATA_DIR (data, string) is the directory containing Raman *.b2 files to be processed.'  'WAVELENGTH_START (parameter, scalar) is the starting wavelength (cm^-1).'  'WAVELENGTH_END (parameter, scalar) is the ending wavelength (cm^-1).'  'TRANSFORMATION_RULE (parameter, option) is the spectral transformation applied before normalisation.'  'NORMALIZATION_RULE (parameter, option) is the spectral normalisation applied after transformation.'  'SCALE_FACTOR (parameter, scalar) is the scaling factor used when NORMALIZATION_RULE is Scale.'  'WAVELENGTH (result, cvector) returns the wavelength vector parsed from the first *.b2 file in RAW_DATA_DIR.'  'TRANSFORM_DATA (query, cell) applies TRANSFORMATION_RULE to a wavelength×datapoints matrix and returns the transformed data.'  'INV_TRANSFORM_DATA (query, cell) applies the inverse of TRANSFORMATION_RULE to recover spectra from a derivative representation.'  'NORMALIZE_DATA (query, cell) applies NORMALIZATION_RULE to a wavelength×datapoints matrix and returns the normalised data.'  'INV_NORMALIZE_DATA (query, cell) applies the inverse of NORMALIZATION_RULE to restore original scale.'  'RAW_DATA (result, cell) returns the raw spectral data as a cell array (one column per datapoint) extracted by EXTRACT_DATA.'  'PROCESS_DATA (query, cell) returns spectra processed by TRANSFORM_DATA followed by NORMALIZE_DATA, packaged as a cell array of column vectors.'  'REV_PROCESS_DATA (query, cell) returns spectra reconstructed by INV_NORMALIZE_DATA and INV_TRANSFORM_DATA, packaged as a cell array of column vectors.'  'EXTRACT_DATA (query, cell) extracts spectral intensities from all *.b2 files in RAW_DATA_DIR and returns a cell array of wavelength×1 vectors (one per spectrum).'  'EXTRACT_LABELS (query, stringlist) extracts a 4-row label matrix per spectrum (species, stress, location, plant ID) using KIND_SEQ, STRESS_SEQ and LOCATION_SEQ, returned as a stringlist of char arrays.' };
 			prop_description = nndatasetprocess_ramanspectra_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -752,9 +752,9 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 				case 1 % NNDatasetProcess_RamanSpectra.ELCLASS
 					prop_default = 'NNDatasetProcess_RamanSpectra';
 				case 2 % NNDatasetProcess_RamanSpectra.NAME
-					prop_default = 'Processing Raman Spectrum Data for a Neural Network Dataset';
+					prop_default = 'Raman-Spectra Dataset Process';
 				case 3 % NNDatasetProcess_RamanSpectra.DESCRIPTION
-					prop_default = 'The MNIST processing for a neural network dataset (NNDatasetProcess_MNIST) processes the raw MNIST data into a neural network dataset. The resulting neural network dataset contains all the datapoints from the raw data, along with its corresponding labels.';
+					prop_default = 'The Raman-spectra dataset process (NNDatasetProcess_RamanSpectra) converts raw Raman spectra stored in *.b2 files into an NNDataset of NNDataPoint_RamanSpectra, applying optional spectral transformation and normalisation and attaching label metadata.';
 				case 4 % NNDatasetProcess_RamanSpectra.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNDatasetProcess_RamanSpectra.getPropSettings(prop));
 				case 5 % NNDatasetProcess_RamanSpectra.ID
@@ -953,7 +953,6 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					
 					b2_el = load([dir_name filesep char(file_names(1))], '-mat');
 					
-					% simplify this part
 					if strcmp(b2_el.el.get('ELCLASS'), 'Pipeline')
 					    sp_dict = b2_el.el.get('PS_DICT').get('IT', 7).get('PC_DICT').get('IT', 1).get('EL').get('RE_OUT').get('SP_DICT');
 					elseif strcmp(b2_el.el.get('ELCLASS'), 'RamanExperiment')
@@ -979,7 +978,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					end
 					transformation = dproc.get('TRANSFORMATION_RULE');
 					switch transformation
-					    case 'First derivative' % first derivative
+					    case 'First derivative'
 					        data_tmp = data;
 					        data_tmp = data_tmp(2:end, :) - data_tmp(1:end-1, :);
 					        data(1:end-1, :) = data_tmp;
@@ -999,9 +998,9 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					end
 					transformation = dproc.get('TRANSFORMATION_RULE');
 					switch transformation
-					    case 'First derivative' % first derivative
-					        base_row = varargin{2}; % should be raw_data(1, :)
-					        detransformed_x = base_row + cumsum([zeros(1, size(deriv, 2)); deriv(1:end-1,:)], 1);;
+					    case 'First derivative'
+					        base_row = varargin{2}; % raw_data(1, :)
+					        detransformed_x = base_row + cumsum([zeros(1, size(deriv, 2)); deriv(1:end-1, :)], 1);
 					end
 					value = detransformed_x;
 					
@@ -1017,7 +1016,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					end
 					normalization = dproc.get('NORMALIZATION_RULE');
 					switch normalization
-					    case 'Scale' 
+					    case 'Scale'
 					        scale_factor = dproc.get('SCALE_FACTOR');
 					        data = data ./ scale_factor;
 					end
@@ -1035,7 +1034,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					end
 					normalization = dproc.get('NORMALIZATION_RULE');
 					switch normalization
-					    case 'Scale' 
+					    case 'Scale'
 					        scale_factor = dproc.get('SCALE_FACTOR');
 					        data = data .* scale_factor;
 					end
@@ -1094,10 +1093,9 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					    b2_el = load([dir_name filesep char(file_name)], '-mat');
 					
 					    num_spectrum_file = b2_el.el.get('RE_OUT').get('SP_DICT').get('LENGTH');
-					    ids = cellfun(@(spectrum) spectrum.get('ID'), b2_el.el.get('RE_OUT').get('SP_DICT').get('IT_LIST') ,'UniformOutput', false);
+					    ids = cellfun(@(spectrum) spectrum.get('ID'), b2_el.el.get('RE_OUT').get('SP_DICT').get('IT_LIST'), 'UniformOutput', false);
 					
 					    num_previous_col = size(X, 2);
-					    
 					    for i = 1:num_spectrum_file
 					        intensities = b2_el.el.get('RE_OUT').get('SP_DICT').get('IT', i).get('INTENSITIES');
 					        num_col = size(intensities, 2);
@@ -1108,9 +1106,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					            counter1 = (i-1)*num_col + 1 + num_previous_col;
 					            counter2 = num_col*i + num_previous_col;
 					        end
-					
-					        % get X
-					        X(:, counter1:counter2)= intensities;
+					        X(:, counter1:counter2) = intensities; %#ok<AGROW>
 					    end
 					end
 					
@@ -1119,27 +1115,15 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					end
 					
 				case 29 % NNDatasetProcess_RamanSpectra.EXTRACT_LABELS
-					% VALUE = dproc.get('EXTRACT_LABELS')
-					%
-					% For each spectrum column in each *.b2 file, this query builds a 4×N
-					% label matrix:
-					%   row 1 – species  (from KIND_SEQ and filename)
-					%   row 2 – stress   (from STRESS_SEQ and spectrum ID)
-					%   row 3 – location (from LOCATION_SEQ and spectrum ID)
-					%   row 4 – plant ID (full spectrum ID)
-					% and returns VALUE as a stringlist where VALUE{i} is a char array with
-					% these 4 label rows for the i-th spectrum.
-					
 					dir_name = dproc.get('RAW_DATA_DIR');
 					if isempty(dir_name)
 					    value = {};
 					    return
 					end
 					
-					% sequences are defined in the process (and may differ per dataset)
-					stress_seq   = string(dproc.get('STRESS_SEQ'));    % e.g. ["WL","HL","LL","SH","ps"]
-					kind_seq     = string(dproc.get('KIND_SEQ'));      % e.g. ["AB","CS","KL"]
-					location_seq = string(dproc.get('LOCATION_SEQ'));  % e.g. ["loc1","loc2","ps"]
+					stress_seq   = string(dproc.get('STRESS_SEQ'));
+					kind_seq     = string(dproc.get('KIND_SEQ'));
+					location_seq = string(dproc.get('LOCATION_SEQ'));
 					
 					file_list = dir(fullfile(dir_name, '*b2'));
 					if isempty(file_list)
@@ -1147,7 +1131,6 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					    return
 					end
 					
-					% pre-allocate label matrix as we go
 					Y = strings(4, 0);
 					col_offset = 0;
 					
@@ -1159,7 +1142,6 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					    num_spectrum_file = sp_dict.get('LENGTH');
 					    ids = cellfun(@(sp) sp.get('ID'), sp_dict.get('IT_LIST'), 'UniformOutput', false);
 					
-					    % --- species (kind) from filename, via KIND_SEQ pattern matching ---
 					    species_label = "";
 					    for kk = 1:numel(kind_seq)
 					        if contains(file_name, kind_seq(kk))
@@ -1167,15 +1149,10 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					            break
 					        end
 					    end
-					    if species_label == ""
-					        warning('EXTRACT_LABELS:NoSpeciesMatch', ...
-					            'No KIND_SEQ label matched filename "%s". Leaving species row empty.', file_name);
-					    end
 					
-					    % --- loop over spectra in this file ---
 					    for i = 1:num_spectrum_file
 					        sp_el = sp_dict.get('IT', i);
-					        intensities = sp_el.get('INTENSITIES'); % (#wavenumbers × #columns)
+					        intensities = sp_el.get('INTENSITIES');
 					        num_col = size(intensities, 2);
 					        if num_col == 0
 					            continue
@@ -1183,7 +1160,6 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					
 					        id = string(ids{i});
 					
-					        % stress label from STRESS_SEQ
 					        stress_label = "";
 					        for ss = 1:numel(stress_seq)
 					            if contains(id, stress_seq(ss))
@@ -1192,7 +1168,6 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					            end
 					        end
 					
-					        % location label from LOCATION_SEQ
 					        location_label = "";
 					        for ll = 1:numel(location_seq)
 					            if contains(id, location_seq(ll))
@@ -1201,19 +1176,17 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					            end
 					        end
 					
-					        % expand Y to accommodate these columns
 					        Y(:, col_offset + (1:num_col)) = [
-					            repmat(species_label , 1, num_col)  % row 1: species
-					            repmat(stress_label  , 1, num_col)  % row 2: stress
-					            repmat(location_label, 1, num_col)  % row 3: location
-					            repmat(id            , 1, num_col)  % row 4: plant ID
+					            repmat(species_label , 1, num_col)
+					            repmat(stress_label  , 1, num_col)
+					            repmat(location_label, 1, num_col)
+					            repmat(id            , 1, num_col)
 					        ];
 					
 					        col_offset = col_offset + num_col;
 					    end
 					end
 					
-					% convert 4×N string matrix into stringlist of char arrays
 					value = cell(1, size(Y, 2));
 					for i = 1:size(Y, 2)
 					    value{i} = char(Y(:, i));
@@ -1247,13 +1220,13 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					    'WL_START', dproc.getCallback('WAVELENGTH_START'), ...
 					    'WL_END', dproc.getCallback('WAVELENGTH_END'), ...
 					    'TARGET_CLASS', {label}), ...
-					    processed_spectrum_list, raw_label_list,...
+					    processed_spectrum_list, raw_label_list, ...
 					    'UniformOutput', false);
 					
-					dp_list = IndexedDictionary(...
-					        'IT_CLASS', 'NNDataPoint_RamanSpectra', ...
-					        'IT_LIST', it_list ...
-					        );
+					dp_list = IndexedDictionary( ...
+					    'IT_CLASS', 'NNDataPoint_RamanSpectra', ...
+					    'IT_LIST', it_list ...
+					    );
 					
 					value = NNDataset( ...
 					    'DP_CLASS', 'NNDataPoint_RamanSpectra', ...

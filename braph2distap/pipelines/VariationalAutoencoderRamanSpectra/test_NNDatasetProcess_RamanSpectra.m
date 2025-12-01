@@ -1562,63 +1562,56 @@ if rand() >= (1 - .01) * BRAPH2TEST.RANDOM
 	end
 end
 
-%% Test 12: Construction of an Empty Spectrum Dataset
+%% Test 12: Construction of an empty Raman-spectra dataset
 if rand() >= (1 - 1) * BRAPH2TEST.RANDOM
 	dproc = NNDatasetProcess_RamanSpectra();
 	d_sp = dproc.get('D');
-	
 	assert(isequal(d_sp.get('DP_DICT').get('LENGTH'), 0), ...
 	    [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
-	    'NNDatasetProcess_RamanSpectra does not construct the dataset correctly. The input value is not derived correctly.' ...
-	    )
+	    'NNDatasetProcess_RamanSpectra does not construct the dataset correctly. The input value is not derived correctly.')
 end
 
-%% Test 13: Test normalization and inverse normalization
+%% Test 13: Normalisation and inverse normalisation
 if rand() >= (1 - 1) * BRAPH2TEST.RANDOM
 	scale_factor = 10;
 	dproc = NNDatasetProcess_RamanSpectra( ...
 	    'NORMALIZATION_RULE', 'Scale', ...
 	    'SCALE_FACTOR', scale_factor);
 	
-	raw_data = cumsum(randn(5, 100), 2); % 5 features each datapoint, overall 100 datapoints
+	raw_data = cumsum(randn(5, 100), 2);
 	known_normed_data = raw_data / scale_factor;
 	calc_normed_data = dproc.get('NORMALIZE_DATA', raw_data);
 	
-	tol = 1e-9;  % tweak as needed
+	tol = 1e-9;
 	assert(max(abs(calc_normed_data(:) - known_normed_data(:))) <= tol, ...
 	    [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
-	    'NNDatasetProcess_RamanSpectra does not normalize the data correctly..' ...
-	    )
+	    'NNDatasetProcess_RamanSpectra does not normalise the data correctly.')
 	
 	calc_inv_normed_data = dproc.get('INV_NORMALIZE_DATA', calc_normed_data);
-	
 	assert(max(abs(calc_inv_normed_data(:) - raw_data(:))) <= tol, ...
 	    [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
-	    'NNDatasetProcess_RamanSpectra does not inverse-normalize the data correctly..' ...
-	    )
+	    'NNDatasetProcess_RamanSpectra does not inverse-normalise the data correctly.')
 end
 
-%% Test 14: Test tranformation and inverse tranformation
+%% Test 14: Transformation and inverse transformation
 if rand() >= (1 - 1) * BRAPH2TEST.RANDOM
 	dproc = NNDatasetProcess_RamanSpectra('TRANSFORMATION_RULE', 'First derivative');
 	
-	% Random MxL data (M rows = features, L columns = datapoints)
 	raw_data = cumsum(randn(5, 100), 2);
 	known_transformed = raw_data;
 	known_transformed(1:end-1, :) = raw_data(2:end, :) - raw_data(1:end-1, :);
-	known_transformed(end, :)= 0;
+	known_transformed(end, :) = 0;
 	calc_transformed = dproc.get('TRANSFORM_DATA', raw_data);
 	
-	tol = 1e-9;  % tweak as needed
+	tol = 1e-9;
 	assert(max(abs(calc_transformed(:) - known_transformed(:))) <= tol, ...
 	    [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
-	    'NNDatasetProcess_RamanSpectra does not transform (1st derivative) correctly.')
+	    'NNDatasetProcess_RamanSpectra does not transform (first derivative) correctly.')
 	
 	calc_inv_transformed = dproc.get('INV_TRANSFORM_DATA', calc_transformed, raw_data(1, :));
-	
 	assert(max(abs(calc_inv_transformed(:) - raw_data(:))) <= tol, ...
 	    [BRAPH2.STR ':NNDatasetProcess_RamanSpectra:' BRAPH2.FAIL_TEST], ...
-	    'NNDatasetProcess_RamanSpectra does not inverse-transform (1st derivative) correctly.')
+	    'NNDatasetProcess_RamanSpectra does not inverse-transform (first derivative) correctly.')
 end
 
 %% Test 15: No Figures Left

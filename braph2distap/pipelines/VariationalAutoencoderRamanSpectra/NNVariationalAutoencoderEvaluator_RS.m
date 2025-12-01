@@ -1,51 +1,49 @@
 classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluator
-	%NNVariationalAutoencoderEvaluator_RS evaluates the performance of a trained neural network model with a dataset.
+	%NNVariationalAutoencoderEvaluator_RS evaluates a trained variational autoencoder with a dataset.
 	% It is a subclass of <a href="matlab:help NNVariationalAutoencoderEvaluator">NNVariationalAutoencoderEvaluator</a>.
 	%
-	% A neural network evaluator (NNEvaluator) evaluates the performance of a neural network model with a specific dataset.
-	% Instances of this class should not be created. Use one of its subclasses instead.
-	% Its subclasses shall be specifically designed to cater to different evaluation cases such as a classification task, a regression task, or a data generation task.
+	% A variational-autoencoder evaluator (NNVariationalAutoencoderEvaluator_RS) evaluates a trained model on a specific dataset, producing latent representations, decoded spectra, peak analyses, and Docker-backed R figures for Raman-spectra workflows. Instances of this class should not be created directly—use one of its subclasses.
 	%
 	% The list of NNVariationalAutoencoderEvaluator_RS properties is:
-	%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the evaluator of the neural network analysis.
-	%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the evaluator for the neural network analysis.
-	%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the evaluator for the neural network analysis.
-	%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the evaluator for the neural network analysis.
-	%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code for the evaluator for the neural network analysis.
-	%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the evaluator for the neural network analysis.
-	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about the evaluator for the neural network analysis.
+	%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the variational-autoencoder evaluator for Raman spectra.
+	%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the variational-autoencoder evaluator for Raman spectra.
+	%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the variational-autoencoder evaluator for Raman spectra.
+	%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the variational-autoencoder evaluator for Raman spectra.
+	%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the variational-autoencoder evaluator for Raman spectra.
+	%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the variational-autoencoder evaluator for Raman spectra.
+	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are specific notes of the variational-autoencoder evaluator for Raman spectra.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>NN</strong> 	NN (data, item) contains a trained neural network model.
 	%  <strong>10</strong> <strong>D</strong> 	D (data, item) is the dataset to evaluate the neural network model.
 	%  <strong>11</strong> <strong>PLOT_LATENT_REPRESENTATIONS</strong> 	PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.
-	%  <strong>12</strong> <strong>PREDICT_ENCODER</strong> 	PREDICT_ENCODER (query, cell) returns the predictions of an encoder.
-	%  <strong>13</strong> <strong>DPROC</strong> 	DPROC (data, item) row-index in TARGET_CLASS for stress.
-	%  <strong>14</strong> <strong>IDX_LABEL_STRESS</strong> 	IDX_LABEL_STRESS (parameter, scalar) row-index in TARGET_CLASS for stress.
-	%  <strong>15</strong> <strong>STRESS_ORDER</strong> 	STRESS_ORDER (query, stringlist) canonical order for output.
-	%  <strong>16</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) canonical order for output.
-	%  <strong>17</strong> <strong>STRESS_LABEL</strong> 	STRESS_LABEL (parameter, stringlist) canonical order for output.
-	%  <strong>18</strong> <strong>STRESS_COLOUR</strong> 	STRESS_COLOUR (parameter, stringlist) canonical order for output.
-	%  <strong>19</strong> <strong>STRESS_SHAPE</strong> 	STRESS_SHAPE (parameter, stringlist) canonical order for output.
-	%  <strong>20</strong> <strong>IDX_LABEL_KIND</strong> 	IDX_LABEL_KIND (parameter, scalar) row-index in TARGET_CLASS for species.
-	%  <strong>21</strong> <strong>KIND_ORDER</strong> 	KIND_ORDER (query, stringlist) canonical order for output.
-	%  <strong>22</strong> <strong>IDX_LABEL_LOCATION</strong> 	IDX_LABEL_LOCATION (parameter, scalar) row-index in TARGET_CLASS for species.
-	%  <strong>23</strong> <strong>LOCATION_ORDER</strong> 	LOCATION_ORDER (query, stringlist) canonical order for output.
-	%  <strong>24</strong> <strong>LATENT_REP</strong> 	LATENT_REP (result, cell) stores the latent representations for further processing.
-	%  <strong>25</strong> <strong>PREDICT_DECODER</strong> 	PREDICT_DECODER (query, empty) indentifies the index when crossing from negative to positive.
-	%  <strong>26</strong> <strong>CROSSING</strong> 	CROSSING (query, cell) returns indices/times of level crossings.
-	%  <strong>27</strong> <strong>DERIV_PEAKS</strong> 	DERIV_PEAKS (query, cell) finds p→n zero-crossing peaks in f′(x) and lobe areas.
-	%  <strong>28</strong> <strong>PEAKS_COMPARE</strong> 	PEAKS_COMPARE (query, cell) compares per-peak areas between two conditions.
-	%  <strong>29</strong> <strong>DERIV_PEAKS_RUN</strong> 	DERIV_PEAKS_RUN (query, cell) runs DERIV_PEAKS for all conditions and compares all pairs.
-	%  <strong>30</strong> <strong>DERIV_PEAKS_SAVE</strong> 	DERIV_PEAKS_SAVE (query, cell) saves ranked tables (legacy-compatible filenames).
-	%  <strong>31</strong> <strong>LATENT_IDENTIFICATION</strong> 	LATENT_IDENTIFICATION (query, empty) runs latent-space export per species × location.
-	%  <strong>32</strong> <strong>DATA_RECONSTRUCTION</strong> 	DATA_RECONSTRUCTION (query, empty) runs decoding → saves per species × location.
-	%  <strong>33</strong> <strong>PEAK_IDENTIFICATION</strong> 	PEAK_IDENTIFICATION (query, empty) runs decoding → peaks → save per species.
-	%  <strong>34</strong> <strong>DIRECTORY_ANALYSIS</strong> 	DIRECTORY_ANALYSIS (data, string) is the directory saving the exporting figure.
-	%  <strong>35</strong> <strong>DIRECTORY_FIG</strong> 	DIRECTORY_FIG (data, string) is the directory saving the exporting figure.
-	%  <strong>36</strong> <strong>DIRECTORY_UTIL_R</strong> 	DIRECTORY_UTIL_R (data, string) is the directory saving the exporting figure.
-	%  <strong>37</strong> <strong>CREATE_R_CONTAINER</strong> 	CREATE_R_CONTAINER (query, cell) ensures the Docker image for the R plots exists.
-	%  <strong>38</strong> <strong>PLOT_R_PALETTE</strong> 	PLOT_R_PALETTE (query, empty) generates the palette figure via Docker+R.
-	%  <strong>39</strong> <strong>PLOT_R_LS_QNORM_MED</strong> 	PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R.
+	%  <strong>12</strong> <strong>PREDICT_ENCODER</strong> 	PREDICT_ENCODER (query, cell) returns {Z, Y} where Z are latent means (one column per data point) and Y are corresponding label vectors from D via the minibatch queue.
+	%  <strong>13</strong> <strong>DPROC</strong> 	DPROC (data, item) is the Raman-spectra dataset process used for inverse normalisation/transform during decoding.
+	%  <strong>14</strong> <strong>IDX_LABEL_STRESS</strong> 	IDX_LABEL_STRESS (parameter, scalar) is the row index in TARGET_CLASS corresponding to stress.
+	%  <strong>15</strong> <strong>STRESS_ORDER</strong> 	STRESS_ORDER (query, stringlist) returns the unique stress tokens present in LATENT_REP in stable order.
+	%  <strong>16</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) is the canonical plotting order of stresses used for export and R figures.
+	%  <strong>17</strong> <strong>STRESS_LABEL</strong> 	STRESS_LABEL (parameter, stringlist) are human-readable stress labels aligned with STRESS_SEQ.
+	%  <strong>18</strong> <strong>STRESS_COLOUR</strong> 	STRESS_COLOUR (parameter, stringlist) are hex colours aligned with STRESS_SEQ.
+	%  <strong>19</strong> <strong>STRESS_SHAPE</strong> 	STRESS_SHAPE (parameter, stringlist) are point shapes aligned with STRESS_SEQ.
+	%  <strong>20</strong> <strong>IDX_LABEL_KIND</strong> 	IDX_LABEL_KIND (parameter, scalar) is the row index in TARGET_CLASS corresponding to species/kind.
+	%  <strong>21</strong> <strong>KIND_ORDER</strong> 	KIND_ORDER (query, stringlist) returns the unique species/kind tokens present in LATENT_REP in stable order.
+	%  <strong>22</strong> <strong>IDX_LABEL_LOCATION</strong> 	IDX_LABEL_LOCATION (parameter, scalar) is the row index in TARGET_CLASS corresponding to location.
+	%  <strong>23</strong> <strong>LOCATION_ORDER</strong> 	LOCATION_ORDER (query, stringlist) returns the unique location tokens present in LATENT_REP in stable order.
+	%  <strong>24</strong> <strong>LATENT_REP</strong> 	LATENT_REP (result, cell) stores {Z, Y} where Z are latent representations and Y are label vectors aligned to Z for downstream analyses.
+	%  <strong>25</strong> <strong>PREDICT_DECODER</strong> 	PREDICT_DECODER (query, empty) decodes selected latent vectors to spectra and returns a 1xN cell of column vectors (options: one-to-one/median/mean; inverse normalisation/transform toggles).
+	%  <strong>26</strong> <strong>CROSSING</strong> 	CROSSING (query, cell) returns {ind, t0, s0} for level crossings of S at level with interpolation method and direction.
+	%  <strong>27</strong> <strong>DERIV_PEAKS</strong> 	DERIV_PEAKS (query, cell) returns {PEAKS_TABLE, PEAKS_RANKED_BY_AREA, ind_p2n, ind_all, area, peak_wavs} from p→n zero-crossings of the derivative spectrum.
+	%  <strong>28</strong> <strong>PEAKS_COMPARE</strong> 	PEAKS_COMPARE (query, cell) returns pairwise peak-area differences between two conditions with integer-wavenumber matching tolerance.
+	%  <strong>29</strong> <strong>DERIV_PEAKS_RUN</strong> 	DERIV_PEAKS_RUN (query, cell) returns {COND, COMP} by running DERIV_PEAKS per condition and all pairwise comparisons.
+	%  <strong>30</strong> <strong>DERIV_PEAKS_SAVE</strong> 	DERIV_PEAKS_SAVE (query, cell) saves per-condition ranked tables and pairwise ranked differences using legacy-compatible filenames.
+	%  <strong>31</strong> <strong>LATENT_IDENTIFICATION</strong> 	LATENT_IDENTIFICATION (query, empty) exports per-species×location latent cells z1/z2 and ranges aligned with STRESS_SEQ for the R plotting pipeline.
+	%  <strong>32</strong> <strong>DATA_RECONSTRUCTION</strong> 	DATA_RECONSTRUCTION (query, empty) decodes median spectra per stress for each species×location and saves R-ready .mat files.
+	%  <strong>33</strong> <strong>PEAK_IDENTIFICATION</strong> 	PEAK_IDENTIFICATION (query, empty) decodes per species, detects derivative peaks per stress, runs all pairwise comparisons, and saves ranked tables.
+	%  <strong>34</strong> <strong>DIRECTORY_ANALYSIS</strong> 	DIRECTORY_ANALYSIS (data, string) is the directory where intermediate .mat files and analysis outputs are saved.
+	%  <strong>35</strong> <strong>DIRECTORY_FIG</strong> 	DIRECTORY_FIG (data, string) is the directory where figures are exported.
+	%  <strong>36</strong> <strong>DIRECTORY_UTIL_R</strong> 	DIRECTORY_UTIL_R (data, string) is the directory containing the R scripts and Dockerfile used for plotting.
+	%  <strong>37</strong> <strong>CREATE_R_CONTAINER</strong> 	CREATE_R_CONTAINER (query, cell) ensures the plotting Docker image exists and returns {image_tag}.
+	%  <strong>38</strong> <strong>PLOT_R_PALETTE</strong> 	PLOT_R_PALETTE (query, empty) generates palette figures via Docker+R (generic_fig_palette_p1.R) after preparing latent, reconstruction, and identification outputs.
+	%  <strong>39</strong> <strong>PLOT_R_LS_QNORM_MED</strong> 	PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R (generic_plot_ls_qnorm_med.R) after preparing required .mat inputs.
 	%
 	% NNVariationalAutoencoderEvaluator_RS methods (constructor):
 	%  NNVariationalAutoencoderEvaluator_RS - constructor
@@ -65,33 +63,33 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 	%  unchecked - sets a property to NOT checked
 	%
 	% NNVariationalAutoencoderEvaluator_RS methods (display):
-	%  tostring - string with information about the neural network evaluator
-	%  disp - displays information about the neural network evaluator
-	%  tree - displays the tree of the neural network evaluator
+	%  tostring - string with information about the variational-autoencoder evaluator for Raman spectra
+	%  disp - displays information about the variational-autoencoder evaluator for Raman spectra
+	%  tree - displays the tree of the variational-autoencoder evaluator for Raman spectra
 	%
 	% NNVariationalAutoencoderEvaluator_RS methods (miscellanea):
 	%  getNoValue - returns a pointer to a persistent instance of NoValue
 	%               Use it as Element.getNoValue()
 	%  getCallback - returns the callback to a property
-	%  isequal - determines whether two neural network evaluator are equal (values, locked)
+	%  isequal - determines whether two variational-autoencoder evaluator for Raman spectra are equal (values, locked)
 	%  getElementList - returns a list with all subelements
-	%  copy - copies the neural network evaluator
+	%  copy - copies the variational-autoencoder evaluator for Raman spectra
 	%
 	% NNVariationalAutoencoderEvaluator_RS methods (save/load, Static):
-	%  save - saves BRAPH2 neural network evaluator as b2 file
-	%  load - loads a BRAPH2 neural network evaluator from a b2 file
+	%  save - saves BRAPH2 variational-autoencoder evaluator for Raman spectra as b2 file
+	%  load - loads a BRAPH2 variational-autoencoder evaluator for Raman spectra from a b2 file
 	%
 	% NNVariationalAutoencoderEvaluator_RS method (JSON encode):
-	%  encodeJSON - returns a JSON string encoding the neural network evaluator
+	%  encodeJSON - returns a JSON string encoding the variational-autoencoder evaluator for Raman spectra
 	%
 	% NNVariationalAutoencoderEvaluator_RS method (JSON decode, Static):
-	%   decodeJSON - returns a JSON string encoding the neural network evaluator
+	%   decodeJSON - returns a JSON string encoding the variational-autoencoder evaluator for Raman spectra
 	%
 	% NNVariationalAutoencoderEvaluator_RS methods (inspection, Static):
-	%  getClass - returns the class of the neural network evaluator
+	%  getClass - returns the class of the variational-autoencoder evaluator for Raman spectra
 	%  getSubclasses - returns all subclasses of NNVariationalAutoencoderEvaluator_RS
-	%  getProps - returns the property list of the neural network evaluator
-	%  getPropNumber - returns the property number of the neural network evaluator
+	%  getProps - returns the property list of the variational-autoencoder evaluator for Raman spectra
+	%  getPropNumber - returns the property number of the variational-autoencoder evaluator for Raman spectra
 	%  existsProp - checks whether property exists/error
 	%  existsTag - checks whether tag exists/error
 	%  getPropProp - returns the property number of a property
@@ -133,7 +131,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 	% To print full list of constants, click here <a href="matlab:metaclass = ?NNVariationalAutoencoderEvaluator_RS; properties = metaclass.PropertyList;for i = 1:1:length(properties), if properties(i).Constant, disp([properties(i).Name newline() tostring(properties(i).DefaultValue) newline()]), end, end">NNVariationalAutoencoderEvaluator_RS constants</a>.
 	%
 	%
-	% See also NNDataPoint, NNDataset, NNBase.
+	% See also NNDataPoint, NNDataset, NNBase, NNDatasetProcess_RamanSpectra.
 	%
 	% BUILD BRAPH2 7 class_name 1
 	
@@ -275,7 +273,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 	end
 	methods % constructor
 		function nne = NNVariationalAutoencoderEvaluator_RS(varargin)
-			%NNVariationalAutoencoderEvaluator_RS() creates a neural network evaluator.
+			%NNVariationalAutoencoderEvaluator_RS() creates a variational-autoencoder evaluator for Raman spectra.
 			%
 			% NNVariationalAutoencoderEvaluator_RS(PROP, VALUE, ...) with property PROP initialized to VALUE.
 			%
@@ -285,45 +283,45 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%  them with either property numbers (PROP) or tags (TAG).
 			%
 			% The list of NNVariationalAutoencoderEvaluator_RS properties is:
-			%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the evaluator of the neural network analysis.
-			%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the evaluator for the neural network analysis.
-			%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the evaluator for the neural network analysis.
-			%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the evaluator for the neural network analysis.
-			%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code for the evaluator for the neural network analysis.
-			%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the evaluator for the neural network analysis.
-			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about the evaluator for the neural network analysis.
+			%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the variational-autoencoder evaluator for Raman spectra.
+			%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the variational-autoencoder evaluator for Raman spectra.
+			%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the variational-autoencoder evaluator for Raman spectra.
+			%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the variational-autoencoder evaluator for Raman spectra.
+			%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the variational-autoencoder evaluator for Raman spectra.
+			%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the variational-autoencoder evaluator for Raman spectra.
+			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are specific notes of the variational-autoencoder evaluator for Raman spectra.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>NN</strong> 	NN (data, item) contains a trained neural network model.
 			%  <strong>10</strong> <strong>D</strong> 	D (data, item) is the dataset to evaluate the neural network model.
 			%  <strong>11</strong> <strong>PLOT_LATENT_REPRESENTATIONS</strong> 	PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.
-			%  <strong>12</strong> <strong>PREDICT_ENCODER</strong> 	PREDICT_ENCODER (query, cell) returns the predictions of an encoder.
-			%  <strong>13</strong> <strong>DPROC</strong> 	DPROC (data, item) row-index in TARGET_CLASS for stress.
-			%  <strong>14</strong> <strong>IDX_LABEL_STRESS</strong> 	IDX_LABEL_STRESS (parameter, scalar) row-index in TARGET_CLASS for stress.
-			%  <strong>15</strong> <strong>STRESS_ORDER</strong> 	STRESS_ORDER (query, stringlist) canonical order for output.
-			%  <strong>16</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) canonical order for output.
-			%  <strong>17</strong> <strong>STRESS_LABEL</strong> 	STRESS_LABEL (parameter, stringlist) canonical order for output.
-			%  <strong>18</strong> <strong>STRESS_COLOUR</strong> 	STRESS_COLOUR (parameter, stringlist) canonical order for output.
-			%  <strong>19</strong> <strong>STRESS_SHAPE</strong> 	STRESS_SHAPE (parameter, stringlist) canonical order for output.
-			%  <strong>20</strong> <strong>IDX_LABEL_KIND</strong> 	IDX_LABEL_KIND (parameter, scalar) row-index in TARGET_CLASS for species.
-			%  <strong>21</strong> <strong>KIND_ORDER</strong> 	KIND_ORDER (query, stringlist) canonical order for output.
-			%  <strong>22</strong> <strong>IDX_LABEL_LOCATION</strong> 	IDX_LABEL_LOCATION (parameter, scalar) row-index in TARGET_CLASS for species.
-			%  <strong>23</strong> <strong>LOCATION_ORDER</strong> 	LOCATION_ORDER (query, stringlist) canonical order for output.
-			%  <strong>24</strong> <strong>LATENT_REP</strong> 	LATENT_REP (result, cell) stores the latent representations for further processing.
-			%  <strong>25</strong> <strong>PREDICT_DECODER</strong> 	PREDICT_DECODER (query, empty) indentifies the index when crossing from negative to positive.
-			%  <strong>26</strong> <strong>CROSSING</strong> 	CROSSING (query, cell) returns indices/times of level crossings.
-			%  <strong>27</strong> <strong>DERIV_PEAKS</strong> 	DERIV_PEAKS (query, cell) finds p→n zero-crossing peaks in f′(x) and lobe areas.
-			%  <strong>28</strong> <strong>PEAKS_COMPARE</strong> 	PEAKS_COMPARE (query, cell) compares per-peak areas between two conditions.
-			%  <strong>29</strong> <strong>DERIV_PEAKS_RUN</strong> 	DERIV_PEAKS_RUN (query, cell) runs DERIV_PEAKS for all conditions and compares all pairs.
-			%  <strong>30</strong> <strong>DERIV_PEAKS_SAVE</strong> 	DERIV_PEAKS_SAVE (query, cell) saves ranked tables (legacy-compatible filenames).
-			%  <strong>31</strong> <strong>LATENT_IDENTIFICATION</strong> 	LATENT_IDENTIFICATION (query, empty) runs latent-space export per species × location.
-			%  <strong>32</strong> <strong>DATA_RECONSTRUCTION</strong> 	DATA_RECONSTRUCTION (query, empty) runs decoding → saves per species × location.
-			%  <strong>33</strong> <strong>PEAK_IDENTIFICATION</strong> 	PEAK_IDENTIFICATION (query, empty) runs decoding → peaks → save per species.
-			%  <strong>34</strong> <strong>DIRECTORY_ANALYSIS</strong> 	DIRECTORY_ANALYSIS (data, string) is the directory saving the exporting figure.
-			%  <strong>35</strong> <strong>DIRECTORY_FIG</strong> 	DIRECTORY_FIG (data, string) is the directory saving the exporting figure.
-			%  <strong>36</strong> <strong>DIRECTORY_UTIL_R</strong> 	DIRECTORY_UTIL_R (data, string) is the directory saving the exporting figure.
-			%  <strong>37</strong> <strong>CREATE_R_CONTAINER</strong> 	CREATE_R_CONTAINER (query, cell) ensures the Docker image for the R plots exists.
-			%  <strong>38</strong> <strong>PLOT_R_PALETTE</strong> 	PLOT_R_PALETTE (query, empty) generates the palette figure via Docker+R.
-			%  <strong>39</strong> <strong>PLOT_R_LS_QNORM_MED</strong> 	PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R.
+			%  <strong>12</strong> <strong>PREDICT_ENCODER</strong> 	PREDICT_ENCODER (query, cell) returns {Z, Y} where Z are latent means (one column per data point) and Y are corresponding label vectors from D via the minibatch queue.
+			%  <strong>13</strong> <strong>DPROC</strong> 	DPROC (data, item) is the Raman-spectra dataset process used for inverse normalisation/transform during decoding.
+			%  <strong>14</strong> <strong>IDX_LABEL_STRESS</strong> 	IDX_LABEL_STRESS (parameter, scalar) is the row index in TARGET_CLASS corresponding to stress.
+			%  <strong>15</strong> <strong>STRESS_ORDER</strong> 	STRESS_ORDER (query, stringlist) returns the unique stress tokens present in LATENT_REP in stable order.
+			%  <strong>16</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) is the canonical plotting order of stresses used for export and R figures.
+			%  <strong>17</strong> <strong>STRESS_LABEL</strong> 	STRESS_LABEL (parameter, stringlist) are human-readable stress labels aligned with STRESS_SEQ.
+			%  <strong>18</strong> <strong>STRESS_COLOUR</strong> 	STRESS_COLOUR (parameter, stringlist) are hex colours aligned with STRESS_SEQ.
+			%  <strong>19</strong> <strong>STRESS_SHAPE</strong> 	STRESS_SHAPE (parameter, stringlist) are point shapes aligned with STRESS_SEQ.
+			%  <strong>20</strong> <strong>IDX_LABEL_KIND</strong> 	IDX_LABEL_KIND (parameter, scalar) is the row index in TARGET_CLASS corresponding to species/kind.
+			%  <strong>21</strong> <strong>KIND_ORDER</strong> 	KIND_ORDER (query, stringlist) returns the unique species/kind tokens present in LATENT_REP in stable order.
+			%  <strong>22</strong> <strong>IDX_LABEL_LOCATION</strong> 	IDX_LABEL_LOCATION (parameter, scalar) is the row index in TARGET_CLASS corresponding to location.
+			%  <strong>23</strong> <strong>LOCATION_ORDER</strong> 	LOCATION_ORDER (query, stringlist) returns the unique location tokens present in LATENT_REP in stable order.
+			%  <strong>24</strong> <strong>LATENT_REP</strong> 	LATENT_REP (result, cell) stores {Z, Y} where Z are latent representations and Y are label vectors aligned to Z for downstream analyses.
+			%  <strong>25</strong> <strong>PREDICT_DECODER</strong> 	PREDICT_DECODER (query, empty) decodes selected latent vectors to spectra and returns a 1xN cell of column vectors (options: one-to-one/median/mean; inverse normalisation/transform toggles).
+			%  <strong>26</strong> <strong>CROSSING</strong> 	CROSSING (query, cell) returns {ind, t0, s0} for level crossings of S at level with interpolation method and direction.
+			%  <strong>27</strong> <strong>DERIV_PEAKS</strong> 	DERIV_PEAKS (query, cell) returns {PEAKS_TABLE, PEAKS_RANKED_BY_AREA, ind_p2n, ind_all, area, peak_wavs} from p→n zero-crossings of the derivative spectrum.
+			%  <strong>28</strong> <strong>PEAKS_COMPARE</strong> 	PEAKS_COMPARE (query, cell) returns pairwise peak-area differences between two conditions with integer-wavenumber matching tolerance.
+			%  <strong>29</strong> <strong>DERIV_PEAKS_RUN</strong> 	DERIV_PEAKS_RUN (query, cell) returns {COND, COMP} by running DERIV_PEAKS per condition and all pairwise comparisons.
+			%  <strong>30</strong> <strong>DERIV_PEAKS_SAVE</strong> 	DERIV_PEAKS_SAVE (query, cell) saves per-condition ranked tables and pairwise ranked differences using legacy-compatible filenames.
+			%  <strong>31</strong> <strong>LATENT_IDENTIFICATION</strong> 	LATENT_IDENTIFICATION (query, empty) exports per-species×location latent cells z1/z2 and ranges aligned with STRESS_SEQ for the R plotting pipeline.
+			%  <strong>32</strong> <strong>DATA_RECONSTRUCTION</strong> 	DATA_RECONSTRUCTION (query, empty) decodes median spectra per stress for each species×location and saves R-ready .mat files.
+			%  <strong>33</strong> <strong>PEAK_IDENTIFICATION</strong> 	PEAK_IDENTIFICATION (query, empty) decodes per species, detects derivative peaks per stress, runs all pairwise comparisons, and saves ranked tables.
+			%  <strong>34</strong> <strong>DIRECTORY_ANALYSIS</strong> 	DIRECTORY_ANALYSIS (data, string) is the directory where intermediate .mat files and analysis outputs are saved.
+			%  <strong>35</strong> <strong>DIRECTORY_FIG</strong> 	DIRECTORY_FIG (data, string) is the directory where figures are exported.
+			%  <strong>36</strong> <strong>DIRECTORY_UTIL_R</strong> 	DIRECTORY_UTIL_R (data, string) is the directory containing the R scripts and Dockerfile used for plotting.
+			%  <strong>37</strong> <strong>CREATE_R_CONTAINER</strong> 	CREATE_R_CONTAINER (query, cell) ensures the plotting Docker image exists and returns {image_tag}.
+			%  <strong>38</strong> <strong>PLOT_R_PALETTE</strong> 	PLOT_R_PALETTE (query, empty) generates palette figures via Docker+R (generic_fig_palette_p1.R) after preparing latent, reconstruction, and identification outputs.
+			%  <strong>39</strong> <strong>PLOT_R_LS_QNORM_MED</strong> 	PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R (generic_plot_ls_qnorm_med.R) after preparing required .mat inputs.
 			%
 			% See also Category, Format.
 			
@@ -332,12 +330,12 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 	end
 	methods (Static) % inspection
 		function build = getBuild()
-			%GETBUILD returns the build of the neural network evaluator.
+			%GETBUILD returns the build of the variational-autoencoder evaluator for Raman spectra.
 			%
 			% BUILD = NNVariationalAutoencoderEvaluator_RS.GETBUILD() returns the build of 'NNVariationalAutoencoderEvaluator_RS'.
 			%
 			% Alternative forms to call this method are:
-			%  BUILD = NNE.GETBUILD() returns the build of the neural network evaluator NNE.
+			%  BUILD = NNE.GETBUILD() returns the build of the variational-autoencoder evaluator for Raman spectra NNE.
 			%  BUILD = Element.GETBUILD(NNE) returns the build of 'NNE'.
 			%  BUILD = Element.GETBUILD('NNVariationalAutoencoderEvaluator_RS') returns the build of 'NNVariationalAutoencoderEvaluator_RS'.
 			%
@@ -347,12 +345,12 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			build = 1;
 		end
 		function nne_class = getClass()
-			%GETCLASS returns the class of the neural network evaluator.
+			%GETCLASS returns the class of the variational-autoencoder evaluator for Raman spectra.
 			%
 			% CLASS = NNVariationalAutoencoderEvaluator_RS.GETCLASS() returns the class 'NNVariationalAutoencoderEvaluator_RS'.
 			%
 			% Alternative forms to call this method are:
-			%  CLASS = NNE.GETCLASS() returns the class of the neural network evaluator NNE.
+			%  CLASS = NNE.GETCLASS() returns the class of the variational-autoencoder evaluator for Raman spectra NNE.
 			%  CLASS = Element.GETCLASS(NNE) returns the class of 'NNE'.
 			%  CLASS = Element.GETCLASS('NNVariationalAutoencoderEvaluator_RS') returns 'NNVariationalAutoencoderEvaluator_RS'.
 			%
@@ -362,12 +360,12 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			nne_class = 'NNVariationalAutoencoderEvaluator_RS';
 		end
 		function subclass_list = getSubclasses()
-			%GETSUBCLASSES returns all subclasses of the neural network evaluator.
+			%GETSUBCLASSES returns all subclasses of the variational-autoencoder evaluator for Raman spectra.
 			%
 			% LIST = NNVariationalAutoencoderEvaluator_RS.GETSUBCLASSES() returns all subclasses of 'NNVariationalAutoencoderEvaluator_RS'.
 			%
 			% Alternative forms to call this method are:
-			%  LIST = NNE.GETSUBCLASSES() returns all subclasses of the neural network evaluator NNE.
+			%  LIST = NNE.GETSUBCLASSES() returns all subclasses of the variational-autoencoder evaluator for Raman spectra NNE.
 			%  LIST = Element.GETSUBCLASSES(NNE) returns all subclasses of 'NNE'.
 			%  LIST = Element.GETSUBCLASSES('NNVariationalAutoencoderEvaluator_RS') returns all subclasses of 'NNVariationalAutoencoderEvaluator_RS'.
 			%
@@ -379,16 +377,16 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			subclass_list = { 'NNVariationalAutoencoderEvaluator_RS' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
-			%GETPROPS returns the property list of neural network evaluator.
+			%GETPROPS returns the property list of variational-autoencoder evaluator for Raman spectra.
 			%
-			% PROPS = NNVariationalAutoencoderEvaluator_RS.GETPROPS() returns the property list of neural network evaluator
+			% PROPS = NNVariationalAutoencoderEvaluator_RS.GETPROPS() returns the property list of variational-autoencoder evaluator for Raman spectra
 			%  as a row vector.
 			%
 			% PROPS = NNVariationalAutoencoderEvaluator_RS.GETPROPS(CATEGORY) returns the property list 
 			%  of category CATEGORY.
 			%
 			% Alternative forms to call this method are:
-			%  PROPS = NNE.GETPROPS([CATEGORY]) returns the property list of the neural network evaluator NNE.
+			%  PROPS = NNE.GETPROPS([CATEGORY]) returns the property list of the variational-autoencoder evaluator for Raman spectra NNE.
 			%  PROPS = Element.GETPROPS(NNE[, CATEGORY]) returns the property list of 'NNE'.
 			%  PROPS = Element.GETPROPS('NNVariationalAutoencoderEvaluator_RS'[, CATEGORY]) returns the property list of 'NNVariationalAutoencoderEvaluator_RS'.
 			%
@@ -422,15 +420,15 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			end
 		end
 		function prop_number = getPropNumber(varargin)
-			%GETPROPNUMBER returns the property number of neural network evaluator.
+			%GETPROPNUMBER returns the property number of variational-autoencoder evaluator for Raman spectra.
 			%
-			% N = NNVariationalAutoencoderEvaluator_RS.GETPROPNUMBER() returns the property number of neural network evaluator.
+			% N = NNVariationalAutoencoderEvaluator_RS.GETPROPNUMBER() returns the property number of variational-autoencoder evaluator for Raman spectra.
 			%
-			% N = NNVariationalAutoencoderEvaluator_RS.GETPROPNUMBER(CATEGORY) returns the property number of neural network evaluator
+			% N = NNVariationalAutoencoderEvaluator_RS.GETPROPNUMBER(CATEGORY) returns the property number of variational-autoencoder evaluator for Raman spectra
 			%  of category CATEGORY
 			%
 			% Alternative forms to call this method are:
-			%  N = NNE.GETPROPNUMBER([CATEGORY]) returns the property number of the neural network evaluator NNE.
+			%  N = NNE.GETPROPNUMBER([CATEGORY]) returns the property number of the variational-autoencoder evaluator for Raman spectra NNE.
 			%  N = Element.GETPROPNUMBER(NNE) returns the property number of 'NNE'.
 			%  N = Element.GETPROPNUMBER('NNVariationalAutoencoderEvaluator_RS') returns the property number of 'NNVariationalAutoencoderEvaluator_RS'.
 			%
@@ -464,7 +462,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			end
 		end
 		function check_out = existsProp(prop)
-			%EXISTSPROP checks whether property exists in neural network evaluator/error.
+			%EXISTSPROP checks whether property exists in variational-autoencoder evaluator for Raman spectra/error.
 			%
 			% CHECK = NNVariationalAutoencoderEvaluator_RS.EXISTSPROP(PROP) checks whether the property PROP exists.
 			%
@@ -502,7 +500,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			end
 		end
 		function check_out = existsTag(tag)
-			%EXISTSTAG checks whether tag exists in neural network evaluator/error.
+			%EXISTSTAG checks whether tag exists in variational-autoencoder evaluator for Raman spectra/error.
 			%
 			% CHECK = NNVariationalAutoencoderEvaluator_RS.EXISTSTAG(TAG) checks whether a property with tag TAG exists.
 			%
@@ -668,7 +666,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			prop = NNVariationalAutoencoderEvaluator_RS.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nnvariationalautoencoderevaluator_rs_description_list = { 'ELCLASS (constant, string) is the class of the evaluator of the neural network analysis.'  'NAME (constant, string) is the name of the evaluator for the neural network analysis.'  'DESCRIPTION (constant, string) is the description of the evaluator for the neural network analysis.'  'TEMPLATE (parameter, item) is the template of the evaluator for the neural network analysis.'  'ID (data, string) is a few-letter code for the evaluator for the neural network analysis.'  'LABEL (metadata, string) is an extended label of the evaluator for the neural network analysis.'  'NOTES (metadata, string) are some specific notes about the evaluator for the neural network analysis.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'NN (data, item) contains a trained neural network model.'  'D (data, item) is the dataset to evaluate the neural network model.'  'PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.'  'PREDICT_ENCODER (query, cell) returns the predictions of an encoder.'  'DPROC (data, item) row-index in TARGET_CLASS for stress.'  'IDX_LABEL_STRESS (parameter, scalar) row-index in TARGET_CLASS for stress.'  'STRESS_ORDER (query, stringlist) canonical order for output.'  'STRESS_SEQ (parameter, stringlist) canonical order for output.'  'STRESS_LABEL (parameter, stringlist) canonical order for output.'  'STRESS_COLOUR (parameter, stringlist) canonical order for output.'  'STRESS_SHAPE (parameter, stringlist) canonical order for output.'  'IDX_LABEL_KIND (parameter, scalar) row-index in TARGET_CLASS for species.'  'KIND_ORDER (query, stringlist) canonical order for output.'  'IDX_LABEL_LOCATION (parameter, scalar) row-index in TARGET_CLASS for species.'  'LOCATION_ORDER (query, stringlist) canonical order for output.'  'LATENT_REP (result, cell) stores the latent representations for further processing.'  'PREDICT_DECODER (query, empty) indentifies the index when crossing from negative to positive.'  'CROSSING (query, cell) returns indices/times of level crossings.'  'DERIV_PEAKS (query, cell) finds p→n zero-crossing peaks in f′(x) and lobe areas.'  'PEAKS_COMPARE (query, cell) compares per-peak areas between two conditions.'  'DERIV_PEAKS_RUN (query, cell) runs DERIV_PEAKS for all conditions and compares all pairs.'  'DERIV_PEAKS_SAVE (query, cell) saves ranked tables (legacy-compatible filenames).'  'LATENT_IDENTIFICATION (query, empty) runs latent-space export per species × location.'  'DATA_RECONSTRUCTION (query, empty) runs decoding → saves per species × location.'  'PEAK_IDENTIFICATION (query, empty) runs decoding → peaks → save per species.'  'DIRECTORY_ANALYSIS (data, string) is the directory saving the exporting figure.'  'DIRECTORY_FIG (data, string) is the directory saving the exporting figure.'  'DIRECTORY_UTIL_R (data, string) is the directory saving the exporting figure.'  'CREATE_R_CONTAINER (query, cell) ensures the Docker image for the R plots exists.'  'PLOT_R_PALETTE (query, empty) generates the palette figure via Docker+R.'  'PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R.' };
+			nnvariationalautoencoderevaluator_rs_description_list = { 'ELCLASS (constant, string) is the class of the variational-autoencoder evaluator for Raman spectra.'  'NAME (constant, string) is the name of the variational-autoencoder evaluator for Raman spectra.'  'DESCRIPTION (constant, string) is the description of the variational-autoencoder evaluator for Raman spectra.'  'TEMPLATE (parameter, item) is the template of the variational-autoencoder evaluator for Raman spectra.'  'ID (data, string) is a few-letter code of the variational-autoencoder evaluator for Raman spectra.'  'LABEL (metadata, string) is an extended label of the variational-autoencoder evaluator for Raman spectra.'  'NOTES (metadata, string) are specific notes of the variational-autoencoder evaluator for Raman spectra.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'NN (data, item) contains a trained neural network model.'  'D (data, item) is the dataset to evaluate the neural network model.'  'PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.'  'PREDICT_ENCODER (query, cell) returns {Z, Y} where Z are latent means (one column per data point) and Y are corresponding label vectors from D via the minibatch queue.'  'DPROC (data, item) is the Raman-spectra dataset process used for inverse normalisation/transform during decoding.'  'IDX_LABEL_STRESS (parameter, scalar) is the row index in TARGET_CLASS corresponding to stress.'  'STRESS_ORDER (query, stringlist) returns the unique stress tokens present in LATENT_REP in stable order.'  'STRESS_SEQ (parameter, stringlist) is the canonical plotting order of stresses used for export and R figures.'  'STRESS_LABEL (parameter, stringlist) are human-readable stress labels aligned with STRESS_SEQ.'  'STRESS_COLOUR (parameter, stringlist) are hex colours aligned with STRESS_SEQ.'  'STRESS_SHAPE (parameter, stringlist) are point shapes aligned with STRESS_SEQ.'  'IDX_LABEL_KIND (parameter, scalar) is the row index in TARGET_CLASS corresponding to species/kind.'  'KIND_ORDER (query, stringlist) returns the unique species/kind tokens present in LATENT_REP in stable order.'  'IDX_LABEL_LOCATION (parameter, scalar) is the row index in TARGET_CLASS corresponding to location.'  'LOCATION_ORDER (query, stringlist) returns the unique location tokens present in LATENT_REP in stable order.'  'LATENT_REP (result, cell) stores {Z, Y} where Z are latent representations and Y are label vectors aligned to Z for downstream analyses.'  'PREDICT_DECODER (query, empty) decodes selected latent vectors to spectra and returns a 1xN cell of column vectors (options: one-to-one/median/mean; inverse normalisation/transform toggles).'  'CROSSING (query, cell) returns {ind, t0, s0} for level crossings of S at level with interpolation method and direction.'  'DERIV_PEAKS (query, cell) returns {PEAKS_TABLE, PEAKS_RANKED_BY_AREA, ind_p2n, ind_all, area, peak_wavs} from p→n zero-crossings of the derivative spectrum.'  'PEAKS_COMPARE (query, cell) returns pairwise peak-area differences between two conditions with integer-wavenumber matching tolerance.'  'DERIV_PEAKS_RUN (query, cell) returns {COND, COMP} by running DERIV_PEAKS per condition and all pairwise comparisons.'  'DERIV_PEAKS_SAVE (query, cell) saves per-condition ranked tables and pairwise ranked differences using legacy-compatible filenames.'  'LATENT_IDENTIFICATION (query, empty) exports per-species×location latent cells z1/z2 and ranges aligned with STRESS_SEQ for the R plotting pipeline.'  'DATA_RECONSTRUCTION (query, empty) decodes median spectra per stress for each species×location and saves R-ready .mat files.'  'PEAK_IDENTIFICATION (query, empty) decodes per species, detects derivative peaks per stress, runs all pairwise comparisons, and saves ranked tables.'  'DIRECTORY_ANALYSIS (data, string) is the directory where intermediate .mat files and analysis outputs are saved.'  'DIRECTORY_FIG (data, string) is the directory where figures are exported.'  'DIRECTORY_UTIL_R (data, string) is the directory containing the R scripts and Dockerfile used for plotting.'  'CREATE_R_CONTAINER (query, cell) ensures the plotting Docker image exists and returns {image_tag}.'  'PLOT_R_PALETTE (query, empty) generates palette figures via Docker+R (generic_fig_palette_p1.R) after preparing latent, reconstruction, and identification outputs.'  'PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R (generic_plot_ls_qnorm_med.R) after preparing required .mat inputs.' };
 			prop_description = nnvariationalautoencoderevaluator_rs_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -836,7 +834,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				case 2 % NNVariationalAutoencoderEvaluator_RS.NAME
 					prop_default = 'Neural Network Evaluator';
 				case 3 % NNVariationalAutoencoderEvaluator_RS.DESCRIPTION
-					prop_default = 'A neural network evaluator (NNEvaluator) evaluates the performance of a neural network model with a specific dataset. Instances of this class should not be created. Use one of its subclasses instead. Its subclasses shall be specifically designed to cater to different evaluation cases such as a classification task, a regression task, or a data generation task.';
+					prop_default = 'A variational-autoencoder evaluator (NNVariationalAutoencoderEvaluator_RS) evaluates a trained model on a specific dataset, producing latent representations, decoded spectra, peak analyses, and Docker-backed R figures for Raman-spectra workflows. Instances of this class should not be created directly—use one of its subclasses.';
 				case 4 % NNVariationalAutoencoderEvaluator_RS.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
 				case 5 % NNVariationalAutoencoderEvaluator_RS.ID
@@ -1012,7 +1010,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'UniformOutput', false)));
 					
 				case 23 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
-					idx = nne.get('IDX_LABEL_KIND');
+					idx = nne.get('IDX_LABEL_LOCATION');
 					latent_rep = nne.get('LATENT_REP');
 					YLatent = latent_rep{2};
 					value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'UniformOutput', false)));
@@ -1021,7 +1019,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					rng_settings_ = rng(); rng(nne.getPropSeed(24), 'twister')
 					
 					nnvae = nne.get('NN');
-					if strcmp(class(nnvae), 'NNBase') % nnvae is exactly NNBase (no subclass)
+					if strcmp(class(nnvae), 'NNBase')
 					    value = {};
 					    return
 					end
@@ -1040,17 +1038,16 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					if isempty(varargin)
 					    idx = 1:1:size(ZLatent, 2);
-					    reprentation_select = 'one-to-one';
+					    representation_select = 'one-to-one';
 					    denormalization = true;
 					    detranformation = false;
 					else
 					    idx = varargin{1};
-					    reprentation_select = varargin{2};
+					    representation_select = varargin{2};
 					    denormalization = varargin{3};
 					    detranformation = varargin{4};
 					end
-					% get reconstructed spectrum for the cluster of this single lable
-					switch reprentation_select
+					switch representation_select
 					    case 'one-to-one'
 					        ZSelected = ZLatent(:, idx);
 					    case 'median'
@@ -1059,9 +1056,8 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					        ZSelected = mean(ZLatent(:, idx), 2);
 					end
 					
-					ZSelected = dlarray(ZSelected, 'CB'); % convert to deep learning array
+					ZSelected = dlarray(ZSelected, 'CB');
 					
-					% get recontructed data
 					nnvae = nne.get('NN');
 					netD = nnvae.get('DECODER');
 					decoded_inputs = extractdata(predict(netD, ZSelected));
@@ -1084,18 +1080,6 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					% VALUE = nne.get('CROSSING', S, t, level)
 					% VALUE = nne.get('CROSSING', S, t, level, imeth)
 					% VALUE = nne.get('CROSSING', S, t, level, imeth, direction)
-					%
-					% Inputs:
-					%   S         : signal (vector)                                  [req]
-					%   t         : time/wavenumber vector (same length as S)        [opt]
-					%   level     : crossing level (default 0)                       [opt]
-					%   imeth     : 'linear' (default) or 'none'                     [opt]
-					%   direction : 'np' (neg→pos), 'pn' (pos→neg), 'both' (default) [opt]
-					%
-					% Output VALUE (cell):
-					%   {1} ind   : indices i where a crossing occurs (between i and i+1)
-					%   {2} t0    : crossing positions (interpolated if 'linear')
-					%   {3} s0    : values of S-level at the crossing samples (zeros if interp)
 					
 					if isempty(varargin)
 					    value = {};
@@ -1130,7 +1114,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					switch lower(direction)
 					    case 'np',   ind = ind(Slev(ind) < 0);
 					    case 'pn',   ind = ind(Slev(ind) > 0);
-					    case 'both', % keep all
+					    case 'both'
 					    otherwise,   value = {[], [], []}; return
 					end
 					if isempty(ind)
@@ -1156,19 +1140,6 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				case 27 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS
 					% VALUE = nne.get('DERIV_PEAKS', y, x)
 					% VALUE = nne.get('DERIV_PEAKS', y, x, imeth)
-					%
-					% Inputs:
-					%   y     : 1xL or Lx1 derivative spectrum f′(x)      [req]
-					%   x     : 1xL or Lx1 wavenumbers (cm^-1)            [req]
-					%   imeth : 'linear' (default) | 'none'               [opt]
-					%
-					% Output VALUE (cell):
-					%   {1} PEAKS_TABLE          : [wav_real, wav_int, area]
-					%   {2} PEAKS_RANKED_BY_AREA : same, sorted by area desc
-					%   {3} ind_p2n              : indices of p→n crossings (column)
-					%   {4} ind_all              : indices of all crossings (column)
-					%   {5} area                 : area per peak (column)
-					%   {6} peak_wavs            : wavenumbers at p→n indices (column)
 					
 					if isempty(varargin)
 					    value = {};
@@ -1209,22 +1180,6 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				case 28 % NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE
 					% VALUE = nne.get('PEAKS_COMPARE', peaks_A, peaks_B, nameA, nameB)
 					% VALUE = nne.get('PEAKS_COMPARE', peaks_A, peaks_B, nameA, nameB, tolInt)
-					%
-					% Inputs:
-					%   peaks_A : [wav_real, wav_int, area] (from DERIV_PEAKS)   [req]
-					%   peaks_B : [wav_real, wav_int, area] (from DERIV_PEAKS)   [req]
-					%   nameA   : label for A                                    [req]
-					%   nameB   : label for B                                    [req]
-					%   tolInt  : integer tolerance for matching (±), default 1  [opt]
-					%
-					% Output VALUE (cell):
-					%   {1} LABEL            : 'A_B'
-					%   {2} RANKED_ABS_DIFF  : [wav_int, |Δarea|] sorted desc
-					%   {3} W                : matched integer wavenumbers (col)
-					%   {4} DIFF             : Δarea = area_A - area_B (col)
-					%   {5} DIFF_PERC        : 100*Δarea/area_B (col)
-					%   {6} DIFF_ABS         : |Δarea| (col)
-					%   {7} DIFF_ABS_PERC    : 100*|Δarea|/area_B (col)
 					
 					if isempty(varargin)
 					    value = {};
@@ -1265,18 +1220,6 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				case 29 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN
 					% VALUE = nne.get('DERIV_PEAKS_RUN', data_cell, x, cond_labels)
 					% VALUE = nne.get('DERIV_PEAKS_RUN', data_cell, x, cond_labels, imeth, tolInt)
-					%
-					% Inputs:
-					%   data_cell   : 1xC cell of spectra (each 1xL or Lx1)       [req]
-					%   x           : 1xL or Lx1 wavenumbers                      [req]
-					%   cond_labels : 1xC cellstr of condition names              [req]
-					%   imeth       : 'linear' (default) | 'none'                 [opt]
-					%   tolInt      : integer matching tolerance (default 1)      [opt]
-					%
-					% Output VALUE (cell):
-					%   {1} COND : 1xC cell, each COND{c} = {name, peaks_table, peaks_ranked_by_area}
-					%   {2} COMP : 1xP cell (P = nchoosek(C,2)),
-					%              each COMP{p} = {label, ranked_abs_diff, w, diff, diff_perc, diff_abs, diff_abs_perc}
 					
 					if isempty(varargin)
 					    value = {};
@@ -1293,40 +1236,29 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					C = numel(cond_labels);
 					
-					% per-condition
 					COND = cell(1, C);
 					for c = 1:C
 					    y = data_cell{c};
-					    out = nne.get('DERIV_PEAKS', y, x, imeth); % {PEAKS_TABLE, PEAKS_RANKED_BY_AREA, ...}
+					    out = nne.get('DERIV_PEAKS', y, x, imeth);
 					    name = cond_labels{c};
 					    peaks_table = out{1};
 					    peaks_ranked = out{2};
 					    COND{c} = {name, peaks_table, peaks_ranked};
 					end
 					
-					% pairwise comparisons
 					pairs = nchoosek(1:C, 2);
 					COMP = cell(1, size(pairs,1));
 					for p = 1:size(pairs,1)
 					    i = pairs(p,1); j = pairs(p,2);
-					    Ai = COND{i}{2};  Bj = COND{j}{2};   % peaks_table for i and j
+					    Ai = COND{i}{2};  Bj = COND{j}{2};
 					    out = nne.get('PEAKS_COMPARE', Ai, Bj, COND{i}{1}, COND{j}{1}, tolInt);
-					    COMP{p} = out; % already in desired cell schema
+					    COMP{p} = out;
 					end
 					
 					value = {COND, COMP};
 					
 				case 30 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE
 					% nne.get('DERIV_PEAKS_SAVE', COND, COMP, state)
-					%
-					% Inputs:
-					%   COND  : from DERIV_PEAKS_RUN (1xC cell; each {name, peaks_table, peaks_ranked_by_area}) [req]
-					%   COMP  : from DERIV_PEAKS_RUN (1xP cell; each {label, ranked_abs_diff, ...})              [req]
-					%   state : string appended to filenames                                                      [req]
-					%
-					% Side-effect: writes .mat files:
-					%   'ranked_sig_pks_<COND> <state>.mat'                    (variable: ranked_sig_pks_<COND>)
-					%   'ranked_sig_pks_<COND1>_<COND2>_mod <state>.mat'       (variable: ranked_sig_pks_<COND1>_<COND2>_mod)
 					
 					if isempty(varargin)
 					    value = {};
@@ -1338,31 +1270,28 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					state = char(string(varargin{3}));
 					save_dir = nne.get('DIRECTORY_ANALYSIS');
 					
-					% ensure analysis directory exists
 					if ~exist(save_dir, 'dir')
 					    mkdir(save_dir);
 					end
 					
-					% --- per-condition files: ranked_sig_pks_<COND> <state>.mat ---
 					for c = 1:numel(COND)
-					    name = COND{c}{1};          % e.g. 'HL'
+					    name = COND{c}{1};
 					    ranked_sig_pks = COND{c}{3}; %#ok<NASGU>
 					
-					    varname  = sprintf('ranked_sig_pks_%s', name);  % e.g. 'ranked_sig_pks_HL'
+					    varname  = sprintf('ranked_sig_pks_%s', name);
 					    fname    = sprintf('ranked_sig_pks_%s %s.mat', name, state);
 					    filepath = fullfile(save_dir, fname);
 					
-					    S = struct();                       % ensure only this variable is stored
+					    S = struct();
 					    S.(varname) = ranked_sig_pks;
 					    save(filepath, '-struct', 'S');
 					end
 					
-					% --- pairwise comparison files: ranked_sig_pks_<COND1>_<COND2>_mod <state>.mat ---
 					for p = 1:numel(COMP)
-					    label = COMP{p}{1};            % e.g. 'HL_LL'
+					    label = COMP{p}{1};
 					    ranked_sig_pks_mod = COMP{p}{2}; %#ok<NASGU>
 					
-					    varname  = sprintf('ranked_sig_pks_%s_mod', label);  % e.g. 'ranked_sig_pks_HL_LL_mod'
+					    varname  = sprintf('ranked_sig_pks_%s_mod', label);
 					    fname    = sprintf('ranked_sig_pks_%s_mod %s.mat', label, state);
 					    filepath = fullfile(save_dir, fname);
 					
@@ -1374,21 +1303,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					value = {};
 					
 				case 31 % NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION
-					% Usage:
-					%   nne.get('LATENT_IDENTIFICATION')
-					%
-					% Side-effect:
-					%   In <DIRECTORY>/crnr_transformed/ it creates, for each species × location:
-					%     latent_AB_loc1.mat
-					%     latent_CS_loc1.mat
-					%     latent_KL_loc1.mat
-					%   Each .mat contains:
-					%     z1       : 1xK cell, one numeric column vector per stress in STRESS_SEQ
-					%     z2       : 1xK cell, one numeric column vector per stress in STRESS_SEQ
-					%     z1_range : [min_z1 max_z1] over all datapoints (global)
-					%     z2_range : [min_z2 max_z2] over all datapoints (global)
-					%
-					% These are the inputs expected by generic_plot_ls_qnorm_med.R and generic_fig_palette_p1.R.
+					% Side-effect: writes latent_<species>_<location>.mat with z1, z2, z1_range, z2_range and stress metadata.
 					
 					d = nne.get('D');
 					num_dp = d.get('DP_DICT').get('LENGTH');
@@ -1397,17 +1312,15 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					    return
 					end
 					
-					% --- indices for labels ---
 					i_species   = nne.get('IDX_LABEL_KIND');
 					i_stress    = nne.get('IDX_LABEL_STRESS');
 					i_location  = nne.get('IDX_LABEL_LOCATION');
-					stress_order = nne.get('STRESS_ORDER');   % e.g. {'WL','HL','LL','SH'}
-					stress_seq   = nne.get('STRESS_SEQ');     % sequence/order used in z1/z2 cells
+					stress_order = nne.get('STRESS_ORDER');
+					stress_seq   = nne.get('STRESS_SEQ');
 					
-					% --- latent representation ---
 					latent_rep = nne.get('LATENT_REP');
-					ZLatent    = latent_rep{1};  % latent_dim x N
-					YLatent    = latent_rep{2};  % 1xN cell, each cell = label vector
+					ZLatent    = latent_rep{1};
+					YLatent    = latent_rep{2};
 					
 					if size(ZLatent, 1) < 2
 					    warning('LATENT_IDENTIFICATION: latent dimension < 2, cannot build z1/z2.');
@@ -1415,41 +1328,29 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					    return
 					end
 					
-					% --- build global z1/z2 and ranges ---
 					z1_all = ZLatent(1, :);
 					z2_all = ZLatent(2, :);
 					
 					z1_range = [min(z1_all), max(z1_all)];  %#ok<NASGU>
 					z2_range = [min(z2_all), max(z2_all)];  %#ok<NASGU>
 					
-					% --- labels from LATENT_REP (must match Z order) ---
 					species_all  = string(cellfun(@(lbl) string(lbl(i_species)),  YLatent, 'UniformOutput', false));
 					stress_all   = string(cellfun(@(lbl) string(lbl(i_stress)),   YLatent, 'UniformOutput', false));
 					location_all = string(cellfun(@(lbl) string(lbl(i_location)), YLatent, 'UniformOutput', false));
 					
-					% --- unique species and locations ---
 					species_list  = unique(species_all,  'stable');
 					location_list = unique(location_all, 'stable');
 					
-					% If you ONLY want loc1 (matching the current R scripts), uncomment:
-					% location_list = "loc1";
-					
-					% --- resolve stress sequence used for saving ---
 					if isempty(stress_seq)
-					    % fallback: use STRESS_ORDER as-is
 					    stress_seq_labels = string(stress_order);
 					else
 					    if isnumeric(stress_seq)
-					        % treat as indices into STRESS_ORDER
 					        stress_seq_labels = string(stress_order(stress_seq));
 					    else
-					        % treat as explicit labels
 					        stress_seq_labels = string(stress_seq);
 					    end
 					end
 					
-					K = numel(stress_seq_labels);
-					% ---- map canonical STRESS_* onto the sequence we actually use ----
 					canon_seq    = string(nne.get('STRESS_SEQ'));
 					canon_label  = string(nne.get('STRESS_LABEL'));
 					canon_colour = string(nne.get('STRESS_COLOUR'));
@@ -1470,54 +1371,46 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					stress_seq_run = cellstr(stress_seq_labels(:));
 					
-					% --- output folder ---
 					root_dir = nne.get('DIRECTORY_ANALYSIS');
 					out_dir  = fullfile(root_dir, 'crnr_transformed');
 					if ~exist(out_dir, 'dir')
 					    mkdir(out_dir);
 					end
 					
-					% --- loop over species × location and save one .mat per pair ---
 					for s = 1:numel(species_list)
 					    sp = species_list(s);
 					
 					    for l = 1:numel(location_list)
 					        loc = location_list(l);
 					
-					        z1 = cell(1, K); %#ok<NASGU>
-					        z2 = cell(1, K); %#ok<NASGU>
+					        z1 = cell(1, numel(stress_seq_labels)); %#ok<NASGU>
+					        z2 = cell(1, numel(stress_seq_labels)); %#ok<NASGU>
 					        all_present = true;
 					
-					        for k = 1:K
-					            st = stress_seq_labels(k);    % stress label for this slot in z1/z2
+					        for k = 1:numel(stress_seq_labels)
+					            st = stress_seq_labels(k);
 					
 					            idx = (species_all == sp) & (location_all == loc) & (stress_all == st);
 					            if ~any(idx)
-					                % one stress level missing → skip this species × location combo
 					                all_present = false;
 					                break
 					            end
 					
-					            z1{k} = z1_all(idx).';  % column vectors for R
+					            z1{k} = z1_all(idx).';
 					            z2{k} = z2_all(idx).';
 					        end
 					
 					        if ~all_present
-					            % optional: emit a warning
-					            % warning('LATENT_IDENTIFICATION: skipping %s @ %s (missing stress level).', sp, loc);
 					            continue
 					        end
 					
-					        % filename pattern expected by the R scripts:
-					        %   latent_AB_loc1.mat, latent_CS_loc1.mat, latent_KL_loc1.mat, ...
 					        fname     = sprintf('latent_%s_%s.mat', char(sp), char(loc));
 					        save_path = fullfile(out_dir, fname);
 					
-					        % save variables: z1, z2, z1_range, z2_range
-					        stress_seq   = stress_seq_run;   %#ok<NASGU>
-					        stress_label = stress_label_run; %#ok<NASGU>
+					        stress_seq    = stress_seq_run;    %#ok<NASGU>
+					        stress_label  = stress_label_run;  %#ok<NASGU>
 					        stress_colour = stress_colour_run; %#ok<NASGU>
-					        stress_shape  = stress_shape_run; %#ok<NASGU>
+					        stress_shape  = stress_shape_run;  %#ok<NASGU>
 					
 					        save(save_path, ...
 					            'z1', 'z2', 'z1_range', 'z2_range', ...
@@ -1535,126 +1428,98 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					    return
 					end
 					
-					% --- wavenumbers and label row indices ---
-					x = d.get('DP_DICT').get('IT', 1).get('WL_OF_INTEREST');  % numeric vector, wavenumber axis
+					x = d.get('DP_DICT').get('IT', 1).get('WL_OF_INTEREST');
 					i_species   = nne.get('IDX_LABEL_KIND');
 					i_stress    = nne.get('IDX_LABEL_STRESS');
 					i_location  = nne.get('IDX_LABEL_LOCATION');
-					stress_order = nne.get('STRESS_ORDER');                   % e.g. {'WL','HL','LL','SH'}
-					stress_seq   = nne.get('STRESS_SEQ');                     % desired sequence for saving  (NEW)
+					stress_order = nne.get('STRESS_ORDER');
+					stress_seq   = nne.get('STRESS_SEQ');
 					
-					% --- labels from LATENT_REP (must match Z order) ---
 					latent_rep = nne.get('LATENT_REP');
-					YLatent    = latent_rep{2};                               % cell array of label vectors
+					YLatent    = latent_rep{2};
 					
-					% YLatent is assumed: each cell = vector of labels (species, stress, location, ...)
 					species_all  = string(cellfun(@(ind_labels) string(ind_labels(i_species)),  YLatent, 'UniformOutput', false));
 					stress_all   = string(cellfun(@(ind_labels) string(ind_labels(i_stress)),   YLatent, 'UniformOutput', false));
 					location_all = string(cellfun(@(ind_labels) string(ind_labels(i_location)), YLatent, 'UniformOutput', false));
 					
-					% --- unique species and locations ---
 					species_list  = unique(species_all,  'stable');
 					location_list = unique(location_all, 'stable');
 					
-					% If you ONLY want loc1 (matching current R scripts), uncomment:
-					% location_list = "loc1";
-					
-					% --- resolve stress sequence actually used for saving (NEW BLOCK) ---
 					if isempty(stress_seq)
-					    % fallback: use STRESS_ORDER as-is
 					    stress_seq_labels = string(stress_order);
 					else
 					    if isnumeric(stress_seq)
-					        % treat as indices into STRESS_ORDER
 					        stress_seq_labels = string(stress_order(stress_seq));
 					    else
-					        % treat as explicit labels
 					        stress_seq_labels = string(stress_seq);
 					    end
 					end
 					
-					% ---- map canonical STRESS_* onto the sequence we actually use ----
-					canon_seq    = string(nne.get('STRESS_SEQ'));    % e.g. {"HL","WL","LL","SH"}
-					canon_label  = string(nne.get('STRESS_LABEL'));  % same length/order as canon_seq
+					canon_seq    = string(nne.get('STRESS_SEQ'));
+					canon_label  = string(nne.get('STRESS_LABEL'));
 					canon_colour = string(nne.get('STRESS_COLOUR'));
 					canon_shape  = string(nne.get('STRESS_SHAPE'));
 					
 					[~, idx_map] = ismember(stress_seq_labels, canon_seq);
 					
 					if any(idx_map == 0)
-					    % fallback if user put a stress in STRESS_SEQ/STRESS_ORDER that isn't in canon_seq
 					    warning('Some stresses in stress_seq_labels are not found in STRESS_SEQ; using labels=token, default colour/shape.');
 					    stress_label_run  = cellstr(stress_seq_labels);
-					    stress_colour_run = repmat({'#000000FF'}, size(stress_label_run)); % black
-					    stress_shape_run  = repmat({'circle'},    size(stress_label_run)); % circle
+					    stress_colour_run = repmat({'#000000FF'}, size(stress_label_run));
+					    stress_shape_run  = repmat({'circle'},    size(stress_label_run));
 					else
 					    stress_label_run  = cellstr(canon_label(idx_map));
 					    stress_colour_run = cellstr(canon_colour(idx_map));
 					    stress_shape_run  = cellstr(canon_shape(idx_map));
 					end
 					
-					% row cellstr → for saving
 					stress_seq_run = cellstr(stress_seq_labels(:));
 					
-					% --- output folder for transformed spectra ---
 					root_dir = nne.get('DIRECTORY_ANALYSIS');
 					out_dir  = fullfile(root_dir, 'crnr_transformed');
 					if ~exist(out_dir, 'dir')
 					    mkdir(out_dir);
 					end
 					
-					% --- loop over species × location ---
 					for s = 1:numel(species_list)
 					    sp = species_list(s);
 					
 					    for l = 1:numel(location_list)
 					        loc = location_list(l);
 					
-					        % collect decoded spectra per stress, following STRESS_SEQ (NEW)
-					        num_stress   = numel(stress_seq_labels);          % was: numel(stress_order)
+					        num_stress   = numel(stress_seq_labels);
 					        spectra_cell = cell(1, num_stress);
 					        all_present  = true;
 					
 					        for si = 1:num_stress
-					            st = stress_seq_labels(si);                   % was: string(stress_order{si})
+					            st = stress_seq_labels(si);
 					            idx = (species_all == sp) & (location_all == loc) & (stress_all == st);
 					
 					            if ~any(idx)
-					                % one stress missing → skip this species × location combo
 					                all_present = false;
 					                break
 					            end
 					
-					            % median-decoded spectrum for this group
-					            dec = nne.get('PREDICT_DECODER', idx, 'median', true, false);  % 1x1 cell, column vector
+					            dec = nne.get('PREDICT_DECODER', idx, 'median', true, false);
 					            spectra_cell{si} = dec{1};
 					        end
 					
 					        if ~all_present
-					            % optional: warn
-					            % warning('Skipping %s @ %s: not all stresses present.', sp, loc);
 					            continue
 					        end
 					
-					        % R expects: data$data[[1..K]] in the order defined by STRESS_SEQ / fallback STRESS_ORDER
 					        data    = spectra_cell; %#ok<NASGU>
-					        x_local = x(:);        %#ok<NASGU>  % ensure column
+					        x_local = x(:);        %#ok<NASGU>
 					
-					        % build the "(WL-HL-...)" part dynamically from stress_seq_labels
 					        stress_label_block = strjoin(cellstr(stress_seq_labels(:)), '-');
-					
-					        % filename that R scripts expect, now generic:
-					        % e.g. "(Tr) Diff Spectrum (WL-HL-LL-SH) with AB and loc1.mat"
-					        %      "(Tr) Diff Spectrum (WL-HL) with AB and loc1.mat"
 					        fname = sprintf('(Tr) Diff Spectrum (%s) with %s and %s.mat', ...
 					            stress_label_block, char(sp), char(loc));
 					        save_path = fullfile(out_dir, fname);
 					
-					        % R code uses "data" and "x"
-					        stress_seq   = stress_seq_run;   %#ok<NASGU>
-					        stress_label = stress_label_run; %#ok<NASGU>
+					        stress_seq    = stress_seq_run;    %#ok<NASGU>
+					        stress_label  = stress_label_run;  %#ok<NASGU>
 					        stress_colour = stress_colour_run; %#ok<NASGU>
-					        stress_shape  = stress_shape_run; %#ok<NASGU>
+					        stress_shape  = stress_shape_run;  %#ok<NASGU>
 					
 					        x = x_local; %#ok<NASGU>
 					
@@ -1674,35 +1539,27 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					    return
 					end
 					
-					% pull wavenumbers and label row indices ---
-					x = d.get('DP_DICT').get('IT', 1).get('WL_OF_INTEREST');  % your x
+					x = d.get('DP_DICT').get('IT', 1).get('WL_OF_INTEREST');
 					i_species   = nne.get('IDX_LABEL_KIND');
 					i_stress    = nne.get('IDX_LABEL_STRESS');
 					stress_order = nne.get('STRESS_ORDER');
-					stress_seq   = nne.get('STRESS_SEQ');   % %% NEW: desired sequence of stresses
+					stress_seq   = nne.get('STRESS_SEQ');
 					
-					% --- collect labels for ALL DPs in dataset order (to align with Z) ---
 					latent_rep = nne.get('LATENT_REP');
 					YLatent    = latent_rep{2};
 					species_all = string(cellfun(@(ind_labels) string(ind_labels(i_species)), YLatent, 'UniformOutput', false));
 					stress_all  = string(cellfun(@(ind_labels) string(ind_labels(i_stress)),  YLatent, 'UniformOutput', false));
 					
-					% --- latent representation from encoder (keeps ordering) ---
-					lat = nne.get('LATENT_REP');  %#ok<NASGU> % ensures it's computed
+					lat = nne.get('LATENT_REP'); %#ok<NASGU>
 					
-					% --- unique species in dataset (stable order) ---
 					kind_order = nne.get('KIND_ORDER');
 					
-					% %% NEW: resolve the stress labels sequence we actually want to use
 					if isempty(stress_seq)
-					    % fallback: use STRESS_ORDER as-is
 					    stress_seq_labels = string(stress_order);
 					else
 					    if isnumeric(stress_seq)
-					        % treat as indices into STRESS_ORDER
 					        stress_seq_labels = string(stress_order(stress_seq));
 					    else
-					        % treat as explicit labels (e.g. {'WL','HL','LL','SH'})
 					        stress_seq_labels = string(stress_seq);
 					    end
 					end
@@ -1710,34 +1567,30 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					for s = 1:numel(kind_order)
 					    sp = kind_order(s);
 					
-					    % build decoded spectra per stress, following STRESS_SEQ (or STRESS_ORDER fallback)
 					    data_cell   = {};
 					    cond_labels = {};
 					    ci = 0;
 					
-					    for so = 1:numel(stress_seq_labels)      % %% MODIFIED: loop over stress_seq_labels
-					        st = stress_seq_labels(so);          % %% MODIFIED: label from sequence
+					    for so = 1:numel(stress_seq_labels)
+					        st = stress_seq_labels(so);
 					        idx = (species_all == sp) & (stress_all == st);
 					
 					        if any(idx)
 					            ci = ci + 1;
-					            dec = nne.get('PREDICT_DECODER', idx, 'median', true, false);  % returns 1 cell
-					            data_cell{ci}   = dec{1};                         % numeric column
-					            cond_labels{ci} = char(st);                       % keeps same order
+					            dec = nne.get('PREDICT_DECODER', idx, 'median', true, false);
+					            data_cell{ci}   = dec{1};
+					            cond_labels{ci} = char(st); %#ok<AGROW>
 					        end
 					    end
 					
-					    % if this species has < 1 stress level present, skip
 					    if numel(data_cell) == 0
 					        continue
 					    end
 					
-					    % run peaks + pairwise comparisons for THIS species only
 					    out  = nne.get('DERIV_PEAKS_RUN', data_cell, x, cond_labels, 'linear', 1);
 					    COND = out{1};
 					    COMP = out{2};
 					
-					    % save with species tag as the "state" (e.g., KL / CS / AB)
 					    nne.get('DERIV_PEAKS_SAVE', COND, COMP, char(sp));
 					end
 					
@@ -1748,7 +1601,6 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					% VALUE = nne.get('CREATE_R_CONTAINER', docker_dir)
 					% VALUE = nne.get('CREATE_R_CONTAINER', docker_dir, image_tag)
 					
-					% --- inputs & defaults ---
 					docker_dir = nne.get('DIRECTORY_UTIL_R');
 					image_tag  = 'rls-plot:latest';
 					if ~isempty(varargin)
@@ -1758,27 +1610,22 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					    image_tag = varargin{2};
 					end
 					
-					% --- make sure Docker is on PATH (typical macOS locations, harmless elsewhere) ---
 					if ismac
 					    setenv('PATH', [getenv('PATH') ':/opt/homebrew/bin:/usr/local/bin']);
 					end
 					
-					% --- 1) docker available? ---
 					[st,~] = system('docker --version');
 					if st ~= 0
 					    msg = [ ...
 					        'Docker command not found from within MATLAB.' newline ...
 					        'If Docker works in your Terminal but not in MATLAB, check the PATH:' newline ...
 					        '  1) In Terminal, run:  which docker' newline ...
-					        '     (for example it may return /usr/local/bin/docker)' newline ...
-					        '  2) In MATLAB, run:    setenv(''PATH'', [getenv(''PATH'') '':/usr/local/bin'']);' newline ...
-					        '     replacing /usr/local/bin with the directory reported by "which docker".' ];
+					        '  2) In MATLAB, run:    setenv(''PATH'', [getenv(''PATH'') '':/usr/local/bin'']);' ];
 					    warning(msg);
 					    value = {};
 					    return
 					end
 					
-					% --- 2) Dockerfile present? ---
 					dkfile = fullfile(docker_dir, 'Dockerfile');
 					if ~exist(dkfile, 'file') && ~BRAPH2TEST.RANDOM
 					    warning('No Dockerfile at: %s', dkfile);
@@ -1786,32 +1633,25 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					    return
 					end
 					
-					% --- 3) image exists? if not, build it ---
 					if ispc
 					    nullsink = 'NUL';
 					else
 					    nullsink = '/dev/null';
 					end
 					
-					% first check via `docker image inspect`
 					cmd_check = sprintf('docker image inspect %s > %s 2>&1', image_tag, nullsink);
 					st = system(cmd_check);
 					
-					% >>> NEW: second check via `docker image ls` if inspect failed <<<
 					if st ~= 0
 					    cmd_ls = sprintf('docker image ls "%s" --format "{{.Repository}}:{{.Tag}}"', image_tag);
 					    [st_ls, out_ls] = system(cmd_ls);
 					    out_ls = strtrim(out_ls);
-					
-					    % if ls says it exists, trust ls and skip the build
 					    if st_ls == 0 && ~isempty(out_ls)
-					        st = 0;  % treat as "image exists"
+					        st = 0;
 					    end
 					end
-					% <<< end of new block >>>
 					
 					if st ~= 0
-					    % image really not found → build it
 					    fprintf('Building image %s from %s ...%s', image_tag, docker_dir, newline);
 					    cmd_build = sprintf('docker build --no-cache -t %s "%s"', image_tag, docker_dir);
 					    st_b = system(cmd_build);
@@ -1825,20 +1665,15 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					value = {image_tag};
 					
 				case 38 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
-					% Ensures container image, computes latent/peaks (so inputs for R exist),
-					% then runs: Rscript generic_fig_palette_p1.R  inside the mounted workdir.
-					
-					% ensure prerequisites
 					nne.memorize('LATENT_REP');
 					nne.get('PEAK_IDENTIFICATION');
 					nne.get('DATA_RECONSTRUCTION');
 					nne.get('LATENT_IDENTIFICATION');
 					
-					wd_analysis = nne.get('DIRECTORY_ANALYSIS'); % where .mat + generic_fig_palette_p1.R live
-					wd_fig    = nne.get('DIRECTORY_FIG');    % where you want the figures
+					wd_analysis = nne.get('DIRECTORY_ANALYSIS');
+					wd_fig    = nne.get('DIRECTORY_FIG');
 					wd_rfile = nne.get('DIRECTORY_UTIL_R');
 					
-					% ensure container image exists
 					out = nne.get('CREATE_R_CONTAINER');
 					if isempty(out)
 					    value = {};
@@ -1846,12 +1681,11 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					end
 					image_tag = out{1};
 					
-					% run the R script inside the container
 					cmd = sprintf([ ...
 					    'docker run --rm ' ...
-					    '-v "%s":/rfiles ' ...   % R scripts dir -> /rfiles
-					    '-v "%s":/work '   ...   % analysis/results dir (.mat) -> /work
-					    '-v "%s":/fig '    ...   % figure output dir           -> /fig
+					    '-v "%s":/rfiles ' ...
+					    '-v "%s":/work ' ...
+					    '-v "%s":/fig ' ...
 					    '-w /work %s Rscript /rfiles/generic_fig_palette_p1.R /fig'], ...
 					    wd_rfile, wd_analysis, wd_fig, image_tag);
 					
@@ -1865,16 +1699,11 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					value = {};
 					
 				case 39 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
-					% Ensures container image, computes latent/peaks, then runs:
-					% Rscript generic_plot_ls_qnorm_med.R  inside the mounted workdir.
-					
-					% ensure prerequisites
 					nne.memorize('LATENT_REP');
 					nne.get('PEAK_IDENTIFICATION');
 					nne.get('DATA_RECONSTRUCTION');
 					nne.get('LATENT_IDENTIFICATION');
 					
-					% container ready?
 					out = nne.get('CREATE_R_CONTAINER'); 
 					if isempty(out)
 					    value = {};
@@ -1882,9 +1711,8 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					end
 					image_tag = out{1};
 					
-					% run script
-					wd_analysis = nne.get('DIRECTORY_ANALYSIS'); % where .mat + generic_fig_palette_p1.R live
-					wd_fig    = nne.get('DIRECTORY_FIG');    % where you want the figures
+					wd_analysis = nne.get('DIRECTORY_ANALYSIS');
+					wd_fig    = nne.get('DIRECTORY_FIG');
 					wd_rfile = nne.get('DIRECTORY_UTIL_R');
 					
 					cmd = sprintf([ ...
@@ -1894,12 +1722,11 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					    '-v "%s":/fig ' ...
 					    '-w /work %s Rscript /rfiles/generic_plot_ls_qnorm_med.R /fig'], ...
 					    wd_rfile, wd_analysis, wd_fig, image_tag);
-					fprintf('>> %s%s', cmd, newline);fprintf('>> %s%s', cmd, newline);
+					fprintf('>> %s%s', cmd, newline);
 					[st,outstr] = system(cmd);
 					disp(outstr);
 					assert(st == 0, 'Docker run failed (generic_plot_ls_qnorm_med.R).');
 					
-					% success message
 					fprintf('Ls qnorm figures produced successfully and saved in: %s%s', wd_fig, newline);
 					
 					value = {};
@@ -1925,12 +1752,8 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					while hasdata(mbq)
 					    [X_individual, Y_individual] = next(mbq);
 					
-					    % Forward through encoder.
-					    %Z_individual = predict(netE,X_individual,Outputs='latentOuput');
-					    [Z_individual, mu, logSigmaSq] = predict(netE, X_individual);
-					    
-					    % Extract and concatenate predictions.
-					    %Z = cat(2,Z,extractdata(Z_individual));
+					    % Forward through encoder (mu used as Z).
+					    [~, mu, ~] = predict(netE, X_individual);
 					    Z = cat(2, Z, extractdata(mu));
 					
 					    Y_individual = extractdata(gather(Y_individual));

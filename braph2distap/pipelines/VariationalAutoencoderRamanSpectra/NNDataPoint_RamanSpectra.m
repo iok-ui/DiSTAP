@@ -1,31 +1,30 @@
 classdef NNDataPoint_RamanSpectra < NNDataPoint
-	%NNDataPoint_RamanSpectra is a data point for a spectrum.
+	%NNDataPoint_RamanSpectra is a neural-network data point for Raman spectra.
 	% It is a subclass of <a href="matlab:help NNDataPoint">NNDataPoint</a>.
 	%
-	% A data point for a spectrum (NNDataPoint_RamanSpectra) 
-	%  contains both spectral input and target for neural network analysis.
-	% The input is the value of the spectrum.
-	% The target is obtained from the variables of interest of the datapoint, such as the spectrum type.
+	% A neural-network data point for Raman spectra (NNDataPoint_RamanSpectra) that holds both the spectral input and the target used in learning tasks.
+	%  The input is the spectrum intensity vector clipped to the wavelength range defined by WL_START and WL_END.
+	%  The target is derived from variables of interest (VOIs) of this data point, typically specified via TARGET_CLASS (for example, a spectrum type or class label).
 	%
 	% The list of NNDataPoint_RamanSpectra properties is:
-	%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the data point for spectrum.
-	%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the data point for spectrum.
-	%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the data point for spectrum.
-	%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the data point for spectrum.
-	%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code for the data point for spectrum.
-	%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the data point for spectrum.
-	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about the data point for spectrum.
+	%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the Raman-spectra data point.
+	%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the Raman-spectra data point.
+	%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the Raman-spectra data point.
+	%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the Raman-spectra data point.
+	%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the Raman-spectra data point.
+	%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the Raman-spectra data point.
+	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of the Raman-spectra data point.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-	%  <strong>9</strong> <strong>INPUT</strong> 	INPUT (result, cell) is the input value for this data point for spectrum.
-	%  <strong>10</strong> <strong>TARGET</strong> 	TARGET (result, cell) is the target values for this data point for spectrum.
-	%  <strong>11</strong> <strong>SP_DATA</strong> 	SP_DATA (data, cvector) is the spectrum value.
-	%  <strong>12</strong> <strong>WL</strong> 	WL (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.
-	%  <strong>13</strong> <strong>WL_START</strong> 	WL_START (data, scalar) is the starting wavelength.
-	%  <strong>14</strong> <strong>WL_END</strong> 	WL_END (data, scalar) is the ending wavelength.
-	%  <strong>15</strong> <strong>TARGET_CLASS</strong> 	TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.
-	%  <strong>16</strong> <strong>WL_LABELS</strong> 	WL_LABELS (query, stringlist) is the labels for the wavelengths.
-	%  <strong>17</strong> <strong>WL_RANGE</strong> 	WL_RANGE (result, rvector) is the ending wavelength.
-	%  <strong>18</strong> <strong>WL_OF_INTEREST</strong> 	WL_OF_INTEREST (result, rvector) is the ending wavelength.
+	%  <strong>9</strong> <strong>INPUT</strong> 	INPUT (result, cell) returns the spectral input within the wavelength range WL_RANGE for this Raman-spectra data point.
+	%  <strong>10</strong> <strong>TARGET</strong> 	TARGET (result, cell) is the target value for this data point.
+	%  <strong>11</strong> <strong>SP_DATA</strong> 	SP_DATA (data, cvector) is the vector of spectral intensities for this Raman spectrum.
+	%  <strong>12</strong> <strong>WL</strong> 	WL (data, cvector) is the wavelength vector (cm^-1) aligned element-wise with SP_DATA.
+	%  <strong>13</strong> <strong>WL_START</strong> 	WL_START (data, scalar) is the lower wavelength bound (cm^-1) used to crop the spectrum.
+	%  <strong>14</strong> <strong>WL_END</strong> 	WL_END (data, scalar) is the upper wavelength bound (cm^-1) used to crop the spectrum.
+	%  <strong>15</strong> <strong>TARGET_CLASS</strong> 	TARGET_CLASS (parameter, stringlist) lists variable-of-interest IDs used to construct TARGET.
+	%  <strong>16</strong> <strong>WL_LABELS</strong> 	WL_LABELS (query, stringlist) returns string labels for wavelength WL in the form "<wavenumber> cm^-1".
+	%  <strong>17</strong> <strong>WL_RANGE</strong> 	WL_RANGE (result, rvector) returns the index pair [i_start, i_end] delimiting WL_START to WL_END within WL.
+	%  <strong>18</strong> <strong>WL_OF_INTEREST</strong> 	WL_OF_INTEREST (result, rvector) returns the wavelength values within WL_RANGE.
 	%
 	% NNDataPoint_RamanSpectra methods (constructor):
 	%  NNDataPoint_RamanSpectra - constructor
@@ -45,33 +44,33 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 	%  unchecked - sets a property to NOT checked
 	%
 	% NNDataPoint_RamanSpectra methods (display):
-	%  tostring - string with information about the spectrum data point
-	%  disp - displays information about the spectrum data point
-	%  tree - displays the tree of the spectrum data point
+	%  tostring - string with information about the a neural-network data point for Raman spectra
+	%  disp - displays information about the a neural-network data point for Raman spectra
+	%  tree - displays the tree of the a neural-network data point for Raman spectra
 	%
 	% NNDataPoint_RamanSpectra methods (miscellanea):
 	%  getNoValue - returns a pointer to a persistent instance of NoValue
 	%               Use it as Element.getNoValue()
 	%  getCallback - returns the callback to a property
-	%  isequal - determines whether two spectrum data point are equal (values, locked)
+	%  isequal - determines whether two a neural-network data point for Raman spectra are equal (values, locked)
 	%  getElementList - returns a list with all subelements
-	%  copy - copies the spectrum data point
+	%  copy - copies the a neural-network data point for Raman spectra
 	%
 	% NNDataPoint_RamanSpectra methods (save/load, Static):
-	%  save - saves BRAPH2 spectrum data point as b2 file
-	%  load - loads a BRAPH2 spectrum data point from a b2 file
+	%  save - saves BRAPH2 a neural-network data point for Raman spectra as b2 file
+	%  load - loads a BRAPH2 a neural-network data point for Raman spectra from a b2 file
 	%
 	% NNDataPoint_RamanSpectra method (JSON encode):
-	%  encodeJSON - returns a JSON string encoding the spectrum data point
+	%  encodeJSON - returns a JSON string encoding the a neural-network data point for Raman spectra
 	%
 	% NNDataPoint_RamanSpectra method (JSON decode, Static):
-	%   decodeJSON - returns a JSON string encoding the spectrum data point
+	%   decodeJSON - returns a JSON string encoding the a neural-network data point for Raman spectra
 	%
 	% NNDataPoint_RamanSpectra methods (inspection, Static):
-	%  getClass - returns the class of the spectrum data point
+	%  getClass - returns the class of the a neural-network data point for Raman spectra
 	%  getSubclasses - returns all subclasses of NNDataPoint_RamanSpectra
-	%  getProps - returns the property list of the spectrum data point
-	%  getPropNumber - returns the property number of the spectrum data point
+	%  getProps - returns the property list of the a neural-network data point for Raman spectra
+	%  getPropNumber - returns the property number of the a neural-network data point for Raman spectra
 	%  existsProp - checks whether property exists/error
 	%  existsTag - checks whether tag exists/error
 	%  getPropProp - returns the property number of a property
@@ -113,7 +112,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 	% To print full list of constants, click here <a href="matlab:metaclass = ?NNDataPoint_RamanSpectra; properties = metaclass.PropertyList;for i = 1:1:length(properties), if properties(i).Constant, disp([properties(i).Name newline() tostring(properties(i).DefaultValue) newline()]), end, end">NNDataPoint_RamanSpectra constants</a>.
 	%
 	%
-	% See also NNDataPoint_Graph_REG, NNDataPoint_Measure_REG, NNDataPoint_Measure_CLA.
+	% See also NNDataPoint, NNDataset, NNVariationalAutoencoderEvaluator_RS.
 	%
 	% BUILD BRAPH2 7 class_name 1
 	
@@ -160,7 +159,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 	end
 	methods % constructor
 		function dp = NNDataPoint_RamanSpectra(varargin)
-			%NNDataPoint_RamanSpectra() creates a spectrum data point.
+			%NNDataPoint_RamanSpectra() creates a a neural-network data point for Raman spectra.
 			%
 			% NNDataPoint_RamanSpectra(PROP, VALUE, ...) with property PROP initialized to VALUE.
 			%
@@ -170,24 +169,24 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			%  them with either property numbers (PROP) or tags (TAG).
 			%
 			% The list of NNDataPoint_RamanSpectra properties is:
-			%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the data point for spectrum.
-			%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the data point for spectrum.
-			%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the data point for spectrum.
-			%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the data point for spectrum.
-			%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code for the data point for spectrum.
-			%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the data point for spectrum.
-			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about the data point for spectrum.
+			%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the Raman-spectra data point.
+			%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the Raman-spectra data point.
+			%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the Raman-spectra data point.
+			%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the Raman-spectra data point.
+			%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the Raman-spectra data point.
+			%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the Raman-spectra data point.
+			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes of the Raman-spectra data point.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-			%  <strong>9</strong> <strong>INPUT</strong> 	INPUT (result, cell) is the input value for this data point for spectrum.
-			%  <strong>10</strong> <strong>TARGET</strong> 	TARGET (result, cell) is the target values for this data point for spectrum.
-			%  <strong>11</strong> <strong>SP_DATA</strong> 	SP_DATA (data, cvector) is the spectrum value.
-			%  <strong>12</strong> <strong>WL</strong> 	WL (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.
-			%  <strong>13</strong> <strong>WL_START</strong> 	WL_START (data, scalar) is the starting wavelength.
-			%  <strong>14</strong> <strong>WL_END</strong> 	WL_END (data, scalar) is the ending wavelength.
-			%  <strong>15</strong> <strong>TARGET_CLASS</strong> 	TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.
-			%  <strong>16</strong> <strong>WL_LABELS</strong> 	WL_LABELS (query, stringlist) is the labels for the wavelengths.
-			%  <strong>17</strong> <strong>WL_RANGE</strong> 	WL_RANGE (result, rvector) is the ending wavelength.
-			%  <strong>18</strong> <strong>WL_OF_INTEREST</strong> 	WL_OF_INTEREST (result, rvector) is the ending wavelength.
+			%  <strong>9</strong> <strong>INPUT</strong> 	INPUT (result, cell) returns the spectral input within the wavelength range WL_RANGE for this Raman-spectra data point.
+			%  <strong>10</strong> <strong>TARGET</strong> 	TARGET (result, cell) is the target value for this data point.
+			%  <strong>11</strong> <strong>SP_DATA</strong> 	SP_DATA (data, cvector) is the vector of spectral intensities for this Raman spectrum.
+			%  <strong>12</strong> <strong>WL</strong> 	WL (data, cvector) is the wavelength vector (cm^-1) aligned element-wise with SP_DATA.
+			%  <strong>13</strong> <strong>WL_START</strong> 	WL_START (data, scalar) is the lower wavelength bound (cm^-1) used to crop the spectrum.
+			%  <strong>14</strong> <strong>WL_END</strong> 	WL_END (data, scalar) is the upper wavelength bound (cm^-1) used to crop the spectrum.
+			%  <strong>15</strong> <strong>TARGET_CLASS</strong> 	TARGET_CLASS (parameter, stringlist) lists variable-of-interest IDs used to construct TARGET.
+			%  <strong>16</strong> <strong>WL_LABELS</strong> 	WL_LABELS (query, stringlist) returns string labels for wavelength WL in the form "<wavenumber> cm^-1".
+			%  <strong>17</strong> <strong>WL_RANGE</strong> 	WL_RANGE (result, rvector) returns the index pair [i_start, i_end] delimiting WL_START to WL_END within WL.
+			%  <strong>18</strong> <strong>WL_OF_INTEREST</strong> 	WL_OF_INTEREST (result, rvector) returns the wavelength values within WL_RANGE.
 			%
 			% See also Category, Format.
 			
@@ -196,12 +195,12 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 	end
 	methods (Static) % inspection
 		function build = getBuild()
-			%GETBUILD returns the build of the spectrum data point.
+			%GETBUILD returns the build of the a neural-network data point for Raman spectra.
 			%
 			% BUILD = NNDataPoint_RamanSpectra.GETBUILD() returns the build of 'NNDataPoint_RamanSpectra'.
 			%
 			% Alternative forms to call this method are:
-			%  BUILD = DP.GETBUILD() returns the build of the spectrum data point DP.
+			%  BUILD = DP.GETBUILD() returns the build of the a neural-network data point for Raman spectra DP.
 			%  BUILD = Element.GETBUILD(DP) returns the build of 'DP'.
 			%  BUILD = Element.GETBUILD('NNDataPoint_RamanSpectra') returns the build of 'NNDataPoint_RamanSpectra'.
 			%
@@ -211,12 +210,12 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			build = 1;
 		end
 		function dp_class = getClass()
-			%GETCLASS returns the class of the spectrum data point.
+			%GETCLASS returns the class of the a neural-network data point for Raman spectra.
 			%
 			% CLASS = NNDataPoint_RamanSpectra.GETCLASS() returns the class 'NNDataPoint_RamanSpectra'.
 			%
 			% Alternative forms to call this method are:
-			%  CLASS = DP.GETCLASS() returns the class of the spectrum data point DP.
+			%  CLASS = DP.GETCLASS() returns the class of the a neural-network data point for Raman spectra DP.
 			%  CLASS = Element.GETCLASS(DP) returns the class of 'DP'.
 			%  CLASS = Element.GETCLASS('NNDataPoint_RamanSpectra') returns 'NNDataPoint_RamanSpectra'.
 			%
@@ -226,12 +225,12 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			dp_class = 'NNDataPoint_RamanSpectra';
 		end
 		function subclass_list = getSubclasses()
-			%GETSUBCLASSES returns all subclasses of the spectrum data point.
+			%GETSUBCLASSES returns all subclasses of the a neural-network data point for Raman spectra.
 			%
 			% LIST = NNDataPoint_RamanSpectra.GETSUBCLASSES() returns all subclasses of 'NNDataPoint_RamanSpectra'.
 			%
 			% Alternative forms to call this method are:
-			%  LIST = DP.GETSUBCLASSES() returns all subclasses of the spectrum data point DP.
+			%  LIST = DP.GETSUBCLASSES() returns all subclasses of the a neural-network data point for Raman spectra DP.
 			%  LIST = Element.GETSUBCLASSES(DP) returns all subclasses of 'DP'.
 			%  LIST = Element.GETSUBCLASSES('NNDataPoint_RamanSpectra') returns all subclasses of 'NNDataPoint_RamanSpectra'.
 			%
@@ -243,16 +242,16 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			subclass_list = { 'NNDataPoint_RamanSpectra' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
-			%GETPROPS returns the property list of spectrum data point.
+			%GETPROPS returns the property list of a neural-network data point for Raman spectra.
 			%
-			% PROPS = NNDataPoint_RamanSpectra.GETPROPS() returns the property list of spectrum data point
+			% PROPS = NNDataPoint_RamanSpectra.GETPROPS() returns the property list of a neural-network data point for Raman spectra
 			%  as a row vector.
 			%
 			% PROPS = NNDataPoint_RamanSpectra.GETPROPS(CATEGORY) returns the property list 
 			%  of category CATEGORY.
 			%
 			% Alternative forms to call this method are:
-			%  PROPS = DP.GETPROPS([CATEGORY]) returns the property list of the spectrum data point DP.
+			%  PROPS = DP.GETPROPS([CATEGORY]) returns the property list of the a neural-network data point for Raman spectra DP.
 			%  PROPS = Element.GETPROPS(DP[, CATEGORY]) returns the property list of 'DP'.
 			%  PROPS = Element.GETPROPS('NNDataPoint_RamanSpectra'[, CATEGORY]) returns the property list of 'NNDataPoint_RamanSpectra'.
 			%
@@ -286,15 +285,15 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			end
 		end
 		function prop_number = getPropNumber(varargin)
-			%GETPROPNUMBER returns the property number of spectrum data point.
+			%GETPROPNUMBER returns the property number of a neural-network data point for Raman spectra.
 			%
-			% N = NNDataPoint_RamanSpectra.GETPROPNUMBER() returns the property number of spectrum data point.
+			% N = NNDataPoint_RamanSpectra.GETPROPNUMBER() returns the property number of a neural-network data point for Raman spectra.
 			%
-			% N = NNDataPoint_RamanSpectra.GETPROPNUMBER(CATEGORY) returns the property number of spectrum data point
+			% N = NNDataPoint_RamanSpectra.GETPROPNUMBER(CATEGORY) returns the property number of a neural-network data point for Raman spectra
 			%  of category CATEGORY
 			%
 			% Alternative forms to call this method are:
-			%  N = DP.GETPROPNUMBER([CATEGORY]) returns the property number of the spectrum data point DP.
+			%  N = DP.GETPROPNUMBER([CATEGORY]) returns the property number of the a neural-network data point for Raman spectra DP.
 			%  N = Element.GETPROPNUMBER(DP) returns the property number of 'DP'.
 			%  N = Element.GETPROPNUMBER('NNDataPoint_RamanSpectra') returns the property number of 'NNDataPoint_RamanSpectra'.
 			%
@@ -328,7 +327,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			end
 		end
 		function check_out = existsProp(prop)
-			%EXISTSPROP checks whether property exists in spectrum data point/error.
+			%EXISTSPROP checks whether property exists in a neural-network data point for Raman spectra/error.
 			%
 			% CHECK = NNDataPoint_RamanSpectra.EXISTSPROP(PROP) checks whether the property PROP exists.
 			%
@@ -366,7 +365,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			end
 		end
 		function check_out = existsTag(tag)
-			%EXISTSTAG checks whether tag exists in spectrum data point/error.
+			%EXISTSTAG checks whether tag exists in a neural-network data point for Raman spectra/error.
 			%
 			% CHECK = NNDataPoint_RamanSpectra.EXISTSTAG(TAG) checks whether a property with tag TAG exists.
 			%
@@ -532,7 +531,7 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 			prop = NNDataPoint_RamanSpectra.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatapoint_ramanspectra_description_list = { 'ELCLASS (constant, string) is the class of the data point for spectrum.'  'NAME (constant, string) is the name of the data point for spectrum.'  'DESCRIPTION (constant, string) is the description of the data point for spectrum.'  'TEMPLATE (parameter, item) is the template of the data point for spectrum.'  'ID (data, string) is a few-letter code for the data point for spectrum.'  'LABEL (metadata, string) is an extended label of the data point for spectrum.'  'NOTES (metadata, string) are some specific notes about the data point for spectrum.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'INPUT (result, cell) is the input value for this data point for spectrum.'  'TARGET (result, cell) is the target values for this data point for spectrum.'  'SP_DATA (data, cvector) is the spectrum value.'  'WL (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.'  'WL_START (data, scalar) is the starting wavelength.'  'WL_END (data, scalar) is the ending wavelength.'  'TARGET_CLASS (parameter, stringlist) is a list of variable-of-interest IDs to be used as the class targets.'  'WL_LABELS (query, stringlist) is the labels for the wavelengths.'  'WL_RANGE (result, rvector) is the ending wavelength.'  'WL_OF_INTEREST (result, rvector) is the ending wavelength.' };
+			nndatapoint_ramanspectra_description_list = { 'ELCLASS (constant, string) is the class of the Raman-spectra data point.'  'NAME (constant, string) is the name of the Raman-spectra data point.'  'DESCRIPTION (constant, string) is the description of the Raman-spectra data point.'  'TEMPLATE (parameter, item) is the template of the Raman-spectra data point.'  'ID (data, string) is a few-letter code of the Raman-spectra data point.'  'LABEL (metadata, string) is an extended label of the Raman-spectra data point.'  'NOTES (metadata, string) are some specific notes of the Raman-spectra data point.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'INPUT (result, cell) returns the spectral input within the wavelength range WL_RANGE for this Raman-spectra data point.'  'TARGET (result, cell) is the target value for this data point.'  'SP_DATA (data, cvector) is the vector of spectral intensities for this Raman spectrum.'  'WL (data, cvector) is the wavelength vector (cm^-1) aligned element-wise with SP_DATA.'  'WL_START (data, scalar) is the lower wavelength bound (cm^-1) used to crop the spectrum.'  'WL_END (data, scalar) is the upper wavelength bound (cm^-1) used to crop the spectrum.'  'TARGET_CLASS (parameter, stringlist) lists variable-of-interest IDs used to construct TARGET.'  'WL_LABELS (query, stringlist) returns string labels for wavelength WL in the form "<wavenumber> cm^-1".'  'WL_RANGE (result, rvector) returns the index pair [i_start, i_end] delimiting WL_START to WL_END within WL.'  'WL_OF_INTEREST (result, rvector) returns the wavelength values within WL_RANGE.' };
 			prop_description = nndatapoint_ramanspectra_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -622,9 +621,9 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 				case 1 % NNDataPoint_RamanSpectra.ELCLASS
 					prop_default = 'NNDataPoint_RamanSpectra';
 				case 2 % NNDataPoint_RamanSpectra.NAME
-					prop_default = 'Neural Network Data Point for Classification with a Graph';
+					prop_default = 'Neural Network Data Point for Raman Spectra';
 				case 3 % NNDataPoint_RamanSpectra.DESCRIPTION
-					prop_default = 'A data point for a spectrum (NNDataPoint_RamanSpectra) contains both spectral input and target for neural network analysis. The input is the value of the spectrum. The target is obtained from the variables of interest of the datapoint, such as the spectrum type.';
+					prop_default = 'A neural-network data point for Raman spectra (NNDataPoint_RamanSpectra) that holds both the spectral input and the target used in learning tasks. The input is the spectrum intensity vector clipped to the wavelength range defined by WL_START and WL_END. The target is derived from variables of interest (VOIs) of this data point, typically specified via TARGET_CLASS (for example, a spectrum type or class label).';
 				case 4 % NNDataPoint_RamanSpectra.TEMPLATE
 					prop_default = Format.getFormatDefault(8, NNDataPoint_RamanSpectra.getPropSettings(prop));
 				case 5 % NNDataPoint_RamanSpectra.ID
@@ -801,8 +800,8 @@ classdef NNDataPoint_RamanSpectra < NNDataPoint
 					
 					rng(rng_settings_)
 					
-				case 10 % NNDataPoint_RamanSpectra.TARGET
-					rng_settings_ = rng(); rng(dp.getPropSeed(10), 'twister')
+				case 9 % NNDataPoint_RamanSpectra.INPUT
+					rng_settings_ = rng(); rng(dp.getPropSeed(9), 'twister')
 					
 					value = cellfun(@(c) sum(double(c)), dp.get('TARGET_CLASS'), 'UniformOutput', false);
 					
