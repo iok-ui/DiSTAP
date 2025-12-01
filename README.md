@@ -113,7 +113,8 @@ To reproduce the analyses and figures from the manuscript, go to the VAE pipelin
 example_LightStress           % Light-stress study
 example_ShadeAvoidanceStress  % Shade-avoidance study
 example_HighTemperatureStress % High-temperature study
-example_BacterialStress       % Bacterial-stress study
+example_BacterialStress_AB    % Bacterial-stress study (Arabidopsis)
+example_BacterialStress_CS    % Bacterial-stress study (Choy Sum)
 ```
 
 ## Software compilation
