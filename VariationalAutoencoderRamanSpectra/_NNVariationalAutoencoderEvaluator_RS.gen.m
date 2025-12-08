@@ -283,6 +283,79 @@ end
 value = {ind, t0, s0};
 
 %%% ¡prop!
+RESOLUTION_CM (parameter, scalar) is the instrument resolution in cm^-1 used to merge nearby peaks.
+%%%% ¡default!
+6
+
+%%% ¡prop!
+MERGE_CLOSE_PEAKS (query, matrix) merges ranked peaks closer than the instrument resolution in cm^-1.
+%%%% ¡calculate!
+% VALUE = nne.get('MERGE_CLOSE_PEAKS', ranked_sig_pks)
+% VALUE = nne.get('MERGE_CLOSE_PEAKS', ranked_sig_pks, resolution_cm)
+
+if isempty(varargin)
+    value = [];
+    return
+end
+
+ranked_sig_pks = varargin{1};
+if numel(varargin) >= 2 && ~isempty(varargin{2})
+    resolution_cm = varargin{2};
+else
+    resolution_cm = nne.get('RESOLUTION_CM');
+end
+
+if isempty(ranked_sig_pks)
+    value = ranked_sig_pks;
+    return
+end
+
+w_int = ranked_sig_pks(:, 2);  % integer/ceil wavenumber
+aug   = ranked_sig_pks(:, 3);  % AUG / area
+
+% Sort by integer wavenumber so neighbours are adjacent
+[w_int_sorted, idx_sort] = sort(w_int);
+aug_sorted = aug(idx_sort);
+
+merged_list = [];
+
+% Start first cluster
+cluster_w_int = w_int_sorted(1);
+cluster_aug   = aug_sorted(1);
+
+for i = 2:length(w_int_sorted)
+    % Cluster decision uses col 2 (integer wavenumber)
+    if abs(w_int_sorted(i) - w_int_sorted(i-1)) < resolution_cm
+        % same cluster
+        cluster_w_int = [cluster_w_int; w_int_sorted(i)];
+        cluster_aug   = [cluster_aug;   aug_sorted(i)];
+    else
+        % flush current cluster
+        [~, idx_max_local] = max(cluster_aug);
+        w_rep   = cluster_w_int(idx_max_local);  % representative wavenumber
+        aug_rep = sum(cluster_aug);              % sum of AUGs
+
+        merged_list = [merged_list; w_rep, w_rep, aug_rep];
+
+        % start new cluster
+        cluster_w_int = w_int_sorted(i);
+        cluster_aug   = aug_sorted(i);
+    end
+end
+
+% flush last cluster
+[~, idx_max_local] = max(cluster_aug);
+w_rep   = cluster_w_int(idx_max_local);
+aug_rep = sum(cluster_aug);
+merged_list = [merged_list; w_rep, w_rep, aug_rep];
+
+% Re-sort by AUG (desc) to preserve "ranked" semantics
+[~, idx_rank] = sort(merged_list(:, 3), 'descend');
+merged_sig_pks = merged_list(idx_rank, :);
+
+value = merged_sig_pks;
+
+%%% ¡prop!
 DERIV_PEAKS (query, cell) returns {PEAKS_TABLE, PEAKS_RANKED_BY_AREA, ind_p2n, ind_all, area, peak_wavs} from p→n zero-crossings of the derivative spectrum.
 %%%% ¡calculate!
 % VALUE = nne.get('DERIV_PEAKS', y, x)
@@ -429,7 +502,10 @@ end
 
 for c = 1:numel(COND)
     name = COND{c}{1};
-    ranked_sig_pks = COND{c}{3}; %#ok<NASGU>
+    ranked_sig_pks_raw = COND{c}{3}; %#ok<NASGU>
+
+    % Merge close peaks according to resolution
+    ranked_sig_pks = nne.get('MERGE_CLOSE_PEAKS', ranked_sig_pks_raw);
 
     varname  = sprintf('ranked_sig_pks_%s', name);
     fname    = sprintf('ranked_sig_pks_%s %s.mat', name, state);
