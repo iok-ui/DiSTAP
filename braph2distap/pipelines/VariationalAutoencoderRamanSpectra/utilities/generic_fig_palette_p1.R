@@ -174,6 +174,70 @@ if (length(diff_files) == 0) {
 message("Found ", length(diff_files), " Diff Spectrum file(s) in ", diff_dir)
 
 ## -------------------------------------------------------------------
+## 4b. Pre-scan to decide ONE global y max across all figures (lollipop)
+## -------------------------------------------------------------------
+global_max <- -Inf
+
+for (df_name in diff_files) {
+
+  m <- regexec("\\(Tr\\) Diff Spectrum \\(([^)]*)\\) with (.+) and (.+)\\.mat", df_name)
+  parts <- regmatches(df_name, m)[[1]]
+  if (length(parts) != 4) next
+
+  seq_str <- parts[2]
+  kind    <- parts[3]
+
+  cond_tokens <- trimws(strsplit(seq_str, "-")[[1]])
+  n_cond <- length(cond_tokens)
+  if (n_cond < 1) next
+
+  # Load mat to prefer STRESS_SEQ tokens (ensures correct token->peaks-file mapping)
+  mat_diff <- readMat(file.path(diff_dir, df_name))
+
+  stress_seq_mat <- NULL
+  if ("stress_seq" %in% names(mat_diff)) {
+    stress_seq_mat <- as_char_vec(mat_diff$stress_seq)
+  } else if ("stress.seq" %in% names(mat_diff)) {
+    stress_seq_mat <- as_char_vec(mat_diff$stress.seq)
+  } else if ("STRESS_SEQ" %in% names(mat_diff)) {
+    stress_seq_mat <- as_char_vec(mat_diff$STRESS_SEQ)
+  }
+
+  if (!is.null(stress_seq_mat) && length(stress_seq_mat) == n_cond) {
+    cond_tokens <- stress_seq_mat
+  }
+
+  for (k in seq_len(n_cond)) {
+    token_k <- cond_tokens[k]
+    peaks_fname <- sprintf("ranked_sig_pks_%s %s.mat", token_k, kind)
+    peaks_path  <- file.path(work_dir, peaks_fname)
+    if (!file.exists(peaks_path)) next
+
+    mat_pk <- readMat(peaks_path)
+    var_candidates <- c(
+      sprintf("ranked_sig_pks_%s", token_k),
+      sprintf("ranked.sig.pks.%s", token_k),
+      sprintf("ranked.sig.pks.%s", tolower(token_k)),
+      sprintf("ranked.sig.pks.%s", toupper(token_k))
+    )
+    avail <- intersect(var_candidates, names(mat_pk))
+    if (length(avail) == 0) next
+
+    df_pk <- as.data.frame(mat_pk[[avail[1]]])
+    if (ncol(df_pk) < 2) next
+
+    # value column: if 3 cols exist use col 3, else use col 2
+    val_col <- if (ncol(df_pk) >= 3) 3 else 2
+    global_max <- max(global_max, suppressWarnings(as.numeric(df_pk[[val_col]])), na.rm = TRUE)
+  }
+}
+
+if (!is.finite(global_max) || global_max <= 0) global_max <- 1
+global_ymax_value <- max(1, ceiling(global_max / 500) * 500)
+
+message("Global lollipop y max set to: ", global_ymax_value)
+
+## -------------------------------------------------------------------
 ## 5. Main loop
 ## -------------------------------------------------------------------
 for (df_name in diff_files) {
@@ -428,23 +492,18 @@ for (df_name in diff_files) {
   data_ll <- bind_rows(peaks_list)
   data_ll$cond <- factor(data_ll$cond, levels = cond_order)
 
-  ymax_value <- ceiling(max(data_ll$value, na.rm = TRUE) / 500) * 500
-  if (!is.finite(ymax_value) || ymax_value <= 0) ymax_value <- max(data_ll$value, na.rm = TRUE)
-  if (!is.finite(ymax_value) || ymax_value <= 0) ymax_value <- 1
+  ymax_value <- global_ymax_value
 
-  tick_increment <- 500
-  if (!is.finite(ymax_value) || ymax_value <= 0) ymax_value <- 1
-
-  if (ymax_value < 4000) {
-    tick_increment <- 500
+  tick_increment <- if (ymax_value < 4000) {
+    500
   } else if (ymax_value <= 6000) {
-    tick_increment <- 1000
+    1000
   } else {
-    tick_increment <- 2000
+    2000
   }
-  
-  if (ymax_value < 500) tick_increment <- round(ymax_value / 5)
 
+  if (ymax_value < 500) tick_increment <- max(1, round(ymax_value / 5))
+  
   levs         <- levels(data_ll$cond)
   col_vec_full <- setNames(cond_colours, cond_labels_display)[levs]
   shape_vec    <- setNames(cond_shapes,  cond_labels_display)[levs]
