@@ -1643,7 +1643,9 @@ classdef Element < Category & Format & matlab.mixin.Copyable
                 else
                     txt_checked = '  ';
                 end
-                
+                if prop == 15
+                    prop
+                end
                 txt_el = [txt_el ...
                     sprintf([ ...
                     int2str(prop) ' ' ...
