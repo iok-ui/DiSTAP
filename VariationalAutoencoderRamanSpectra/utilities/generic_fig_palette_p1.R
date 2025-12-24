@@ -233,7 +233,7 @@ for (df_name in diff_files) {
 }
 
 if (!is.finite(global_max) || global_max <= 0) global_max <- 1
-global_ymax_value <- max(1, ceiling(global_max / 500) * 500)
+global_ymax_value <- max(1, ceiling(global_max / 500) * 500 + 100)
 
 message("Global lollipop y max set to: ", global_ymax_value)
 
