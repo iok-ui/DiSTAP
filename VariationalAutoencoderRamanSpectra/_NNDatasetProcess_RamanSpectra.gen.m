@@ -11,6 +11,104 @@ NNDatasetProcess, NNDataPoint, NNDataPoint_RamanSpectra, NNDataset
 %%% ¡build!
 1
 
+%% ¡layout!
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.ID
+%%%% ¡title!
+Raman Spectra Dataset Process ID
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.LABEL
+%%%% ¡title!
+Raman Spectra Dataset Process Label
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.WAITBAR
+%%%% ¡title!
+Waitbar ON/OFF
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.RAW_DATA_DIR
+%%%% ¡title!
+Data B2 Files Directory
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.STRESS_SEQ
+%%%% ¡title!
+Stresses
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.KIND_SEQ
+%%%% ¡title!
+Kind/Species
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.LOCATION_SEQ
+%%%% ¡title!
+Locations
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.TARGETS_TO_REMOVE
+%%%% ¡title!
+Data Exclusion
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.WAVELENGTH_START
+%%%% ¡title!
+Start Wavenumber
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.WAVELENGTH_END
+%%%% ¡title!
+End Wavenumber
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.TRANSFORMATION_RULE
+%%%% ¡title!
+Data Transformation
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.NORMALIZATION_RULE
+%%%% ¡title!
+Data Normalisation
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.SCALE_FACTOR
+%%%% ¡title!
+Scale Factor
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.MEMORIZE_DATA
+%%%% ¡title!
+Memorize Processed Data
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.D
+%%%% ¡title!
+Raman Spectra Dataset
+
+%%% ¡prop!
+%%%% ¡id!
+NNDatasetProcess_RamanSpectra.NOTES
+%%%% ¡title!
+Raman Spectra Dataset Process Notes
+
 %% ¡props_update!
 
 %%% ¡prop!
@@ -99,6 +197,22 @@ value = NNDataset( ...
 %% ¡props!
 
 %%% ¡prop!
+WAITBAR (gui, logical) detemines whether to show the waitbar.
+%%%% ¡default!
+true
+
+%%% ¡prop!
+GET_DIR (query, item) opens a dialog box to set the directory from where to load the b2 files of the Raman spectra data.
+%%%% ¡settings!
+'NNDatasetProcess_RamanSpectra'
+%%%% ¡calculate!
+directory = uigetdir('Select directory');
+if ischar(directory) && isfolder(directory)
+    dproc.set('RAW_DATA_DIR', directory);
+end
+value = dproc;
+
+%%% ¡prop!
 STRESS_SEQ (parameter, stringlist) is the canonical stress-label ordering used by EXTRACT_LABELS.
 %%%% ¡default!
 {'WL', 'HL', 'LL', 'SH'}
@@ -119,7 +233,7 @@ TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any d
 {'ps'}
 
 %%% ¡prop!
-RAW_DATA_DIR (data, string) is the directory containing Raman *.b2 files to be processed.
+RAW_DATA_DIR (metadata, string) is the directory containing Raman *.b2 files to be processed.
 
 %%% ¡prop!
 WAVELENGTH_START (parameter, scalar) is the starting wavelength (cm^-1).
@@ -148,7 +262,7 @@ NORMALIZATION_RULE (parameter, option) is the spectral normalisation applied aft
 %%% ¡prop!
 SCALE_FACTOR (parameter, scalar) is the scaling factor used when NORMALIZATION_RULE is Scale.
 %%%% ¡default!
-1
+100
 %%%% ¡postset!
 if ~isequal(dproc.get('NORMALIZATION_RULE'), 'Scale')
     dproc.set('SCALE_FACTOR', 1)
@@ -425,7 +539,27 @@ for i = 1:size(Y, 2)
     value{i} = char(Y(:, i));
 end
 
+%%% ¡prop!
+MEMORIZE_DATA (query, empty) memorizes all the input data and their labels for quick training later on.
+%%%% ¡calculate!
+wb = braph2waitbar(dproc.get('WAITBAR'), 0, ['Memorizing. It may takes a while...']);
+
+start = tic;
+pause(0.5)
+d_sp = dproc.memorize('D');
+braph2waitbar(wb, 0.25, ['Memorize input data - ' int2str(toc(start)) '.' int2str(mod(toc(start), 1) * 10) 's ...'])
+d_sp.memorize('INPUTS');
+braph2waitbar(wb, 0.75, ['Memorize input labels - ' int2str(toc(start)) '.' int2str(mod(toc(start), 1) * 10) 's ...'])
+d_sp.memorize('TARGETS');
+
+braph2waitbar(wb, 'close')
+value = {};
+return
+
 %% ¡tests!
+
+%%% ¡excluded_props!
+[NNDatasetProcess_RamanSpectra.GET_DIR]
 
 %%% ¡test!
 %%%% ¡name!

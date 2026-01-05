@@ -1,0 +1,86 @@
+ELCLASS
+NaN
+NAME
+NaN
+DESCRIPTION
+NaN
+TEMPLATE
+NaN
+Variational Autoencoder Evaluator ID
+1
+Variational Autoencoder Evaluator Label
+2
+Variational Autoencoder Evaluator Notes
+12
+TOSTRING
+NaN
+NN
+NaN
+D
+NaN
+PLOT_LATENT_REPRESENTATIONS
+NaN
+PREDICT_ENCODER
+NaN
+DPROC
+NaN
+IDX_LABEL_STRESS
+NaN
+STRESS_ORDER
+NaN
+Stress
+4
+Stress Plot Legend
+5
+Stress Plot Colour
+6
+Stress Plot Shape
+7
+IDX_LABEL_KIND
+NaN
+KIND_ORDER
+NaN
+IDX_LABEL_LOCATION
+NaN
+LOCATION_ORDER
+NaN
+LOCATION_ALIAS_FROM
+NaN
+LOCATION_ALIAS_TO
+NaN
+LATENT_REP
+NaN
+PREDICT_DECODER
+NaN
+CROSSING
+NaN
+Measure Resolustion Correction
+3
+MERGE_CLOSE_PEAKS
+NaN
+DERIV_PEAKS
+NaN
+PEAKS_COMPARE
+NaN
+DERIV_PEAKS_RUN
+NaN
+DERIV_PEAKS_SAVE
+NaN
+LATENT_IDENTIFICATION
+NaN
+DATA_RECONSTRUCTION
+NaN
+PEAK_IDENTIFICATION
+NaN
+Analysis Output Directory
+8
+Figure Output Directory
+9
+DIRECTORY_UTIL_R
+NaN
+CREATE_R_CONTAINER
+NaN
+Plot Peak Identification
+10
+Plot Latent Representation
+11

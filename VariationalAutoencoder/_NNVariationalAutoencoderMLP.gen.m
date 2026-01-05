@@ -13,6 +13,68 @@ NNDataset, NNDatasetSplit, NNVariationalAutoencoder, NNAutoencoder
 %%% ¡build!
 1
 
+%% ¡layout!
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderMLP.ID
+%%%% ¡title!
+Variational Autoencoder ID
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderMLP.LABEL
+%%%% ¡title!
+Variational Autoencoder Label
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderMLP.SIZE_INPUT
+%%%% ¡title!
+Input Vector Size
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderMLP.NEURONS_PER_LAYER
+%%%% ¡title!
+Neuron Number per Layer
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderMLP.LEARN_RATE
+%%%% ¡title!
+Learning Rate
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderMLP.NUM_LATENT_REP
+%%%% ¡title!
+Latent Space Number 
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderMLP.EPOCHS
+%%%% ¡title!
+Epochs 
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderMLP.BATCH
+%%%% ¡title!
+Batch Size
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderMLP.TRAIN
+%%%% ¡title!
+Train
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderMLP.NOTES
+%%%% ¡title!
+Variational Autoencoder Notes
+
 %% ¡props_update!
 
 %%% ¡prop!
