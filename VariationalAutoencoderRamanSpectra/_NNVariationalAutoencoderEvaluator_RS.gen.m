@@ -11,6 +11,80 @@ NNDataPoint, NNDataset, NNBase, NNDatasetProcess_RamanSpectra
 %%% ¡build!
 1
 
+%% ¡layout!
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.ID
+%%%% ¡title!
+Variational Autoencoder Evaluator ID
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.LABEL
+%%%% ¡title!
+Variational Autoencoder Evaluator Label
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM
+%%%% ¡title!
+Measure Resolustion Correction
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
+%%%% ¡title!
+Stress
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL
+%%%% ¡title!
+Stress Plot Legend
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR
+%%%% ¡title!
+Stress Plot Colour
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE
+%%%% ¡title!
+Stress Plot Shape
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS
+%%%% ¡title!
+Analysis Output Directory
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG
+%%%% ¡title!
+Figure Output Directory
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
+%%%% ¡title!
+Plot Peak Identification
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
+%%%% ¡title!
+Plot Latent Representation
+
+%%% ¡prop!
+%%%% ¡id!
+NNVariationalAutoencoderEvaluator_RS.NOTES
+%%%% ¡title!
+Variational Autoencoder Evaluator Notes
+
 %% ¡props_update!
 
 %%% ¡prop!
@@ -984,6 +1058,18 @@ assert(st == 0, 'Docker run failed (generic_fig_palette_p1.R).');
 
 fprintf('Palette figures generated and saved in: %s%s', wd_fig, newline);
 
+title = ['Palette Figure Generated'];
+message = {''
+    ['{\\bf\\color{orange}' BRAPH2.STR '}'] % note to use double slashes to avoid genesis problem
+    ['{\\color{gray}version ' BRAPH2.VERSION '}']
+    ['{\\color{gray}build ' int2str(BRAPH2.BUILD) '}']
+    ''
+    'The figures are generated and exported using the R script.'
+    'Please, check the exported figures in the output directory.'
+    ''
+    ''};
+braph2msgbox(title, message)
+
 value = {};
 
 %%% ¡prop!
@@ -1018,6 +1104,18 @@ disp(outstr);
 assert(st == 0, 'Docker run failed (generic_plot_ls_qnorm_med.R).');
 
 fprintf('Ls qnorm figures produced successfully and saved in: %s%s', wd_fig, newline);
+
+title = ['Latent Space Qnorm Figure Generated'];
+message = {''
+    ['{\\bf\\color{orange}' BRAPH2.STR '}'] % note to use double slashes to avoid genesis problem
+    ['{\\color{gray}version ' BRAPH2.VERSION '}']
+    ['{\\color{gray}build ' int2str(BRAPH2.BUILD) '}']
+    ''
+    'The figures are generated and exported using the R script.'
+    'Please, check the exported figures in the output directory.'
+    ''
+    ''};
+braph2msgbox(title, message)
 
 value = {};
 

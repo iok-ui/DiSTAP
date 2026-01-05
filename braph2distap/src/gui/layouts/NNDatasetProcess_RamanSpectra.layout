@@ -1,0 +1,64 @@
+ELCLASS
+NaN
+NAME
+NaN
+DESCRIPTION
+NaN
+TEMPLATE
+NaN
+Raman Spectra Dataset Process ID
+1
+Raman Spectra Dataset Process Label
+2
+Raman Spectra Dataset Process Notes
+16
+TOSTRING
+NaN
+Raman Spectra Dataset
+15
+Waitbar ON/OFF
+3
+GET_DIR
+NaN
+Stresses
+5
+Kind/Species
+6
+Locations
+7
+Data Exclusion
+8
+Data B2 Files Directory
+4
+Start Wavenumber
+9
+End Wavenumber
+10
+Data Transformation
+11
+Data Normalisation
+12
+Scale Factor
+13
+WAVELENGTH
+NaN
+TRANSFORM_DATA
+NaN
+INV_TRANSFORM_DATA
+NaN
+NORMALIZE_DATA
+NaN
+INV_NORMALIZE_DATA
+NaN
+RAW_DATA
+NaN
+PROCESS_DATA
+NaN
+REV_PROCESS_DATA
+NaN
+EXTRACT_DATA
+NaN
+EXTRACT_LABELS
+NaN
+Memorize Processed Data
+14
