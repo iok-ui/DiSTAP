@@ -118,7 +118,7 @@ braph2distap
 </p>
 
 > 
-> **Landing GUI** This figure shows the landing graphical user interface (GUI) after running ``braph2distap``. The landing GUI provides four ready-to-use pipelines for processing and analysing Raman spectra. In particular, the fourth pipeline—DiSTAP **DIVA Pipeline Raman Spectra Variational Autoencoder with Multilayer Perceptron**—is the same VAE pipeline used for all four studies in the accompanying manuscript (Patil et al.). After opening the pipeline, users can walk through the full workflow step by step.
+> **Landing GUI** This figure shows the landing graphical user interface (GUI) after running ``braph2distap``. The landing GUI provides four ready-to-use pipelines for processing and analysing Raman spectra. In particular, the fourth pipeline—**DiSTAP DIVA Pipeline Raman Spectra Variational Autoencoder with Multilayer Perceptron**—is the same VAE pipeline used for all four studies in the accompanying manuscript (Patil et al.). After opening the pipeline, users can walk through the full workflow step by step.
 > 
 
 2. Run the example scripts
