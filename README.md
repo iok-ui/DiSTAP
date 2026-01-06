@@ -147,8 +147,9 @@ Before recompiling, remove the existing braph2distap folder and take it off the 
 
 If you use BRAPH 2 DiSTAP in your work, please cite:
 
+> Patil et al., *Raman spectra for plant-stress analysis using deep-learning* (preprint).  
+> [arXiv:2507.15772](https://arxiv.org/abs/2507.15772)
+
 > Chang et al., *BRAPH 2: a flexible, open-source, reproducible, community-oriented, easy-to-use framework for network analyses in neurosciences* (preprint).
 > [biorXiv:10.1101/2025.04.11.648455](https://doi.org/10.1101/2025.04.11.648455)
 
-> Patil et al., *Raman spectra for plant-stress analysis using deep-learning* (preprint).  
-> [arXiv:2507.15772](https://arxiv.org/abs/2507.15772)
