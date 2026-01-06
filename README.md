@@ -16,7 +16,7 @@ The **BRAPH 2 DiSTAP** distribution provides a variational autoencoder (VAE)–b
 This distribution reuses the core analytical infrastructure of the standard BRAPH 2 distribution. For a general introduction to BRAPH 2, please refer to the main [BRAPH 2](https://github.com/braph-software/BRAPH-2/tree/develop) repository and its [tutorials](https://github.com/braph-software/BRAPH-2/tree/develop/tutorials).
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/56fbe000-57c6-4fa8-afba-b44a6eded197"
+  <img src="https://github.com/user-attachments/assets/8a8bfb16-501b-4265-ab78-5292e5dc401c"
        alt="Light stress figure"
        width="100%">
 </p>
