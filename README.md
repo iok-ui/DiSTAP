@@ -20,7 +20,6 @@ This distribution reuses the core analytical infrastructure of the standard BRAP
        alt="Light stress figure"
        width="100%">
 </p>
-
 > 
 > **Light-stress study (Figure 2 in Patil et al.)**  This figure shows the latent 2D VAE embeddings (z1, z2) and the corresponding peak-area summaries for the *Arabidopsis*, *Choy Sum*, and *Kai Lan* datasets under four light conditions (high light, white light, low light, and shade). All panels in this figure can be reproduced directly with the DiSTAP distribution using the VAE pipeline with **Light stress** data. The script is `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/example_LightStress.m` and generated outputs are located in `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/study_LightStress/results`.
 
@@ -112,11 +111,10 @@ cd braph2distap
 braph2distap
 ```
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/4331554d-2837-4222-b73c-26eae006180c"
+  <img src="https://github.com/user-attachments/assets/730ab836-775c-41da-8610-26be9d5d8a14"
        alt="landing gui figure"
        width="100%">
 </p>
-
 > 
 > **Landing GUI** This figure shows the landing graphical user interface (GUI) after running ``braph2distap``. The landing GUI provides four ready-to-use pipelines for processing and analysing Raman spectra. In particular, the fourth pipeline—**DiSTAP DIVA Pipeline Raman Spectra Variational Autoencoder with Multilayer Perceptron**—is the same VAE pipeline used for all four studies in the accompanying manuscript (Patil et al.). After opening the pipeline, users can walk through the full workflow step by step.
 > 
