@@ -8,7 +8,7 @@
 
 # BRAPH 2 DiSTAP
 
-The **BRAPH 2 DiSTAP** distribution provides a variational autoencoder (VAE)–based pipeline for analysing **Raman spectra in plant–stress experiments**. It is designed to support the analyses presented in the manuscript:
+The **BRAPH 2 DiSTAP** distribution provides a variational autoencoder (VAE)–based pipeline for analysing **Raman spectra in plant–stress experiments**. It supports the analyses presented in the following manuscript and enables users to apply the same workflow to their own datasets, via both command-line scripts and a ready-to-use graphical user interface:
 
 > Patil et al., *Raman spectra for plant-stress analysis using deep-learning* (preprint).  
 > [arXiv:2507.15772](https://arxiv.org/abs/2507.15772)
@@ -22,7 +22,7 @@ This distribution reuses the core analytical infrastructure of the standard BRAP
 </p>
 
 > 
-> **Light-stress study (Figure 2 in Patil et al.)**  This figure shows the latent 2D VAE embeddings (z1, z2) and the corresponding peak-area summaries for the *Arabidopsis*, *Choy Sum*, and *Kai Lan* datasets under four light conditions (high light, white light, low light, and shade). All panels in this figure can be reproduced directly with the DiSTAP distribution using the VAE pipeline with **Light stress** data. The script is `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/example_LightStress.m` and generated outputs are located in `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/study_LightStress`.
+> **Light-stress study (Figure 2 in Patil et al.)**  This figure shows the latent 2D VAE embeddings (z1, z2) and the corresponding peak-area summaries for the *Arabidopsis*, *Choy Sum*, and *Kai Lan* datasets under four light conditions (high light, white light, low light, and shade). All panels in this figure can be reproduced directly with the DiSTAP distribution using the VAE pipeline with **Light stress** data. The script is `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/example_LightStress.m` and generated outputs are located in `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/study_LightStress/results`.
 
 ## DiSTAP studies and folder structure
 
@@ -33,29 +33,33 @@ Within this repository, the VAE-based pipeline for Raman spectra is organised un
 This folder contains four study-specific example scripts and their corresponding analysis subfolders, matching the datasets analysed in the manuscript:
 
 1. **Light stress study**  
-   - Example script: `example_LightStress.m`  
-   - Study folder: `study_LightStress`  
+   - Study folder: `study_LightStress` 
+   - Example script: `example_LightStress.m`
+   - Data folder: `study_LightStress/data`
    - Used to generate the panels in Figure 2 of the manuscript.
 
 2. **Shade avoidance stress study**  
-   - Example script: `example_ShadeAvoidanceStress.m`  
    - Study folder: `study_ShadeAvoidanceStress`  
+   - Example script: `example_ShadeAvoidanceStress.m`  
+   - Data folder: `study_ShadeAvoidanceStress/data`
    - Used to generate the panels in Figure 3 of the manuscript.
 
 3. **High temperature stress study**  
-   - Example script: `example_HighTemperatureStress.m`  
-   - Study folder: `study_HighTemperatureStress`  
+   - Study folder: `study_HighTemperatureStress` 
+   - Example script: `example_HighTemperatureStress.m`   
+   - Data folder: `study_HighTemperatureStress/data`
    - Used to generate the panels in Figure 4 of the manuscript.
 
 4. **Bacterial stress study**  
-   - Example script: `example_BacterialStress_AB.m` and `example_BacterialStress_CS.m` 
    - Study folder: `study_BacterialStress`  
+   - Example script: `example_BacterialStress_AB.m` and `example_BacterialStress_CS.m` 
+   - Data folder: `study_HighTemperatureStress/data_AB` and `study_HighTemperatureStress/data_CS`
    - Used to generate the panels in Figure 5 of the manuscript.
 
 Each study folder contains:
 
 - The original Raman spectra data used in the corresponding plant-stress experiment.  
-- Panels generated using the same algorithms and settings as in the manuscript. Despite minor VAE stochastic variability, the key patterns remain robust and consistent with the manuscript’s results.
+- Panels generated using the same algorithms and settings as in the manuscript. The exact manuscript figures and trained VAE model are provided in the corresponding `results` folder. The example script, using the provided Raman dataset, can reproduce the key patterns and shows that the results are robust and consistent despite the minor stochastic variability inherent to the VAE.
 
 ## Software requirements
 
@@ -107,8 +111,18 @@ Once the repository is downloaded or cloned, you can run the DiSTAP distribution
 cd braph2distap
 braph2distap
 ```
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4331554d-2837-4222-b73c-26eae006180c"
+       alt="landing gui figure"
+       width="100%">
+</p>
+
+> 
+> **Landing GUI** This figure shows the landing graphical user interface (GUI) after running ``braph2distap``. The landing GUI provides four ready-to-use pipelines for processing and analysing Raman spectra. In particular, the fourth pipeline—DiSTAP **DIVA Pipeline Raman Spectra Variational Autoencoder with Multilayer Perceptron**—is the same VAE pipeline used for all four studies in the accompanying manuscript (Patil et al.). After opening the pipeline, users can walk through the full workflow step by step.
+> 
+
 2. Run the example scripts
-To reproduce the analyses and figures from the manuscript, go to the VAE pipelines and run any of the example scripts:
+To reproduce the analyses and figures using the same data and algorithm from the manuscript, run any of the example scripts:
 ```
 example_LightStress           % Light-stress study
 example_ShadeAvoidanceStress  % Shade-avoidance study
