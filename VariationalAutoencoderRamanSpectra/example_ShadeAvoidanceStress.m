@@ -18,6 +18,7 @@ d_sp = dproc.get('D');
 
 % announce memorizing start
 fprintf('Memorizing all dataset inputs (may take a few minutes) ...%s', newline);
+dproc.memorize('RAW_DATA');
 d_sp.memorize('INPUTS');
 fprintf('Finished memorizing all dataset inputs.%s', newline);
 
@@ -26,7 +27,7 @@ d_sp.memorize('TARGETS');
 fprintf('Finished memorizing all dataset targets.%s', newline);
 
 %% Train a Variational Autoencoder
-nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'NEURONS_PER_LAYER', [64], 'EPOCHS', 3000, 'BATCH', 40);
+nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'NEURONS_PER_LAYER', [64], 'EPOCHS', 100, 'BATCH', 40);
 nnvae.get('TRAIN')
 
 %% Evaluate and Produce Manuscript figures
@@ -57,3 +58,31 @@ mkdir([fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_ShadeAvo
 Element.save(nne, [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_ShadeAvoidanceStress' filesep 'trained_b2_files' filesep 'nne.b2']);
 toc
 fprintf('pipeline saved\n')
+
+%% reconstruct the data
+saved_b2 = [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_ShadeAvoidanceStress' filesep 'results' filesep 'trained_b2_files' filesep 'nne.b2']
+nne = Element.load(saved_b2);
+nne_update = NNVariationalAutoencoderEvaluator_RS( ...
+    'NN', nne.get('NN'), ...
+    'D', d_sp, ...
+    'DPROC', dproc, ...
+    'RESOLUTION_CM', 6, ...
+    'IDX_LABEL_KIND', 1, ...
+    'IDX_LABEL_STRESS', 2, ...
+    'IDX_LABEL_LOCATION', 3, ...
+    'STRESS_SEQ', {'ds', 'ms', 'wl'}, ...
+    'STRESS_LABEL', {'Deep shade', 'Moderate shade', 'White light'}, ...
+    'STRESS_COLOUR', {'#E64B35FF', '#4DBBD5FF', '#7E6148FF'}, ...
+    'STRESS_SHAPE', {'square', 'circle', 'triangle'}, ...
+    'DIRECTORY_UTIL_R', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'utilities'], ...
+    'DIRECTORY_ANALYSIS', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_ShadeAvoidanceStress' filesep 'analysis'], ...
+    'DIRECTORY_FIG', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_ShadeAvoidanceStress']);
+
+detransformation = true;
+denormalization = true;
+representation_select = 'median';
+outdir_prefix = 'crnr_detransformed';
+recons_data = nne_update.get('DATA_RECONSTRUCTION', outdir_prefix, representation_select, denormalization, detransformation);
+
+
+

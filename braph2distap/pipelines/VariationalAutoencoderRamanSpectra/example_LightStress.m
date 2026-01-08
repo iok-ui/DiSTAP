@@ -18,7 +18,7 @@ d_sp = dproc.get('D');
 
 % announce memorizing start
 fprintf('Memorizing all dataset inputs (may take a few minutes) ...%s', newline);
-d_sp.memorize('RAW_DATA');
+dproc.memorize('RAW_DATA');
 d_sp.memorize('INPUTS');
 fprintf('Finished memorizing all dataset inputs.%s', newline);
 
@@ -27,7 +27,7 @@ d_sp.memorize('TARGETS');
 fprintf('Finished memorizing all dataset targets.%s', newline);
 
 %% Train a Variational Autoencoder
-nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'NEURONS_PER_LAYER', [64], 'EPOCHS', 100, 'BATCH', 40);
+nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'NEURONS_PER_LAYER', [64], 'EPOCHS', 3000, 'BATCH', 40);
 nnvae.get('TRAIN')
 
 %% Evaluate and Produce Manuscript figures
