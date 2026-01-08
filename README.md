@@ -28,7 +28,7 @@ This distribution reuses the core analytical infrastructure of the standard BRAP
 
 Within this repository, the VAE-based pipeline for Raman spectra is organised under:
 
-- `braph2distap/VariationalAutoencoderRamanSpectra/`
+- `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/`
 
 This folder contains four study-specific example scripts and their corresponding analysis subfolders, matching the datasets analysed in the manuscript:
 
