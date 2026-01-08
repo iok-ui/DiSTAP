@@ -1,9 +1,6 @@
 %% DiSTAP DIVA Pipeline Raman Spectra Variational Autoencoder with Multilayer Perceptron
 
-% This pipeline trains a variational autoencoder (VAE, MLP-based) on plant Raman spectra and then
-%  visualises the 2D latent space (z1, z2) by species/plant type and stress condition and
-%  decodes representative spectra to identify peaks that drive differences between stresses
-% The connectivity data can be derived from imaging modalities like diffusion weighted imaging (DWI).
+% This pipeline trains a variational autoencoder (VAE, MLP-based) on plant Raman spectra and then visualises the 2D latent space (z1, z2) by species/plant type and stress condition and decodes representative spectra to identify peaks that drive differences between stresses
 % 1. It loads Raman spectra and labels (species, stress, location); It then applies optional preprocessing (first derivative; scaling).
 % 2. It trains a variational autoencoder.
 % 3. It Export per-species × per-location latent representations (z1/z2) aligned with the stress sequence for plotting, decode spectra per condition.

@@ -568,11 +568,6 @@ ll <- ggscatter(
   h <- 5
 
   loc_suffix <- ""
-  if (location %in% c("leaf", "petiole")) {
-    loc_suffix <- paste0("_", location)
-  } else if (!identical(location, "loc1")) {
-    loc_suffix <- paste0("_", location)
-  }
 
   out_fname <- sprintf("%s%s_1d_ll.jpeg", kind, loc_suffix)
   out_path  <- file.path(out_dir, out_fname)

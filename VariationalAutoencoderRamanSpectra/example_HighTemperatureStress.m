@@ -12,7 +12,7 @@ dproc = NNDatasetProcess_RamanSpectra( ...
     'STRESS_SEQ', {'Control', 'HT2d', 'HT4d', 'HT6d'}, ...
     'KIND_SEQ', {'AB2', 'CS', 'KL'}, ...
     'LOCATION_SEQ', {'leaf', 'pet'}, ...
-    'TARGETS_TO_REMOVE', {'ps'});
+    'TARGETS_TO_REMOVE', {'ps', 'pet'});
 
 d_sp = dproc.get('D');
 
@@ -57,3 +57,4 @@ mkdir([fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_HighTemp
 Element.save(nne, [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_HighTemperatureStress' filesep 'trained_b2_files' filesep 'nne.b2']);
 toc
 fprintf('pipeline saved\n')
+

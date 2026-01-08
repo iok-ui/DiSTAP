@@ -252,6 +252,8 @@ PREDICT_DECODER (query, empty) decodes selected latent vectors to spectra and re
 latent_rep = nne.get('LATENT_REP');
 ZLatent = latent_rep{1};
 YLatent = latent_rep{2};
+raw_data = nne.get('DPROC').get('RAW_DATA');
+raw_data = cat(2, raw_data{:});
 
 if isempty(varargin)
     idx = 1:1:size(ZLatent, 2);
@@ -267,10 +269,13 @@ end
 switch representation_select
     case 'one-to-one'
         ZSelected = ZLatent(:, idx);
+        reference_data = raw_data(1, idx);
     case 'median'
         ZSelected = median(ZLatent(:, idx), 2);
+        reference_data = median(raw_data(1, idx), 2);
     case 'mean'
         ZSelected = mean(ZLatent(:, idx), 2);
+        reference_data = mean(raw_data(1, idx), 2);
 end
 
 ZSelected = dlarray(ZSelected, 'CB');
@@ -284,7 +289,7 @@ if denormalization
     decoded_inputs = dproc.get('INV_NORMALIZE_DATA', decoded_inputs);
 end
 if detranformation
-    decoded_inputs = dproc.get('INV_TRANSFORM_DATA', decoded_inputs);
+    decoded_inputs = dproc.get('INV_TRANSFORM_DATA', decoded_inputs, reference_data);
 end
 
 for i = 1:size(decoded_inputs, 2)
@@ -752,6 +757,18 @@ if num_dp == 0
     return
 end
 
+if isempty(varargin)
+    output_file_prefix = 'crnr_transformed';
+    representation_select = 'median';
+    denormalization = true;
+    detransformation = false;
+else
+    output_file_prefix = varargin{1};
+    representation_select = varargin{2};
+    denormalization = varargin{3};
+    detransformation = varargin{4};
+end
+
 x = d.get('DP_DICT').get('IT', 1).get('WL_OF_INTEREST');
 i_species   = nne.get('IDX_LABEL_KIND');
 i_stress    = nne.get('IDX_LABEL_STRESS');
@@ -817,7 +834,7 @@ end
 stress_seq_run = cellstr(stress_seq_labels(:));
 
 root_dir = nne.get('DIRECTORY_ANALYSIS');
-out_dir  = fullfile(root_dir, 'crnr_transformed');
+out_dir  = fullfile(root_dir, output_file_prefix);
 if ~exist(out_dir, 'dir')
     mkdir(out_dir);
 end
@@ -841,7 +858,7 @@ for s = 1:numel(species_list)
                 break
             end
 
-            dec = nne.get('PREDICT_DECODER', idx, 'median', true, false);
+            dec = nne.get('PREDICT_DECODER', idx, representation_select, denormalization, detransformation);
             spectra_cell{si} = dec{1};
         end
 

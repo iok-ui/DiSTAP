@@ -548,6 +548,7 @@ start = tic;
 pause(0.5)
 d_sp = dproc.memorize('D');
 braph2waitbar(wb, 0.25, ['Memorize input data - ' int2str(toc(start)) '.' int2str(mod(toc(start), 1) * 10) 's ...'])
+dproc.memorize('RAW_DATA');
 d_sp.memorize('INPUTS');
 braph2waitbar(wb, 0.75, ['Memorize input labels - ' int2str(toc(start)) '.' int2str(mod(toc(start), 1) * 10) 's ...'])
 d_sp.memorize('TARGETS');
