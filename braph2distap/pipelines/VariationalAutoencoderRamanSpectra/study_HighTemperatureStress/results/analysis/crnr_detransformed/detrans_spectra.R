@@ -20,17 +20,17 @@ library(ggrepel)
 for (i in 1:3){
 
   if (i==1) {
-    filename1 <- "(Tr) Diff Spectrum (Control-HT2d-HT4d-HT6d) with AB2 and leafXlocX.mat"
+    filename1 <- "(Tr) Diff Spectrum (Control-HT2d-HT4d-HT6d) with AB2 and leaf.mat"
     group_id <- 'AB2'
   }
   
   if (i==2) {
-    filename1 <- "(Tr) Diff Spectrum (Control-HT2d-HT4d-HT6d) with CS and leafXlocX.mat"
+    filename1 <- "(Tr) Diff Spectrum (Control-HT2d-HT4d-HT6d) with CS and leaf.mat"
     group_id <- 'CS'
   }
   
   if (i==3) {
-    filename1 <- "(Tr) Diff Spectrum (Control-HT2d-HT4d-HT6d) with KL and leafXlocX.mat"
+    filename1 <- "(Tr) Diff Spectrum (Control-HT2d-HT4d-HT6d) with KL and leaf.mat"
     group_id <- 'KL'
   }
 
@@ -39,7 +39,7 @@ for (i in 1:3){
     # PLOT0D for stress states
   
   wd_path <- getwd()
-  read_filepath <- paste(wd_path,'/crnr_detransformed/', sep = "")
+  read_filepath <- paste(wd_path,'/', sep = "")
   read_file2 <- paste(read_filepath, filename1, sep = "")
   
   data <- readMat(read_file2)

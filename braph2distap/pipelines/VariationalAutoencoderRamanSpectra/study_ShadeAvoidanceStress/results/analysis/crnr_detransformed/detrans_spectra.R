@@ -20,17 +20,17 @@ library(ggrepel)
 for (i in 1:3){
 
   if (i==1) {
-    filename1 <- "(Tr) Diff Spectrum (ds-ms-wl) with BnyWT and leaf.mat"
+    filename1 <- "(Tr) Diff Spectrum (ds-ms-wl) with WT and leaf.mat"
     group_id <- 'WT'
   }
   
   if (i==2) {
-    filename1 <- "(Tr) Diff Spectrum (ds-ms-wl) with BnyPhyA and leaf.mat"
+    filename1 <- "(Tr) Diff Spectrum (ds-ms-wl) with PhyA and leaf.mat"
     group_id <- 'PhyA'
   }
   
   if (i==3) {
-    filename1 <- "(Tr) Diff Spectrum (ds-ms-wl) with BnyPhyB and leaf.mat"
+    filename1 <- "(Tr) Diff Spectrum (ds-ms-wl) with PhyB and leaf.mat"
     group_id <- 'PhyB'
   }
 
@@ -39,14 +39,14 @@ for (i in 1:3){
     # PLOT0D for stress states
   
   wd_path <- getwd()
-  read_filepath <- paste(wd_path,'/crnr_detransformed/', sep = "")
+  read_filepath <- paste(wd_path,'/', sep = "")
   read_file <- paste(read_filepath, filename1, sep = "")
   
   data <- readMat(read_file)
   
-  z1 <- data$data1
-  z2 <- data$data2
-  z3 <- data$data3
+  z1 <- data$data[1]
+  z2 <- data$data[2]
+  z3 <- data$data[3]
   x <- data$x
   
   z1_df <- as.data.frame(z1)

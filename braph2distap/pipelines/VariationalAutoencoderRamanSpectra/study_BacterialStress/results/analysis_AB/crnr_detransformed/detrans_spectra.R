@@ -18,15 +18,15 @@ library(ggsci)
 library(ggrepel)
 
 # Define all timepoints and locations
-timepoints <- c("24h", "48h", "72h")
-locations <- paste0("loc", 1:6)
+timepoints <- c("24hr", "48hr", "72hr")
+locations <- paste0("loc")
 
 # Loop through each timepoint and location
 for (tp in timepoints) {
   for (loc in locations) {
     
   # Construct filenames dynamically
-  filename1 <- sprintf("(Tr) Diff Spectrum (mock-pseudo) for %s and %s.mat", tp, loc)
+  filename1 <- sprintf("(Tr) Diff Spectrum (mock-pseudo) with AB%s and %s.mat", tp, loc)
   group_id <- tp
   
   # Print summary (optional)
@@ -44,13 +44,13 @@ for (tp in timepoints) {
   # PLOT0D for stress states
   
   wd_path <- getwd()
-  read_filepath <- paste(wd_path,'/crnr_detransformed/', sep = "")
+  read_filepath <- paste(wd_path,'/', sep = "")
   read_file <- paste(read_filepath, filename1, sep = "")
   
   data <- readMat(read_file)
   
-  z1 <- data$data1
-  z2 <- data$data2
+  z1 <- data$data[1]
+  z2 <- data$data[2]
   x <- data$x
   
   z1_df <- as.data.frame(z1)

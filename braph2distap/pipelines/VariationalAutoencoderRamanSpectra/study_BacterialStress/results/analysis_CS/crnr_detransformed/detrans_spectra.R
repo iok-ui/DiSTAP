@@ -20,12 +20,12 @@ library(ggrepel)
 for (i in 1:3){
 
   if (i==1) {
-    filename1 <- "(Tr) Diff Spectrum (pathogen-buffer) for 24hr.mat"
+    filename1 <- "(Tr) Diff Spectrum (buf-inf) with CS24hr and loc.mat"
     group_id <- '24hr'
   }
   
   if (i==2) {
-    filename1 <- "(Tr) Diff Spectrum (pathogen-buffer) for 48hr.mat"
+    filename1 <- "(Tr) Diff Spectrum (buf-inf) with CS48hr and loc.mat"
     group_id <- '48hr'
   }
 
@@ -35,13 +35,13 @@ for (i in 1:3){
     # PLOT0D for stress states
   
   wd_path <- getwd()
-  read_filepath <- paste(wd_path,'/crnr_detransformed/', sep = "")
+  read_filepath <- paste(wd_path,'/', sep = "")
   read_file <- paste(read_filepath, filename1, sep = "")
   
   data <- readMat(read_file)
   
-  z1 <- data$data1
-  z2 <- data$data2
+  z1 <- data$data[1]
+  z2 <- data$data[2]
   #z3 <- data$data3
   x <- data$x
   
@@ -54,8 +54,8 @@ for (i in 1:3){
   z2_df <- round(z2_df,2)
   #z3_df <- round(z3_df,2)
 
-  colnames(z1_df) <- c('pathogen')
-  colnames(z2_df) <- c('buffer')
+  colnames(z1_df) <- c('buffer')
+  colnames(z2_df) <- c('pathogen')
   #colnames(z3_df) <- c('WL')
   colnames(x) <- c('xValue')
   
