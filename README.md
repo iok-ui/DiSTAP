@@ -58,8 +58,8 @@ This folder contains four study-specific example scripts and their corresponding
 
 Each study folder contains:
 
-- The original Raman spectra data used in the corresponding plant-stress experiment.  
-- Panels generated using the same algorithms and settings as in the manuscript. The exact manuscript figures and trained VAE model are provided in the corresponding `results` folder. The example script, using the provided Raman dataset, can reproduce the key patterns and shows that the results are robust and consistent despite the minor stochastic variability inherent to the VAE.
+- The original Raman spectra data (in the respective data folders) used in the corresponding plant-stress experiment.  
+- Panels generated using the same algorithms and settings as in the manuscript. The exact manuscript figures and trained VAE model are provided in the corresponding `results` folder. The example script, using the provided Raman dataset, can reproduce the key patterns and show that the results are robust and consistent despite the minor stochastic variability inherent to the VAE.
 
 ## Software requirements
 
@@ -80,7 +80,7 @@ Some figures (e.g. colour palettes and latent-space quantile plots) are produced
 - **Docker Desktop** (or an equivalent Docker installation)  
   Installation instructions: <https://docs.docker.com/get-started/>
 
-After installation, you should verify that `docker` is available **both** in your system terminal and from within MATLAB:
+After installation, you should verify that `docker` is available **both** in your system terminal and within MATLAB:
 
 In a **terminal** (macOS/Linux/Windows PowerShell):
 
