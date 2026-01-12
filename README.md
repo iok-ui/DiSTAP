@@ -8,7 +8,7 @@
 
 # BRAPH 2 DiSTAP
 
-The **BRAPH 2 DiSTAP** distribution provides a variational autoencoder (VAE)–based pipeline for analysing **Raman spectra in plant–stress experiments**. It supports the analyses presented in the following manuscript and enables users to apply the same workflow to their own datasets, via both command-line scripts and a ready-to-use graphical user interface:
+The **BRAPH 2 DiSTAP** distribution provides a variational autoencoder (VAE)–based pipeline, DIVA, for analysing **Raman spectra in plant–stress experiments**. DIVA is a fully automated technique that uses a variational autoencoder to process native Raman spectra, including fluorescence background, to identify and quantify significant Raman peaks. It supports the analyses presented in the following manuscript and enables users to apply the same workflow to their own datasets, via both command-line scripts and a ready-to-use graphical user interface:
 
 > Patil et al., *Raman spectra for plant-stress analysis using deep-learning* (preprint).  
 > [arXiv:2507.15772](https://arxiv.org/abs/2507.15772)
