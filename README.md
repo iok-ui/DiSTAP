@@ -26,7 +26,7 @@ This distribution reuses the core analytical infrastructure of the standard BRAP
 
 ## DiSTAP studies and folder structure
 
-Within this repository, the VAE-based pipeline for Raman spectra is organised under:
+Within this repository, the DIVA pipeline for Raman spectra is organised under:
 
 - `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/`
 
@@ -118,7 +118,7 @@ braph2distap
 </p>
 
 > 
-> **Landing GUI** This figure shows the landing graphical user interface (GUI) after running ``braph2distap``. The landing GUI provides four ready-to-use pipelines for processing and analysing Raman spectra. In particular, the fourth pipeline—**DiSTAP DIVA Pipeline Raman Spectra Variational Autoencoder with Multilayer Perceptron**—is the same VAE pipeline used for all four studies in the accompanying manuscript (Patil et al.). After opening the pipeline, users can walk through the full workflow step by step.
+> **Landing GUI** This figure shows the landing graphical user interface (GUI) after running ``braph2distap``. The landing GUI provides four ready-to-use pipelines for processing and analysing Raman spectra. In particular, the fourth pipeline—**DiSTAP DIVA Pipeline Raman Spectra Variational Autoencoder with Multilayer Perceptron**—is the same DIVA pipeline used for all four studies in the accompanying manuscript (Patil et al.). After opening the pipeline, users can walk through the full workflow step by step.
 > 
 
 2. Run the example scripts
