@@ -82,8 +82,8 @@ nne_update.memorize('LATENT_REP');
 nne_update.get('PLOT_R_PALETTE');
 nne_update.get('PLOT_R_LS_QNORM_MED');
 
-detransformation = true;
-denormalization = true;
-representation_select = 'median';
-outdir_prefix = 'crnr_detransformed';
-recons_data = nne_update.get('DATA_RECONSTRUCTION', outdir_prefix, representation_select, denormalization, detransformation);
+%detransformation = true;
+%denormalization = true;
+%representation_select = 'median';
+%outdir_prefix = 'crnr_detransformed';
+%recons_data = nne_update.get('DATA_RECONSTRUCTION', outdir_prefix, representation_select, denormalization, detransformation);
