@@ -22,7 +22,7 @@ This distribution reuses the core analytical infrastructure of the standard BRAP
 </p>
 
 > 
-> **Light-stress study (Figure 2 in Patil et al.)**  This figure shows the latent 2D VAE embeddings (z1, z2) and the corresponding peak-area summaries for the *Arabidopsis*, *Choy Sum*, and *Kai Lan* datasets under four light conditions (high light, white light, low light, and shade). All panels in this figure can be reproduced directly with the DiSTAP distribution using the VAE pipeline with **Light stress** data. The script is `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/example_LightStress.m` and generated outputs are located in `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/study_LightStress/results`.
+> **Light-stress study (Figure 2 in Patil et al.)**  This figure shows the latent 2D VAE embeddings (z1, z2) and the corresponding peak-area summaries for the *Arabidopsis*, *Choy Sum*, and *Kai Lan* datasets under four light conditions (high light, white light, low light, and shade). All panels in this figure can be reproduced directly with the DiSTAP distribution using the DIVA pipeline with **Light stress** data. The script is `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/example_LightStress.m` and generated outputs are located in `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/study_LightStress/results`.
 
 ## DiSTAP studies and folder structure
 
