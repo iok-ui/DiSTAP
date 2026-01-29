@@ -60,7 +60,7 @@ toc
 fprintf('pipeline saved\n')
 
 %% reconstruct the data
-saved_b2 = [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_BacterialStress' filesep 'results' filesep 'trained_b2_files_AB' filesep 'nne.b2']
+saved_b2 = [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_BacterialStress' filesep 'results' filesep '3_reptitions_AB' filesep 'rep_3' filesep 'trained_b2_files_AB' filesep 'nne.b2']
 nne = Element.load(saved_b2);
 nne_update = NNVariationalAutoencoderEvaluator_RS( ...
     'NN', nne.get('NN'), ...

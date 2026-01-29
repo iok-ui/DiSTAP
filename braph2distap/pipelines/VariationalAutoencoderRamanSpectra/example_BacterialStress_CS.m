@@ -60,7 +60,7 @@ toc
 fprintf('pipeline saved\n')
 
 %% reconstruct the data
-saved_b2 = [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_BacterialStress' filesep 'results' filesep 'trained_b2_files_CS' filesep 'nne.b2']
+saved_b2 = [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_BacterialStress' filesep 'results' filesep '3_reptitions_CS' filesep 'rep_3' filesep filesep 'trained_b2_files_CS' filesep 'nne.b2']
 nne = Element.load(saved_b2);
 nne_update = NNVariationalAutoencoderEvaluator_RS( ...
     'NN', nne.get('NN'), ...
@@ -82,8 +82,8 @@ nne_update.memorize('LATENT_REP');
 nne_update.get('PLOT_R_PALETTE');
 nne_update.get('PLOT_R_LS_QNORM_MED');
 
-%detransformation = true;
-%denormalization = true;
-%representation_select = 'median';
-%outdir_prefix = 'crnr_detransformed';
-%recons_data = nne_update.get('DATA_RECONSTRUCTION', outdir_prefix, representation_select, denormalization, detransformation);
+detransformation = true;
+denormalization = true;
+representation_select = 'median';
+outdir_prefix = 'crnr_detransformed';
+recons_data = nne_update.get('DATA_RECONSTRUCTION', outdir_prefix, representation_select, denormalization, detransformation);
