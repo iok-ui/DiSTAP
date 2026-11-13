@@ -11,7 +11,7 @@ Cross-Validation ID
 Cross-Validation Label
 2
 Cross-Validation Notes
-22
+19
 TOSTRING
 NaN
 WAITBAR
@@ -42,61 +42,83 @@ EVALUATOR_LIST
 NaN
 EVALUATOR_LIST_IT
 NaN
-Maximum Epochs per Fold
-9
+Epochs per Fold
+4
 Batch Size
-10
+13
 SHUFFLE
 NaN
 SOLVER
 NaN
 VERBOSE
 NaN
-Plot Training Progress
-16
+PLOT_TRAINING
+NaN
 Run Cross-Validation
-17
+14
 Neuron Number per Layer
-6
+10
 Latent Space Number
-8
+11
 Learning Rate
-7
-Fold Assignment
-4
-Label Rows Defining a Replicate
-5
+12
+FOLD_RULE
+NaN
+GROUP_ROWS
+NaN
 FOLD_ASSIGNMENT
 NaN
 Early-Stopping Rule
-11
-Plateau Threshold (relative improvement per epoch)
-12
-Overfitting Threshold (gap growth / training loss)
-13
-Patience in Epochs (0 = automatic)
-14
-Smoothing Window in Epochs (0 = automatic)
-15
+5
+Plateau Threshold (0.001 = 0.1 percent improvement per epoch)
+7
+Overfitting Threshold (0.02 = 2 percent of the training loss)
+9
+Patience (consecutive epochs)
+8
+Moving-Average Window (epochs)
+6
 EARLY_STOP_PARAMS
 NaN
 DETECT_PLATEAU
 NaN
 DETECT_OVERFITTING
 NaN
+SILHOUETTE_CHECK
+NaN
+SILHOUETTE_GROUP_ROW
+NaN
+SILHOUETTE_LABEL_ROW
+NaN
+SILHOUETTE_DISTANCE
+NaN
+SILHOUETTE_CHECKPOINTS
+NaN
+Figure Directory
+16
+FILE_PREFIX
+NaN
+SILHOUETTE
+NaN
 BUILD_NETWORKS
 NaN
 LOSS_CV
 NaN
-Plateau-Onset Epoch per Fold
-18
-Overfitting-Onset Epoch per Fold (0 = not detected)
-19
+PLATEAU_EPOCH_FOLDS
+NaN
+OVERFIT_EPOCH_FOLDS
+NaN
 PLATEAU_EPOCH
 NaN
 OVERFIT_EPOCH
 NaN
 Selected Number of Epochs
-20
+15
+SILHOUETTE_BEST_EPOCH
+NaN
 Plot Cross-Validation Loss
-21
+18
+Plot Epoch Selection
+17
+EXPORT_RESULTS
+NaN
