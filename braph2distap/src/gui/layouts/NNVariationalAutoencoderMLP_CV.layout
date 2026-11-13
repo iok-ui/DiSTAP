@@ -1,0 +1,102 @@
+ELCLASS
+NaN
+NAME
+NaN
+DESCRIPTION
+NaN
+TEMPLATE
+NaN
+Cross-Validation ID
+1
+Cross-Validation Label
+2
+Cross-Validation Notes
+22
+TOSTRING
+NaN
+WAITBAR
+NaN
+Number of Folds
+3
+SPLIT
+NaN
+D
+NaN
+NN_TEMPLATE
+NaN
+NNEVALUATOR_TEMPLATE
+NaN
+DSP
+NaN
+DCO
+NaN
+D_LIST
+NaN
+D_LIST_IT
+NaN
+NN_LIST
+NaN
+NN_LIST_IT
+NaN
+EVALUATOR_LIST
+NaN
+EVALUATOR_LIST_IT
+NaN
+Maximum Epochs per Fold
+9
+Batch Size
+10
+SHUFFLE
+NaN
+SOLVER
+NaN
+VERBOSE
+NaN
+Plot Training Progress
+16
+Run Cross-Validation
+17
+Neuron Number per Layer
+6
+Latent Space Number
+8
+Learning Rate
+7
+Fold Assignment
+4
+Label Rows Defining a Replicate
+5
+FOLD_ASSIGNMENT
+NaN
+Early-Stopping Rule
+11
+Plateau Threshold (relative improvement per epoch)
+12
+Overfitting Threshold (gap growth / training loss)
+13
+Patience in Epochs (0 = automatic)
+14
+Smoothing Window in Epochs (0 = automatic)
+15
+EARLY_STOP_PARAMS
+NaN
+DETECT_PLATEAU
+NaN
+DETECT_OVERFITTING
+NaN
+BUILD_NETWORKS
+NaN
+LOSS_CV
+NaN
+Plateau-Onset Epoch per Fold
+18
+Overfitting-Onset Epoch per Fold (0 = not detected)
+19
+PLATEAU_EPOCH
+NaN
+OVERFIT_EPOCH
+NaN
+Selected Number of Epochs
+20
+Plot Cross-Validation Loss
+21
