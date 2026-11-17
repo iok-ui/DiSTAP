@@ -12,7 +12,7 @@ dproc = NNDatasetProcess_RamanSpectra( ...
     'STRESS_SEQ', {'WL', 'HL', 'LL', 'SH'}, ...
     'KIND_SEQ', {'AB2', 'CS', 'KL'}, ...
     'LOCATION_SEQ', {'loc1', 'loc2'}, ...
-    'TARGETS_TO_REMOVE', {'ps', 'loc2'});
+    'TARGETS_TO_REMOVE', {'ps'});
 
 d_sp = dproc.get('D');
 
@@ -48,7 +48,7 @@ nncv.get('EXPORT_RESULTS');
 nncv.get('PLOT_EPOCH_SELECTION');
 
 %% Train a Variational Autoencoder
-nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'NEURONS_PER_LAYER', [64], 'EPOCHS', num_epochs, 'BATCH', 40);
+nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'NEURONS_PER_LAYER', nncv.get('NEURONS_PER_LAYER'), 'EPOCHS', num_epochs, 'BATCH', nncv.get('BATCH'));
 nnvae.get('TRAIN')
 
 %% Evaluate and Produce Manuscript figures
