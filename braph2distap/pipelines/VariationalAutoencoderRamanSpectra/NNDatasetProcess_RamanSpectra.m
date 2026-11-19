@@ -20,8 +20,8 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 	%  <strong>12</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) is the canonical stress-label ordering used by EXTRACT_LABELS.
 	%  <strong>13</strong> <strong>KIND_SEQ</strong> 	KIND_SEQ (parameter, stringlist) is the canonical species/cultivar code ordering used by EXTRACT_LABELS.
 	%  <strong>14</strong> <strong>LOCATION_SEQ</strong> 	LOCATION_SEQ (parameter, stringlist) is the canonical location label ordering used by EXTRACT_LABELS.
-	%  <strong>15</strong> <strong>TARGETS_TO_REMOVE</strong> 	TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any data point whose label contains a listed token is removed.
-	%  <strong>16</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (data, string) is the directory containing Raman *.b2 files to be processed.
+	%  <strong>15</strong> <strong>TARGETS_TO_REMOVE</strong> 	TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any data point whose species, stress or location equals a listed token, or whose plant ID is a listed token followed by a number (e.g., ps2s for ps), is removed.
+	%  <strong>16</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (metadata, string) is the directory containing Raman *.b2 files to be processed.
 	%  <strong>17</strong> <strong>WAVELENGTH_START</strong> 	WAVELENGTH_START (parameter, scalar) is the starting wavelength (cm^-1).
 	%  <strong>18</strong> <strong>WAVELENGTH_END</strong> 	WAVELENGTH_END (parameter, scalar) is the ending wavelength (cm^-1).
 	%  <strong>19</strong> <strong>TRANSFORMATION_RULE</strong> 	TRANSFORMATION_RULE (parameter, option) is the spectral transformation applied before normalisation.
@@ -162,7 +162,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 		
 		RAW_DATA_DIR = 16; %CET: Computational Efficiency Trick
 		RAW_DATA_DIR_TAG = 'RAW_DATA_DIR';
-		RAW_DATA_DIR_CATEGORY = 4;
+		RAW_DATA_DIR_CATEGORY = 2;
 		RAW_DATA_DIR_FORMAT = 2;
 		
 		WAVELENGTH_START = 17; %CET: Computational Efficiency Trick
@@ -271,8 +271,8 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			%  <strong>12</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) is the canonical stress-label ordering used by EXTRACT_LABELS.
 			%  <strong>13</strong> <strong>KIND_SEQ</strong> 	KIND_SEQ (parameter, stringlist) is the canonical species/cultivar code ordering used by EXTRACT_LABELS.
 			%  <strong>14</strong> <strong>LOCATION_SEQ</strong> 	LOCATION_SEQ (parameter, stringlist) is the canonical location label ordering used by EXTRACT_LABELS.
-			%  <strong>15</strong> <strong>TARGETS_TO_REMOVE</strong> 	TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any data point whose label contains a listed token is removed.
-			%  <strong>16</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (data, string) is the directory containing Raman *.b2 files to be processed.
+			%  <strong>15</strong> <strong>TARGETS_TO_REMOVE</strong> 	TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any data point whose species, stress or location equals a listed token, or whose plant ID is a listed token followed by a number (e.g., ps2s for ps), is removed.
+			%  <strong>16</strong> <strong>RAW_DATA_DIR</strong> 	RAW_DATA_DIR (metadata, string) is the directory containing Raman *.b2 files to be processed.
 			%  <strong>17</strong> <strong>WAVELENGTH_START</strong> 	WAVELENGTH_START (parameter, scalar) is the starting wavelength (cm^-1).
 			%  <strong>18</strong> <strong>WAVELENGTH_END</strong> 	WAVELENGTH_END (parameter, scalar) is the ending wavelength (cm^-1).
 			%  <strong>19</strong> <strong>TRANSFORMATION_RULE</strong> 	TRANSFORMATION_RULE (parameter, option) is the spectral transformation applied before normalisation.
@@ -373,11 +373,11 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 				case 1 % Category.CONSTANT
 					prop_list = [1 2 3];
 				case 2 % Category.METADATA
-					prop_list = [6 7];
+					prop_list = [6 7 16];
 				case 3 % Category.PARAMETER
 					prop_list = [4 12 13 14 17 18 19 20 21];
 				case 4 % Category.DATA
-					prop_list = [5 15 16];
+					prop_list = [5 15];
 				case 5 % Category.RESULT
 					prop_list = [9 22 27];
 				case 6 % Category.QUERY
@@ -417,11 +417,11 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 				case 1 % Category.CONSTANT
 					prop_number = 3;
 				case 2 % Category.METADATA
-					prop_number = 2;
+					prop_number = 3;
 				case 3 % Category.PARAMETER
 					prop_number = 9;
 				case 4 % Category.DATA
-					prop_number = 3;
+					prop_number = 2;
 				case 5 % Category.RESULT
 					prop_number = 3;
 				case 6 % Category.QUERY
@@ -585,7 +585,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			prop = NNDatasetProcess_RamanSpectra.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_ramanspectra_category_list = { 1  1  1  3  4  2  2  6  5  9  6  3  3  3  4  4  3  3  3  3  3  5  6  6  6  6  5  6  6  6  6  6 };
+			nndatasetprocess_ramanspectra_category_list = { 1  1  1  3  4  2  2  6  5  9  6  3  3  3  4  2  3  3  3  3  3  5  6  6  6  6  5  6  6  6  6  6 };
 			prop_category = nndatasetprocess_ramanspectra_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -637,7 +637,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 			prop = NNDatasetProcess_RamanSpectra.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			nndatasetprocess_ramanspectra_description_list = { 'ELCLASS (constant, string) is the class of the Raman-spectra dataset process.'  'NAME (constant, string) is the name of the Raman-spectra dataset process.'  'DESCRIPTION (constant, string) is the description of the Raman-spectra dataset process.'  'TEMPLATE (parameter, item) is the template of the Raman-spectra dataset process.'  'ID (data, string) is a few-letter code of the Raman-spectra dataset process.'  'LABEL (metadata, string) is an extended label of the Raman-spectra dataset process.'  'NOTES (metadata, string) are specific notes of the Raman-spectra dataset process.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural-network dataset containing NNDataPoint_RamanSpectra built from RAW_DATA and EXTRACT_LABELS.'  'WAITBAR (gui, logical) detemines whether to show the waitbar.'  'GET_DIR (query, item) opens a dialog box to set the directory from where to load the b2 files of the Raman spectra data.'  'STRESS_SEQ (parameter, stringlist) is the canonical stress-label ordering used by EXTRACT_LABELS.'  'KIND_SEQ (parameter, stringlist) is the canonical species/cultivar code ordering used by EXTRACT_LABELS.'  'LOCATION_SEQ (parameter, stringlist) is the canonical location label ordering used by EXTRACT_LABELS.'  'TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any data point whose label contains a listed token is removed.'  'RAW_DATA_DIR (data, string) is the directory containing Raman *.b2 files to be processed.'  'WAVELENGTH_START (parameter, scalar) is the starting wavelength (cm^-1).'  'WAVELENGTH_END (parameter, scalar) is the ending wavelength (cm^-1).'  'TRANSFORMATION_RULE (parameter, option) is the spectral transformation applied before normalisation.'  'NORMALIZATION_RULE (parameter, option) is the spectral normalisation applied after transformation.'  'SCALE_FACTOR (parameter, scalar) is the scaling factor used when NORMALIZATION_RULE is Scale.'  'WAVELENGTH (result, cvector) returns the wavelength vector parsed from the first *.b2 file in RAW_DATA_DIR.'  'TRANSFORM_DATA (query, cell) applies TRANSFORMATION_RULE to a wavelength×datapoints matrix and returns the transformed data.'  'INV_TRANSFORM_DATA (query, cell) applies the inverse of TRANSFORMATION_RULE to recover spectra from a derivative representation.'  'NORMALIZE_DATA (query, cell) applies NORMALIZATION_RULE to a wavelength×datapoints matrix and returns the normalised data.'  'INV_NORMALIZE_DATA (query, cell) applies the inverse of NORMALIZATION_RULE to restore original scale.'  'RAW_DATA (result, cell) returns the raw spectral data as a cell array (one column per datapoint) extracted by EXTRACT_DATA.'  'PROCESS_DATA (query, cell) returns spectra processed by TRANSFORM_DATA followed by NORMALIZE_DATA, packaged as a cell array of column vectors.'  'REV_PROCESS_DATA (query, cell) returns spectra reconstructed by INV_NORMALIZE_DATA and INV_TRANSFORM_DATA, packaged as a cell array of column vectors.'  'EXTRACT_DATA (query, cell) extracts spectral intensities from all *.b2 files in RAW_DATA_DIR and returns a cell array of wavelength×1 vectors (one per spectrum).'  'EXTRACT_LABELS (query, stringlist) extracts a 4-row label matrix per spectrum (species, stress, location, plant ID) using KIND_SEQ, STRESS_SEQ and LOCATION_SEQ, returned as a stringlist of char arrays.'  'MEMORIZE_DATA (query, empty) memorizes all the input data and their labels for quick training later on.' };
+			nndatasetprocess_ramanspectra_description_list = { 'ELCLASS (constant, string) is the class of the Raman-spectra dataset process.'  'NAME (constant, string) is the name of the Raman-spectra dataset process.'  'DESCRIPTION (constant, string) is the description of the Raman-spectra dataset process.'  'TEMPLATE (parameter, item) is the template of the Raman-spectra dataset process.'  'ID (data, string) is a few-letter code of the Raman-spectra dataset process.'  'LABEL (metadata, string) is an extended label of the Raman-spectra dataset process.'  'NOTES (metadata, string) are specific notes of the Raman-spectra dataset process.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'D (result, item) is the neural-network dataset containing NNDataPoint_RamanSpectra built from RAW_DATA and EXTRACT_LABELS.'  'WAITBAR (gui, logical) detemines whether to show the waitbar.'  'GET_DIR (query, item) opens a dialog box to set the directory from where to load the b2 files of the Raman spectra data.'  'STRESS_SEQ (parameter, stringlist) is the canonical stress-label ordering used by EXTRACT_LABELS.'  'KIND_SEQ (parameter, stringlist) is the canonical species/cultivar code ordering used by EXTRACT_LABELS.'  'LOCATION_SEQ (parameter, stringlist) is the canonical location label ordering used by EXTRACT_LABELS.'  'TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any data point whose species, stress or location equals a listed token, or whose plant ID is a listed token followed by a number (e.g., ps2s for ps), is removed.'  'RAW_DATA_DIR (metadata, string) is the directory containing Raman *.b2 files to be processed.'  'WAVELENGTH_START (parameter, scalar) is the starting wavelength (cm^-1).'  'WAVELENGTH_END (parameter, scalar) is the ending wavelength (cm^-1).'  'TRANSFORMATION_RULE (parameter, option) is the spectral transformation applied before normalisation.'  'NORMALIZATION_RULE (parameter, option) is the spectral normalisation applied after transformation.'  'SCALE_FACTOR (parameter, scalar) is the scaling factor used when NORMALIZATION_RULE is Scale.'  'WAVELENGTH (result, cvector) returns the wavelength vector parsed from the first *.b2 file in RAW_DATA_DIR.'  'TRANSFORM_DATA (query, cell) applies TRANSFORMATION_RULE to a wavelength×datapoints matrix and returns the transformed data.'  'INV_TRANSFORM_DATA (query, cell) applies the inverse of TRANSFORMATION_RULE to recover spectra from a derivative representation.'  'NORMALIZE_DATA (query, cell) applies NORMALIZATION_RULE to a wavelength×datapoints matrix and returns the normalised data.'  'INV_NORMALIZE_DATA (query, cell) applies the inverse of NORMALIZATION_RULE to restore original scale.'  'RAW_DATA (result, cell) returns the raw spectral data as a cell array (one column per datapoint) extracted by EXTRACT_DATA.'  'PROCESS_DATA (query, cell) returns spectra processed by TRANSFORM_DATA followed by NORMALIZE_DATA, packaged as a cell array of column vectors.'  'REV_PROCESS_DATA (query, cell) returns spectra reconstructed by INV_NORMALIZE_DATA and INV_TRANSFORM_DATA, packaged as a cell array of column vectors.'  'EXTRACT_DATA (query, cell) extracts spectral intensities from all *.b2 files in RAW_DATA_DIR and returns a cell array of wavelength×1 vectors (one per spectrum).'  'EXTRACT_LABELS (query, stringlist) extracts a 4-row label matrix per spectrum (species, stress, location, plant ID) using KIND_SEQ, STRESS_SEQ and LOCATION_SEQ, returned as a stringlist of char arrays.'  'MEMORIZE_DATA (query, empty) memorizes all the input data and their labels for quick training later on.' };
 			prop_description = nndatasetprocess_ramanspectra_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -1249,6 +1249,7 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					pause(0.5)
 					d_sp = dproc.memorize('D');
 					braph2waitbar(wb, 0.25, ['Memorize input data - ' int2str(toc(start)) '.' int2str(mod(toc(start), 1) * 10) 's ...'])
+					dproc.memorize('RAW_DATA');
 					d_sp.memorize('INPUTS');
 					braph2waitbar(wb, 0.75, ['Memorize input labels - ' int2str(toc(start)) '.' int2str(mod(toc(start), 1) * 10) 's ...'])
 					d_sp.memorize('TARGETS');
@@ -1268,10 +1269,19 @@ classdef NNDatasetProcess_RamanSpectra < NNDatasetProcess
 					if ~isempty(targets_to_remove)
 					    for i = 1:numel(raw_label_list)
 					        rows = strtrim(cellstr(raw_label_list{i}));   % 4 rows: species, stress, location, plant ID
+					        plant_id = '';
+					        if numel(rows) >= 4
+					            plant_id = rows{4};
+					        end
 					        rows = rows(1:3);                              % only species/stress/location
 					        for t = 1:numel(targets_to_remove)
 					            tok = strtrim(targets_to_remove{t});
-					            if any(strcmpi(rows, tok))                 % exact match (no substring hits)
+					            % exact match of species/stress/location (no substring hits), or a
+					            %  plant ID made of the token followed by a number (e.g., 'ps' and
+					            %  ps2s or ps5: the pre-stress spectra, whose stress and location
+					            %  are not in STRESS_SEQ and LOCATION_SEQ and so stay empty)
+					            if any(strcmpi(rows, tok)) ...
+					                    || ~isempty(regexpi(plant_id, ['^' regexptranslate('escape', tok) '[0-9]'], 'once'))
 					                idx_to_remove(end+1) = i; %#ok<AGROW>
 					                break
 					            end

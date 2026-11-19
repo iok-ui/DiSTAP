@@ -16,13 +16,13 @@ The **BRAPH 2 DiSTAP** distribution provides a variational autoencoder (VAE)–b
 This distribution reuses the core analytical infrastructure of the standard BRAPH 2 distribution. For a general introduction to BRAPH 2, please refer to the main [BRAPH 2](https://github.com/braph-software/BRAPH-2/tree/develop) repository and its [tutorials](https://github.com/braph-software/BRAPH-2/tree/develop/tutorials).
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2ca15c29-f7f0-4e2d-9bba-333d3baccccb"
+  <img src="docs/light_stress_figure2.png"
        alt="Light stress figure"
        width="100%">
 </p>
 
 > 
-> **Light-stress study (Figure 2 in Patil et al.)**  This figure shows the latent 2D VAE embeddings (z1, z2) and the corresponding peak-area summaries for the *Arabidopsis*, *Choy Sum*, and *Kai Lan* datasets under four light conditions (high light, white light, low light, and shade). All panels in this figure can be reproduced directly with the DiSTAP distribution using the DIVA pipeline with **Light stress** data. The script is `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/example_LightStress.m` and generated outputs are located in `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/study_LightStress/results`.
+> **Light-stress study (Figure 2 in Patil et al.)**  For *Arabidopsis* (b), *Choy Sum* (e) and *Kai Lan* (h), the two-dimensional latent space (z1, z2) of the DIVA model, with the cluster median of each light condition (high light, white light, low light and shade) shown as the large marker. The latent spaces show the first measurement location of each leaf (loc1, 20 spectra per condition), as in the manuscript; the model itself is trained on both locations. (c) The derivative Raman spectra decoded from the cluster medians, with the most significant peaks zoomed in and their peak areas below; (f) and (i) give the peak areas for *Choy Sum* and *Kai Lan*. All panels can be reproduced with `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/example_LightStress.m`, which writes its outputs to `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/study_LightStress`.
 
 ## DiSTAP studies and folder structure
 
@@ -30,7 +30,7 @@ Within this repository, the DIVA pipeline for Raman spectra is organised under:
 
 - `braph2distap/pipelines/VariationalAutoencoderRamanSpectra/`
 
-This folder contains four study-specific example scripts and their corresponding analysis subfolders, matching the datasets analysed in the manuscript:
+This folder contains five example scripts for the four studies of the manuscript (the bacterial stress study has one script per species), each with its study folder:
 
 1. **Light stress study**  
    - Study folder: `study_LightStress` 
@@ -53,13 +53,39 @@ This folder contains four study-specific example scripts and their corresponding
 4. **Bacterial stress study**  
    - Study folder: `study_BacterialStress`  
    - Example script: `example_BacterialStress_AB.m` and `example_BacterialStress_CS.m` 
-   - Data folder: `study_HighTemperatureStress/data_AB` and `study_HighTemperatureStress/data_CS`
+   - Data folder: `study_BacterialStress/data_AB` and `study_BacterialStress/data_CS`
    - Used to generate the panels in Figure 5 of the manuscript.
 
 Each study folder contains:
 
-- The original Raman spectra data (in the respective data folders) used in the corresponding plant-stress experiment.  
-- Panels generated using the same algorithms and settings as in the manuscript. The exact manuscript figures and trained VAE model are provided in the corresponding `results` folder. The example script, using the provided Raman dataset, can reproduce the key patterns and show that the results are robust and consistent despite the minor stochastic variability inherent to the VAE.
+- The original Raman spectra (in the data folder) of the corresponding plant-stress experiment.
+- After running the example script:
+  - the figure panels, made with the same algorithms and settings as in the manuscript;
+  - the cross-validation tables and figures that justify the number of training epochs;
+  - the intermediate files used by the R figures (`analysis`) and the trained model (`trained_b2_files/nne.b2`).
+
+  For the bacterial stress study, the last two folders end in `_AB` or `_CS`.
+
+Because the VAE starts from random weights and the cross-validation folds are drawn at random, the numbers of a rerun can differ slightly.
+
+## What the example scripts do
+
+Each example script:
+
+1. loads the Raman spectra of its study, keeps 600–1750 cm⁻¹, divides them by 100 and takes the first derivative;
+2. chooses the number of training epochs by 5-fold cross-validation: the spectra of one leaf location stay in one fold, and training stops where the validation loss levels off, before overfitting starts;
+3. trains the DIVA model on all spectra of the study for that number of epochs;
+4. makes the figures and the peak analysis.
+
+Only leaf spectra are used: the polystyrene reference (`ps`) and petiole spectra are removed.
+
+| Study | Spectra used for training | Spectra shown in the figures | Epochs | Plateau onset per fold | Overfitting onset per fold |
+|---|---|---|---|---|---|
+| Light stress | 470 | `loc1` | 15 | 14–16 | 41–59 |
+| Shade avoidance | 220 | all | 20 | 19–22 | 26–34 |
+| High temperature | 360 | all | 18 | 17–19 | 34–55 |
+| Bacterial, *Arabidopsis* | 715 | `loc3` | 11 | 11–12 | 94–108 |
+| Bacterial, *Choy Sum* | 625 | all | 14 | 14–15 | 74–110 |
 
 ## Software requirements
 
@@ -118,11 +144,11 @@ braph2distap
 </p>
 
 > 
-> **Landing GUI** This figure shows the landing graphical user interface (GUI) after running ``braph2distap``. The landing GUI provides four ready-to-use pipelines for processing and analysing Raman spectra. In particular, the fourth pipeline—**DiSTAP DIVA Pipeline Raman Spectra Variational Autoencoder with Multilayer Perceptron**—is the same DIVA pipeline used for all four studies in the accompanying manuscript (Patil et al.). After opening the pipeline, users can walk through the full workflow step by step.
+> **Landing GUI** This figure shows the landing graphical user interface (GUI) after running ``braph2distap``. The landing GUI provides four ready-to-use pipelines for processing and analysing Raman spectra. In particular, the fourth pipeline—**DiSTAP DIVA Pipeline Raman Spectra Variational Autoencoder with Multilayer Perceptron**—is the same DIVA pipeline used for all four studies in the accompanying manuscript (Patil et al.). After opening the pipeline, users can walk through the full workflow step by step, including the cross-validation step that chooses the number of training epochs.
 > 
 
 2. Run the example scripts
-To reproduce the analyses and figures using the same data and algorithm from the manuscript, run any of the example scripts:
+To reproduce the analyses and figures using the same data and algorithm from the manuscript, run any of the example scripts (each takes about 10–20 minutes, most of it the cross-validation; Docker must be running for the R figures):
 ```
 example_LightStress           % Light-stress study
 example_ShadeAvoidanceStress  % Shade-avoidance study

@@ -159,10 +159,19 @@ idx_to_remove = [];
 if ~isempty(targets_to_remove)
     for i = 1:numel(raw_label_list)
         rows = strtrim(cellstr(raw_label_list{i}));   % 4 rows: species, stress, location, plant ID
+        plant_id = '';
+        if numel(rows) >= 4
+            plant_id = rows{4};
+        end
         rows = rows(1:3);                              % only species/stress/location
         for t = 1:numel(targets_to_remove)
             tok = strtrim(targets_to_remove{t});
-            if any(strcmpi(rows, tok))                 % exact match (no substring hits)
+            % exact match of species/stress/location (no substring hits), or a
+            %  plant ID made of the token followed by a number (e.g., 'ps' and
+            %  ps2s or ps5: the pre-stress spectra, whose stress and location
+            %  are not in STRESS_SEQ and LOCATION_SEQ and so stay empty)
+            if any(strcmpi(rows, tok)) ...
+                    || ~isempty(regexpi(plant_id, ['^' regexptranslate('escape', tok) '[0-9]'], 'once'))
                 idx_to_remove(end+1) = i; %#ok<AGROW>
                 break
             end
@@ -228,7 +237,7 @@ LOCATION_SEQ (parameter, stringlist) is the canonical location label ordering us
 {'loc1', 'loc2'}
 
 %%% ¡prop!
-TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any data point whose label contains a listed token is removed.
+TARGETS_TO_REMOVE (data, stringlist) is a list of label tokens to exclude; any data point whose species, stress or location equals a listed token, or whose plant ID is a listed token followed by a number (e.g., ps2s for ps), is removed.
 %%%% ¡default!
 {'ps'}
 
