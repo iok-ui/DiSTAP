@@ -3,8 +3,8 @@ NNVariationalAutoencoderMLP_CV < NNCrossValidation (nncv, cross-validation for M
 
 %%% ¡description!
 A cross-validation for multilayer-perceptron variational autoencoders (NNVariationalAutoencoderMLP_CV) decides how many epochs a variational autoencoder (NNVariationalAutoencoderMLP) should be trained for.
- The dataset is split into KFOLDS folds. By default, all spectra from the same plant replicate (the same label in TARGET_CLASS, see GROUP_ROWS) are put in the same fold,
- so a fold is never validated on spectra from a leaf that was also used for training (no replicate leakage).
+ The dataset is split into KFOLDS folds. By default, all spectra of the same acquisition, i.e., the same leaf location (the same label in TARGET_CLASS, see GROUP_ROWS), are put in the same fold,
+ so no leaf location contributes to both training and validation (no replicate leakage), as in train_vae.m and Section 2.8 of the DIVA manuscript.
  For each fold, a variational autoencoder is trained on the other folds for EPOCHS epochs, and its training and validation losses (negative ELBO) are recorded at every epoch (LOSS_CV).
  The fold curves are averaged into one pooled curve, and the epoch is selected on that pooled curve (SELECTED_EPOCH) with the early-stopping rule EARLY_STOP_RULE:
  - the plateau onset is the first epoch after which the smoothed validation loss improves by less than RATE_THRESHOLD per epoch for PATIENCE consecutive epochs;
@@ -157,7 +157,7 @@ NAME (constant, string) is the name of the cross-validation for MLP variational 
 %%% ¡prop!
 DESCRIPTION (constant, string) is the description of the cross-validation for MLP variational autoencoders.
 %%%% ¡default!
-'A cross-validation for multilayer-perceptron variational autoencoders (NNVariationalAutoencoderMLP_CV) decides how many epochs a variational autoencoder (NNVariationalAutoencoderMLP) should be trained for. The dataset is split into KFOLDS folds; by default all spectra from the same plant replicate are put in the same fold, so no fold is validated on a leaf that was also used for training. For each fold, a variational autoencoder is trained on the other folds and its training and validation losses are recorded at every epoch. The fold curves are averaged and the epoch is selected on the pooled curve with the early-stopping rule EARLY_STOP_RULE (plateau onset of the validation loss and/or onset of overfitting, i.e., a sustained growth of the gap between validation and training loss). The final model is then trained on the whole dataset for SELECTED_EPOCH epochs.'
+'A cross-validation for multilayer-perceptron variational autoencoders (NNVariationalAutoencoderMLP_CV) decides how many epochs a variational autoencoder (NNVariationalAutoencoderMLP) should be trained for. The dataset is split into KFOLDS folds; by default all spectra of the same acquisition (leaf location) are put in the same fold, so no leaf location contributes to both training and validation. For each fold, a variational autoencoder is trained on the other folds and its training and validation losses are recorded at every epoch. The fold curves are averaged and the epoch is selected on the pooled curve with the early-stopping rule EARLY_STOP_RULE (plateau onset of the validation loss and/or onset of overfitting, i.e., a sustained growth of the gap between validation and training loss). The final model is then trained on the whole dataset for SELECTED_EPOCH epochs.'
 
 %%% ¡prop!
 TEMPLATE (parameter, item) is the template of the cross-validation for MLP variational autoencoders.
@@ -337,16 +337,16 @@ LEARN_RATE (parameter, scalar) is the learning rate of the Adam optimiser, used 
 1e-3
 
 %%% ¡prop!
-FOLD_RULE (parameter, option) is how data points are assigned to folds: all spectra of the same plant replicate in the same fold (no leakage), or each spectrum independently at random.
+FOLD_RULE (parameter, option) is how data points are assigned to folds: all spectra of the same acquisition (leaf location) in the same fold (no leakage), or each spectrum independently at random.
 %%%% ¡settings!
 {'Grouped by replicate' 'Random per spectrum'}
 %%%% ¡default!
 'Grouped by replicate'
 
 %%% ¡prop!
-GROUP_ROWS (parameter, rvector) are the rows of TARGET_CLASS joined to identify a plant replicate (for Raman spectra: 1 species, 2 stress, 3 location, 4 plant ID); rows that a data point does not have are ignored.
+GROUP_ROWS (parameter, rvector) are the rows of TARGET_CLASS joined to identify a leaf location (for Raman spectra: 1 species, 2 stress, 3 location, 4 acquisition ID, e.g. WTHL1leaf3loc1); the default, the acquisition ID alone, is the grouping of train_vae.m (where, e.g., a location ID measured at several time points stays in one fold); if a data point has none of these rows, all its rows are used.
 %%%% ¡default!
-[1 2 3 4]
+[4]
 %%%% ¡check_value!
 check = all(value >= 1) && all(round(value) == value);
 
@@ -375,7 +375,11 @@ switch nncv.get('FOLD_RULE')
         keys = cell(num_dp, 1);
         for i = 1:1:num_dp
             labels = reshape(strtrim(cellstr(char(d.get('DP_DICT').get('IT', i).get('TARGET_CLASS')))), 1, []);
-            keys{i} = strjoin(labels(group_rows(group_rows <= numel(labels))), '|');
+            present_rows = group_rows(group_rows <= numel(labels));
+            if isempty(present_rows)
+                present_rows = 1:numel(labels);
+            end
+            keys{i} = strjoin(labels(present_rows), '|');
         end
         [unique_keys, ~, key_idx] = unique(keys);
         num_groups = numel(unique_keys);
