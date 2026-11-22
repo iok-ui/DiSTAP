@@ -1,5 +1,0 @@
-%example_LightStress
-example_ShadeAvoidanceStress
-example_HighTemperatureStress
-example_BacterialStress_AB
-example_BacterialStress_CS
