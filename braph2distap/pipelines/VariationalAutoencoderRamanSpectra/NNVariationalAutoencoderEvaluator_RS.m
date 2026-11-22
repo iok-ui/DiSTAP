@@ -5,51 +5,6 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 	% A variational-autoencoder evaluator (NNVariationalAutoencoderEvaluator_RS) evaluates a trained varitional autoencoder on a specific dataset, 
 	%  producing latent representations, decoded spectra, peak analyses, and Docker-backed R figures for Raman-spectra workflows.
 	%
-	% The list of NNVariationalAutoencoderEvaluator_RS properties is:
-	%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the variational-autoencoder evaluator for Raman spectra.
-	%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the variational-autoencoder evaluator for Raman spectra.
-	%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the variational-autoencoder evaluator for Raman spectra.
-	%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the variational-autoencoder evaluator for Raman spectra.
-	%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the variational-autoencoder evaluator for Raman spectra.
-	%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the variational-autoencoder evaluator for Raman spectra.
-	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are specific notes of the variational-autoencoder evaluator for Raman spectra.
-	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-	%  <strong>9</strong> <strong>NN</strong> 	NN (data, item) contains a trained neural network model.
-	%  <strong>10</strong> <strong>D</strong> 	D (data, item) is the dataset to evaluate the neural network model.
-	%  <strong>11</strong> <strong>PLOT_LATENT_REPRESENTATIONS</strong> 	PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.
-	%  <strong>12</strong> <strong>PREDICT_ENCODER</strong> 	PREDICT_ENCODER (query, cell) returns {Z, Y} where Z are latent means (one column per data point) and Y are corresponding label vectors from D via the minibatch queue.
-	%  <strong>13</strong> <strong>DPROC</strong> 	DPROC (data, item) is the Raman-spectra dataset process used for inverse normalisation/transform during decoding.
-	%  <strong>14</strong> <strong>IDX_LABEL_STRESS</strong> 	IDX_LABEL_STRESS (parameter, scalar) is the row index in TARGET_CLASS corresponding to stress.
-	%  <strong>15</strong> <strong>STRESS_ORDER</strong> 	STRESS_ORDER (query, stringlist) returns the unique stress tokens present in LATENT_REP in stable order.
-	%  <strong>16</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) is the canonical plotting order of stresses used for export and R figures.
-	%  <strong>17</strong> <strong>STRESS_LABEL</strong> 	STRESS_LABEL (parameter, stringlist) are human-readable stress labels aligned with STRESS_SEQ.
-	%  <strong>18</strong> <strong>STRESS_COLOUR</strong> 	STRESS_COLOUR (parameter, stringlist) are hex colours aligned with STRESS_SEQ.
-	%  <strong>19</strong> <strong>STRESS_SHAPE</strong> 	STRESS_SHAPE (parameter, stringlist) are point shapes aligned with STRESS_SEQ.
-	%  <strong>20</strong> <strong>IDX_LABEL_KIND</strong> 	IDX_LABEL_KIND (parameter, scalar) is the row index in TARGET_CLASS corresponding to species/kind.
-	%  <strong>21</strong> <strong>KIND_ORDER</strong> 	KIND_ORDER (query, stringlist) returns the unique species/kind tokens present in LATENT_REP in stable order.
-	%  <strong>22</strong> <strong>IDX_LABEL_LOCATION</strong> 	IDX_LABEL_LOCATION (parameter, scalar) is the row index in TARGET_CLASS corresponding to location.
-	%  <strong>23</strong> <strong>LOCATION_ORDER</strong> 	LOCATION_ORDER (query, stringlist) returns the unique location tokens present in LATENT_REP in stable order.
-	%  <strong>24</strong> <strong>LOCATION_ALIAS_FROM</strong> 	LOCATION_ALIAS_FROM (parameter, stringlist) lists source location labels to be replaced during export.
-	%  <strong>25</strong> <strong>LOCATION_ALIAS_TO</strong> 	LOCATION_ALIAS_TO (parameter, stringlist) lists target location labels used to replace LOCATION_ALIAS_FROM; it must have the same length as LOCATION_ALIAS_FROM.
-	%  <strong>26</strong> <strong>LATENT_REP</strong> 	LATENT_REP (result, cell) stores {Z, Y} where Z are latent representations and Y are label vectors aligned to Z for downstream analyses.
-	%  <strong>27</strong> <strong>PREDICT_DECODER</strong> 	PREDICT_DECODER (query, empty) decodes selected latent vectors to spectra and returns a 1xN cell of column vectors (options: one-to-one/median/mean; inverse normalisation/transform toggles).
-	%  <strong>28</strong> <strong>CROSSING</strong> 	CROSSING (query, cell) returns {ind, t0, s0} for level crossings of S at level with interpolation method and direction.
-	%  <strong>29</strong> <strong>RESOLUTION_CM</strong> 	RESOLUTION_CM (parameter, scalar) is the instrument resolution in cm^-1 used to merge nearby peaks.
-	%  <strong>30</strong> <strong>MERGE_CLOSE_PEAKS</strong> 	MERGE_CLOSE_PEAKS (query, matrix) merges ranked peaks closer than the instrument resolution in cm^-1.
-	%  <strong>31</strong> <strong>DERIV_PEAKS</strong> 	DERIV_PEAKS (query, cell) returns {PEAKS_TABLE, PEAKS_RANKED_BY_AREA, ind_p2n, ind_all, area, peak_wavs} from p→n zero-crossings of the derivative spectrum.
-	%  <strong>32</strong> <strong>PEAKS_COMPARE</strong> 	PEAKS_COMPARE (query, cell) returns pairwise peak-area differences between two conditions with integer-wavenumber matching tolerance.
-	%  <strong>33</strong> <strong>DERIV_PEAKS_RUN</strong> 	DERIV_PEAKS_RUN (query, cell) returns {COND, COMP} by running DERIV_PEAKS per condition and all pairwise comparisons.
-	%  <strong>34</strong> <strong>DERIV_PEAKS_SAVE</strong> 	DERIV_PEAKS_SAVE (query, cell) saves per-condition ranked tables and pairwise ranked differences using legacy-compatible filenames.
-	%  <strong>35</strong> <strong>LATENT_IDENTIFICATION</strong> 	LATENT_IDENTIFICATION (query, empty) exports per-species×location latent cells z1/z2 and ranges aligned with STRESS_SEQ for the R plotting pipeline.
-	%  <strong>36</strong> <strong>DATA_RECONSTRUCTION</strong> 	DATA_RECONSTRUCTION (query, empty) decodes median spectra per stress for each species×location and saves R-ready .mat files.
-	%  <strong>37</strong> <strong>PEAK_IDENTIFICATION</strong> 	PEAK_IDENTIFICATION (query, empty) decodes per species, detects derivative peaks per stress, runs all pairwise comparisons, and saves ranked tables.
-	%  <strong>38</strong> <strong>DIRECTORY_ANALYSIS</strong> 	DIRECTORY_ANALYSIS (data, string) is the directory where intermediate .mat files and analysis outputs are saved.
-	%  <strong>39</strong> <strong>DIRECTORY_FIG</strong> 	DIRECTORY_FIG (data, string) is the directory where figures are exported.
-	%  <strong>40</strong> <strong>DIRECTORY_UTIL_R</strong> 	DIRECTORY_UTIL_R (data, string) is the directory containing the R scripts and Dockerfile used for plotting.
-	%  <strong>41</strong> <strong>CREATE_R_CONTAINER</strong> 	CREATE_R_CONTAINER (query, cell) ensures the plotting Docker image exists and returns {image_tag}.
-	%  <strong>42</strong> <strong>PLOT_R_PALETTE</strong> 	PLOT_R_PALETTE (query, empty) generates palette figures via Docker+R (generic_fig_palette_p1.R) after preparing latent, reconstruction, and identification outputs.
-	%  <strong>43</strong> <strong>PLOT_R_LS_QNORM_MED</strong> 	PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R (generic_plot_ls_qnorm_med.R) after preparing required .mat inputs.
-	%
 	% NNVariationalAutoencoderEvaluator_RS methods (constructor):
 	%  NNVariationalAutoencoderEvaluator_RS - constructor
 	%
@@ -138,163 +93,163 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 	%
 	% See also NNDataPoint, NNDataset, NNBase, NNDatasetProcess_RamanSpectra.
 	%
-	% BUILD BRAPH2 7 class_name 1
+	% BUILD BRAPH2 BRAPH2.BUILD class_name 1
 	
 	properties (Constant) % properties
-		DPROC = 13; %CET: Computational Efficiency Trick
+		DPROC = NNVariationalAutoencoderEvaluator.getPropNumber() + 1;
 		DPROC_TAG = 'DPROC';
-		DPROC_CATEGORY = 4;
-		DPROC_FORMAT = 8;
+		DPROC_CATEGORY = Category.DATA;
+		DPROC_FORMAT = Format.ITEM;
 		
-		IDX_LABEL_STRESS = 14; %CET: Computational Efficiency Trick
+		IDX_LABEL_STRESS = NNVariationalAutoencoderEvaluator.getPropNumber() + 2;
 		IDX_LABEL_STRESS_TAG = 'IDX_LABEL_STRESS';
-		IDX_LABEL_STRESS_CATEGORY = 3;
-		IDX_LABEL_STRESS_FORMAT = 11;
+		IDX_LABEL_STRESS_CATEGORY = Category.PARAMETER;
+		IDX_LABEL_STRESS_FORMAT = Format.SCALAR;
 		
-		STRESS_ORDER = 15; %CET: Computational Efficiency Trick
+		STRESS_ORDER = NNVariationalAutoencoderEvaluator.getPropNumber() + 3;
 		STRESS_ORDER_TAG = 'STRESS_ORDER';
-		STRESS_ORDER_CATEGORY = 6;
-		STRESS_ORDER_FORMAT = 3;
+		STRESS_ORDER_CATEGORY = Category.QUERY;
+		STRESS_ORDER_FORMAT = Format.STRINGLIST;
 		
-		STRESS_SEQ = 16; %CET: Computational Efficiency Trick
+		STRESS_SEQ = NNVariationalAutoencoderEvaluator.getPropNumber() + 4;
 		STRESS_SEQ_TAG = 'STRESS_SEQ';
-		STRESS_SEQ_CATEGORY = 3;
-		STRESS_SEQ_FORMAT = 3;
+		STRESS_SEQ_CATEGORY = Category.PARAMETER;
+		STRESS_SEQ_FORMAT = Format.STRINGLIST;
 		
-		STRESS_LABEL = 17; %CET: Computational Efficiency Trick
+		STRESS_LABEL = NNVariationalAutoencoderEvaluator.getPropNumber() + 5;
 		STRESS_LABEL_TAG = 'STRESS_LABEL';
-		STRESS_LABEL_CATEGORY = 3;
-		STRESS_LABEL_FORMAT = 3;
+		STRESS_LABEL_CATEGORY = Category.PARAMETER;
+		STRESS_LABEL_FORMAT = Format.STRINGLIST;
 		
-		STRESS_COLOUR = 18; %CET: Computational Efficiency Trick
+		STRESS_COLOUR = NNVariationalAutoencoderEvaluator.getPropNumber() + 6;
 		STRESS_COLOUR_TAG = 'STRESS_COLOUR';
-		STRESS_COLOUR_CATEGORY = 3;
-		STRESS_COLOUR_FORMAT = 3;
+		STRESS_COLOUR_CATEGORY = Category.PARAMETER;
+		STRESS_COLOUR_FORMAT = Format.STRINGLIST;
 		
-		STRESS_SHAPE = 19; %CET: Computational Efficiency Trick
+		STRESS_SHAPE = NNVariationalAutoencoderEvaluator.getPropNumber() + 7;
 		STRESS_SHAPE_TAG = 'STRESS_SHAPE';
-		STRESS_SHAPE_CATEGORY = 3;
-		STRESS_SHAPE_FORMAT = 3;
+		STRESS_SHAPE_CATEGORY = Category.PARAMETER;
+		STRESS_SHAPE_FORMAT = Format.STRINGLIST;
 		
-		IDX_LABEL_KIND = 20; %CET: Computational Efficiency Trick
+		IDX_LABEL_KIND = NNVariationalAutoencoderEvaluator.getPropNumber() + 8;
 		IDX_LABEL_KIND_TAG = 'IDX_LABEL_KIND';
-		IDX_LABEL_KIND_CATEGORY = 3;
-		IDX_LABEL_KIND_FORMAT = 11;
+		IDX_LABEL_KIND_CATEGORY = Category.PARAMETER;
+		IDX_LABEL_KIND_FORMAT = Format.SCALAR;
 		
-		KIND_ORDER = 21; %CET: Computational Efficiency Trick
+		KIND_ORDER = NNVariationalAutoencoderEvaluator.getPropNumber() + 9;
 		KIND_ORDER_TAG = 'KIND_ORDER';
-		KIND_ORDER_CATEGORY = 6;
-		KIND_ORDER_FORMAT = 3;
+		KIND_ORDER_CATEGORY = Category.QUERY;
+		KIND_ORDER_FORMAT = Format.STRINGLIST;
 		
-		IDX_LABEL_LOCATION = 22; %CET: Computational Efficiency Trick
+		IDX_LABEL_LOCATION = NNVariationalAutoencoderEvaluator.getPropNumber() + 10;
 		IDX_LABEL_LOCATION_TAG = 'IDX_LABEL_LOCATION';
-		IDX_LABEL_LOCATION_CATEGORY = 3;
-		IDX_LABEL_LOCATION_FORMAT = 11;
+		IDX_LABEL_LOCATION_CATEGORY = Category.PARAMETER;
+		IDX_LABEL_LOCATION_FORMAT = Format.SCALAR;
 		
-		LOCATION_ORDER = 23; %CET: Computational Efficiency Trick
+		LOCATION_ORDER = NNVariationalAutoencoderEvaluator.getPropNumber() + 11;
 		LOCATION_ORDER_TAG = 'LOCATION_ORDER';
-		LOCATION_ORDER_CATEGORY = 6;
-		LOCATION_ORDER_FORMAT = 3;
+		LOCATION_ORDER_CATEGORY = Category.QUERY;
+		LOCATION_ORDER_FORMAT = Format.STRINGLIST;
 		
-		LOCATION_ALIAS_FROM = 24; %CET: Computational Efficiency Trick
+		LOCATION_ALIAS_FROM = NNVariationalAutoencoderEvaluator.getPropNumber() + 12;
 		LOCATION_ALIAS_FROM_TAG = 'LOCATION_ALIAS_FROM';
-		LOCATION_ALIAS_FROM_CATEGORY = 3;
-		LOCATION_ALIAS_FROM_FORMAT = 3;
+		LOCATION_ALIAS_FROM_CATEGORY = Category.PARAMETER;
+		LOCATION_ALIAS_FROM_FORMAT = Format.STRINGLIST;
 		
-		LOCATION_ALIAS_TO = 25; %CET: Computational Efficiency Trick
+		LOCATION_ALIAS_TO = NNVariationalAutoencoderEvaluator.getPropNumber() + 13;
 		LOCATION_ALIAS_TO_TAG = 'LOCATION_ALIAS_TO';
-		LOCATION_ALIAS_TO_CATEGORY = 3;
-		LOCATION_ALIAS_TO_FORMAT = 3;
+		LOCATION_ALIAS_TO_CATEGORY = Category.PARAMETER;
+		LOCATION_ALIAS_TO_FORMAT = Format.STRINGLIST;
 		
-		LATENT_REP = 26; %CET: Computational Efficiency Trick
+		LATENT_REP = NNVariationalAutoencoderEvaluator.getPropNumber() + 14;
 		LATENT_REP_TAG = 'LATENT_REP';
-		LATENT_REP_CATEGORY = 5;
-		LATENT_REP_FORMAT = 16;
+		LATENT_REP_CATEGORY = Category.RESULT;
+		LATENT_REP_FORMAT = Format.CELL;
 		
-		PREDICT_DECODER = 27; %CET: Computational Efficiency Trick
+		PREDICT_DECODER = NNVariationalAutoencoderEvaluator.getPropNumber() + 15;
 		PREDICT_DECODER_TAG = 'PREDICT_DECODER';
-		PREDICT_DECODER_CATEGORY = 6;
-		PREDICT_DECODER_FORMAT = 1;
+		PREDICT_DECODER_CATEGORY = Category.QUERY;
+		PREDICT_DECODER_FORMAT = Format.EMPTY;
 		
-		CROSSING = 28; %CET: Computational Efficiency Trick
+		CROSSING = NNVariationalAutoencoderEvaluator.getPropNumber() + 16;
 		CROSSING_TAG = 'CROSSING';
-		CROSSING_CATEGORY = 6;
-		CROSSING_FORMAT = 16;
+		CROSSING_CATEGORY = Category.QUERY;
+		CROSSING_FORMAT = Format.CELL;
 		
-		RESOLUTION_CM = 29; %CET: Computational Efficiency Trick
+		RESOLUTION_CM = NNVariationalAutoencoderEvaluator.getPropNumber() + 17;
 		RESOLUTION_CM_TAG = 'RESOLUTION_CM';
-		RESOLUTION_CM_CATEGORY = 3;
-		RESOLUTION_CM_FORMAT = 11;
+		RESOLUTION_CM_CATEGORY = Category.PARAMETER;
+		RESOLUTION_CM_FORMAT = Format.SCALAR;
 		
-		MERGE_CLOSE_PEAKS = 30; %CET: Computational Efficiency Trick
+		MERGE_CLOSE_PEAKS = NNVariationalAutoencoderEvaluator.getPropNumber() + 18;
 		MERGE_CLOSE_PEAKS_TAG = 'MERGE_CLOSE_PEAKS';
-		MERGE_CLOSE_PEAKS_CATEGORY = 6;
-		MERGE_CLOSE_PEAKS_FORMAT = 14;
+		MERGE_CLOSE_PEAKS_CATEGORY = Category.QUERY;
+		MERGE_CLOSE_PEAKS_FORMAT = Format.MATRIX;
 		
-		DERIV_PEAKS = 31; %CET: Computational Efficiency Trick
+		DERIV_PEAKS = NNVariationalAutoencoderEvaluator.getPropNumber() + 19;
 		DERIV_PEAKS_TAG = 'DERIV_PEAKS';
-		DERIV_PEAKS_CATEGORY = 6;
-		DERIV_PEAKS_FORMAT = 16;
+		DERIV_PEAKS_CATEGORY = Category.QUERY;
+		DERIV_PEAKS_FORMAT = Format.CELL;
 		
-		PEAKS_COMPARE = 32; %CET: Computational Efficiency Trick
+		PEAKS_COMPARE = NNVariationalAutoencoderEvaluator.getPropNumber() + 20;
 		PEAKS_COMPARE_TAG = 'PEAKS_COMPARE';
-		PEAKS_COMPARE_CATEGORY = 6;
-		PEAKS_COMPARE_FORMAT = 16;
+		PEAKS_COMPARE_CATEGORY = Category.QUERY;
+		PEAKS_COMPARE_FORMAT = Format.CELL;
 		
-		DERIV_PEAKS_RUN = 33; %CET: Computational Efficiency Trick
+		DERIV_PEAKS_RUN = NNVariationalAutoencoderEvaluator.getPropNumber() + 21;
 		DERIV_PEAKS_RUN_TAG = 'DERIV_PEAKS_RUN';
-		DERIV_PEAKS_RUN_CATEGORY = 6;
-		DERIV_PEAKS_RUN_FORMAT = 16;
+		DERIV_PEAKS_RUN_CATEGORY = Category.QUERY;
+		DERIV_PEAKS_RUN_FORMAT = Format.CELL;
 		
-		DERIV_PEAKS_SAVE = 34; %CET: Computational Efficiency Trick
+		DERIV_PEAKS_SAVE = NNVariationalAutoencoderEvaluator.getPropNumber() + 22;
 		DERIV_PEAKS_SAVE_TAG = 'DERIV_PEAKS_SAVE';
-		DERIV_PEAKS_SAVE_CATEGORY = 6;
-		DERIV_PEAKS_SAVE_FORMAT = 16;
+		DERIV_PEAKS_SAVE_CATEGORY = Category.QUERY;
+		DERIV_PEAKS_SAVE_FORMAT = Format.CELL;
 		
-		LATENT_IDENTIFICATION = 35; %CET: Computational Efficiency Trick
+		LATENT_IDENTIFICATION = NNVariationalAutoencoderEvaluator.getPropNumber() + 23;
 		LATENT_IDENTIFICATION_TAG = 'LATENT_IDENTIFICATION';
-		LATENT_IDENTIFICATION_CATEGORY = 6;
-		LATENT_IDENTIFICATION_FORMAT = 1;
+		LATENT_IDENTIFICATION_CATEGORY = Category.QUERY;
+		LATENT_IDENTIFICATION_FORMAT = Format.EMPTY;
 		
-		DATA_RECONSTRUCTION = 36; %CET: Computational Efficiency Trick
+		DATA_RECONSTRUCTION = NNVariationalAutoencoderEvaluator.getPropNumber() + 24;
 		DATA_RECONSTRUCTION_TAG = 'DATA_RECONSTRUCTION';
-		DATA_RECONSTRUCTION_CATEGORY = 6;
-		DATA_RECONSTRUCTION_FORMAT = 1;
+		DATA_RECONSTRUCTION_CATEGORY = Category.QUERY;
+		DATA_RECONSTRUCTION_FORMAT = Format.EMPTY;
 		
-		PEAK_IDENTIFICATION = 37; %CET: Computational Efficiency Trick
+		PEAK_IDENTIFICATION = NNVariationalAutoencoderEvaluator.getPropNumber() + 25;
 		PEAK_IDENTIFICATION_TAG = 'PEAK_IDENTIFICATION';
-		PEAK_IDENTIFICATION_CATEGORY = 6;
-		PEAK_IDENTIFICATION_FORMAT = 1;
+		PEAK_IDENTIFICATION_CATEGORY = Category.QUERY;
+		PEAK_IDENTIFICATION_FORMAT = Format.EMPTY;
 		
-		DIRECTORY_ANALYSIS = 38; %CET: Computational Efficiency Trick
+		DIRECTORY_ANALYSIS = NNVariationalAutoencoderEvaluator.getPropNumber() + 26;
 		DIRECTORY_ANALYSIS_TAG = 'DIRECTORY_ANALYSIS';
-		DIRECTORY_ANALYSIS_CATEGORY = 4;
-		DIRECTORY_ANALYSIS_FORMAT = 2;
+		DIRECTORY_ANALYSIS_CATEGORY = Category.DATA;
+		DIRECTORY_ANALYSIS_FORMAT = Format.STRING;
 		
-		DIRECTORY_FIG = 39; %CET: Computational Efficiency Trick
+		DIRECTORY_FIG = NNVariationalAutoencoderEvaluator.getPropNumber() + 27;
 		DIRECTORY_FIG_TAG = 'DIRECTORY_FIG';
-		DIRECTORY_FIG_CATEGORY = 4;
-		DIRECTORY_FIG_FORMAT = 2;
+		DIRECTORY_FIG_CATEGORY = Category.DATA;
+		DIRECTORY_FIG_FORMAT = Format.STRING;
 		
-		DIRECTORY_UTIL_R = 40; %CET: Computational Efficiency Trick
+		DIRECTORY_UTIL_R = NNVariationalAutoencoderEvaluator.getPropNumber() + 28;
 		DIRECTORY_UTIL_R_TAG = 'DIRECTORY_UTIL_R';
-		DIRECTORY_UTIL_R_CATEGORY = 4;
-		DIRECTORY_UTIL_R_FORMAT = 2;
+		DIRECTORY_UTIL_R_CATEGORY = Category.DATA;
+		DIRECTORY_UTIL_R_FORMAT = Format.STRING;
 		
-		CREATE_R_CONTAINER = 41; %CET: Computational Efficiency Trick
+		CREATE_R_CONTAINER = NNVariationalAutoencoderEvaluator.getPropNumber() + 29;
 		CREATE_R_CONTAINER_TAG = 'CREATE_R_CONTAINER';
-		CREATE_R_CONTAINER_CATEGORY = 6;
-		CREATE_R_CONTAINER_FORMAT = 16;
+		CREATE_R_CONTAINER_CATEGORY = Category.QUERY;
+		CREATE_R_CONTAINER_FORMAT = Format.CELL;
 		
-		PLOT_R_PALETTE = 42; %CET: Computational Efficiency Trick
+		PLOT_R_PALETTE = NNVariationalAutoencoderEvaluator.getPropNumber() + 30;
 		PLOT_R_PALETTE_TAG = 'PLOT_R_PALETTE';
-		PLOT_R_PALETTE_CATEGORY = 6;
-		PLOT_R_PALETTE_FORMAT = 1;
+		PLOT_R_PALETTE_CATEGORY = Category.QUERY;
+		PLOT_R_PALETTE_FORMAT = Format.EMPTY;
 		
-		PLOT_R_LS_QNORM_MED = 43; %CET: Computational Efficiency Trick
+		PLOT_R_LS_QNORM_MED = NNVariationalAutoencoderEvaluator.getPropNumber() + 31;
 		PLOT_R_LS_QNORM_MED_TAG = 'PLOT_R_LS_QNORM_MED';
-		PLOT_R_LS_QNORM_MED_CATEGORY = 6;
-		PLOT_R_LS_QNORM_MED_FORMAT = 1;
+		PLOT_R_LS_QNORM_MED_CATEGORY = Category.QUERY;
+		PLOT_R_LS_QNORM_MED_FORMAT = Format.EMPTY;
 	end
 	methods % constructor
 		function nne = NNVariationalAutoencoderEvaluator_RS(varargin)
@@ -307,50 +262,6 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			% Multiple properties can be initialized at once identifying
 			%  them with either property numbers (PROP) or tags (TAG).
 			%
-			% The list of NNVariationalAutoencoderEvaluator_RS properties is:
-			%  <strong>1</strong> <strong>ELCLASS</strong> 	ELCLASS (constant, string) is the class of the variational-autoencoder evaluator for Raman spectra.
-			%  <strong>2</strong> <strong>NAME</strong> 	NAME (constant, string) is the name of the variational-autoencoder evaluator for Raman spectra.
-			%  <strong>3</strong> <strong>DESCRIPTION</strong> 	DESCRIPTION (constant, string) is the description of the variational-autoencoder evaluator for Raman spectra.
-			%  <strong>4</strong> <strong>TEMPLATE</strong> 	TEMPLATE (parameter, item) is the template of the variational-autoencoder evaluator for Raman spectra.
-			%  <strong>5</strong> <strong>ID</strong> 	ID (data, string) is a few-letter code of the variational-autoencoder evaluator for Raman spectra.
-			%  <strong>6</strong> <strong>LABEL</strong> 	LABEL (metadata, string) is an extended label of the variational-autoencoder evaluator for Raman spectra.
-			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are specific notes of the variational-autoencoder evaluator for Raman spectra.
-			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
-			%  <strong>9</strong> <strong>NN</strong> 	NN (data, item) contains a trained neural network model.
-			%  <strong>10</strong> <strong>D</strong> 	D (data, item) is the dataset to evaluate the neural network model.
-			%  <strong>11</strong> <strong>PLOT_LATENT_REPRESENTATIONS</strong> 	PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.
-			%  <strong>12</strong> <strong>PREDICT_ENCODER</strong> 	PREDICT_ENCODER (query, cell) returns {Z, Y} where Z are latent means (one column per data point) and Y are corresponding label vectors from D via the minibatch queue.
-			%  <strong>13</strong> <strong>DPROC</strong> 	DPROC (data, item) is the Raman-spectra dataset process used for inverse normalisation/transform during decoding.
-			%  <strong>14</strong> <strong>IDX_LABEL_STRESS</strong> 	IDX_LABEL_STRESS (parameter, scalar) is the row index in TARGET_CLASS corresponding to stress.
-			%  <strong>15</strong> <strong>STRESS_ORDER</strong> 	STRESS_ORDER (query, stringlist) returns the unique stress tokens present in LATENT_REP in stable order.
-			%  <strong>16</strong> <strong>STRESS_SEQ</strong> 	STRESS_SEQ (parameter, stringlist) is the canonical plotting order of stresses used for export and R figures.
-			%  <strong>17</strong> <strong>STRESS_LABEL</strong> 	STRESS_LABEL (parameter, stringlist) are human-readable stress labels aligned with STRESS_SEQ.
-			%  <strong>18</strong> <strong>STRESS_COLOUR</strong> 	STRESS_COLOUR (parameter, stringlist) are hex colours aligned with STRESS_SEQ.
-			%  <strong>19</strong> <strong>STRESS_SHAPE</strong> 	STRESS_SHAPE (parameter, stringlist) are point shapes aligned with STRESS_SEQ.
-			%  <strong>20</strong> <strong>IDX_LABEL_KIND</strong> 	IDX_LABEL_KIND (parameter, scalar) is the row index in TARGET_CLASS corresponding to species/kind.
-			%  <strong>21</strong> <strong>KIND_ORDER</strong> 	KIND_ORDER (query, stringlist) returns the unique species/kind tokens present in LATENT_REP in stable order.
-			%  <strong>22</strong> <strong>IDX_LABEL_LOCATION</strong> 	IDX_LABEL_LOCATION (parameter, scalar) is the row index in TARGET_CLASS corresponding to location.
-			%  <strong>23</strong> <strong>LOCATION_ORDER</strong> 	LOCATION_ORDER (query, stringlist) returns the unique location tokens present in LATENT_REP in stable order.
-			%  <strong>24</strong> <strong>LOCATION_ALIAS_FROM</strong> 	LOCATION_ALIAS_FROM (parameter, stringlist) lists source location labels to be replaced during export.
-			%  <strong>25</strong> <strong>LOCATION_ALIAS_TO</strong> 	LOCATION_ALIAS_TO (parameter, stringlist) lists target location labels used to replace LOCATION_ALIAS_FROM; it must have the same length as LOCATION_ALIAS_FROM.
-			%  <strong>26</strong> <strong>LATENT_REP</strong> 	LATENT_REP (result, cell) stores {Z, Y} where Z are latent representations and Y are label vectors aligned to Z for downstream analyses.
-			%  <strong>27</strong> <strong>PREDICT_DECODER</strong> 	PREDICT_DECODER (query, empty) decodes selected latent vectors to spectra and returns a 1xN cell of column vectors (options: one-to-one/median/mean; inverse normalisation/transform toggles).
-			%  <strong>28</strong> <strong>CROSSING</strong> 	CROSSING (query, cell) returns {ind, t0, s0} for level crossings of S at level with interpolation method and direction.
-			%  <strong>29</strong> <strong>RESOLUTION_CM</strong> 	RESOLUTION_CM (parameter, scalar) is the instrument resolution in cm^-1 used to merge nearby peaks.
-			%  <strong>30</strong> <strong>MERGE_CLOSE_PEAKS</strong> 	MERGE_CLOSE_PEAKS (query, matrix) merges ranked peaks closer than the instrument resolution in cm^-1.
-			%  <strong>31</strong> <strong>DERIV_PEAKS</strong> 	DERIV_PEAKS (query, cell) returns {PEAKS_TABLE, PEAKS_RANKED_BY_AREA, ind_p2n, ind_all, area, peak_wavs} from p→n zero-crossings of the derivative spectrum.
-			%  <strong>32</strong> <strong>PEAKS_COMPARE</strong> 	PEAKS_COMPARE (query, cell) returns pairwise peak-area differences between two conditions with integer-wavenumber matching tolerance.
-			%  <strong>33</strong> <strong>DERIV_PEAKS_RUN</strong> 	DERIV_PEAKS_RUN (query, cell) returns {COND, COMP} by running DERIV_PEAKS per condition and all pairwise comparisons.
-			%  <strong>34</strong> <strong>DERIV_PEAKS_SAVE</strong> 	DERIV_PEAKS_SAVE (query, cell) saves per-condition ranked tables and pairwise ranked differences using legacy-compatible filenames.
-			%  <strong>35</strong> <strong>LATENT_IDENTIFICATION</strong> 	LATENT_IDENTIFICATION (query, empty) exports per-species×location latent cells z1/z2 and ranges aligned with STRESS_SEQ for the R plotting pipeline.
-			%  <strong>36</strong> <strong>DATA_RECONSTRUCTION</strong> 	DATA_RECONSTRUCTION (query, empty) decodes median spectra per stress for each species×location and saves R-ready .mat files.
-			%  <strong>37</strong> <strong>PEAK_IDENTIFICATION</strong> 	PEAK_IDENTIFICATION (query, empty) decodes per species, detects derivative peaks per stress, runs all pairwise comparisons, and saves ranked tables.
-			%  <strong>38</strong> <strong>DIRECTORY_ANALYSIS</strong> 	DIRECTORY_ANALYSIS (data, string) is the directory where intermediate .mat files and analysis outputs are saved.
-			%  <strong>39</strong> <strong>DIRECTORY_FIG</strong> 	DIRECTORY_FIG (data, string) is the directory where figures are exported.
-			%  <strong>40</strong> <strong>DIRECTORY_UTIL_R</strong> 	DIRECTORY_UTIL_R (data, string) is the directory containing the R scripts and Dockerfile used for plotting.
-			%  <strong>41</strong> <strong>CREATE_R_CONTAINER</strong> 	CREATE_R_CONTAINER (query, cell) ensures the plotting Docker image exists and returns {image_tag}.
-			%  <strong>42</strong> <strong>PLOT_R_PALETTE</strong> 	PLOT_R_PALETTE (query, empty) generates palette figures via Docker+R (generic_fig_palette_p1.R) after preparing latent, reconstruction, and identification outputs.
-			%  <strong>43</strong> <strong>PLOT_R_LS_QNORM_MED</strong> 	PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R (generic_plot_ls_qnorm_med.R) after preparing required .mat inputs.
 			%
 			% See also Category, Format.
 			
@@ -403,7 +314,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%
 			% See also subclasses.
 			
-			subclass_list = { 'NNVariationalAutoencoderEvaluator_RS' }; %CET: Computational Efficiency Trick
+			subclass_list = subclasses('NNVariationalAutoencoderEvaluator_RS', [], [], true);
 		end
 		function prop_list = getProps(category)
 			%GETPROPS returns the property list of variational-autoencoder evaluator for Raman spectra.
@@ -424,28 +335,112 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%
 			% See also getPropNumber, Category.
 			
-			%CET: Computational Efficiency Trick
-			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43];
+				prop_list = [ ...
+					NNVariationalAutoencoderEvaluator.getProps() ...
+						NNVariationalAutoencoderEvaluator_RS.DPROC ...
+						NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS ...
+						NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER ...
+						NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ ...
+						NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL ...
+						NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR ...
+						NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE ...
+						NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND ...
+						NNVariationalAutoencoderEvaluator_RS.KIND_ORDER ...
+						NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION ...
+						NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER ...
+						NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM ...
+						NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO ...
+						NNVariationalAutoencoderEvaluator_RS.LATENT_REP ...
+						NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER ...
+						NNVariationalAutoencoderEvaluator_RS.CROSSING ...
+						NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM ...
+						NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS ...
+						NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS ...
+						NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE ...
+						NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN ...
+						NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE ...
+						NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION ...
+						NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION ...
+						NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION ...
+						NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS ...
+						NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG ...
+						NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R ...
+						NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER ...
+						NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE ...
+						NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED ...
+						];
 				return
 			end
 			
 			switch category
-				case 1 % Category.CONSTANT
-					prop_list = [1 2 3];
-				case 2 % Category.METADATA
-					prop_list = [6 7];
-				case 3 % Category.PARAMETER
-					prop_list = [4 14 16 17 18 19 20 22 24 25 29];
-				case 4 % Category.DATA
-					prop_list = [5 9 10 13 38 39 40];
-				case 5 % Category.RESULT
-					prop_list = 26;
-				case 6 % Category.QUERY
-					prop_list = [8 11 12 15 21 23 27 28 30 31 32 33 34 35 36 37 41 42 43];
-				otherwise
-					prop_list = [];
+				case Category.CONSTANT
+					prop_list = [ ...
+						NNVariationalAutoencoderEvaluator.getProps(Category.CONSTANT) ...
+						];
+				case Category.METADATA
+					prop_list = [ ...
+						NNVariationalAutoencoderEvaluator.getProps(Category.METADATA) ...
+						];
+				case Category.PARAMETER
+					prop_list = [ ...
+						NNVariationalAutoencoderEvaluator.getProps(Category.PARAMETER) ...
+						NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS ...
+						NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ ...
+						NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL ...
+						NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR ...
+						NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE ...
+						NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND ...
+						NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION ...
+						NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM ...
+						NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO ...
+						NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM ...
+						];
+				case Category.DATA
+					prop_list = [ ...
+						NNVariationalAutoencoderEvaluator.getProps(Category.DATA) ...
+						NNVariationalAutoencoderEvaluator_RS.DPROC ...
+						NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS ...
+						NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG ...
+						NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R ...
+						];
+				case Category.RESULT
+					prop_list = [
+						NNVariationalAutoencoderEvaluator.getProps(Category.RESULT) ...
+						NNVariationalAutoencoderEvaluator_RS.LATENT_REP ...
+						];
+				case Category.QUERY
+					prop_list = [ ...
+						NNVariationalAutoencoderEvaluator.getProps(Category.QUERY) ...
+						NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER ...
+						NNVariationalAutoencoderEvaluator_RS.KIND_ORDER ...
+						NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER ...
+						NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER ...
+						NNVariationalAutoencoderEvaluator_RS.CROSSING ...
+						NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS ...
+						NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS ...
+						NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE ...
+						NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN ...
+						NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE ...
+						NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION ...
+						NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION ...
+						NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION ...
+						NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER ...
+						NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE ...
+						NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED ...
+						];
+				case Category.EVANESCENT
+					prop_list = [ ...
+						NNVariationalAutoencoderEvaluator.getProps(Category.EVANESCENT) ...
+						];
+				case Category.FIGURE
+					prop_list = [ ...
+						NNVariationalAutoencoderEvaluator.getProps(Category.FIGURE) ...
+						];
+				case Category.GUI
+					prop_list = [ ...
+						NNVariationalAutoencoderEvaluator.getProps(Category.GUI) ...
+						];
 			end
 		end
 		function prop_number = getPropNumber(varargin)
@@ -466,29 +461,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%
 			% See also getProps, Category.
 			
-			%CET: Computational Efficiency Trick
-			
-			if nargin == 0
-				prop_number = 43;
-				return
-			end
-			
-			switch varargin{1} % category = varargin{1}
-				case 1 % Category.CONSTANT
-					prop_number = 3;
-				case 2 % Category.METADATA
-					prop_number = 2;
-				case 3 % Category.PARAMETER
-					prop_number = 11;
-				case 4 % Category.DATA
-					prop_number = 7;
-				case 5 % Category.RESULT
-					prop_number = 1;
-				case 6 % Category.QUERY
-					prop_number = 19;
-				otherwise
-					prop_number = 0;
-			end
+			prop_number = numel(NNVariationalAutoencoderEvaluator_RS.getProps(varargin{:}));
 		end
 		function check_out = existsProp(prop)
 			%EXISTSPROP checks whether property exists in variational-autoencoder evaluator for Raman spectra/error.
@@ -516,14 +489,14 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 43 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = any(prop == NNVariationalAutoencoderEvaluator_RS.getProps());
 			
 			if nargout == 1
 				check_out = check;
 			elseif ~check
 				error( ...
-					['BRAPH2' ':NNVariationalAutoencoderEvaluator_RS:' 'WrongInput'], ...
-					['BRAPH2' ':NNVariationalAutoencoderEvaluator_RS:' 'WrongInput' '\n' ...
+					[BRAPH2.STR ':NNVariationalAutoencoderEvaluator_RS:' BRAPH2.WRONG_INPUT], ...
+					[BRAPH2.STR ':NNVariationalAutoencoderEvaluator_RS:' BRAPH2.WRONG_INPUT '\n' ...
 					'The value ' tostring(prop, 100, ' ...') ' is not a valid prop for NNVariationalAutoencoderEvaluator_RS.'] ...
 					)
 			end
@@ -554,14 +527,15 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'DPROC'  'IDX_LABEL_STRESS'  'STRESS_ORDER'  'STRESS_SEQ'  'STRESS_LABEL'  'STRESS_COLOUR'  'STRESS_SHAPE'  'IDX_LABEL_KIND'  'KIND_ORDER'  'IDX_LABEL_LOCATION'  'LOCATION_ORDER'  'LOCATION_ALIAS_FROM'  'LOCATION_ALIAS_TO'  'LATENT_REP'  'PREDICT_DECODER'  'CROSSING'  'RESOLUTION_CM'  'MERGE_CLOSE_PEAKS'  'DERIV_PEAKS'  'PEAKS_COMPARE'  'DERIV_PEAKS_RUN'  'DERIV_PEAKS_SAVE'  'LATENT_IDENTIFICATION'  'DATA_RECONSTRUCTION'  'PEAK_IDENTIFICATION'  'DIRECTORY_ANALYSIS'  'DIRECTORY_FIG'  'DIRECTORY_UTIL_R'  'CREATE_R_CONTAINER'  'PLOT_R_PALETTE'  'PLOT_R_LS_QNORM_MED' })); %CET: Computational Efficiency Trick
+			nnvariationalautoencoderevaluator_rs_tag_list = cellfun(@(x) NNVariationalAutoencoderEvaluator_RS.getPropTag(x), num2cell(NNVariationalAutoencoderEvaluator_RS.getProps()), 'UniformOutput', false);
+			check = any(strcmp(tag, nnvariationalautoencoderevaluator_rs_tag_list));
 			
 			if nargout == 1
 				check_out = check;
 			elseif ~check
 				error( ...
-					['BRAPH2' ':NNVariationalAutoencoderEvaluator_RS:' 'WrongInput'], ...
-					['BRAPH2' ':NNVariationalAutoencoderEvaluator_RS:' 'WrongInput' '\n' ...
+					[BRAPH2.STR ':NNVariationalAutoencoderEvaluator_RS:' BRAPH2.WRONG_INPUT], ...
+					[BRAPH2.STR ':NNVariationalAutoencoderEvaluator_RS:' BRAPH2.WRONG_INPUT '\n' ...
 					'The value ' tag ' is not a valid tag for NNVariationalAutoencoderEvaluator_RS.'] ...
 					)
 			end
@@ -587,7 +561,8 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'DPROC'  'IDX_LABEL_STRESS'  'STRESS_ORDER'  'STRESS_SEQ'  'STRESS_LABEL'  'STRESS_COLOUR'  'STRESS_SHAPE'  'IDX_LABEL_KIND'  'KIND_ORDER'  'IDX_LABEL_LOCATION'  'LOCATION_ORDER'  'LOCATION_ALIAS_FROM'  'LOCATION_ALIAS_TO'  'LATENT_REP'  'PREDICT_DECODER'  'CROSSING'  'RESOLUTION_CM'  'MERGE_CLOSE_PEAKS'  'DERIV_PEAKS'  'PEAKS_COMPARE'  'DERIV_PEAKS_RUN'  'DERIV_PEAKS_SAVE'  'LATENT_IDENTIFICATION'  'DATA_RECONSTRUCTION'  'PEAK_IDENTIFICATION'  'DIRECTORY_ANALYSIS'  'DIRECTORY_FIG'  'DIRECTORY_UTIL_R'  'CREATE_R_CONTAINER'  'PLOT_R_PALETTE'  'PLOT_R_LS_QNORM_MED' })); % tag = pointer %CET: Computational Efficiency Trick
+				nnvariationalautoencoderevaluator_rs_tag_list = cellfun(@(x) NNVariationalAutoencoderEvaluator_RS.getPropTag(x), num2cell(NNVariationalAutoencoderEvaluator_RS.getProps()), 'UniformOutput', false);
+				prop = find(strcmp(pointer, nnvariationalautoencoderevaluator_rs_tag_list)); % tag = pointer
 			else % numeric
 				prop = pointer;
 			end
@@ -615,9 +590,74 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			if ischar(pointer)
 				tag = pointer;
 			else % numeric
-				%CET: Computational Efficiency Trick
-				nnvariationalautoencoderevaluator_rs_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'NN'  'D'  'PLOT_LATENT_REPRESENTATIONS'  'PREDICT_ENCODER'  'DPROC'  'IDX_LABEL_STRESS'  'STRESS_ORDER'  'STRESS_SEQ'  'STRESS_LABEL'  'STRESS_COLOUR'  'STRESS_SHAPE'  'IDX_LABEL_KIND'  'KIND_ORDER'  'IDX_LABEL_LOCATION'  'LOCATION_ORDER'  'LOCATION_ALIAS_FROM'  'LOCATION_ALIAS_TO'  'LATENT_REP'  'PREDICT_DECODER'  'CROSSING'  'RESOLUTION_CM'  'MERGE_CLOSE_PEAKS'  'DERIV_PEAKS'  'PEAKS_COMPARE'  'DERIV_PEAKS_RUN'  'DERIV_PEAKS_SAVE'  'LATENT_IDENTIFICATION'  'DATA_RECONSTRUCTION'  'PEAK_IDENTIFICATION'  'DIRECTORY_ANALYSIS'  'DIRECTORY_FIG'  'DIRECTORY_UTIL_R'  'CREATE_R_CONTAINER'  'PLOT_R_PALETTE'  'PLOT_R_LS_QNORM_MED' };
-				tag = nnvariationalautoencoderevaluator_rs_tag_list{pointer}; % prop = pointer
+				prop = pointer;
+				
+				switch prop
+					case NNVariationalAutoencoderEvaluator_RS.DPROC
+						tag = NNVariationalAutoencoderEvaluator_RS.DPROC_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS
+						tag = NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER
+						tag = NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
+						tag = NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL
+						tag = NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR
+						tag = NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE
+						tag = NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
+						tag = NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
+						tag = NNVariationalAutoencoderEvaluator_RS.KIND_ORDER_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
+						tag = NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
+						tag = NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM
+						tag = NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO
+						tag = NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.LATENT_REP
+						tag = NNVariationalAutoencoderEvaluator_RS.LATENT_REP_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER
+						tag = NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.CROSSING
+						tag = NNVariationalAutoencoderEvaluator_RS.CROSSING_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM
+						tag = NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS
+						tag = NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS
+						tag = NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE
+						tag = NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN
+						tag = NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE
+						tag = NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION
+						tag = NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION
+						tag = NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION
+						tag = NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS
+						tag = NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG
+						tag = NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R
+						tag = NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER
+						tag = NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
+						tag = NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE_TAG;
+					case NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
+						tag = NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED_TAG;
+					otherwise
+						tag = getPropTag@NNVariationalAutoencoderEvaluator(prop);
+				end
 			end
 		end
 		function prop_category = getPropCategory(pointer)
@@ -642,9 +682,72 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			
 			prop = NNVariationalAutoencoderEvaluator_RS.getPropProp(pointer);
 			
-			%CET: Computational Efficiency Trick
-			nnvariationalautoencoderevaluator_rs_category_list = { 1  1  1  3  4  2  2  6  4  4  6  6  4  3  6  3  3  3  3  3  6  3  6  3  3  5  6  6  3  6  6  6  6  6  6  6  6  4  4  4  6  6  6 };
-			prop_category = nnvariationalautoencoderevaluator_rs_category_list{prop};
+			switch prop
+				case NNVariationalAutoencoderEvaluator_RS.DPROC
+					prop_category = NNVariationalAutoencoderEvaluator_RS.DPROC_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS
+					prop_category = NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER
+					prop_category = NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
+					prop_category = NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL
+					prop_category = NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR
+					prop_category = NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE
+					prop_category = NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
+					prop_category = NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
+					prop_category = NNVariationalAutoencoderEvaluator_RS.KIND_ORDER_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
+					prop_category = NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
+					prop_category = NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM
+					prop_category = NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO
+					prop_category = NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_REP
+					prop_category = NNVariationalAutoencoderEvaluator_RS.LATENT_REP_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER
+					prop_category = NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.CROSSING
+					prop_category = NNVariationalAutoencoderEvaluator_RS.CROSSING_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM
+					prop_category = NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS
+					prop_category = NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS
+					prop_category = NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE
+					prop_category = NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN
+					prop_category = NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE
+					prop_category = NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION
+					prop_category = NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION
+					prop_category = NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION
+					prop_category = NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS
+					prop_category = NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG
+					prop_category = NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R
+					prop_category = NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER
+					prop_category = NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
+					prop_category = NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE_CATEGORY;
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
+					prop_category = NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED_CATEGORY;
+				otherwise
+					prop_category = getPropCategory@NNVariationalAutoencoderEvaluator(prop);
+			end
 		end
 		function prop_format = getPropFormat(pointer)
 			%GETPROPFORMAT returns the format of a property.
@@ -668,9 +771,72 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			
 			prop = NNVariationalAutoencoderEvaluator_RS.getPropProp(pointer);
 			
-			%CET: Computational Efficiency Trick
-			nnvariationalautoencoderevaluator_rs_format_list = { 2  2  2  8  2  2  2  2  8  8  1  16  8  11  3  3  3  3  3  11  3  11  3  3  3  16  1  16  11  14  16  16  16  16  1  1  1  2  2  2  16  1  1 };
-			prop_format = nnvariationalautoencoderevaluator_rs_format_list{prop};
+			switch prop
+				case NNVariationalAutoencoderEvaluator_RS.DPROC
+					prop_format = NNVariationalAutoencoderEvaluator_RS.DPROC_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS
+					prop_format = NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER
+					prop_format = NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
+					prop_format = NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL
+					prop_format = NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR
+					prop_format = NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE
+					prop_format = NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
+					prop_format = NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
+					prop_format = NNVariationalAutoencoderEvaluator_RS.KIND_ORDER_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
+					prop_format = NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
+					prop_format = NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM
+					prop_format = NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO
+					prop_format = NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_REP
+					prop_format = NNVariationalAutoencoderEvaluator_RS.LATENT_REP_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER
+					prop_format = NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.CROSSING
+					prop_format = NNVariationalAutoencoderEvaluator_RS.CROSSING_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM
+					prop_format = NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS
+					prop_format = NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS
+					prop_format = NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE
+					prop_format = NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN
+					prop_format = NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE
+					prop_format = NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION
+					prop_format = NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION
+					prop_format = NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION
+					prop_format = NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS
+					prop_format = NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG
+					prop_format = NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R
+					prop_format = NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER
+					prop_format = NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
+					prop_format = NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE_FORMAT;
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
+					prop_format = NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED_FORMAT;
+				otherwise
+					prop_format = getPropFormat@NNVariationalAutoencoderEvaluator(prop);
+			end
 		end
 		function prop_description = getPropDescription(pointer)
 			%GETPROPDESCRIPTION returns the description of a property.
@@ -694,9 +860,88 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			
 			prop = NNVariationalAutoencoderEvaluator_RS.getPropProp(pointer);
 			
-			%CET: Computational Efficiency Trick
-			nnvariationalautoencoderevaluator_rs_description_list = { 'ELCLASS (constant, string) is the class of the variational-autoencoder evaluator for Raman spectra.'  'NAME (constant, string) is the name of the variational-autoencoder evaluator for Raman spectra.'  'DESCRIPTION (constant, string) is the description of the variational-autoencoder evaluator for Raman spectra.'  'TEMPLATE (parameter, item) is the template of the variational-autoencoder evaluator for Raman spectra.'  'ID (data, string) is a few-letter code of the variational-autoencoder evaluator for Raman spectra.'  'LABEL (metadata, string) is an extended label of the variational-autoencoder evaluator for Raman spectra.'  'NOTES (metadata, string) are specific notes of the variational-autoencoder evaluator for Raman spectra.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'NN (data, item) contains a trained neural network model.'  'D (data, item) is the dataset to evaluate the neural network model.'  'PLOT_LATENT_REPRESENTATIONS (query, empty) is to plot latetn representations.'  'PREDICT_ENCODER (query, cell) returns {Z, Y} where Z are latent means (one column per data point) and Y are corresponding label vectors from D via the minibatch queue.'  'DPROC (data, item) is the Raman-spectra dataset process used for inverse normalisation/transform during decoding.'  'IDX_LABEL_STRESS (parameter, scalar) is the row index in TARGET_CLASS corresponding to stress.'  'STRESS_ORDER (query, stringlist) returns the unique stress tokens present in LATENT_REP in stable order.'  'STRESS_SEQ (parameter, stringlist) is the canonical plotting order of stresses used for export and R figures.'  'STRESS_LABEL (parameter, stringlist) are human-readable stress labels aligned with STRESS_SEQ.'  'STRESS_COLOUR (parameter, stringlist) are hex colours aligned with STRESS_SEQ.'  'STRESS_SHAPE (parameter, stringlist) are point shapes aligned with STRESS_SEQ.'  'IDX_LABEL_KIND (parameter, scalar) is the row index in TARGET_CLASS corresponding to species/kind.'  'KIND_ORDER (query, stringlist) returns the unique species/kind tokens present in LATENT_REP in stable order.'  'IDX_LABEL_LOCATION (parameter, scalar) is the row index in TARGET_CLASS corresponding to location.'  'LOCATION_ORDER (query, stringlist) returns the unique location tokens present in LATENT_REP in stable order.'  'LOCATION_ALIAS_FROM (parameter, stringlist) lists source location labels to be replaced during export.'  'LOCATION_ALIAS_TO (parameter, stringlist) lists target location labels used to replace LOCATION_ALIAS_FROM; it must have the same length as LOCATION_ALIAS_FROM.'  'LATENT_REP (result, cell) stores {Z, Y} where Z are latent representations and Y are label vectors aligned to Z for downstream analyses.'  'PREDICT_DECODER (query, empty) decodes selected latent vectors to spectra and returns a 1xN cell of column vectors (options: one-to-one/median/mean; inverse normalisation/transform toggles).'  'CROSSING (query, cell) returns {ind, t0, s0} for level crossings of S at level with interpolation method and direction.'  'RESOLUTION_CM (parameter, scalar) is the instrument resolution in cm^-1 used to merge nearby peaks.'  'MERGE_CLOSE_PEAKS (query, matrix) merges ranked peaks closer than the instrument resolution in cm^-1.'  'DERIV_PEAKS (query, cell) returns {PEAKS_TABLE, PEAKS_RANKED_BY_AREA, ind_p2n, ind_all, area, peak_wavs} from p→n zero-crossings of the derivative spectrum.'  'PEAKS_COMPARE (query, cell) returns pairwise peak-area differences between two conditions with integer-wavenumber matching tolerance.'  'DERIV_PEAKS_RUN (query, cell) returns {COND, COMP} by running DERIV_PEAKS per condition and all pairwise comparisons.'  'DERIV_PEAKS_SAVE (query, cell) saves per-condition ranked tables and pairwise ranked differences using legacy-compatible filenames.'  'LATENT_IDENTIFICATION (query, empty) exports per-species×location latent cells z1/z2 and ranges aligned with STRESS_SEQ for the R plotting pipeline.'  'DATA_RECONSTRUCTION (query, empty) decodes median spectra per stress for each species×location and saves R-ready .mat files.'  'PEAK_IDENTIFICATION (query, empty) decodes per species, detects derivative peaks per stress, runs all pairwise comparisons, and saves ranked tables.'  'DIRECTORY_ANALYSIS (data, string) is the directory where intermediate .mat files and analysis outputs are saved.'  'DIRECTORY_FIG (data, string) is the directory where figures are exported.'  'DIRECTORY_UTIL_R (data, string) is the directory containing the R scripts and Dockerfile used for plotting.'  'CREATE_R_CONTAINER (query, cell) ensures the plotting Docker image exists and returns {image_tag}.'  'PLOT_R_PALETTE (query, empty) generates palette figures via Docker+R (generic_fig_palette_p1.R) after preparing latent, reconstruction, and identification outputs.'  'PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R (generic_plot_ls_qnorm_med.R) after preparing required .mat inputs.' };
-			prop_description = nnvariationalautoencoderevaluator_rs_description_list{prop};
+			switch prop
+				case NNVariationalAutoencoderEvaluator_RS.DPROC
+					prop_description = 'DPROC (data, item) is the Raman-spectra dataset process used for inverse normalisation/transform during decoding.';
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS
+					prop_description = 'IDX_LABEL_STRESS (parameter, scalar) is the row index in TARGET_CLASS corresponding to stress.';
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER
+					prop_description = 'STRESS_ORDER (query, stringlist) returns the unique stress tokens present in LATENT_REP in stable order.';
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
+					prop_description = 'STRESS_SEQ (parameter, stringlist) is the canonical plotting order of stresses used for export and R figures.';
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL
+					prop_description = 'STRESS_LABEL (parameter, stringlist) are human-readable stress labels aligned with STRESS_SEQ.';
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR
+					prop_description = 'STRESS_COLOUR (parameter, stringlist) are hex colours aligned with STRESS_SEQ.';
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE
+					prop_description = 'STRESS_SHAPE (parameter, stringlist) are point shapes aligned with STRESS_SEQ.';
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
+					prop_description = 'IDX_LABEL_KIND (parameter, scalar) is the row index in TARGET_CLASS corresponding to species/kind.';
+				case NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
+					prop_description = 'KIND_ORDER (query, stringlist) returns the unique species/kind tokens present in LATENT_REP in stable order.';
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
+					prop_description = 'IDX_LABEL_LOCATION (parameter, scalar) is the row index in TARGET_CLASS corresponding to location.';
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
+					prop_description = 'LOCATION_ORDER (query, stringlist) returns the unique location tokens present in LATENT_REP in stable order.';
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM
+					prop_description = 'LOCATION_ALIAS_FROM (parameter, stringlist) lists source location labels to be replaced during export.';
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO
+					prop_description = 'LOCATION_ALIAS_TO (parameter, stringlist) lists target location labels used to replace LOCATION_ALIAS_FROM; it must have the same length as LOCATION_ALIAS_FROM.';
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_REP
+					prop_description = 'LATENT_REP (result, cell) stores {Z, Y} where Z are latent representations and Y are label vectors aligned to Z for downstream analyses.';
+				case NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER
+					prop_description = 'PREDICT_DECODER (query, empty) decodes selected latent vectors to spectra and returns a 1xN cell of column vectors (options: one-to-one/median/mean; inverse normalisation/transform toggles).';
+				case NNVariationalAutoencoderEvaluator_RS.CROSSING
+					prop_description = 'CROSSING (query, cell) returns {ind, t0, s0} for level crossings of S at level with interpolation method and direction.';
+				case NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM
+					prop_description = 'RESOLUTION_CM (parameter, scalar) is the instrument resolution in cm^-1 used to merge nearby peaks.';
+				case NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS
+					prop_description = 'MERGE_CLOSE_PEAKS (query, matrix) merges ranked peaks closer than the instrument resolution in cm^-1.';
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS
+					prop_description = 'DERIV_PEAKS (query, cell) returns {PEAKS_TABLE, PEAKS_RANKED_BY_AREA, ind_p2n, ind_all, area, peak_wavs} from p→n zero-crossings of the derivative spectrum.';
+				case NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE
+					prop_description = 'PEAKS_COMPARE (query, cell) returns pairwise peak-area differences between two conditions with integer-wavenumber matching tolerance.';
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN
+					prop_description = 'DERIV_PEAKS_RUN (query, cell) returns {COND, COMP} by running DERIV_PEAKS per condition and all pairwise comparisons.';
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE
+					prop_description = 'DERIV_PEAKS_SAVE (query, cell) saves per-condition ranked tables and pairwise ranked differences using legacy-compatible filenames.';
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION
+					prop_description = 'LATENT_IDENTIFICATION (query, empty) exports per-species×location latent cells z1/z2 and ranges aligned with STRESS_SEQ for the R plotting pipeline.';
+				case NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION
+					prop_description = 'DATA_RECONSTRUCTION (query, empty) decodes median spectra per stress for each species×location and saves R-ready .mat files.';
+				case NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION
+					prop_description = 'PEAK_IDENTIFICATION (query, empty) decodes per species, detects derivative peaks per stress, runs all pairwise comparisons, and saves ranked tables.';
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS
+					prop_description = 'DIRECTORY_ANALYSIS (data, string) is the directory where intermediate .mat files and analysis outputs are saved.';
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG
+					prop_description = 'DIRECTORY_FIG (data, string) is the directory where figures are exported.';
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R
+					prop_description = 'DIRECTORY_UTIL_R (data, string) is the directory containing the R scripts and Dockerfile used for plotting.';
+				case NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER
+					prop_description = 'CREATE_R_CONTAINER (query, cell) ensures the plotting Docker image exists and returns {image_tag}.';
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
+					prop_description = 'PLOT_R_PALETTE (query, empty) generates palette figures via Docker+R (generic_fig_palette_p1.R) after preparing latent, reconstruction, and identification outputs.';
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
+					prop_description = 'PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R (generic_plot_ls_qnorm_med.R) after preparing required .mat inputs.';
+				case NNVariationalAutoencoderEvaluator_RS.ELCLASS
+					prop_description = 'ELCLASS (constant, string) is the class of the variational-autoencoder evaluator for Raman spectra.';
+				case NNVariationalAutoencoderEvaluator_RS.NAME
+					prop_description = 'NAME (constant, string) is the name of the variational-autoencoder evaluator for Raman spectra.';
+				case NNVariationalAutoencoderEvaluator_RS.DESCRIPTION
+					prop_description = 'DESCRIPTION (constant, string) is the description of the variational-autoencoder evaluator for Raman spectra.';
+				case NNVariationalAutoencoderEvaluator_RS.TEMPLATE
+					prop_description = 'TEMPLATE (parameter, item) is the template of the variational-autoencoder evaluator for Raman spectra.';
+				case NNVariationalAutoencoderEvaluator_RS.ID
+					prop_description = 'ID (data, string) is a few-letter code of the variational-autoencoder evaluator for Raman spectra.';
+				case NNVariationalAutoencoderEvaluator_RS.LABEL
+					prop_description = 'LABEL (metadata, string) is an extended label of the variational-autoencoder evaluator for Raman spectra.';
+				case NNVariationalAutoencoderEvaluator_RS.NOTES
+					prop_description = 'NOTES (metadata, string) are specific notes of the variational-autoencoder evaluator for Raman spectra.';
+				case NNVariationalAutoencoderEvaluator_RS.PREDICT_ENCODER
+					prop_description = 'PREDICT_ENCODER (query, cell) returns {Z, Y} where Z are latent means (one column per data point) and Y are corresponding label vectors from D via the minibatch queue.';
+				otherwise
+					prop_description = getPropDescription@NNVariationalAutoencoderEvaluator(prop);
+			end
 		end
 		function prop_settings = getPropSettings(pointer)
 			%GETPROPSETTINGS returns the settings of a property.
@@ -720,70 +965,70 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			
 			prop = NNVariationalAutoencoderEvaluator_RS.getPropProp(pointer);
 			
-			switch prop %CET: Computational Efficiency Trick
-				case 13 % NNVariationalAutoencoderEvaluator_RS.DPROC
+			switch prop
+				case NNVariationalAutoencoderEvaluator_RS.DPROC
 					prop_settings = 'NNDatasetProcess_RamanSpectra';
-				case 14 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS
-					prop_settings = Format.getFormatSettings(11);
-				case 15 % NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER
-					prop_settings = Format.getFormatSettings(3);
-				case 16 % NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
-					prop_settings = Format.getFormatSettings(3);
-				case 17 % NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL
-					prop_settings = Format.getFormatSettings(3);
-				case 18 % NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR
-					prop_settings = Format.getFormatSettings(3);
-				case 19 % NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE
-					prop_settings = Format.getFormatSettings(3);
-				case 20 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
-					prop_settings = Format.getFormatSettings(11);
-				case 21 % NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
-					prop_settings = Format.getFormatSettings(3);
-				case 22 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
-					prop_settings = Format.getFormatSettings(11);
-				case 23 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
-					prop_settings = Format.getFormatSettings(3);
-				case 24 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM
-					prop_settings = Format.getFormatSettings(3);
-				case 25 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO
-					prop_settings = Format.getFormatSettings(3);
-				case 26 % NNVariationalAutoencoderEvaluator_RS.LATENT_REP
-					prop_settings = Format.getFormatSettings(16);
-				case 27 % NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER
-					prop_settings = Format.getFormatSettings(1);
-				case 28 % NNVariationalAutoencoderEvaluator_RS.CROSSING
-					prop_settings = Format.getFormatSettings(16);
-				case 29 % NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM
-					prop_settings = Format.getFormatSettings(11);
-				case 30 % NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS
-					prop_settings = Format.getFormatSettings(14);
-				case 31 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS
-					prop_settings = Format.getFormatSettings(16);
-				case 32 % NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE
-					prop_settings = Format.getFormatSettings(16);
-				case 33 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN
-					prop_settings = Format.getFormatSettings(16);
-				case 34 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE
-					prop_settings = Format.getFormatSettings(16);
-				case 35 % NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION
-					prop_settings = Format.getFormatSettings(1);
-				case 36 % NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION
-					prop_settings = Format.getFormatSettings(1);
-				case 37 % NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION
-					prop_settings = Format.getFormatSettings(1);
-				case 38 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS
-					prop_settings = Format.getFormatSettings(2);
-				case 39 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG
-					prop_settings = Format.getFormatSettings(2);
-				case 40 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R
-					prop_settings = Format.getFormatSettings(2);
-				case 41 % NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER
-					prop_settings = Format.getFormatSettings(16);
-				case 42 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
-					prop_settings = Format.getFormatSettings(1);
-				case 43 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
-					prop_settings = Format.getFormatSettings(1);
-				case 4 % NNVariationalAutoencoderEvaluator_RS.TEMPLATE
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS
+					prop_settings = Format.getFormatSettings(Format.SCALAR);
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER
+					prop_settings = Format.getFormatSettings(Format.STRINGLIST);
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
+					prop_settings = Format.getFormatSettings(Format.STRINGLIST);
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL
+					prop_settings = Format.getFormatSettings(Format.STRINGLIST);
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR
+					prop_settings = Format.getFormatSettings(Format.STRINGLIST);
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE
+					prop_settings = Format.getFormatSettings(Format.STRINGLIST);
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
+					prop_settings = Format.getFormatSettings(Format.SCALAR);
+				case NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
+					prop_settings = Format.getFormatSettings(Format.STRINGLIST);
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
+					prop_settings = Format.getFormatSettings(Format.SCALAR);
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
+					prop_settings = Format.getFormatSettings(Format.STRINGLIST);
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM
+					prop_settings = Format.getFormatSettings(Format.STRINGLIST);
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO
+					prop_settings = Format.getFormatSettings(Format.STRINGLIST);
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_REP
+					prop_settings = Format.getFormatSettings(Format.CELL);
+				case NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER
+					prop_settings = Format.getFormatSettings(Format.EMPTY);
+				case NNVariationalAutoencoderEvaluator_RS.CROSSING
+					prop_settings = Format.getFormatSettings(Format.CELL);
+				case NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM
+					prop_settings = Format.getFormatSettings(Format.SCALAR);
+				case NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS
+					prop_settings = Format.getFormatSettings(Format.MATRIX);
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS
+					prop_settings = Format.getFormatSettings(Format.CELL);
+				case NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE
+					prop_settings = Format.getFormatSettings(Format.CELL);
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN
+					prop_settings = Format.getFormatSettings(Format.CELL);
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE
+					prop_settings = Format.getFormatSettings(Format.CELL);
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION
+					prop_settings = Format.getFormatSettings(Format.EMPTY);
+				case NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION
+					prop_settings = Format.getFormatSettings(Format.EMPTY);
+				case NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION
+					prop_settings = Format.getFormatSettings(Format.EMPTY);
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS
+					prop_settings = Format.getFormatSettings(Format.STRING);
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG
+					prop_settings = Format.getFormatSettings(Format.STRING);
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R
+					prop_settings = Format.getFormatSettings(Format.STRING);
+				case NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER
+					prop_settings = Format.getFormatSettings(Format.CELL);
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
+					prop_settings = Format.getFormatSettings(Format.EMPTY);
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
+					prop_settings = Format.getFormatSettings(Format.EMPTY);
+				case NNVariationalAutoencoderEvaluator_RS.TEMPLATE
 					prop_settings = 'NNVariationalAutoencoderEvaluator_RS';
 				otherwise
 					prop_settings = getPropSettings@NNVariationalAutoencoderEvaluator(prop);
@@ -811,82 +1056,82 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			
 			prop = NNVariationalAutoencoderEvaluator_RS.getPropProp(pointer);
 			
-			switch prop %CET: Computational Efficiency Trick
-				case 13 % NNVariationalAutoencoderEvaluator_RS.DPROC
-					prop_default = Format.getFormatDefault(8, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 14 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS
+			switch prop
+				case NNVariationalAutoencoderEvaluator_RS.DPROC
+					prop_default = Format.getFormatDefault(Format.ITEM, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS
 					prop_default = 2;
-				case 15 % NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER
-					prop_default = Format.getFormatDefault(3, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 16 % NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER
+					prop_default = Format.getFormatDefault(Format.STRINGLIST, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
 					prop_default = {'HL', 'WL', 'LL', 'SH'};
-				case 17 % NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL
 					prop_default = {'High light', 'White light', 'Low light', 'Shade'};
-				case 18 % NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR
 					prop_default = {'#E64B35FF', '#7E6148FF', '#4DBBD5FF', '#3C5488FF'};
-				case 19 % NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE
 					prop_default = {'square', 'circle', 'triangle', 'diamond'};
-				case 20 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
 					prop_default = 1;
-				case 21 % NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
-					prop_default = Format.getFormatDefault(3, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 22 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
+				case NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
+					prop_default = Format.getFormatDefault(Format.STRINGLIST, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
 					prop_default = 3;
-				case 23 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
-					prop_default = Format.getFormatDefault(3, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 24 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
+					prop_default = Format.getFormatDefault(Format.STRINGLIST, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM
 					prop_default = {};
-				case 25 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO
 					prop_default = {};
-				case 26 % NNVariationalAutoencoderEvaluator_RS.LATENT_REP
-					prop_default = Format.getFormatDefault(16, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 27 % NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER
-					prop_default = Format.getFormatDefault(1, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 28 % NNVariationalAutoencoderEvaluator_RS.CROSSING
-					prop_default = Format.getFormatDefault(16, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 29 % NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_REP
+					prop_default = Format.getFormatDefault(Format.CELL, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER
+					prop_default = Format.getFormatDefault(Format.EMPTY, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.CROSSING
+					prop_default = Format.getFormatDefault(Format.CELL, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM
 					prop_default = 6;
-				case 30 % NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS
-					prop_default = Format.getFormatDefault(14, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 31 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS
-					prop_default = Format.getFormatDefault(16, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 32 % NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE
-					prop_default = Format.getFormatDefault(16, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 33 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN
-					prop_default = Format.getFormatDefault(16, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 34 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE
-					prop_default = Format.getFormatDefault(16, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 35 % NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION
-					prop_default = Format.getFormatDefault(1, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 36 % NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION
-					prop_default = Format.getFormatDefault(1, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 37 % NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION
-					prop_default = Format.getFormatDefault(1, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 38 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS
+				case NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS
+					prop_default = Format.getFormatDefault(Format.MATRIX, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS
+					prop_default = Format.getFormatDefault(Format.CELL, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE
+					prop_default = Format.getFormatDefault(Format.CELL, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN
+					prop_default = Format.getFormatDefault(Format.CELL, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE
+					prop_default = Format.getFormatDefault(Format.CELL, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION
+					prop_default = Format.getFormatDefault(Format.EMPTY, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION
+					prop_default = Format.getFormatDefault(Format.EMPTY, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION
+					prop_default = Format.getFormatDefault(Format.EMPTY, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS
 					prop_default = fileparts(which('test_braph2'));
-				case 39 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG
 					prop_default = fileparts(which('test_braph2'));
-				case 40 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R
 					prop_default = fileparts(which('test_braph2'));
-				case 41 % NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER
-					prop_default = Format.getFormatDefault(16, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 42 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
-					prop_default = Format.getFormatDefault(1, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 43 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
-					prop_default = Format.getFormatDefault(1, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 1 % NNVariationalAutoencoderEvaluator_RS.ELCLASS
+				case NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER
+					prop_default = Format.getFormatDefault(Format.CELL, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
+					prop_default = Format.getFormatDefault(Format.EMPTY, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
+					prop_default = Format.getFormatDefault(Format.EMPTY, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.ELCLASS
 					prop_default = 'NNVariationalAutoencoderEvaluator_RS';
-				case 2 % NNVariationalAutoencoderEvaluator_RS.NAME
+				case NNVariationalAutoencoderEvaluator_RS.NAME
 					prop_default = 'Neural Network Evaluator';
-				case 3 % NNVariationalAutoencoderEvaluator_RS.DESCRIPTION
+				case NNVariationalAutoencoderEvaluator_RS.DESCRIPTION
 					prop_default = 'A variational-autoencoder evaluator (NNVariationalAutoencoderEvaluator_RS) evaluates a trained model on a specific dataset, producing latent representations, decoded spectra, peak analyses, and Docker-backed R figures for Raman-spectra workflows. Instances of this class should not be created directly—use one of its subclasses.';
-				case 4 % NNVariationalAutoencoderEvaluator_RS.TEMPLATE
-					prop_default = Format.getFormatDefault(8, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 5 % NNVariationalAutoencoderEvaluator_RS.ID
+				case NNVariationalAutoencoderEvaluator_RS.TEMPLATE
+					prop_default = Format.getFormatDefault(Format.ITEM, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.ID
 					prop_default = 'NNEvaluator ID';
-				case 6 % NNVariationalAutoencoderEvaluator_RS.LABEL
+				case NNVariationalAutoencoderEvaluator_RS.LABEL
 					prop_default = 'NNEvaluator label';
-				case 7 % NNVariationalAutoencoderEvaluator_RS.NOTES
+				case NNVariationalAutoencoderEvaluator_RS.NOTES
 					prop_default = 'NNEvaluator notes';
 				otherwise
 					prop_default = getPropDefault@NNVariationalAutoencoderEvaluator(prop);
@@ -933,15 +1178,15 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			% 
 			% NNE.CHECKPROP(POINTER, VALUE) throws an error if VALUE is
 			%  NOT an acceptable value for the format of the property POINTER.
-			%  Error id: BRAPH2:NNVariationalAutoencoderEvaluator_RS:WrongInput
+			%  Error id: €BRAPH2.STR€:NNVariationalAutoencoderEvaluator_RS:€BRAPH2.WRONG_INPUT€
 			% 
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
 			%  NNE.CHECKPROP(POINTER, VALUE) throws error if VALUE has not a valid format for PROP of NNE.
-			%   Error id: BRAPH2:NNVariationalAutoencoderEvaluator_RS:WrongInput
+			%   Error id: €BRAPH2.STR€:NNVariationalAutoencoderEvaluator_RS:€BRAPH2.WRONG_INPUT€
 			%  Element.CHECKPROP(NNVariationalAutoencoderEvaluator_RS, PROP, VALUE) throws error if VALUE has not a valid format for PROP of NNVariationalAutoencoderEvaluator_RS.
-			%   Error id: BRAPH2:NNVariationalAutoencoderEvaluator_RS:WrongInput
+			%   Error id: €BRAPH2.STR€:NNVariationalAutoencoderEvaluator_RS:€BRAPH2.WRONG_INPUT€
 			%  NNE.CHECKPROP(NNVariationalAutoencoderEvaluator_RS, PROP, VALUE) throws error if VALUE has not a valid format for PROP of NNVariationalAutoencoderEvaluator_RS.
-			%   Error id: BRAPH2:NNVariationalAutoencoderEvaluator_RS:WrongInput]
+			%   Error id: €BRAPH2.STR€:NNVariationalAutoencoderEvaluator_RS:€BRAPH2.WRONG_INPUT€]
 			% 
 			% Note that the Element.CHECKPROP(NNE) and Element.CHECKPROP('NNVariationalAutoencoderEvaluator_RS')
 			%  are less computationally efficient.
@@ -952,72 +1197,72 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			prop = NNVariationalAutoencoderEvaluator_RS.getPropProp(pointer);
 			
 			switch prop
-				case 13 % NNVariationalAutoencoderEvaluator_RS.DPROC
-					check = Format.checkFormat(8, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 14 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS
-					check = Format.checkFormat(11, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 15 % NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER
-					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 16 % NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ
-					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 17 % NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL
-					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 18 % NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR
-					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 19 % NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE
-					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 20 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND
-					check = Format.checkFormat(11, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 21 % NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
-					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 22 % NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION
-					check = Format.checkFormat(11, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 23 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
-					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 24 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM
-					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 25 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO
-					check = Format.checkFormat(3, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 26 % NNVariationalAutoencoderEvaluator_RS.LATENT_REP
-					check = Format.checkFormat(16, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 27 % NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER
-					check = Format.checkFormat(1, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 28 % NNVariationalAutoencoderEvaluator_RS.CROSSING
-					check = Format.checkFormat(16, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 29 % NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM
-					check = Format.checkFormat(11, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 30 % NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS
-					check = Format.checkFormat(14, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 31 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS
-					check = Format.checkFormat(16, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 32 % NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE
-					check = Format.checkFormat(16, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 33 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN
-					check = Format.checkFormat(16, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 34 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE
-					check = Format.checkFormat(16, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 35 % NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION
-					check = Format.checkFormat(1, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 36 % NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION
-					check = Format.checkFormat(1, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 37 % NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION
-					check = Format.checkFormat(1, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 38 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS
-					check = Format.checkFormat(2, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 39 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG
-					check = Format.checkFormat(2, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 40 % NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R
-					check = Format.checkFormat(2, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 41 % NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER
-					check = Format.checkFormat(16, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 42 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
-					check = Format.checkFormat(1, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 43 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
-					check = Format.checkFormat(1, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
-				case 4 % NNVariationalAutoencoderEvaluator_RS.TEMPLATE
-					check = Format.checkFormat(8, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DPROC % __NNVariationalAutoencoderEvaluator_RS.DPROC__
+					check = Format.checkFormat(Format.ITEM, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS % __NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_STRESS__
+					check = Format.checkFormat(Format.SCALAR, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER % __NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER__
+					check = Format.checkFormat(Format.STRINGLIST, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ % __NNVariationalAutoencoderEvaluator_RS.STRESS_SEQ__
+					check = Format.checkFormat(Format.STRINGLIST, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL % __NNVariationalAutoencoderEvaluator_RS.STRESS_LABEL__
+					check = Format.checkFormat(Format.STRINGLIST, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR % __NNVariationalAutoencoderEvaluator_RS.STRESS_COLOUR__
+					check = Format.checkFormat(Format.STRINGLIST, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE % __NNVariationalAutoencoderEvaluator_RS.STRESS_SHAPE__
+					check = Format.checkFormat(Format.STRINGLIST, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND % __NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_KIND__
+					check = Format.checkFormat(Format.SCALAR, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.KIND_ORDER % __NNVariationalAutoencoderEvaluator_RS.KIND_ORDER__
+					check = Format.checkFormat(Format.STRINGLIST, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION % __NNVariationalAutoencoderEvaluator_RS.IDX_LABEL_LOCATION__
+					check = Format.checkFormat(Format.SCALAR, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER % __NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER__
+					check = Format.checkFormat(Format.STRINGLIST, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM % __NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_FROM__
+					check = Format.checkFormat(Format.STRINGLIST, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO % __NNVariationalAutoencoderEvaluator_RS.LOCATION_ALIAS_TO__
+					check = Format.checkFormat(Format.STRINGLIST, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_REP % __NNVariationalAutoencoderEvaluator_RS.LATENT_REP__
+					check = Format.checkFormat(Format.CELL, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER % __NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER__
+					check = Format.checkFormat(Format.EMPTY, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.CROSSING % __NNVariationalAutoencoderEvaluator_RS.CROSSING__
+					check = Format.checkFormat(Format.CELL, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM % __NNVariationalAutoencoderEvaluator_RS.RESOLUTION_CM__
+					check = Format.checkFormat(Format.SCALAR, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS % __NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS__
+					check = Format.checkFormat(Format.MATRIX, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS % __NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS__
+					check = Format.checkFormat(Format.CELL, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE % __NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE__
+					check = Format.checkFormat(Format.CELL, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN % __NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN__
+					check = Format.checkFormat(Format.CELL, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE % __NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE__
+					check = Format.checkFormat(Format.CELL, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION % __NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION__
+					check = Format.checkFormat(Format.EMPTY, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION % __NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION__
+					check = Format.checkFormat(Format.EMPTY, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION % __NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION__
+					check = Format.checkFormat(Format.EMPTY, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS % __NNVariationalAutoencoderEvaluator_RS.DIRECTORY_ANALYSIS__
+					check = Format.checkFormat(Format.STRING, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG % __NNVariationalAutoencoderEvaluator_RS.DIRECTORY_FIG__
+					check = Format.checkFormat(Format.STRING, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R % __NNVariationalAutoencoderEvaluator_RS.DIRECTORY_UTIL_R__
+					check = Format.checkFormat(Format.STRING, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER % __NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER__
+					check = Format.checkFormat(Format.CELL, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE % __NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE__
+					check = Format.checkFormat(Format.EMPTY, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED % __NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED__
+					check = Format.checkFormat(Format.EMPTY, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
+				case NNVariationalAutoencoderEvaluator_RS.TEMPLATE % __NNVariationalAutoencoderEvaluator_RS.TEMPLATE__
+					check = Format.checkFormat(Format.ITEM, value, NNVariationalAutoencoderEvaluator_RS.getPropSettings(prop));
 				otherwise
-					if prop <= 12
+					if prop <= NNVariationalAutoencoderEvaluator.getPropNumber()
 						check = checkProp@NNVariationalAutoencoderEvaluator(prop, value);
 					end
 			end
@@ -1026,8 +1271,8 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 				prop_check = check;
 			elseif ~check
 				error( ...
-					['BRAPH2' ':NNVariationalAutoencoderEvaluator_RS:' 'WrongInput'], ...
-					['BRAPH2' ':NNVariationalAutoencoderEvaluator_RS:' 'WrongInput' '\n' ...
+					[BRAPH2.STR ':NNVariationalAutoencoderEvaluator_RS:' BRAPH2.WRONG_INPUT], ...
+					[BRAPH2.STR ':NNVariationalAutoencoderEvaluator_RS:' BRAPH2.WRONG_INPUT '\n' ...
 					'The value ' tostring(value, 100, ' ...') ' is not a valid property ' NNVariationalAutoencoderEvaluator_RS.getPropTag(prop) ' (' NNVariationalAutoencoderEvaluator_RS.getFormatTag(NNVariationalAutoencoderEvaluator_RS.getPropFormat(prop)) ').'] ...
 					)
 			end
@@ -1038,38 +1283,38 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 			%CALCULATEVALUE calculates the value of a property.
 			%
 			% VALUE = CALCULATEVALUE(EL, PROP) calculates the value of the property
-			%  PROP. It works only with properties with 5,
-			%  6, and 7. By default this function
+			%  PROP. It works only with properties with Category.RESULT,
+			%  Category.QUERY, and Category.EVANESCENT. By default this function
 			%  returns the default value for the prop and should be implemented in the
 			%  subclasses of Element when needed.
 			%
 			% VALUE = CALCULATEVALUE(EL, PROP, VARARGIN) works with properties with
-			%  6.
+			%  Category.QUERY.
 			%
 			% See also getPropDefaultConditioned, conditioning, preset, checkProp,
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case 15 % NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER
+				case NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER % __NNVariationalAutoencoderEvaluator_RS.STRESS_ORDER__
 					idx = nne.get('IDX_LABEL_STRESS');
 					latent_rep = nne.get('LATENT_REP');
 					YLatent = latent_rep{2};
 					value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'UniformOutput', false)));
 					
-				case 21 % NNVariationalAutoencoderEvaluator_RS.KIND_ORDER
+				case NNVariationalAutoencoderEvaluator_RS.KIND_ORDER % __NNVariationalAutoencoderEvaluator_RS.KIND_ORDER__
 					idx = nne.get('IDX_LABEL_KIND');
 					latent_rep = nne.get('LATENT_REP');
 					YLatent = latent_rep{2};
 					value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'UniformOutput', false)));
 					
-				case 23 % NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER
+				case NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER % __NNVariationalAutoencoderEvaluator_RS.LOCATION_ORDER__
 					idx = nne.get('IDX_LABEL_LOCATION');
 					latent_rep = nne.get('LATENT_REP');
 					YLatent = latent_rep{2};
 					value = unique(string(cellfun(@(ind_labels) string(ind_labels(idx)), YLatent, 'UniformOutput', false)));
 					
-				case 26 % NNVariationalAutoencoderEvaluator_RS.LATENT_REP
-					rng_settings_ = rng(); rng(nne.getPropSeed(26), 'twister')
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_REP % __NNVariationalAutoencoderEvaluator_RS.LATENT_REP__
+					rng_settings_ = rng(); rng(nne.getPropSeed(NNVariationalAutoencoderEvaluator_RS.LATENT_REP), 'twister')
 					
 					nnvae = nne.get('NN');
 					if strcmp(class(nnvae), 'NNBase')
@@ -1084,7 +1329,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					rng(rng_settings_)
 					
-				case 27 % NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER
+				case NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER % __NNVariationalAutoencoderEvaluator_RS.PREDICT_DECODER__
 					latent_rep = nne.get('LATENT_REP');
 					ZLatent = latent_rep{1};
 					YLatent = latent_rep{2};
@@ -1132,7 +1377,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					    value{i} = decoded_inputs(:, i);
 					end
 					
-				case 28 % NNVariationalAutoencoderEvaluator_RS.CROSSING
+				case NNVariationalAutoencoderEvaluator_RS.CROSSING % __NNVariationalAutoencoderEvaluator_RS.CROSSING__
 					% VALUE = nne.get('CROSSING', S)
 					% VALUE = nne.get('CROSSING', S, t)
 					% VALUE = nne.get('CROSSING', S, t, level)
@@ -1195,7 +1440,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = {ind, t0, s0};
 					
-				case 30 % NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS
+				case NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS % __NNVariationalAutoencoderEvaluator_RS.MERGE_CLOSE_PEAKS__
 					% VALUE = nne.get('MERGE_CLOSE_PEAKS', ranked_sig_pks)
 					% VALUE = nne.get('MERGE_CLOSE_PEAKS', ranked_sig_pks, resolution_cm)
 					
@@ -1261,7 +1506,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = merged_sig_pks;
 					
-				case 31 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS % __NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS__
 					% VALUE = nne.get('DERIV_PEAKS', y, x)
 					% VALUE = nne.get('DERIV_PEAKS', y, x, imeth)
 					
@@ -1301,7 +1546,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = {PEAKS_TABLE, PEAKS_RANKED_BY_AREA, ind_p2n(:), ind_all(:), area(:), peak_wavs(:)};
 					
-				case 32 % NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE
+				case NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE % __NNVariationalAutoencoderEvaluator_RS.PEAKS_COMPARE__
 					% VALUE = nne.get('PEAKS_COMPARE', peaks_A, peaks_B, nameA, nameB)
 					% VALUE = nne.get('PEAKS_COMPARE', peaks_A, peaks_B, nameA, nameB, tolInt)
 					
@@ -1341,7 +1586,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = {LABEL, RANKED_ABS_DIFF, W, DIFF, DIFF_PERC, DIFF_ABS, DIFF_ABS_PERC};
 					
-				case 33 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN % __NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_RUN__
 					% VALUE = nne.get('DERIV_PEAKS_RUN', data_cell, x, cond_labels)
 					% VALUE = nne.get('DERIV_PEAKS_RUN', data_cell, x, cond_labels, imeth, tolInt)
 					
@@ -1381,7 +1626,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = {COND, COMP};
 					
-				case 34 % NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE
+				case NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE % __NNVariationalAutoencoderEvaluator_RS.DERIV_PEAKS_SAVE__
 					% nne.get('DERIV_PEAKS_SAVE', COND, COMP, state)
 					
 					if isempty(varargin)
@@ -1429,7 +1674,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = {};
 					
-				case 35 % NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION
+				case NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION % __NNVariationalAutoencoderEvaluator_RS.LATENT_IDENTIFICATION__
 					% Side-effect: writes latent_<species>_<location>.mat with z1, z2, z1_range, z2_range and stress metadata.
 					
 					d = nne.get('D');
@@ -1564,7 +1809,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = {};
 					
-				case 36 % NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION
+				case NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION % __NNVariationalAutoencoderEvaluator_RS.DATA_RECONSTRUCTION__
 					d = nne.get('D');
 					num_dp = d.get('DP_DICT').get('LENGTH');
 					if num_dp == 0
@@ -1704,7 +1949,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = {};
 					
-				case 37 % NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION
+				case NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION % __NNVariationalAutoencoderEvaluator_RS.PEAK_IDENTIFICATION__
 					d = nne.get('D');
 					num_dp = d.get('DP_DICT').get('LENGTH');
 					if num_dp == 0
@@ -1769,7 +2014,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = {};
 					
-				case 41 % NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER
+				case NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER % __NNVariationalAutoencoderEvaluator_RS.CREATE_R_CONTAINER__
 					% VALUE = nne.get('CREATE_R_CONTAINER')
 					% VALUE = nne.get('CREATE_R_CONTAINER', docker_dir)
 					% VALUE = nne.get('CREATE_R_CONTAINER', docker_dir, image_tag)
@@ -1837,7 +2082,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = {image_tag};
 					
-				case 42 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE % __NNVariationalAutoencoderEvaluator_RS.PLOT_R_PALETTE__
 					nne.memorize('LATENT_REP');
 					nne.get('PEAK_IDENTIFICATION');
 					nne.get('DATA_RECONSTRUCTION');
@@ -1871,9 +2116,9 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					title = ['Palette Figure Generated'];
 					message = {''
-					    ['{\bf\color{orange}' 'BRAPH2' '}'] % note to use double slashes to avoid genesis problem
-					    ['{\color{gray}version ' '2.0.1' '}']
-					    ['{\color{gray}build ' int2str(7) '}']
+					    ['{\bf\color{orange}' BRAPH2.STR '}'] % note to use double slashes to avoid genesis problem
+					    ['{\color{gray}version ' BRAPH2.VERSION '}']
+					    ['{\color{gray}build ' int2str(BRAPH2.BUILD) '}']
 					    ''
 					    'The figures are generated and exported using the R script.'
 					    'Please, check the exported figures in the output directory.'
@@ -1883,7 +2128,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = {};
 					
-				case 43 % NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED
+				case NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED % __NNVariationalAutoencoderEvaluator_RS.PLOT_R_LS_QNORM_MED__
 					nne.memorize('LATENT_REP');
 					nne.get('PEAK_IDENTIFICATION');
 					nne.get('DATA_RECONSTRUCTION');
@@ -1916,9 +2161,9 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					title = ['Latent Space Qnorm Figure Generated'];
 					message = {''
-					    ['{\bf\color{orange}' 'BRAPH2' '}'] % note to use double slashes to avoid genesis problem
-					    ['{\color{gray}version ' '2.0.1' '}']
-					    ['{\color{gray}build ' int2str(7) '}']
+					    ['{\bf\color{orange}' BRAPH2.STR '}'] % note to use double slashes to avoid genesis problem
+					    ['{\color{gray}version ' BRAPH2.VERSION '}']
+					    ['{\color{gray}build ' int2str(BRAPH2.BUILD) '}']
 					    ''
 					    'The figures are generated and exported using the R script.'
 					    'Please, check the exported figures in the output directory.'
@@ -1928,7 +2173,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					
 					value = {};
 					
-				case 12 % NNVariationalAutoencoderEvaluator_RS.PREDICT_ENCODER
+				case NNVariationalAutoencoderEvaluator_RS.PREDICT_ENCODER % __NNVariationalAutoencoderEvaluator_RS.PREDICT_ENCODER__
 					if isempty(varargin)
 					    value = {};
 					    return
@@ -1961,7 +2206,7 @@ classdef NNVariationalAutoencoderEvaluator_RS < NNVariationalAutoencoderEvaluato
 					value = [{Z}, {Y}];
 					
 				otherwise
-					if prop <= 12
+					if prop <= NNVariationalAutoencoderEvaluator.getPropNumber()
 						value = calculateValue@NNVariationalAutoencoderEvaluator(nne, prop, varargin{:});
 					else
 						value = calculateValue@Element(nne, prop, varargin{:});

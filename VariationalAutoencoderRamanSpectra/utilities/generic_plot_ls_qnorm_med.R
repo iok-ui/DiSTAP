@@ -137,6 +137,76 @@ tick_values <- c(-5,  -1,   -0.5,   0,   0.5,  1,  5)
 tick_breaks <- to_display(tick_values)
 axis_limits <- c(-5.5, 5.5)
 
+## Plain axes (the latent values themselves, as in the manuscript figures):
+##  the same limits for all latent files of the study, and the same length
+##  per unit on z1 and z2, so distances in the plot are distances in the latent space.
+rng1 <- if (length(z1_pool)) range(z1_pool) else c(-1, 1)
+rng2 <- if (length(z2_pool)) range(z2_pool) else c(-1, 1)
+half_span <- 0.55 * max(diff(rng1), diff(rng2), 1e-6)
+plain_limits_x <- mean(rng1) + c(-1, 1) * half_span
+plain_limits_y <- mean(rng2) + c(-1, 1) * half_span
+plain_breaks <- function(lim) { b <- pretty(lim, n = 4); b[b >= lim[1] & b <= lim[2]] }
+cat(sprintf("Plain axes: z1 [%.2f, %.2f], z2 [%.2f, %.2f]\n",
+            plain_limits_x[1], plain_limits_x[2], plain_limits_y[1], plain_limits_y[2]))
+
+## Scatter of the spectra (transparent) with the median of each condition (large marker);
+##  the axis scales are added by the caller.
+ls_scatter <- function(df, median_points, palette_use, shapes_use) {
+  ggpubr::ggscatter(
+    df, x = "x", y = "y",
+    color = "state", palette = palette_use,
+    shape = "state", size = 1.5, alpha = 0.4
+  ) +
+    scale_colour_manual(values = palette_use, name = "state") +
+    scale_shape_manual(values  = shapes_use,  name = "state") +
+    labs(x = "z1", y = "z2") +
+    theme_bw() +
+    theme(
+      aspect.ratio = 1,
+      panel.border     = element_rect(linewidth = 1),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      axis.text.x      = element_text(angle = 45, vjust = 1, hjust = 1, size = 9),
+      axis.text.y      = element_text(size = 9),
+      axis.title       = element_text(size = 9),
+      legend.title     = element_text(size = 5),
+      legend.position  = "top",
+      legend.text      = element_text(size = 4),
+      legend.key.width = unit(4, "pt"),               # narrower key
+      legend.key.height= unit(4, "pt"),               # shorter key
+      legend.spacing.x = unit(1, "pt"),               # less horiz spacing
+      legend.spacing.y = unit(1, "pt"),
+      plot.margin      = margin(0.2, 0.2, 0.2, 0.2, "cm")
+    ) + guides(
+      colour = guide_legend(
+        override.aes = list(size = 2, alpha = 1),    # smaller legend symbols
+        keywidth  = unit(6, "pt"),
+        keyheight = unit(6, "pt")
+      ),
+      shape  = guide_legend(
+        override.aes = list(size = 2),
+        keywidth  = unit(6, "pt"),
+        keyheight = unit(6, "pt")
+      )
+    ) +
+    coord_fixed(ratio = 1) +
+    geom_point(
+      data = median_points,
+      aes(x = x, y = y, color = state, shape = state),
+      size = 4
+    )
+}
+
+state_medians <- function(df) {
+  df |>
+    dplyr::group_by(state) |>
+    dplyr::summarise(
+      x = median(x, na.rm = TRUE),
+      y = median(y, na.rm = TRUE),
+      .groups = "drop"
+    )
+}
+
 ## -------------------------------------------------------------------
 ## 6) Main loop per latent file
 ## -------------------------------------------------------------------
@@ -192,6 +262,7 @@ for (lf in lat_files) {
 
   ## ---- build plotting data using the SAME mapping for x & y
   df_list <- list()
+  df_plain_list <- list()
   for (i in seq_len(n_cond)) {
     z1 <- z1_list[[i]]; z2 <- z2_list[[i]]
     z1 <- z1[is.finite(z1)]; z2 <- z2[is.finite(z2)]
@@ -206,72 +277,39 @@ for (lf in lat_files) {
       state = cond_labels[i],
       stringsAsFactors = FALSE
     )
+    df_plain_list[[length(df_plain_list) + 1L]] <- data.frame(
+      x = z1,
+      y = z2,
+      state = cond_labels[i],
+      stringsAsFactors = FALSE
+    )
   }
   if (!length(df_list)) { warning("No valid data in ", lf); next }
   df <- dplyr::bind_rows(df_list)
   df$state <- factor(df$state, levels = cond_labels)
+  df_plain <- dplyr::bind_rows(df_plain_list)
+  df_plain$state <- factor(df_plain$state, levels = cond_labels)
 
-  median_points <- df |>
-    dplyr::group_by(state) |>
-    dplyr::summarise(
-      x = median(x, na.rm = TRUE),
-      y = median(y, na.rm = TRUE),
-      .groups = "drop"
-    )
+  median_points <- state_medians(df)
 
   ## ---- colours & shapes in legend
   levs        <- levels(df$state)
   palette_use <- setNames(cond_colours, cond_labels)[levs]
   shapes_use  <- setNames(cond_shapes,  cond_labels)[levs]
 
-  ## ---- plot
-  ls_plot <- ggpubr::ggscatter(
-    df, x = "x", y = "y",
-    color = "state", palette = palette_use,
-    shape = "state", size = 1.5, alpha = 0.4
-  ) +
-    scale_colour_manual(values = palette_use, name = "state") +
-    scale_shape_manual(values  = shapes_use,  name = "state") +
-    labs(x = "z1", y = "z2") +
-    theme_bw() +
-    theme(
-      aspect.ratio = 1,
-      panel.border     = element_rect(linewidth = 1),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
-      axis.text.x      = element_text(angle = 45, vjust = 1, hjust = 1, size = 9),
-      axis.text.y      = element_text(size = 9), 
-      axis.title       = element_text(size = 9),
-      legend.title     = element_text(size = 5),
-      legend.position  = "top",
-      legend.text      = element_text(size = 4),
-      legend.key.width = unit(4, "pt"),               # narrower key
-      legend.key.height= unit(4, "pt"),               # shorter key
-      legend.spacing.x = unit(1, "pt"),               # less horiz spacing
-      legend.spacing.y = unit(1, "pt"), 
-      plot.margin      = margin(0.2, 0.2, 0.2, 0.2, "cm")
-    ) + guides(
-      colour = guide_legend(
-        override.aes = list(size = 2, alpha = 1),    # smaller legend symbols
-        keywidth  = unit(6, "pt"),
-        keyheight = unit(6, "pt")
-      ),
-      shape  = guide_legend(
-        override.aes = list(size = 2),
-        keywidth  = unit(6, "pt"),
-        keyheight = unit(6, "pt")
-      )
-    ) + 
+  ## ---- plot (qnorm-style axes)
+  ls_plot <- ls_scatter(df, median_points, palette_use, shapes_use) +
     scale_x_continuous(breaks = tick_breaks, labels = tick_labels,
                        limits = axis_limits, expand = c(0,0)) +
     scale_y_continuous(breaks = tick_breaks, labels = tick_labels,
-                       limits = axis_limits, expand = c(0,0)) +
-    coord_fixed(ratio = 1) +
-    geom_point(
-      data = median_points,
-      aes(x = x, y = y, color = state, shape = state),
-      size = 4
-    )
+                       limits = axis_limits, expand = c(0,0))
+
+  ## ---- plot (plain axes, as in the manuscript figures)
+  ls_plain_plot <- ls_scatter(df_plain, state_medians(df_plain), palette_use, shapes_use) +
+    scale_x_continuous(breaks = plain_breaks(plain_limits_x),
+                       limits = plain_limits_x, expand = c(0,0)) +
+    scale_y_continuous(breaks = plain_breaks(plain_limits_y),
+                       limits = plain_limits_y, expand = c(0,0))
 
   ## ---- save
   w <- 2.75; h <- 2.75
@@ -287,6 +325,19 @@ for (lf in lat_files) {
     dpi      = 600
   )
   cat("Saved: ", file.path(out_dir, out_file), "\n", sep = "")
+
+  out_file_plain <- paste0(base_name, "_ls_med.jpeg")
+  ggsave(
+    filename = file.path(out_dir, out_file_plain),
+    plot     = ls_plain_plot,
+    units    = "in",
+    width    = w,
+    height   = h,
+    device   = "jpeg",
+    quality  = 100,
+    dpi      = 600
+  )
+  cat("Saved: ", file.path(out_dir, out_file_plain), "\n", sep = "")
 }
 
 message(sprintf("Latent Q–Q plots written to: %s", out_dir))

@@ -1,0 +1,124 @@
+ELCLASS
+NaN
+NAME
+NaN
+DESCRIPTION
+NaN
+TEMPLATE
+NaN
+Cross-Validation ID
+1
+Cross-Validation Label
+2
+Cross-Validation Notes
+19
+TOSTRING
+NaN
+WAITBAR
+NaN
+Number of Folds
+3
+SPLIT
+NaN
+D
+NaN
+NN_TEMPLATE
+NaN
+NNEVALUATOR_TEMPLATE
+NaN
+DSP
+NaN
+DCO
+NaN
+D_LIST
+NaN
+D_LIST_IT
+NaN
+NN_LIST
+NaN
+NN_LIST_IT
+NaN
+EVALUATOR_LIST
+NaN
+EVALUATOR_LIST_IT
+NaN
+Epochs per Fold
+4
+Batch Size
+13
+SHUFFLE
+NaN
+SOLVER
+NaN
+VERBOSE
+NaN
+PLOT_TRAINING
+NaN
+Run Cross-Validation
+14
+Neuron Number per Layer
+10
+Latent Space Number
+11
+Learning Rate
+12
+FOLD_RULE
+NaN
+GROUP_ROWS
+NaN
+FOLD_ASSIGNMENT
+NaN
+Early-Stopping Rule
+5
+Plateau Threshold (0.001 = 0.1 percent improvement per epoch)
+7
+Overfitting Threshold (0.02 = 2 percent of the training loss)
+9
+Patience (consecutive epochs)
+8
+Moving-Average Window (epochs)
+6
+EARLY_STOP_PARAMS
+NaN
+DETECT_PLATEAU
+NaN
+DETECT_OVERFITTING
+NaN
+SILHOUETTE_CHECK
+NaN
+SILHOUETTE_GROUP_ROW
+NaN
+SILHOUETTE_LABEL_ROW
+NaN
+SILHOUETTE_DISTANCE
+NaN
+SILHOUETTE_CHECKPOINTS
+NaN
+Figure Directory
+16
+FILE_PREFIX
+NaN
+SILHOUETTE
+NaN
+BUILD_NETWORKS
+NaN
+LOSS_CV
+NaN
+PLATEAU_EPOCH_FOLDS
+NaN
+OVERFIT_EPOCH_FOLDS
+NaN
+PLATEAU_EPOCH
+NaN
+OVERFIT_EPOCH
+NaN
+Selected Number of Epochs
+15
+SILHOUETTE_BEST_EPOCH
+NaN
+Plot Cross-Validation Loss
+18
+Plot Epoch Selection
+17
+EXPORT_RESULTS
+NaN

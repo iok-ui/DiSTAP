@@ -241,7 +241,7 @@ function [X, Y] = preprocess_minibatch(XCell, YCell)
 end
 
 %%% ¡prop!
-LOSS_FN (query, scalar) returns the scalar training loss (negative ELBO), computed as a reconstruction term plus a Kullback–Leibler divergence that regularises q(z|x) towards N(0, I).
+LOSS_FN (query, scalar) returns the scalar training loss (negative ELBO), computed as a reconstruction term (absolute error summed over the input variables and averaged over the mini-batch) plus a Kullback–Leibler divergence that regularises q(z|x) towards N(0, I).
 %%%% ¡calculate!
 if length(varargin) < 4
     value = 0;
@@ -252,8 +252,10 @@ t = varargin{2};
 mu = varargin{3};
 logSigmaSq = varargin{4};
 
-% Reconstruction loss (e.g., mean-squared error between output y and input t).
-reconstructionLoss = mse(y, t);
+% Reconstruction loss: absolute (L1) error between output y and input t,
+%  summed over the input variables and averaged over the mini-batch
+%  (Eq. 2 of the DIVA manuscript; elboLoss in its original code).
+reconstructionLoss = l1loss(y, t, 'Reduction', 'sum', 'NormalizationFactor', 'batch-size');
 
 % KL divergence KL(q(z|x) || N(0, I)).
 KL = -1/2 * sum(1 + logSigmaSq - mu.^2 - exp(logSigmaSq),1);
