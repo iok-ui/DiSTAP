@@ -81,11 +81,11 @@ Only leaf spectra are used: the polystyrene reference (`ps`) and petiole spectra
 
 | Study | Spectra used for training | Spectra shown in the figures | Epochs | Plateau onset per fold | Overfitting onset per fold |
 |---|---|---|---|---|---|
-| Light stress | 470 | `loc1` | 15 | 14–16 | 41–59 |
-| Shade avoidance | 220 | all | 20 | 19–22 | 26–34 |
-| High temperature | 360 | all | 18 | 17–19 | 34–55 |
-| Bacterial, *Arabidopsis* | 715 | `loc3` | 11 | 11–12 | 94–108 |
-| Bacterial, *Choy Sum* | 625 | all | 14 | 14–15 | 74–110 |
+| Light stress | 470 | `loc1` | 16 | 15–17 | 30–44 |
+| Shade avoidance | 220 | all | 21 | 20–24 | 26–36 |
+| High temperature | 360 | all | 17 | 15–18 | 34–53 |
+| Bacterial, *Arabidopsis* | 715 | `loc3` | 11 | 11–12 | 73–136 |
+| Bacterial, *Choy Sum* | 625 | all | 15 | 14–16 | 79–116 |
 
 ## Software requirements
 

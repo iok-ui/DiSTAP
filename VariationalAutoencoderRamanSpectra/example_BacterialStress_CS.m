@@ -100,8 +100,12 @@ nne_update = NNVariationalAutoencoderEvaluator_RS( ...
     'DIRECTORY_ANALYSIS', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_BacterialStress' filesep 'analysis_CS'], ...
     'DIRECTORY_FIG', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_BacterialStress']);
 
-detransformation = true;
-denormalization = true;
-representation_select = 'median';
-outdir_prefix = 'crnr_detransformed';
-recons_data = nne_update.get('DATA_RECONSTRUCTION', outdir_prefix, representation_select, denormalization, detransformation);
+nne_update.memorize('LATENT_REP');
+nne_update.get('PLOT_R_PALETTE');
+nne_update.get('PLOT_R_LS_QNORM_MED');
+
+%detransformation = true;
+%denormalization = true;
+%representation_select = 'median';
+%outdir_prefix = 'crnr_detransformed';
+%recons_data = nne_update.get('DATA_RECONSTRUCTION', outdir_prefix, representation_select, denormalization, detransformation);
