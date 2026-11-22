@@ -26,11 +26,33 @@ fprintf('Memorizing all dataset targets (may take a few minutes) ...%s', newline
 d_sp.memorize('TARGETS');
 fprintf('Finished memorizing all dataset targets.%s', newline);
 
+%% Choose the Number of Epochs by Cross-Validation
+% all spectra of an acquisition (leaf location, label row 4) are kept in the same fold, as in train_vae.m
+nncv = NNVariationalAutoencoderMLP_CV( ...
+    'D', {d_sp}, ...
+    'KFOLDS', 5, ...
+    'FOLD_RULE', 'Grouped by replicate', ...
+    'NEURONS_PER_LAYER', [64], ...
+    'EPOCHS', 500, ...
+    'BATCH', 40, ...
+    'EARLY_STOP_RULE', 'Plateau or overfitting onset (first to occur)', ...
+    'DIRECTORY_FIG', [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_HighTemperatureStress'], ... % same folder as the evaluation below
+    'FILE_PREFIX', 'HighTemperatureStress');
+nncv.get('TRAIN');
+
+num_epochs = nncv.get('SELECTED_EPOCH');
+fprintf('Number of epochs selected by cross-validation: %d%s', num_epochs, newline);
+
+% export the tables (as in train_vae.m) and the figures justifying the number of epochs to DIRECTORY_FIG
+nncv.get('EXPORT_RESULTS');
+nncv.get('PLOT_EPOCH_SELECTION');
+
 %% Train a Variational Autoencoder
-nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'NEURONS_PER_LAYER', [64], 'EPOCHS', 3000, 'BATCH', 40);
+nnvae = NNVariationalAutoencoderMLP('D', d_sp, 'NEURONS_PER_LAYER', nncv.get('NEURONS_PER_LAYER'), 'EPOCHS', num_epochs, 'BATCH', nncv.get('BATCH'));
 nnvae.get('TRAIN')
 
 %% Evaluate and Produce Manuscript figures
+% all leaf spectra (both locations of each leaf) are used for the figures, as in the manuscript
 nne = NNVariationalAutoencoderEvaluator_RS( ...
     'NN', nnvae, ...
     'D', d_sp, ...
@@ -60,7 +82,7 @@ toc
 fprintf('pipeline saved\n')
 
 %% reconstruct the data
-saved_b2 = [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_HighTemperatureStress' filesep 'results' filesep 'trained_b2_files' filesep 'nne.b2']
+saved_b2 = [fileparts(which('NNDatasetProcess_RamanSpectra')) filesep 'study_HighTemperatureStress' filesep 'trained_b2_files' filesep 'nne.b2']; % the model saved above
 nne = Element.load(saved_b2);
 nne_update = NNVariationalAutoencoderEvaluator_RS( ...
     'NN', nne.get('NN'), ...

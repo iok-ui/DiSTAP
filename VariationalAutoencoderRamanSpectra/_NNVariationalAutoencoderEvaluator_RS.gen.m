@@ -1090,7 +1090,7 @@ braph2msgbox(title, message)
 value = {};
 
 %%% ¡prop!
-PLOT_R_LS_QNORM_MED (query, empty) plots latent-space qnorm (median) via Docker+R (generic_plot_ls_qnorm_med.R) after preparing required .mat inputs.
+PLOT_R_LS_QNORM_MED (query, empty) plots the latent space with the median of each condition via Docker+R (generic_plot_ls_qnorm_med.R) after preparing required .mat inputs, in two versions: with qnorm-style axes (_ls_qnorm_med.jpeg) and with plain z1 and z2 axes as in the manuscript figures (_ls_med.jpeg).
 %%%% ¡calculate!
 nne.memorize('LATENT_REP');
 nne.get('PEAK_IDENTIFICATION');
